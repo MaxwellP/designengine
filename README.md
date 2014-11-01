@@ -10,6 +10,6 @@ A javascript/html5 tabletop/card game design engine.
 * [Professor. Charles Rich](https://github.com/charlesrich) - Advisor
 <<<<<<< HEAD
 
-![Alt text](https://github.com/MaxwellP/designengine/structure.png "Structure")
+![Alt text](https://raw.githubusercontent.com/MaxwellP/designengine/master/structure.png "Structure")
 =======
 >>>>>>> origin/master
