@@ -1,0 +1,8 @@
+Max:
+	- General Game Playing Game Description Langauge Specification - Stanford 2008.pdf
+	- General Game Playing Course: Stanford University
+		- http://logic.stanford.edu/ggp/chapters/cover.html
+		- http://logic.stanford.edu/classes/cs227/2014/index.html
+	- General Game Playing 
+		- http://ggp.org
+		- http://github.com/ggp-org/ggp-base

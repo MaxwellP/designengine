@@ -8,3 +8,5 @@ A javascript/html5 tabletop/card game design engine.
 * Andrew Strout - Grand Arbiter of HTML5 Graphics - Developer
 * Mark Foster - - Developer
 * [Professor. Charles Rich](https://github.com/charlesrich) - Advisor
+
+![Alt text](https://github.com/MaxwellP/designengine/structure.png "Structure")
