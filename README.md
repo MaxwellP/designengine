@@ -12,4 +12,3 @@ A javascript/html5 tabletop/card game design engine.
 
 ![Alt text](https://raw.githubusercontent.com/MaxwellP/designengine/master/structure.png "Structure")
 =======
->>>>>>> origin/master
