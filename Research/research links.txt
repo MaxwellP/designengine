@@ -1,5 +1,9 @@
 Max:
+	- To Read: Cameron Brone - Evolutionary Game Design
 	- General Game Playing Game Description Langauge Specification - Stanford 2008.pdf
+	- Towards a Video Game Description Language.pdf
+	- Automatic Generation and Evaluation of Recombination Games - Cameron Browne.pdf
+	- A General Game Description Language for Incomplete Information Games.pdf
 	- General Game Playing Course: Stanford University
 		- http://logic.stanford.edu/ggp/chapters/cover.html
 		- http://logic.stanford.edu/classes/cs227/2014/index.html
