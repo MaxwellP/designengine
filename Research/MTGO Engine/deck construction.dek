@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Deck xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NetDeckID>0</NetDeckID>
+  <PreconstructedDeckID>0</PreconstructedDeckID>
+  <Cards CatID="36710" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36710" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36354" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36354" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36354" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36686" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36686" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36514" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36514" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36766" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36766" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36692" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36754" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36754" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36472" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36472" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36419" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36664" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36664" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36612" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36362" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36598" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36640" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36640" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36640" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36530" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36474" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36500" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36500" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36466" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36466" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36784" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36784" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36784" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36788" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36788" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36788" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36806" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36806" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36822" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36822" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36790" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36790" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36790" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36800" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36800" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36800" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36802" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36802" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36802" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36826" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36826" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36826" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36440" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36440" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="36440" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="32661" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="32851" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="32745" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+  <Cards CatID="32905" Quantity="1" Sideboard="false" Name="" Row="0" Col="0" />
+</Deck>
