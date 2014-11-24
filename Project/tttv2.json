@@ -1,0 +1,59 @@
+
+{
+	"zones":
+	[
+		{"locationX": 1, "locationY": 1, "cards": []},
+		{"locationX": 2, "locationY": 1, "cards": []},
+		{"locationX": 3, "locationY": 1, "cards": []},
+		{"locationX": 1, "locationY": 2, "cards": []},
+		{"locationX": 2, "locationY": 2, "cards": []},
+		{"locationX": 3, "locationY": 2, "cards": []},
+		{"locationX": 1, "locationY": 3, "cards": []},
+		{"locationX": 2, "locationY": 3, "cards": []},
+		{"locationX": 3, "locationY": 3, "cards": []}
+	],
+	"cards":
+	[
+		{"name": "X", "value": "X", "moves": [
+			{"templateName": "selectCard", "arguments": [1, 1]},
+			{"templateName": "selectCard", "arguments": [2, 1]},
+			{"templateName": "selectCard", "arguments": [3, 1]},
+			{"templateName": "selectCard", "arguments": [1, 2]},
+			{"templateName": "selectCard", "arguments": [2, 2]},
+			{"templateName": "selectCard", "arguments": [3, 2]},
+			{"templateName": "selectCard", "arguments": [1, 3]},
+			{"templateName": "selectCard", "arguments": [2, 3]},
+			{"templateName": "selectCard", "arguments": [3, 3]}
+			]
+		},
+		{"name": "O", "value": "O", "moves": [
+			{"templateName": "selectCard", "arguments": [1, 1]},
+			{"templateName": "selectCard", "arguments": [2, 1]},
+			{"templateName": "selectCard", "arguments": [3, 1]},
+			{"templateName": "selectCard", "arguments": [1, 2]},
+			{"templateName": "selectCard", "arguments": [2, 2]},
+			{"templateName": "selectCard", "arguments": [3, 2]},
+			{"templateName": "selectCard", "arguments": [1, 3]},
+			{"templateName": "selectCard", "arguments": [2, 3]},
+			{"templateName": "selectCard", "arguments": [3, 3]}
+			]
+		}
+	],
+	"moveTemplates":
+	[
+		{"templateName": "selectCard", "numArgs": 2, "result": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1]);zone.cards.push(arguments[2].cards[0]);})",
+		"checkLegality": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1]);if (zone.cards.length == 0) {return true;} else {return false};})"}
+	],
+	"players":
+	[
+		{"name": "X", "cards": []},
+		{"name": "O", "cards": []}
+	],
+	"init":
+	[
+		{"playerName": "X", "cardNames": ["X", "X", "X", "X", "X"]},
+		{"playerName": "O", "cardNames": ["O", "O", "O", "O", "O"]},
+		{"zonesPerLine": 3}
+	],
+	"winCondition": "(function () {var tttCheck3 = function (a, b, c, val) {var stateA = a.cards[0]; var stateB = b.cards[0]; var stateC = c.cards[0]; if (!stateA || !stateB || !stateC) {return false;}; if (stateA.value == val && stateB.value == val && stateC.value == val) {return true;}; return false;}; if (tttCheck3(zones[0], zones[1], zones[2], \"X\") || tttCheck3(zones[3], zones[4], zones[5], \"X\") || tttCheck3(zones[6], zones[7], zones[8], \"X\") || tttCheck3(zones[0], zones[3], zones[6], \"X\") || tttCheck3(zones[1], zones[4], zones[7], \"X\") || tttCheck3(zones[2], zones[5], zones[8], \"X\") || tttCheck3(zones[0], zones[4], zones[8], \"X\") || tttCheck3(zones[2], zones[4], zones[6], \"X\")) {return players[0];} else if (tttCheck3(zones[0], zones[1], zones[2], \"O\") || tttCheck3(zones[3], zones[4], zones[5], \"O\") || tttCheck3(zones[6], zones[7], zones[8], \"O\") || tttCheck3(zones[0], zones[3], zones[6], \"O\") || tttCheck3(zones[1], zones[4], zones[7], \"O\") || tttCheck3(zones[2], zones[5], zones[8], \"O\") || tttCheck3(zones[0], zones[4], zones[8], \"O\") || tttCheck3(zones[2], zones[4], zones[6], \"O\")) {return players[1];} else {return false;}})"
+}
