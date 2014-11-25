@@ -1,7 +1,7 @@
 
 //check legality uses the global state??
 
-function getLegalMoves_sim(state, player)
+/*function getLegalMoves_sim(state, player)
 {
 	var legalMoves = []	;
 	for (var h = 0; h < player.cards.length; h++) {
@@ -14,7 +14,7 @@ function getLegalMoves_sim(state, player)
 		};
 	}
 	return legalMoves;
-}
+}*/
 
 
 
@@ -42,6 +42,15 @@ function GameState (sZones, sCards, sMTemplates, sPlayers, sInit, sWCond) {
 	this.winCondition = sWCond;
 }
 
+function SetCurrentGameState (gState) {
+	zones = gState.zones;
+	cards = gState.cards;
+	moveTemplates = gState.moveTemplates;
+	players = gState.players;
+	init = gState.init;
+	winCondition = gState.winCondition;
+}
+
 //Constructor for StateNode which contain:
 // - the game state
 // - a list of substates
@@ -49,12 +58,53 @@ function GameState (sZones, sCards, sMTemplates, sPlayers, sInit, sWCond) {
 function StateNode (gState) {
 	this.gameState = gState;
 	//Parallel arrays
-	this.subStates = [];
+	this.branches = [];
 	this.moves = [];
+
+	//true if reached maxDepth on this node
+	this.searchOver = false;
 }
 
-function createMoveTree (maxDepth, startState) {
-	var root = new StateNode(startState);
+function createMoveTree (maxDepth, startState, curPlayer, altPlayer) {
+	var initRoot = new StateNode(startState);
+	return createMoveBranch(maxDepth, initRoot, curPlayer, altPlayer);
+}
 
+//maxDepth - how deep to search before giving up
+//startState - state to start searching from
+//curPlayer - player to take move from this state
+//altPlayer - other player
+function createMoveBranch (maxDepth, startNode, curPlayer, altPlayer) {
+
+	//Stop when maxDepth reached
+	if (maxDepth <= 0)
+	{
+		startNode.searchOver = true;
+		return startNode;
+	}
+
+	var originalState = CopyCurrentGameState();
+
+	//var root = new StateNode(startNode.gameState);
+	
+	//Get legal moves from this state
+	var legalMoves = getLegalMoves(curPlayer);
+	startNode.moves = legalMoves;
+
+	//Get all sub states from this state by iterating over moves
+	for (var i = 0; i < startNode.moves.length; i++) {
+		//Reset state to start state
+		SetCurrentGameState(startNode.gameState);
+		//Take the current move
+		assignMove(startNode.moves[i], curPlayer);
+		//Save the result of that move in a newNode
+		startNode.branches[i] = new StateNode(CopyCurrentGameState());
+	}
+
+	//Recurse on sub states: reduce maxDepth, toggle between players
+	for (var i = 0; i < startNode.branches.length; i++) {
+		startNode.branches[i]
+		createMoveBranch(maxDepth - 1, startNode.branches[i], altPlayer, curPlayer)
+	};
 
 }
