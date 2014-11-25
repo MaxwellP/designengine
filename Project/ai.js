@@ -24,7 +24,7 @@ function CopyCurrentGameState () {
 	var copy_zones = objectClone(zones);
 	var copy_cards = objectClone(cards);
 	var copy_moveTemplates = objectClone(moveTemplates);
-	var copy_players = objectClone(players);
+	var copy_players = objectClone(players);///////
 	var copy_init = objectClone(init);
 	var copy_winCondition = objectClone(winCondition);
 
@@ -63,6 +63,10 @@ function StateNode (gState) {
 
 	//true if reached maxDepth on this node
 	this.searchOver = false;
+}
+
+function createMoveTreeFromCurrent (maxDepth, curPlayer, altPlayer) {
+	return createMoveTree(maxDepth, CopyCurrentGameState(), curPlayer, altPlayer);
 }
 
 function createMoveTree (maxDepth, startState, curPlayer, altPlayer) {
@@ -107,4 +111,6 @@ function createMoveBranch (maxDepth, startNode, curPlayer, altPlayer) {
 		createMoveBranch(maxDepth - 1, startNode.branches[i], altPlayer, curPlayer)
 	};
 
+
+	SetCurrentGameState(originalState);
 }

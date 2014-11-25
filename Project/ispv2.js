@@ -261,7 +261,7 @@ function initialize()
 					if(currentCard)
 					{
 						var cardClone = objectClone(currentCard);
-						cardClone.owner = currentPlayer;
+						cardClone.owner = currentPlayer.name;
 						currentPlayer.cards.push(cardClone);
 
 					}
@@ -279,7 +279,7 @@ function initialize()
 					if(currentCard)
 					{
 						var cardClone = objectClone(currentCard);
-						cardClone.owner = currentZone; //Is this correct? Need to double check //***
+						//cardClone.owner = currentZone; //Is this correct? Need to double check //***
 						currentZone.cards.push(cardClone);
 					}
 				}
