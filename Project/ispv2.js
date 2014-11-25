@@ -1,6 +1,6 @@
 var zones;
 var cards;
-var moves;
+var moveTemplates;
 var players;
 var init;
 var winCondition;
@@ -10,7 +10,7 @@ var ZONES_PER_LINE = 3;
 function readJSON(file)
 {
 	var request = new XMLHttpRequest();
-	request.open("GET", "http://users.wpi.edu/~mjfoster/isp/" + file + ".json", true);
+	request.open("GET", "./" + file + ".json", true);
 	request.onload = function(response)
 	{
 		var read = JSON.parse(request.responseText);
