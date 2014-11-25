@@ -45,13 +45,15 @@ function Update () {
 
 function renderFrame () {
 	clearFrame();
+	onScreenCards = [];
 
 	//TESTING
 	//drawCard(50, 50, {value: "Hello"});
 	//drawZoneBox(40, 40, CARD_WIDTH + 20, CARD_HEIGHT + 20, "Hello Zone");
 	zoneGridLayout();
-	drawAllCards();
 	drawPlayersHands();
+	drawAllCards();
+
 }
 
 function clearFrame () {
@@ -62,12 +64,14 @@ function clearFrame () {
 // Drawing functions
 
 function addCard (card, x, y) {
-	card.x = x;
-	card.y = y;
-	card.width = CARD_WIDTH;
-	card.height = CARD_HEIGHT;
+	var newCard = card;
 
-	var foundCard = false;
+	newCard.x = x;
+	newCard.y = y;
+	newCard.width = CARD_WIDTH;
+	newCard.height = CARD_HEIGHT;
+
+	/*var foundCard = false;
 	for (var i = 0; i < onScreenCards.length; i++) {
 		//if (onScreenCards[i].x == card.x && onScreenCards[i].y == card.y)
 		if (onScreenCards[i] === card)
@@ -79,7 +83,9 @@ function addCard (card, x, y) {
 	if (!foundCard)
 	{
 		onScreenCards.push(card);
-	}
+	}*/
+
+	onScreenCards.push(newCard);
 
 }
 

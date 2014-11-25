@@ -318,6 +318,16 @@ function lookupPlayer(name)
 	return false;
 };
 
+function removeCardFromPlayer (player, card)
+{
+	for (var i = 0; i < player.cards.length; i++) {
+		if (player.cards[i] === card)
+		{
+			player.cards.splice(i, 1);
+		}
+	};
+}
+
 function checkWin()
 {
 	var result = eval(winCondition).apply(this);

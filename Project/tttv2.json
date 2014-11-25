@@ -41,7 +41,7 @@
 	],
 	"moveTemplates":
 	[
-		{"templateName": "selectCard", "numArgs": 2, "result": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1]);zone.cards.push(arguments[2].cards[0]);})",
+		{"templateName": "selectCard", "numArgs": 2, "result": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1]);zone.cards.push(move.card); removeCardFromPlayer(move.card.owner, move.card)})",
 		"checkLegality": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1]);if (zone.cards.length == 0) {return true;} else {return false};})"}
 	],
 	"players":
