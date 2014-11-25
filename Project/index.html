@@ -3,8 +3,19 @@
 <head>
 	<title>ISP</title>
 </head>
+
+<div id="game_canvas" >
+	<body onload='Init();' bgcolor='#C0C0C0'>
+		<canvas id="Canvas2D" width="960" height="480" onmousemove="MousePos(event)" onmouseover="hoverOn(event)" onmouseout="hoverOff(event)">
+			no canvas
+		</canvas>
+		<br/>
+	</body>
+</div>
+
 <body>
 	<script src="ispv2.js"></script>
+	<script src="gui.js"></script>
 	<ul><strong>Bibliography</strong>:
 		<li>Browne, C. (2008). Automatic Generation and Evaluation of Recombination Games (pp. 0-251). Queensland University of Technology.</li>
 		<li>Thielscher, M. (2010). A General Game Description Language for Incomplete Information Games (pp. 994-999). Proceedings of the Twenty-Fourth AAAI Conference on Artificial Intelligence (AAAI-10).</li>
