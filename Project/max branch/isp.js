@@ -1,5 +1,6 @@
 var zones;
 var cards;
+var moveTemplates;
 var moves;
 var players;
 var init;
@@ -28,22 +29,20 @@ function readJSON(file)
 function parseJSON(string)
 {
 	var read = JSON.parse(string);
-	/*
 	zones = JSON.parse(read[0].zones);
 	cards = JSON.parse(read[1].cards);
-	moveTemplates = JSON.parse(read[2].moveTemplates);
-	players = JSON.parse(read[3].players);
-	init = JSON.parse(read[4].init);
-	winCondition = JSON.parse(read[5].winCondition);
-	*/
-	/*PARSE TO BE FIXED*/
-	/*REMOVE OUTSIDE QUOTES AND PARSE*/
-	zones = read[0].zones;
-	cards = read[1].cards;
 	moveTemplates = read[2].moveTemplates;
+	moveTemplates.forEach(function(item)
+	{
+		var newCheckLegality = "(" + item.checkLegality + ")"
+		item.checkLegality = newCheckLegality;
+		var newResult = "(" + item.result + ")"
+		item.result = newResult;
+	})
 	players = read[3].players;
 	init = read[4].init;
-	winCondition = read[5].winCondition;
+	winCondition = "(" + read[5].winCondition + ")"
+
 	initialize();
 };
 
@@ -93,7 +92,8 @@ function lookupMoveTemplate(name)
 function generateMovesFromCard(card)
 {
 	var moveList = [];
-	for (var i = 0; i < card.moves.length; i++) {
+	for (var i = 0; i < card.moves.length; i++)
+	{
 		var moveTemp = lookupMoveTemplate(card.moves[i].templateName);
 
 		var move = {"name": moveTemp.templateName, "card": card, "numArgs": moveTemp.numArgs, "arguments": card.moves[i].arguments, "result": moveTemp.result, "checkLegality": moveTemp.checkLegality};
@@ -106,6 +106,7 @@ function generateMovesFromCard(card)
 
 function assignMove(move, player)
 {
+
 	var moveArgs = move.arguments;
 	moveArgs.push(player);
 
@@ -157,7 +158,8 @@ function enemyMove()
 //grid game specific helper function
 function lookupZoneXY(x, y)
 {
-	for (var i = 0; i < zones.length; i++) {
+	for (var i = 0; i < zones.length; i++)
+	{
 		if (zones[i].locationX == x && zones[i].locationY == y)
 		{
 			return zones[i];
@@ -185,7 +187,6 @@ function lookupZone(parameterArray, valueArray)
 	return false;
 };
 
-//Specific to tic-tac-toe (since we have no GUI)
 function ticTacToeMove(x, y)
 {
 	var zone = lookupZoneXY(x, y);
@@ -211,7 +212,8 @@ function ticTacToeMove(x, y)
 
 function rockPaperScissorsMove(hThrow)
 {
-	for (var i = 0; i < players[0].cards.length; i++) {
+	for (var i = 0; i < players[0].cards.length; i++)
+	{
 		if (players[0].cards[i].name == hThrow)
 		{
 			var card = players[0].cards[i];
@@ -243,24 +245,19 @@ function checkersMove(x, y, moveName)
 			moveToDo = cardMoves[i];
 		}
 	};
-
 	return playerMove(moveToDo);
 }
 
 function playerMove(moveToDo)
 {
 	var wasLegal = assignMove(moveToDo, players[0]);
-
-	//check win
 	if (checkWin())
 	{
 		return;
 	}
-
 	if (wasLegal)
 	{
 		enemyMove();
-		//check win
 		if (checkWin())
 		{
 			return;
@@ -285,7 +282,6 @@ function initialize()
 						var cardClone = objectClone(currentCard);
 						cardClone.owner = currentPlayer;
 						currentPlayer.cards.push(cardClone);
-
 					}
 				}
 			}
@@ -354,45 +350,6 @@ function checkWin()
 	}
 };
 
-/*function checkWin()
-{
-	if (checkWinPlayer("X"))
-	{
-		console.log("Player won");
-		return true;
-	}
-	else if (checkWinPlayer("O"))
-	{
-		console.log("Computer won");
-		return true;
-	}
-	return false;
-};
-
-function checkWinPlayer(value)
-{
-	if (tttCheck3(0, 1, 2, value) || tttCheck3(3, 4, 5, value) || tttCheck3(6, 7, 8, value) || //horizontal
-		tttCheck3(0, 3, 6, value) || tttCheck3(1, 4, 7, value) || tttCheck3(2, 5, 8, value) || //vertical
-		tttCheck3(0, 4, 8, value) || tttCheck3(2, 4, 6, value))
-	{
-		return true;
-	}
-	return false;
-};
-
-//Specific to tic tac toe
-function tttCheck3 (a, b, c, val)
-{
-	var stateA = state[a];
-	var stateB = state[b];
-	var stateC = state[c];
-	if (stateA.value == val && stateB.value == val && stateC.value == val)
-	{
-		return true;
-	}
-	return false;
-}*/
-
 function objectClone (oldObject) 
 {
 	return JSON.parse(JSON.stringify(oldObject));
@@ -404,5 +361,3 @@ function singleLineStringifyFunction (func)
 };
 
 readJSON("rps");
-
-//function () {var zone = lookupZone(["x", "y"], [arguments[0], arguments[1]]); var cardToMove = zone.cards[0]; var newZone = lookupZone(["x", "y"], [arguments[0] - 1, arguments[1] - 1]); newZone.cards.push(cardToMove); zone.cards.splice(0, 1);}

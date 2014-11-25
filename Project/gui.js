@@ -20,6 +20,11 @@ var SHOW_ZONE_NAMES = true;
 var canvas = document.getElementById('Canvas2D');
 var ctx = canvas.getContext('2d');
 
+var mouseX;
+var mouseY;
+
+var onScreenCards = [];
+
 window.requestAnimFrame = (function(){
 		return  window.requestAnimationFrame ||
 			window.webkitRequestAnimationFrame ||
@@ -40,12 +45,15 @@ function Update () {
 
 function renderFrame () {
 	clearFrame();
+	onScreenCards = [];
 
 	//TESTING
 	//drawCard(50, 50, {value: "Hello"});
 	//drawZoneBox(40, 40, CARD_WIDTH + 20, CARD_HEIGHT + 20, "Hello Zone");
 	zoneGridLayout();
 	drawPlayersHands();
+	drawAllCards();
+
 }
 
 function clearFrame () {
@@ -55,12 +63,38 @@ function clearFrame () {
 
 // Drawing functions
 
-function drawCard (card, x, y) {
+function addCard (card, x, y) {
+	var newCard = card;
+
+	newCard.x = x;
+	newCard.y = y;
+	newCard.width = CARD_WIDTH;
+	newCard.height = CARD_HEIGHT;
+
+	/*var foundCard = false;
+	for (var i = 0; i < onScreenCards.length; i++) {
+		//if (onScreenCards[i].x == card.x && onScreenCards[i].y == card.y)
+		if (onScreenCards[i] === card)
+		{
+			foundCard = true;
+		}
+	};
+
+	if (!foundCard)
+	{
+		onScreenCards.push(card);
+	}*/
+
+	onScreenCards.push(newCard);
+
+}
+
+function drawCard (card) {
 	ctx.save();
 	ctx.beginPath();
 	ctx.lineWidth = CARD_OUTLINE_WEIGHT;
 	ctx.strokeStyle = "black";
-	ctx.rect(x, y, CARD_WIDTH, CARD_HEIGHT);
+	ctx.rect(card.x, card.y, CARD_WIDTH, CARD_HEIGHT);
 	ctx.stroke();
 	ctx.fillStyle = "white";
 	ctx.fill();
@@ -70,10 +104,17 @@ function drawCard (card, x, y) {
 	ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Georgia";
 	ctx.fillStyle = "black";
 	ctx.textAlign = "center";
-	var cardTextX = x + (CARD_WIDTH / 2);
-	var cardTextY = y + (CARD_HEIGHT / 2) + (CARD_DEFAULT_FONT_SIZE / 4);
+	var cardTextX = card.x + (CARD_WIDTH / 2);
+	var cardTextY = card.y + (CARD_HEIGHT / 2) + (CARD_DEFAULT_FONT_SIZE / 4);
 	ctx.fillText(card.value, cardTextX, cardTextY, CARD_WIDTH);
 	ctx.restore();
+
+}
+
+function drawAllCards () {
+	for (var i = 0; i < onScreenCards.length; i++) {
+		drawCard(onScreenCards[i]);
+	};
 }
 
 function drawZoneBox (x, y, width, height, name) {
@@ -125,7 +166,7 @@ function drawZone (zone, x, y) {
 		currentX = x + ZONE_MARGIN;
 		currentY = y + ZONE_MARGIN;
 		for (var i = 0; i < zone.cards.length; i++) {
-			drawCard(zone.cards[i], currentX, currentY);
+			addCard(zone.cards[i], currentX, currentY);
 			currentX += CARD_WIDTH;
 			currentX += ZONE_MARGIN;
 		};
@@ -219,6 +260,17 @@ function drawPlayersHands () {
 	drawZone(players[1], (canvas.width / 2) - (getZoneWidth(players[1]) / 2), player2Height);
 }
 
+function findCard (x, y) {
+	var returnCard;
+	for (var i = 0; i < onScreenCards.length; i++) {
+		var card = onScreenCards[i];
+		if (x >= card.x && x <= (card.x + card.width) && y >= card.y && y <= (card.y + card.height))
+		{
+			console.log(card);
+		}
+	};
+}
+
 function MousePos (e) {
 
 }
@@ -235,5 +287,5 @@ window.addEventListener('mousedown', DoMouseDown, true);
 
 // Mouse down event
 function DoMouseDown (e) {
-	
+	findCard(e.x, e.y);
 }
