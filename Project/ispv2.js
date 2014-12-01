@@ -1,4 +1,5 @@
 var zones;
+var cardTypes;
 var cards;
 var moveTemplates;
 var players;
@@ -21,7 +22,7 @@ function readJSON(file)
 	{
 		var read = JSON.parse(request.responseText);
 		zones = read.zones;
-		cards = read.cards;
+		cardTypes = read.cardTypes;
 		moveTemplates = read.moveTemplates;
 		players = read.players;
 		init = read.init;
@@ -253,6 +254,12 @@ function playerMove(moveToDo)
 	}
 };
 
+function initCard (cardType)
+{
+	var card = lookupCard(cardType);
+	var cardClone = objectClone(card);
+}
+
 function initialize()
 {
 	for(var i = 0; i < init.length; i += 1)
@@ -301,14 +308,14 @@ function initialize()
 
 function lookupCard(name)
 {
-	for(var i = 0; i < cards.length; i += 1)
+	for(var i = 0; i < cardTypes.length; i += 1)
 	{
-		if(cards[i].name == name)
+		if(cardTypes[i].name == name)
 		{
-			return cards[i];
+			return cardTypes[i];
 		}
 	}
-	console.log("Could not find card with name \"" + name + "\".");
+	console.log("Could not find cardType with name \"" + name + "\".");
 	return false;
 };
 

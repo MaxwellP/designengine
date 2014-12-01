@@ -12,7 +12,7 @@
 		{"locationX": 2, "locationY": 3, "cards": []},
 		{"locationX": 3, "locationY": 3, "cards": []}
 	],
-	"cards":
+	"cardTypes":
 	[
 		{"name": "X", "value": "X", "moves": [
 			{"templateName": "selectCard", "arguments": [1, 1]},

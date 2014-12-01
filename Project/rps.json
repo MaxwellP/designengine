@@ -5,7 +5,7 @@
 		{"name": "player1Zone", "cards": []},
 		{"name": "player2Zone", "cards": []}
 	],
-	"cards":
+	"cardTypes":
 	[
 		{"name": "Rock", "value": "Rock", "owner": "", "moves": [
 			{"templateName": "selectCard", "arguments": []}]},
