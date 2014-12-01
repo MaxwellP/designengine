@@ -13,14 +13,14 @@ function CopyCurrentGameState () {
 }
 
 //Constructor for GameState which contains the full state of the game (everything)
-function GameState (sZones, sCards, sMTemplates, sPlayers, sInit, sWCond) {
+/*function GameState (sZones, sCards, sMTemplates, sPlayers, sInit, sWCond) {
 	this.zones = sZones;
 	this.cards = sCards;
 	this.moveTemplates = sMTemplates;
 	this.players = sPlayers;
 	this.init = sInit;
 	this.winCondition = sWCond;
-}
+}*/
 
 function SetCurrentGameState (gState) {
 	zones = gState.zones;

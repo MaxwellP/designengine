@@ -269,7 +269,7 @@ function initCard (cardType)
 
 function initialize()
 {
-	currentGS = new GameState(zones, players);
+	currentGS = new GameState(objectClone(zones), objectClone(players));
 	for(var i = 0; i < init.length; i += 1)
 	{
 		if (init[i].playerName)
@@ -333,7 +333,7 @@ function lookupPlayer(name, gs)
 	{
 		if (gs.players[i].name == name)
 		{
-			return players[i];
+			return gs.players[i];
 		}
 	}
 	console.log("Could not find player with name \"" + name + "\".");
