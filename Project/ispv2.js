@@ -202,13 +202,13 @@ function ticTacToeMove(x, y)
 //Uses the currentGameState (currentGS)
 function rockPaperScissorsMove(hThrow)
 {
-	for (var i = 0; i < players[0].cards.length; i++) {
-		if (players[0].cards[i].name == hThrow)
+	for (var i = 0; i < currentGS.players[0].cards.length; i++) {
+		if (currentGS.players[0].cards[i].name == hThrow)
 		{
-			var card = players[0].cards[i];
+			var card = currentGS.players[0].cards[i];
 			var cardMoves = generateMovesFromCard(card);
 			var moveToDo = cardMoves[0];
-			return playerMove(moveToDo);
+			return playerMove(moveToDo, currentGS);
 		}
 	};
 	console.log("Invalid hand throw");
