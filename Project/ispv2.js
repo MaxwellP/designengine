@@ -1,10 +1,11 @@
 var zones;
 var cardTypes;
-var cards;
 var moveTemplates;
 var players;
 var init;
 var winCondition;
+
+var cards = [];
 
 var ZONES_PER_LINE = 3;
 
@@ -256,8 +257,10 @@ function playerMove(moveToDo)
 
 function initCard (cardType)
 {
-	var card = lookupCard(cardType);
+	var card = lookupCard(cardType.name);
 	var cardClone = objectClone(card);
+	cards.push(cardClone);
+	return cardClone;
 }
 
 function initialize()
@@ -274,7 +277,7 @@ function initialize()
 					var currentCard = lookupCard(init[i].cardNames[j]);
 					if(currentCard)
 					{
-						var cardClone = objectClone(currentCard);
+						var cardClone = initCard(currentCard);
 						cardClone.owner = currentPlayer.name;
 						currentPlayer.cards.push(cardClone);
 
@@ -292,8 +295,8 @@ function initialize()
 					var currentCard = lookupCard(init[i].cardNames[j]);
 					if(currentCard)
 					{
-						var cardClone = objectClone(currentCard);
-						//cardClone.owner = currentZone; //Is this correct? Need to double check //***
+						var cardClone = initCard(currentCard);
+						cardClone.owner = currentZone.name; //Is this correct? Need to double check //***
 						currentZone.cards.push(cardClone);
 					}
 				}
@@ -332,6 +335,7 @@ function lookupPlayer(name)
 	return false;
 };
 
+// DEPRECATED
 function removeCardFromPlayer (player, card)
 {
 	for (var i = 0; i < player.cards.length; i++) {
@@ -340,6 +344,20 @@ function removeCardFromPlayer (player, card)
 			player.cards.splice(i, 1);
 		}
 	};
+}
+
+// "newOwner" must be a player or a zone
+function moveCard (card, newOwner)
+{
+	for (var i = 0; i < card.owner.cards.length; i++) {
+		if (card.owner.cards[i] === card)
+		{
+			card.owner.cards.splice(i, 1);
+		}
+	};
+
+	newOwner.cards.push(card);
+	card.owner = newOwner.name;
 }
 
 function checkWin()

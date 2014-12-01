@@ -16,7 +16,7 @@
 	],
 	"moveTemplates":
 	[
-		{"templateName": "selectCard", "numArgs": 0, "result": "(function () {var pName = move.card.owner; if (pName == 'player1') {var zone = lookupZone(['name'], ['player1Zone']); zone.cards.push(move.card)}; if (pName == 'player2') {var zone = lookupZone(['name'], ['player2Zone']); zone.cards.push(move.card)}; removeCardFromPlayer(move.card.owner, move.card)})",
+		{"templateName": "selectCard", "numArgs": 0, "result": "(function () {var pName = move.card.owner; if (pName == 'player1') {var zone = lookupZone(['name'], ['player1Zone']); moveCard(move.card, zone)}; if (pName == 'player2') {var zone = lookupZone(['name'], ['player2Zone']); moveCard(move.card, zone)};})",
 		"checkLegality": "(function () {return true;})"}
 	],
 	"players":
