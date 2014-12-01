@@ -15,6 +15,8 @@ function GameState (zones, players)
 	this.players = players;
 }
 
+var currentGS;
+
 function readJSON(file)
 {
 	var request = new XMLHttpRequest();
@@ -172,17 +174,18 @@ function lookupZone(parameterArray, valueArray, gs)
 	return false;
 };
 
+//Uses the Current Game State (currentGS)
 //Specific to tic-tac-toe (since we have no GUI)
 function ticTacToeMove(x, y)
 {
-	var zone = lookupZoneXY(x, y);
+	var zone = lookupZoneXY(x, y, currentGS);
 	if (!zone)
 	{
 		console.log("Invalid zone");
 		return false;
 	}
 
-	var cardMoves = generateMovesFromCard(players[0].cards[0]);
+	var cardMoves = generateMovesFromCard(currentGS.players[0].cards[0]);
 	var moveToDo;
 
 	//Select move on card that matches x and y given
@@ -193,9 +196,10 @@ function ticTacToeMove(x, y)
 		}
 	};
 
-	return playerMove(moveToDo);
+	return playerMove(moveToDo, currentGS);
 }
 
+//Uses the currentGameState (currentGS)
 function rockPaperScissorsMove(hThrow)
 {
 	for (var i = 0; i < players[0].cards.length; i++) {
@@ -234,21 +238,21 @@ function checkersMove(x, y, moveName)
 	return playerMove(moveToDo);
 }
 
-function playerMove(moveToDo)
+function playerMove(moveToDo, gs)
 {
-	var wasLegal = assignMove(moveToDo, players[0]);
+	var wasLegal = assignMove(moveToDo, players[0], gs);
 
 	//check win
-	if (checkWin())
+	if (checkWin(gs))
 	{
 		return;
 	}
 
 	if (wasLegal)
 	{
-		enemyMove();
+		enemyMove(gs);
 		//check win
-		if (checkWin())
+		if (checkWin(gs))
 		{
 			return;
 		}
@@ -265,17 +269,18 @@ function initCard (cardType)
 
 function initialize()
 {
+	currentGS = new GameState(zones, players);
 	for(var i = 0; i < init.length; i += 1)
 	{
 		if (init[i].playerName)
 		{
-			var currentPlayer = lookupPlayer(init[i].playerName);
+			var currentPlayer = lookupPlayer(init[i].playerName, currentGS);
 			if(currentPlayer)
 			{
 				for(var j = 0; j < init[i].cardNames.length; j += 1)
 				{
 					var currentCard = lookupCard(init[i].cardNames[j]);
-					if(currentCard)
+					if (currentCard)
 					{
 						var cardClone = initCard(currentCard);
 						cardClone.owner = currentPlayer.name;
@@ -287,13 +292,13 @@ function initialize()
 		}
 		else if (init[i].zoneName)
 		{
-			var currentZone = lookupZone(["name"],[init[i].zoneName]);
+			var currentZone = lookupZone(["name"],[init[i].zoneName], currentGS);
 			if (currentZone)
 			{
 				for(var j = 0; j < init[i].cardNames.length; j += 1)
 				{
 					var currentCard = lookupCard(init[i].cardNames[j]);
-					if(currentCard)
+					if (currentCard)
 					{
 						var cardClone = initCard(currentCard);
 						cardClone.owner = currentZone.name; //Is this correct? Need to double check //***
@@ -313,7 +318,7 @@ function lookupCard(name)
 {
 	for(var i = 0; i < cardTypes.length; i += 1)
 	{
-		if(cardTypes[i].name == name)
+		if (cardTypes[i].name == name)
 		{
 			return cardTypes[i];
 		}
@@ -322,11 +327,11 @@ function lookupCard(name)
 	return false;
 };
 
-function lookupPlayer(name)
+function lookupPlayer(name, gs)
 {
-	for(var i = 0; i < players.length; i += 1)
+	for(var i = 0; i < gs.players.length; i += 1)
 	{
-		if(players[i].name == name)
+		if (gs.players[i].name == name)
 		{
 			return players[i];
 		}
@@ -360,9 +365,9 @@ function moveCard (card, newOwner)
 	card.owner = newOwner.name;
 }
 
-function checkWin()
+function checkWin(gs)
 {
-	var result = eval(winCondition).apply(this);
+	var result = eval(winCondition).apply(this, gs);
 	if (result)
 	{
 		console.log("Player " + result.name + " wins!");
@@ -373,45 +378,6 @@ function checkWin()
 		return false;
 	}
 };
-
-/*function checkWin()
-{
-	if (checkWinPlayer("X"))
-	{
-		console.log("Player won");
-		return true;
-	}
-	else if (checkWinPlayer("O"))
-	{
-		console.log("Computer won");
-		return true;
-	}
-	return false;
-};
-
-function checkWinPlayer(value)
-{
-	if (tttCheck3(0, 1, 2, value) || tttCheck3(3, 4, 5, value) || tttCheck3(6, 7, 8, value) || //horizontal
-		tttCheck3(0, 3, 6, value) || tttCheck3(1, 4, 7, value) || tttCheck3(2, 5, 8, value) || //vertical
-		tttCheck3(0, 4, 8, value) || tttCheck3(2, 4, 6, value))
-	{
-		return true;
-	}
-	return false;
-};
-
-//Specific to tic tac toe
-function tttCheck3 (a, b, c, val)
-{
-	var stateA = state[a];
-	var stateB = state[b];
-	var stateC = state[c];
-	if (stateA.value == val && stateB.value == val && stateC.value == val)
-	{
-		return true;
-	}
-	return false;
-}*/
 
 function objectClone (oldObject) 
 {

@@ -194,14 +194,14 @@ function zoneGridLayout () {
 	var centerX = canvas.width / 2;
 	var centerY = canvas.height / 2;
 
-	var numRows = Math.ceil(zones.length / ZONES_PER_LINE);
+	var numRows = Math.ceil(currentGS.zones.length / ZONES_PER_LINE);
 
 	var grid = [[]];
 	var currentRow = 0;
 	var currentColumn = 0;
 
-	for (var i = 0; i < zones.length; i++) {
-		grid[currentRow][currentColumn] = zones[i];
+	for (var i = 0; i < currentGS.zones.length; i++) {
+		grid[currentRow][currentColumn] = currentGS.zones[i];
 
 		if (i % ZONES_PER_LINE == ZONES_PER_LINE - 1)
 		{
@@ -251,13 +251,13 @@ function zoneGridLayout () {
 }
 
 function drawPlayersHands () {
-	drawZone(players[0], (canvas.width / 2) - (getZoneWidth(players[0]) / 2), (canvas.height) - (getZoneHeight(players[0])));
+	drawZone(currentGS.players[0], (canvas.width / 2) - (getZoneWidth(currentGS.players[0]) / 2), (canvas.height) - (getZoneHeight(currentGS.players[0])));
 	var player2Height = 0;
 	if (SHOW_ZONE_NAMES)
 	{
 		player2Height += CARD_DEFAULT_FONT_SIZE;
 	}
-	drawZone(players[1], (canvas.width / 2) - (getZoneWidth(players[1]) / 2), player2Height);
+	drawZone(currentGS.players[1], (canvas.width / 2) - (getZoneWidth(currentGS.players[1]) / 2), player2Height);
 }
 
 function findCard (x, y) {
