@@ -173,17 +173,18 @@ function lookupZone(parameterArray, valueArray, gs)
 	return false;
 };
 
+//Uses the Current Game State (currentGS)
 //Specific to tic-tac-toe (since we have no GUI)
 function ticTacToeMove(x, y)
 {
-	var zone = lookupZoneXY(x, y);
+	var zone = lookupZoneXY(x, y, currentGS);
 	if (!zone)
 	{
 		console.log("Invalid zone");
 		return false;
 	}
 
-	var cardMoves = generateMovesFromCard(players[0].cards[0]);
+	var cardMoves = generateMovesFromCard(currentGS.players[0].cards[0]);
 	var moveToDo;
 
 	//Select move on card that matches x and y given
@@ -194,9 +195,10 @@ function ticTacToeMove(x, y)
 		}
 	};
 
-	return playerMove(moveToDo);
+	return playerMove(moveToDo, currentGS);
 }
 
+//Uses the currentGameState (currentGS)
 function rockPaperScissorsMove(hThrow)
 {
 	for (var i = 0; i < players[0].cards.length; i++) {
@@ -235,21 +237,21 @@ function checkersMove(x, y, moveName)
 	return playerMove(moveToDo);
 }
 
-function playerMove(moveToDo)
+function playerMove(moveToDo, gs)
 {
-	var wasLegal = assignMove(moveToDo, players[0]);
+	var wasLegal = assignMove(moveToDo, players[0], gs);
 
 	//check win
-	if (checkWin())
+	if (checkWin(gs))
 	{
 		return;
 	}
 
 	if (wasLegal)
 	{
-		enemyMove();
+		enemyMove(gs);
 		//check win
-		if (checkWin())
+		if (checkWin(gs))
 		{
 			return;
 		}
