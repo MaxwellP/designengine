@@ -7,6 +7,12 @@ var winCondition;
 
 var ZONES_PER_LINE = 3;
 
+function GameState (zones, players)
+{
+	this.zones = zones;
+	this.players = players;
+}
+
 function readJSON(file)
 {
 	var request = new XMLHttpRequest();
@@ -25,17 +31,17 @@ function readJSON(file)
 	request.send();
 };
 
-function printGameState()
+function printGameState(gs)
 {
 	var output = "";
-	for (var i = 0; i < zones.length; i++) {
-		if (zones[i].cards.length == 0)
+	for (var i = 0; i < gs.zones.length; i++) {
+		if (gs.zones[i].cards.length == 0)
 		{
 			output += "_";
 		}
 		else
 		{
-			output += zones[i].cards[0].value;
+			output += gs.zones[i].cards[0].value;
 		}  
 		output += " ";
 		
@@ -82,15 +88,15 @@ function generateMovesFromCard(card)
 	return moveList;
 }
 
-function assignMove(move, player)
+function assignMove(move, player, gs)
 {
 	var moveArgs = move.arguments;
 	moveArgs.push(player);
 
-	if (eval(move.checkLegality).apply(this, moveArgs))
+	if (eval(move.checkLegality).apply(this, moveArgs, gs))
 	{
-		eval(move.result).apply(this, moveArgs);
-		printGameState();
+		eval(move.result).apply(this, moveArgs, gs);
+		printGameState(gs);
 		return true;
 	}
 	else
@@ -100,13 +106,13 @@ function assignMove(move, player)
 	}
 };
 
-function getLegalMoves(player)
+function getLegalMoves(player, gs)
 {
 	var legalMoves = [];
 	for (var h = 0; h < player.cards.length; h++) {
-		var currentMoves = generateMovesFromCard(player.cards[h]);
+		var currentMoves = generateMovesFromCard(player.cards[h], gs);
 		for (var i = 0; i < currentMoves.length; i++) {
-			if (eval(currentMoves[i].checkLegality).apply(this, currentMoves[i].arguments))
+			if (eval(currentMoves[i].checkLegality).apply(this, currentMoves[i].arguments, gs))
 			{
 				legalMoves.push(currentMoves[i]);
 			}
@@ -115,9 +121,10 @@ function getLegalMoves(player)
 	return legalMoves;
 }
 
-function pickLegalMove(player)
+//Pick random legal move
+function pickLegalMove(player, gs)
 {
-	var legalMoves = getLegalMoves(player);
+	var legalMoves = getLegalMoves(player, gs);
 	if (legalMoves.length == 0)
 	{
 		console.log("No legal moves");
@@ -126,38 +133,38 @@ function pickLegalMove(player)
 	return legalMoves[Math.floor(Math.random() * legalMoves.length)];
 };
 
-function enemyMove()
+function enemyMove(gs)
 {
-	var enemyMove = pickLegalMove(players[1]);
-	assignMove(enemyMove, players[1]);
+	var enemyMove = pickLegalMove(players[1], gs);
+	assignMove(enemyMove, players[1], gs);
 };
 
 //grid game specific helper function
-function lookupZoneXY(x, y)
+function lookupZoneXY(x, y, gs)
 {
-	for (var i = 0; i < zones.length; i++) {
-		if (zones[i].locationX == x && zones[i].locationY == y)
+	for (var i = 0; i < gs.zones.length; i++) {
+		if (gs.zones[i].locationX == x && gs.zones[i].locationY == y)
 		{
-			return zones[i];
+			return gs.zones[i];
 		}
 	};
 	return false;
 }
 
 //generalized
-function lookupZone(parameterArray, valueArray)
+function lookupZone(parameterArray, valueArray, gs)
 {
-	for (var i = 0; i < zones.length; i++) {
+	for (var i = 0; i < gs.zones.length; i++) {
 		var correctZone = true;
 		for (var j = 0; j < parameterArray.length; j++) {
-			if (zones[i][parameterArray[j]] != valueArray[j])
+			if (gs.zones[i][parameterArray[j]] != valueArray[j])
 			{
 				correctZone = false
 			}
 		};
 		if (correctZone)
 		{
-			return zones[i];
+			return gs.zones[i];
 		}
 	};
 	return false;

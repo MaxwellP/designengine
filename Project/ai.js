@@ -1,24 +1,4 @@
 
-//check legality uses the global state??
-
-/*function getLegalMoves_sim(state, player)
-{
-	var legalMoves = []	;
-	for (var h = 0; h < player.cards.length; h++) {
-		var currentMoves = generateMovesFromCard_sim(player.cards[h]);
-		for (var i = 0; i < currentMoves.length; i++) {
-			if (eval(currentMoves[i].checkLegality).apply(this, currentMoves[i].arguments))
-			{
-				legalMoves.push(currentMoves[i]);
-			}
-		};
-	}
-	return legalMoves;
-}*/
-
-
-
-
 
 function CopyCurrentGameState () {
 	var copy_zones = objectClone(zones);
