@@ -277,7 +277,6 @@ function findCard (x, y) {
 		var card = cards[i];
 		if (x >= card.x && x <= (card.x + card.width) && y >= card.y && y <= (card.y + card.height))
 		{
-			console.log(card);
 			return card;
 		}
 	};
@@ -290,7 +289,6 @@ function findPopUpMenu (x, y) {
 		var menu = popUpMenus[i];
 		if (x >= menu.x && x <= (menu.x + menu.width) && y >= menu.y && y <= (menu.y + menu.height))
 		{
-			console.log(menu);
 			return menu;
 		}
 	};
