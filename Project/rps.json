@@ -8,11 +8,11 @@
 	"cardTypes":
 	[
 		{"name": "Rock", "value": "Rock", "owner": "", "moves": [
-			{"templateName": "selectCard", "arguments": []}]},
+			{"description": "Play this card", "templateName": "selectCard", "arguments": []}]},
 		{"name": "Paper", "value": "Paper", "owner": "", "moves": [
-			{"templateName": "selectCard", "arguments": []}]},
+			{"description": "Play this card", "templateName": "selectCard", "arguments": []}]},
 		{"name": "Scissors", "value": "Scissors", "owner": "", "moves": [
-			{"templateName": "selectCard", "arguments": []}]}
+			{"description": "Play this card", "templateName": "selectCard", "arguments": []}]}
 	],
 	"moveTemplates":
 	[

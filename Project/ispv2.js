@@ -274,6 +274,7 @@ function initCard (cardType)
 function initialize()
 {
 	currentGS = new GameState(objectClone(zones), objectClone(players));
+	cards = [];
 	for(var i = 0; i < init.length; i += 1)
 	{
 		if (init[i].playerName)

@@ -17,6 +17,7 @@ var ZONE_MARGIN = 10;
 
 var POPUP_OUTLINE_WEIGHT = "2";
 var POPUP_FONT_SIZE = 16;
+var POPUP_MARGIN = 5;
 
 var SHOW_ZONE_NAMES = true;
 
@@ -300,7 +301,7 @@ function PopUpMenu (x, y, options) {
 	this.x = x;
 	this.y = y;
 	this.options = options;
-	this.height = this.options.length * POPUP_FONT_SIZE;
+	this.height = this.options.length * POPUP_FONT_SIZE + (POPUP_MARGIN * 2);
 
 	ctx.save();
 	ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Arial";
@@ -308,7 +309,7 @@ function PopUpMenu (x, y, options) {
 	this.width = 0;
 
 	for (var i = 0; i < options.length; i++) {
-		var stringWidth = ctx.measureText(options[i].description).width;
+		var stringWidth = ctx.measureText(options[i].description).width + (POPUP_MARGIN * 2);
 		if (stringWidth > this.width)
 		{
 			this.width = stringWidth;
@@ -316,6 +317,11 @@ function PopUpMenu (x, y, options) {
 	};
 
 	ctx.restore();
+
+	if ((this.y + this.height) > canvas.height)
+	{
+		this.y = this.y - this.height;
+	}
 
 	this.draw = function () {		
 		ctx.save();
@@ -325,7 +331,7 @@ function PopUpMenu (x, y, options) {
 		ctx.beginPath();
 		ctx.lineWidth = CARD_OUTLINE_WEIGHT;
 		ctx.strokeStyle = "black";
-		ctx.rect(this.x, menuY, this.width, this.height);
+		ctx.rect(this.x, this.y, this.width, this.height);
 		ctx.stroke();
 		ctx.fillStyle = "white";
 		ctx.fill();
@@ -334,10 +340,11 @@ function PopUpMenu (x, y, options) {
 		ctx.fillStyle = "black";
 		ctx.textAlign = "left";
 
-		var currentY = menuY + POPUP_FONT_SIZE;
+		var currentY = this.y + POPUP_FONT_SIZE + POPUP_MARGIN;
+		var currentX = this.x + POPUP_MARGIN;
 
 		for (var i = 0; i < options.length; i++) {
-			ctx.fillText(options[i].description, this.x, currentY);
+			ctx.fillText(options[i].description, currentX, currentY);
 			currentY += POPUP_FONT_SIZE;
 		};
 
@@ -345,7 +352,20 @@ function PopUpMenu (x, y, options) {
 	}
 
 	this.getOption = function (x, y) {
-		
+		var topY = this.y + POPUP_MARGIN;
+		var bottomY = this.y + this.height - POPUP_MARGIN;
+		var activeHeight = bottomY - topY;
+		var optionHeight = activeHeight / this.options.length;
+
+		var localY = y - topY;
+
+		if (localY > 0 && localY < activeHeight)
+		{
+			var optionIndex = Math.floor(localY / optionHeight);
+			var moveToDo = options[optionIndex];
+			playerMove(moveToDo, currentGS);
+			removePopUpMenu(this);
+		}
 	}
 }
 
@@ -365,6 +385,15 @@ function addMoveMenu (card, x, y) {
 
 	var moveMenu = new PopUpMenu(x, y, menuOptions);
 	popUpMenus.push(moveMenu);
+}
+
+function removePopUpMenu (menu) {
+	for (var i = popUpMenus.length - 1; i >= 0; i--) {
+		if (popUpMenus[i] === menu)
+		{
+			popUpMenus.splice(i, 1);
+		}
+	};
 }
 
 function MousePos (e) {
