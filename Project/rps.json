@@ -16,7 +16,7 @@
 	],
 	"moveTemplates":
 	[
-		{"templateName": "selectCard", "numArgs": 0, "result": "(function () {var pName = move.card.owner; if (pName == 'player1') {var zone = lookupZone(['name'], ['player1Zone']); moveCard(move.card, zone)}; if (pName == 'player2') {var zone = lookupZone(['name'], ['player2Zone']); moveCard(move.card, zone)};})",
+		{"templateName": "selectCard", "numArgs": 0, "result": "(function () {var pName = move.card.owner; if (pName == 'player1') {var zone = lookupZone(['name'], ['player1Zone'], arguments[1]); moveCard(move.card, zone, arguments[1])}; if (pName == 'player2') {var zone = lookupZone(['name'], ['player2Zone'], arguments[1]); moveCard(move.card, zone, arguments[1])};})",
 		"checkLegality": "(function () {return true;})"}
 	],
 	"players":
@@ -30,5 +30,5 @@
 		{"playerName": "player2", "cardNames": ["Rock", "Paper", "Scissors"]},
 		{"zonesPerLine": 2}
 	],
-	"winCondition": "(function () {var p1Zone = lookupZone(['name'], ['player1Zone']); var p2Zone = lookupZone(['name'], ['player2Zone']); var p1Card = p1Zone.cards[0]; var p2Card = p2Zone.cards[0]; if (!p1Card || !p2Card) {return false;} if (p1Card.value == p2Card.value) {p1Zone.cards = []; p2Zone.cards = []; return false;} if (p1Card.value == 'Rock' && p2Card.value == 'Scissors' || p1Card.value == 'Paper' && p2Card.value == 'Rock' || p1Card.value == 'Scissors' && p2Card.value == 'Paper') {return players[0];} if (p2Card.value == 'Rock' && p1Card.value == 'Scissors' || p2Card.value == 'Paper' && p1Card.value == 'Rock' || p2Card.value == 'Scissors' && p1Card.value == 'Paper') {return players[1];} })"
+	"winCondition": "(function () {var p1Zone = lookupZone(['name'], ['player1Zone'], arguments[0]); var p2Zone = lookupZone(['name'], ['player2Zone'], arguments[0]); var p1Card = p1Zone.cards[0]; var p2Card = p2Zone.cards[0]; if (!p1Card || !p2Card) {return false;} if (p1Card.value == p2Card.value) {p1Zone.cards = []; p2Zone.cards = []; return false;} if (p1Card.value == 'Rock' && p2Card.value == 'Scissors' || p1Card.value == 'Paper' && p2Card.value == 'Rock' || p1Card.value == 'Scissors' && p2Card.value == 'Paper') {return arguments[0].players[0];} if (p2Card.value == 'Rock' && p1Card.value == 'Scissors' || p2Card.value == 'Paper' && p1Card.value == 'Rock' || p2Card.value == 'Scissors' && p1Card.value == 'Paper') {return arguments[0].players[1];} })"
 }

@@ -44,6 +44,10 @@ function Update () {
 }
 
 function renderFrame () {
+	if (!currentGS)
+	{
+		return;
+	}
 	clearFrame();
 	onScreenCards = [];
 

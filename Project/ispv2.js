@@ -96,10 +96,11 @@ function assignMove(move, player, gs)
 {
 	var moveArgs = move.arguments;
 	moveArgs.push(player);
+	moveArgs.push(gs);
 
-	if (eval(move.checkLegality).apply(this, moveArgs, gs))
+	if (eval(move.checkLegality).apply(this, moveArgs))
 	{
-		eval(move.result).apply(this, moveArgs, gs);
+		eval(move.result).apply(this, moveArgs);
 		printGameState(gs);
 		return true;
 	}
@@ -116,7 +117,10 @@ function getLegalMoves(player, gs)
 	for (var h = 0; h < player.cards.length; h++) {
 		var currentMoves = generateMovesFromCard(player.cards[h], gs);
 		for (var i = 0; i < currentMoves.length; i++) {
-			if (eval(currentMoves[i].checkLegality).apply(this, currentMoves[i].arguments, gs))
+			var moveArgs = currentMoves[i].arguments;
+			moveArgs.push(player);
+			moveArgs.push(gs);
+			if (eval(currentMoves[i].checkLegality).apply(this, moveArgs))
 			{
 				legalMoves.push(currentMoves[i]);
 			}
@@ -139,8 +143,8 @@ function pickLegalMove(player, gs)
 
 function enemyMove(gs)
 {
-	var enemyMove = pickLegalMove(players[1], gs);
-	assignMove(enemyMove, players[1], gs);
+	var enemyMove = pickLegalMove(gs.players[1], gs);
+	assignMove(enemyMove, gs.players[1], gs);
 };
 
 //grid game specific helper function
@@ -240,7 +244,7 @@ function checkersMove(x, y, moveName)
 
 function playerMove(moveToDo, gs)
 {
-	var wasLegal = assignMove(moveToDo, players[0], gs);
+	var wasLegal = assignMove(moveToDo, gs.players[0], gs);
 
 	//check win
 	if (checkWin(gs))
@@ -352,22 +356,25 @@ function removeCardFromPlayer (player, card)
 }
 
 // "newOwner" must be a player or a zone
-function moveCard (card, newOwner)
+function moveCard (card, newOwner, gs)
 {
-	for (var i = 0; i < card.owner.cards.length; i++) {
-		if (card.owner.cards[i] === card)
-		{
-			card.owner.cards.splice(i, 1);
-		}
-	};
-
+	var prevOwner = lookupPlayer(card.owner, gs) || lookupZone(["name"],[card.owner], gs);
+	if (prevOwner)
+	{
+		for (var i = 0; i < prevOwner.cards.length; i++) {
+			if (prevOwner.cards[i] === card)
+			{
+				prevOwner.cards.splice(i, 1);
+			}
+		};
+	}
 	newOwner.cards.push(card);
 	card.owner = newOwner.name;
 }
 
 function checkWin(gs)
 {
-	var result = eval(winCondition).apply(this, gs);
+	var result = eval(winCondition).apply(this, [gs]);
 	if (result)
 	{
 		console.log("Player " + result.name + " wins!");
@@ -389,6 +396,6 @@ function singleLineStringifyFunction (func)
 	return (func + "").split("\n").join("").split("\t").join("");
 };
 
-readJSON("rps");
+readJSON("tttv2");
 
 //function () {var zone = lookupZone(["x", "y"], [arguments[0], arguments[1]]); var cardToMove = zone.cards[0]; var newZone = lookupZone(["x", "y"], [arguments[0] - 1, arguments[1] - 1]); newZone.cards.push(cardToMove); zone.cards.splice(0, 1);}

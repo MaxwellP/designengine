@@ -41,8 +41,8 @@
 	],
 	"moveTemplates":
 	[
-		{"templateName": "selectCard", "numArgs": 2, "result": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1]);zone.cards.push(move.card); removeCardFromPlayer(move.card.owner, move.card)})",
-		"checkLegality": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1]);if (zone.cards.length == 0) {return true;} else {return false};})"}
+		{"templateName": "selectCard", "numArgs": 2, "result": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1], arguments[3]);zone.cards.push(move.card); removeCardFromPlayer(lookupPlayer(move.card.owner, arguments[3]), move.card)})",
+		"checkLegality": "(function () {var zone = lookupZoneXY(arguments[0], arguments[1], arguments[3]);if (zone.cards.length == 0) {return true;} else {return false};})"}
 	],
 	"players":
 	[
@@ -55,5 +55,5 @@
 		{"playerName": "O", "cardNames": ["O", "O", "O", "O", "O"]},
 		{"zonesPerLine": 3}
 	],
-	"winCondition": "(function () {var tttCheck3 = function (a, b, c, val) {var stateA = a.cards[0]; var stateB = b.cards[0]; var stateC = c.cards[0]; if (!stateA || !stateB || !stateC) {return false;}; if (stateA.value == val && stateB.value == val && stateC.value == val) {return true;}; return false;}; if (tttCheck3(zones[0], zones[1], zones[2], \"X\") || tttCheck3(zones[3], zones[4], zones[5], \"X\") || tttCheck3(zones[6], zones[7], zones[8], \"X\") || tttCheck3(zones[0], zones[3], zones[6], \"X\") || tttCheck3(zones[1], zones[4], zones[7], \"X\") || tttCheck3(zones[2], zones[5], zones[8], \"X\") || tttCheck3(zones[0], zones[4], zones[8], \"X\") || tttCheck3(zones[2], zones[4], zones[6], \"X\")) {return players[0];} else if (tttCheck3(zones[0], zones[1], zones[2], \"O\") || tttCheck3(zones[3], zones[4], zones[5], \"O\") || tttCheck3(zones[6], zones[7], zones[8], \"O\") || tttCheck3(zones[0], zones[3], zones[6], \"O\") || tttCheck3(zones[1], zones[4], zones[7], \"O\") || tttCheck3(zones[2], zones[5], zones[8], \"O\") || tttCheck3(zones[0], zones[4], zones[8], \"O\") || tttCheck3(zones[2], zones[4], zones[6], \"O\")) {return players[1];} else {return false;}})"
+	"winCondition": "(function () {var zn = arguments[0].zones; var tttCheck3 = function (a, b, c, val) {var stateA = a.cards[0]; var stateB = b.cards[0]; var stateC = c.cards[0]; if (!stateA || !stateB || !stateC) {return false;}; if (stateA.value == val && stateB.value == val && stateC.value == val) {return true;}; return false;}; if (tttCheck3(zn[0], zn[1], zn[2], \"X\") || tttCheck3(zn[3], zn[4], zn[5], \"X\") || tttCheck3(zn[6], zn[7], zn[8], \"X\") || tttCheck3(zn[0], zn[3], zn[6], \"X\") || tttCheck3(zn[1], zn[4], zn[7], \"X\") || tttCheck3(zn[2], zn[5], zn[8], \"X\") || tttCheck3(zn[0], zn[4], zn[8], \"X\") || tttCheck3(zn[2], zn[4], zn[6], \"X\")) {return arguments[0].players[0];} else if (tttCheck3(zn[0], zn[1], zn[2], \"O\") || tttCheck3(zn[3], zn[4], zn[5], \"O\") || tttCheck3(zn[6], zn[7], zn[8], \"O\") || tttCheck3(zn[0], zn[3], zn[6], \"O\") || tttCheck3(zn[1], zn[4], zn[7], \"O\") || tttCheck3(zn[2], zn[5], zn[8], \"O\") || tttCheck3(zn[0], zn[4], zn[8], \"O\") || tttCheck3(zn[2], zn[4], zn[6], \"O\")) {return arguments[0].players[1];} else {return false;}})"
 }
