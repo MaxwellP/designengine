@@ -9,6 +9,8 @@ var cards = [];
 
 var ZONES_PER_LINE = 3;
 
+var USE_AI = false;
+
 function GameState (zones, players)
 {
 	this.zones = zones;
@@ -37,6 +39,7 @@ function readJSON(file)
 
 function printGameState(gs)
 {
+	return;
 	var output = "";
 	for (var i = 0; i < gs.zones.length; i++) {
 		if (gs.zones[i].cards.length == 0)
@@ -143,7 +146,19 @@ function pickLegalMove(player, gs)
 
 function enemyMove(gs)
 {
-	var enemyMove = pickLegalMove(gs.players[1], gs);
+	if (!USE_AI)
+	{
+		var enemyMove = pickLegalMove(gs.players[1], gs);
+		assignMove(enemyMove, gs.players[1], gs);
+		return;
+	}
+	//var enemyMove = pickLegalMove(gs.players[1], gs);
+	var enemyMove = tryAI(gs);
+	if (!enemyMove)
+	{
+		console.log("Back up - do random move");
+		enemyMove = pickLegalMove(gs.players[1], gs);
+	}
 	assignMove(enemyMove, gs.players[1], gs);
 };
 

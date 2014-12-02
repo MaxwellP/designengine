@@ -1,17 +1,23 @@
 
+var bestMove = undefined;
+var startDepth = undefined;
+
+//Alpha beta search
 function alphaBetaMax (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
-	console.log("abMax" + curPlNum + ", " + altPlNum);
 	if (depthLevel == 0)
 	{
 		return evaluate(curPlNum, altPlNum, gs);
 	}
-	var tempGS = owl.deepCopy(gs);
-	var legalMoves = getLegalMoves(tempGS.players[curPlNum], tempGS);
-	legalMoves.forEach(function (move) {
-		console.log(move);
-		assignMove(move, tempGS.players[curPlNum], tempGS);
-		console.log("calling abMin");
-		var score = alphaBetaMin(alpha, beta, depthLevel - 1, tempGS, altPlNum, curPlNum);
+	var legalMoves = getLegalMoves(gs.players[curPlNum], gs);
+	for (var i = 0; i < legalMoves.length; i++) {
+		//Make a new copy of the game state
+		var tempGS_b = owl.deepCopy(gs);
+		//Get the same move but in this copy of the game state
+		var move_b = getLegalMoves(tempGS_b.players[curPlNum], tempGS_b)[i];
+		//Take the move
+		assignMove(move_b, tempGS_b.players[curPlNum], tempGS_b);
+		//Evaluate score
+		var score = alphaBetaMin(alpha, beta, depthLevel - 1, tempGS_b, altPlNum, curPlNum);
 		if (score >= beta)
 		{
 			return beta;
@@ -19,23 +25,26 @@ function alphaBetaMax (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
 		if (score > alpha)
 		{
 			alpha = score;
+			//console.log("Found better move with score " + score);
+			bestMove = move_b;
 		}
-	});
+	};
+
 	return alpha;
 }
 
+//Opposite function to alphaBetaMax
 function alphaBetaMin (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
-	console.log("abMin" + curPlNum + ", " + altPlNum);
 	if (depthLevel == 0)
 	{
 		return -evaluate(curPlNum, altPlNum, gs);
 	}
-	var tempGS = owl.deepCopy(gs);
-	var legalMoves = getLegalMoves(tempGS.players[curPlNum], tempGS);
-	legalMoves.forEach(function (move) {
-		assignMove(move, tempGS.players[curPlNum], tempGS);
-		console.log("calling abMax");
-		var score = alphaBetaMax(alpha, beta, depthLevel - 1, tempGS, altPlNum, curPlNum);
+	var legalMoves = getLegalMoves(gs.players[curPlNum], gs);
+	for (var i = 0; i < legalMoves.length; i++) {
+		var tempGS_b = owl.deepCopy(gs);
+		var move_b = getLegalMoves(tempGS_b.players[curPlNum], tempGS_b)[i];
+		assignMove(move_b, tempGS_b.players[curPlNum], tempGS_b);
+		var score = alphaBetaMax(alpha, beta, depthLevel - 1, tempGS_b, altPlNum, curPlNum);
 		if (score <= alpha)
 		{
 			return alpha;
@@ -44,7 +53,7 @@ function alphaBetaMin (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
 		{
 			beta = score;
 		}
-	});
+	};
 	return beta;
 }
 
@@ -57,17 +66,40 @@ function evaluate(curPlNum, altPlNum, gs)
 
 	if (result == curPlayer.name)
 	{
-		console.log("Inf");
 		return Infinity;
 	}
 	else if (result == altPlayer.name)
 	{
-		console.log("-Inf");
 		return -Infinity;
 	}
 	else
 	{
-		console.log(result);
 		return 0;
 	}
 };
+
+function testAI () {
+	//Test ai from the perspective of the player
+	var startDepth = 3;
+	var result = alphaBetaMax(-Infinity, Infinity, 3, currentGS, 0, 1);
+	console.log(result);
+	console.log(bestMove);
+}
+
+function tryAI (gs) {
+	bestMove = undefined;
+	alphaBetaMax(-Infinity, Infinity, 3, gs, 1, 0);
+	//sets up bestMove
+	if (bestMove)
+	{
+		var legalMoves = getLegalMoves(gs.players[1], gs);
+		for (var i = 0; i < legalMoves.length; i++) {
+			if (legalMoves[i].description == bestMove.description)
+			{
+				return legalMoves[i];
+			}
+		};
+	}
+	console.log("AI did not find a legal move");
+	return false;
+}
