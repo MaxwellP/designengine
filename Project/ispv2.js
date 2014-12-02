@@ -84,7 +84,7 @@ function generateMovesFromCard(card)
 	for (var i = 0; i < card.moves.length; i++) {
 		var moveTemp = lookupMoveTemplate(card.moves[i].templateName);
 
-		var move = {"name": moveTemp.templateName, "card": card, "numArgs": moveTemp.numArgs, "arguments": card.moves[i].arguments, "result": moveTemp.result, "checkLegality": moveTemp.checkLegality};
+		var move = {"name": moveTemp.templateName, "description": card.moves[i].description, "card": card, "numArgs": moveTemp.numArgs, "arguments": card.moves[i].arguments, "result": moveTemp.result, "checkLegality": moveTemp.checkLegality};
 
 		moveList.push(move);
 	};

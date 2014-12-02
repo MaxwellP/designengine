@@ -15,6 +15,9 @@ var CARD_DEFAULT_FONT_SIZE = 20;
 var ZONE_OUTLINE_WEIGHT = "3";
 var ZONE_MARGIN = 10;
 
+var POPUP_OUTLINE_WEIGHT = "2";
+var POPUP_FONT_SIZE = 16;
+
 var SHOW_ZONE_NAMES = true;
 
 var canvas = document.getElementById('Canvas2D');
@@ -23,7 +26,9 @@ var ctx = canvas.getContext('2d');
 var mouseX;
 var mouseY;
 
-var onScreenCards = [];
+//var onScreenCards = [];
+
+var popUpMenus = [];
 
 window.requestAnimFrame = (function(){
 		return  window.requestAnimationFrame ||
@@ -57,6 +62,7 @@ function renderFrame () {
 	zoneGridLayout();
 	drawPlayersHands();
 	drawAllCards();
+	drawAllPopUpMenus();
 
 }
 
@@ -89,7 +95,7 @@ function addCard (card, x, y) {
 		onScreenCards.push(card);
 	}*/
 
-	onScreenCards.push(newCard);
+	//onScreenCards.push(newCard);
 
 }
 
@@ -116,8 +122,8 @@ function drawCard (card) {
 }
 
 function drawAllCards () {
-	for (var i = 0; i < onScreenCards.length; i++) {
-		drawCard(onScreenCards[i]);
+	for (var i = 0; i < cards.length; i++) {
+		drawCard(cards[i]);
 	};
 }
 
@@ -266,13 +272,99 @@ function drawPlayersHands () {
 
 function findCard (x, y) {
 	var returnCard;
-	for (var i = 0; i < onScreenCards.length; i++) {
-		var card = onScreenCards[i];
+	for (var i = 0; i < cards.length; i++) {
+		var card = cards[i];
 		if (x >= card.x && x <= (card.x + card.width) && y >= card.y && y <= (card.y + card.height))
 		{
 			console.log(card);
+			return card;
 		}
 	};
+	return false;
+}
+
+function findPopUpMenu (x, y) {
+	var returnMenu;
+	for (var i = 0; i < popUpMenus.length; i++) {
+		var menu = popUpMenus[i];
+		if (x >= menu.x && x <= (menu.x + menu.width) && y >= menu.y && y <= (menu.y + menu.height))
+		{
+			console.log(menu);
+			return menu;
+		}
+	};
+	return false;
+}
+
+function PopUpMenu (x, y, options) {
+	this.x = x;
+	this.y = y;
+	this.options = options;
+	this.height = this.options.length * POPUP_FONT_SIZE;
+
+	ctx.save();
+	ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Arial";
+
+	this.width = 0;
+
+	for (var i = 0; i < options.length; i++) {
+		var stringWidth = ctx.measureText(options[i].description).width;
+		if (stringWidth > this.width)
+		{
+			this.width = stringWidth;
+		}
+	};
+
+	ctx.restore();
+
+	this.draw = function () {		
+		ctx.save();
+
+		var menuY = this.y;
+
+		ctx.beginPath();
+		ctx.lineWidth = CARD_OUTLINE_WEIGHT;
+		ctx.strokeStyle = "black";
+		ctx.rect(this.x, menuY, this.width, this.height);
+		ctx.stroke();
+		ctx.fillStyle = "white";
+		ctx.fill();
+
+		ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Arial";
+		ctx.fillStyle = "black";
+		ctx.textAlign = "left";
+
+		var currentY = menuY + POPUP_FONT_SIZE;
+
+		for (var i = 0; i < options.length; i++) {
+			ctx.fillText(options[i].description, this.x, currentY);
+			currentY += POPUP_FONT_SIZE;
+		};
+
+		ctx.restore();
+	}
+
+	this.getOption = function (x, y) {
+		
+	}
+}
+
+function drawAllPopUpMenus () {
+	for (var i = 0; i < popUpMenus.length; i++) {
+		popUpMenus[i].draw();
+	};
+}
+
+function addMoveMenu (card, x, y) {
+	var moveList = generateMovesFromCard(card);
+
+	var menuOptions = [];
+	for (var i = 0; i < moveList.length; i++) {
+		menuOptions.push(moveList[i]);
+	};
+
+	var moveMenu = new PopUpMenu(x, y, menuOptions);
+	popUpMenus.push(moveMenu);
 }
 
 function MousePos (e) {
@@ -291,5 +383,24 @@ window.addEventListener('mousedown', DoMouseDown, true);
 
 // Mouse down event
 function DoMouseDown (e) {
-	findCard(e.x, e.y);
+	var mouseX = e.x - 8;
+	var mouseY = e.y - 8;
+	var clickedMenu = findPopUpMenu(mouseX, mouseY);
+	if (clickedMenu)
+	{
+		clickedMenu.getOption(mouseX, mouseY);
+	}
+	else
+	{
+		var clickedCard = findCard(mouseX, mouseY);
+		if (clickedCard)
+		{
+			popUpMenus = [];
+			addMoveMenu(clickedCard, mouseX, mouseY);
+		}
+		else
+		{
+			popUpMenus = [];
+		}
+	}
 }
