@@ -374,7 +374,7 @@ function drawAllPopUpMenus () {
 }
 
 function addMoveMenu (card, x, y) {
-	var moveList = generateMovesFromCard(card);
+	var moveList = getLegalMovesFromCard(card, currentGS);
 
 	var menuOptions = [];
 	for (var i = 0; i < moveList.length; i++) {
@@ -410,8 +410,10 @@ window.addEventListener('mousedown', DoMouseDown, true);
 
 // Mouse down event
 function DoMouseDown (e) {
-	var mouseX = e.x - 8;
-	var mouseY = e.y - 8;
+	/*var mouseX = e.x - 8;
+	var mouseY = e.y - 8;*/
+	var mouseX = e.pageX - 8;
+	var mouseY = e.pageY - 8;
 	var clickedMenu = findPopUpMenu(mouseX, mouseY);
 	if (clickedMenu)
 	{

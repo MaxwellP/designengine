@@ -132,6 +132,23 @@ function getLegalMoves(player, gs)
 	return legalMoves;
 }
 
+function getLegalMovesFromCard(card, gs)
+{
+	var legalMoves = [];
+	var currentMoves = generateMovesFromCard(card, gs);
+	for (var i = 0; i < currentMoves.length; i++) {
+		var moveArgs = currentMoves[i].arguments;
+		var player = lookupPlayer(card.owner, gs);
+		moveArgs.push(player);
+		moveArgs.push(gs);
+		if (eval(currentMoves[i].checkLegality).apply(this, moveArgs))
+		{
+			legalMoves.push(currentMoves[i]);
+		}
+	};
+	return legalMoves;
+}
+
 //Pick random legal move
 function pickLegalMove(player, gs)
 {
