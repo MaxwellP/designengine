@@ -1,0 +1,40 @@
+{
+	"zones":
+	[
+		{"name": "1,1", "locationX": 1, "locationY": 1, "cards": []},
+		{"name": "2,1", "locationX": 2, "locationY": 1, "cards": []},
+		{"name": "3,1", "locationX": 3, "locationY": 1, "cards": []},
+		{"name": "1,2", "locationX": 1, "locationY": 2, "cards": []},
+		{"name": "2,2", "locationX": 2, "locationY": 2, "cards": []},
+		{"name": "3,2", "locationX": 3, "locationY": 2, "cards": []},
+		{"name": "1,3", "locationX": 1, "locationY": 3, "cards": []},
+		{"name": "2,3", "locationX": 2, "locationY": 3, "cards": []},
+		{"name": "3,3", "locationX": 3, "locationY": 3, "cards": []}
+	],
+	"cardTypes":
+	[
+		{"name": "X", "value": "X", "moves": [
+			{"description": "Play card in which zone?", "templateName": "selectCard"}]
+		},
+		{"name": "O", "value": "O", "moves": [
+			{"description": "Play card in which zone?", "templateName": "selectCard"}]
+		}
+	],
+	"moveTemplates":
+	[
+		{"templateName": "selectCard", "numArgs": 1, "argTypes": ["zone"]}
+	],
+	"players":
+	[
+		{"name": "X", "cards": []},
+		{"name": "O", "cards": []}
+	],
+	"init":
+	[
+		{"playerName": "X", "cardNames": ["X", "X", "X", "X", "X"]},
+		{"playerName": "O", "cardNames": ["O", "O", "O", "O", "O"]},
+		{"zonesPerLine": 3}
+	],
+	"winCondition": "TTTWinCondition",
+	"functionFile": "ttt.js"
+}
