@@ -10,7 +10,7 @@ var cards = [];
 
 var ZONES_PER_LINE = 3;
 
-var USE_AI = true;
+var USE_AI = false;
 
 function GameState (zones, players)
 {
@@ -41,7 +41,7 @@ function readJSON(file)
 
 function printGameState(gs)
 {
-	return;
+	//return;
 	var output = "";
 	for (var i = 0; i < gs.zones.length; i++) {
 		if (gs.zones[i].cards.length == 0)
@@ -152,7 +152,7 @@ function assignMove(move, player, gs)
 	if (window[move.checkLegality].apply(this, moveArgs))
 	{
 		window[move.result].apply(this, moveArgs);
-		printGameState(gs);
+		//printGameState(gs);
 		return true;
 	}
 	else
@@ -434,7 +434,7 @@ function removeCardFromPlayer (player, card)
 // "newOwner" must be a player or a zone
 function moveCard (card, newOwner, gs)
 {
-	var prevOwner = lookupPlayer(card.owner, gs) || lookupZone(["name"],[card.owner], gs);
+	var prevOwner = lookupPlayer(card.owner, gs) || lookupZone(["name"], [card.owner], gs);
 	if (prevOwner)
 	{
 		for (var i = 0; i < prevOwner.cards.length; i++) {
