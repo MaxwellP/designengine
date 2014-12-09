@@ -1,5 +1,6 @@
 
 var bestMove = undefined;
+var bestMoveNum = undefined;
 var startDepth = undefined;
 
 //Alpha beta search
@@ -11,13 +12,15 @@ function alphaBetaMax (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
 	var legalMoves = getLegalMoves(gs.players[curPlNum], gs);
 	for (var i = 0; i < legalMoves.length; i++) {
 		//Make a new copy of the game state
-		var tempGS_b = owl.deepCopy(gs);
+		var tempGS = objectClone(gs);//owl.deepCopy(gs);
 		//Get the same move but in this copy of the game state
-		var move_b = getLegalMoves(tempGS_b.players[curPlNum], tempGS_b)[i];
+		var move = getLegalMoves(tempGS.players[curPlNum], tempGS)[i];
+		//Copy the move just in case it happens to be the Best Move
+		var moveCopy = objectClone(move);
 		//Take the move
-		assignMove(move_b, tempGS_b.players[curPlNum], tempGS_b);
+		assignMove(move, tempGS.players[curPlNum], tempGS);
 		//Evaluate score
-		var score = alphaBetaMin(alpha, beta, depthLevel - 1, tempGS_b, altPlNum, curPlNum);
+		var score = alphaBetaMin(alpha, beta, depthLevel - 1, tempGS, altPlNum, curPlNum);
 		if (score >= beta)
 		{
 			return beta;
@@ -26,7 +29,9 @@ function alphaBetaMax (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
 		{
 			alpha = score;
 			//console.log("Found better move with score " + score);
-			bestMove = move_b;
+			bestMove = moveCopy;
+			bestMoveNum = i;
+			//console.log(bestMove);
 		}
 	};
 
@@ -41,10 +46,10 @@ function alphaBetaMin (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
 	}
 	var legalMoves = getLegalMoves(gs.players[curPlNum], gs);
 	for (var i = 0; i < legalMoves.length; i++) {
-		var tempGS_b = owl.deepCopy(gs);
-		var move_b = getLegalMoves(tempGS_b.players[curPlNum], tempGS_b)[i];
-		assignMove(move_b, tempGS_b.players[curPlNum], tempGS_b);
-		var score = alphaBetaMax(alpha, beta, depthLevel - 1, tempGS_b, altPlNum, curPlNum);
+		var tempGS = objectClone(gs);//owl.deepCopy(gs);
+		var move = getLegalMoves(tempGS.players[curPlNum], tempGS)[i];
+		assignMove(move, tempGS.players[curPlNum], tempGS);
+		var score = alphaBetaMax(alpha, beta, depthLevel - 1, tempGS, altPlNum, curPlNum);
 		if (score <= alpha)
 		{
 			return alpha;
@@ -85,21 +90,25 @@ function testAI () {
 	console.log(result);
 	console.log(bestMove);
 }
-
+var COOL = false;
 function tryAI (gs) {
 	bestMove = undefined;
 	alphaBetaMax(-Infinity, Infinity, 3, gs, 1, 0);
 	//sets up bestMove
 	if (bestMove)
 	{
+		var bmStr = JSON.stringify(bestMove);
 		var legalMoves = getLegalMoves(gs.players[1], gs);
-		for (var i = 0; i < legalMoves.length; i++) {
-			if (legalMoves[i].description == bestMove.description)
+		
+		for (var i = 0; i < legalMoves.length; i++)
+		{
+			var lmStr = JSON.stringify(legalMoves[i]);
+			if (bmStr == lmStr)
 			{
 				return legalMoves[i];
 			}
-		};
+		}
 	}
-	console.log("AI did not find a legal move");
+	console.log("AI did not find a legal move that it liked");
 	return false;
 }

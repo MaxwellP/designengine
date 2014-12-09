@@ -10,7 +10,7 @@ var cards = [];
 
 var ZONES_PER_LINE = 3;
 
-var USE_AI = false;
+var USE_AI = true;
 
 function GameState (zones, players)
 {
@@ -144,7 +144,7 @@ function generateMovesFromCard(card, gs)
 
 function assignMove(move, player, gs)
 {
-	var moveArgs = move.arguments;
+	var moveArgs = move.arguments.slice();
 	moveArgs.push(player);
 	moveArgs.push(move);
 	moveArgs.push(gs);
@@ -169,7 +169,7 @@ function getLegalMoves(player, gs)
 		var currentMoves = generateMovesFromCard(player.cards[h], gs);
 		for (var i = 0; i < currentMoves.length; i++) {
 			var move = currentMoves[i];
-			var moveArgs = currentMoves[i].arguments;
+			var moveArgs = currentMoves[i].arguments.slice();
 			moveArgs.push(player);
 			moveArgs.push(move);
 			moveArgs.push(gs);
@@ -188,7 +188,7 @@ function getLegalMovesFromCard(card, gs)
 	var currentMoves = generateMovesFromCard(card, gs);
 	for (var i = 0; i < currentMoves.length; i++) {
 		var move = currentMoves[i];
-		var moveArgs = currentMoves[i].arguments;
+		var moveArgs = currentMoves[i].arguments.slice();
 		var player = lookupPlayer(card.owner, gs);
 		moveArgs.push(player);
 		moveArgs.push(move);
@@ -450,7 +450,7 @@ function moveCard (card, newOwner, gs)
 
 function checkWin(gs)
 {
-	var result = eval(winCondition).apply(this, [gs]);
+	var result = window[winCondition].apply(this, [gs]);
 	if (result)
 	{
 		console.log("Player " + result.name + " wins!");
