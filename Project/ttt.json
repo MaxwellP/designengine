@@ -15,8 +15,8 @@
 	],
 	"cardTypes":
 	[
-		{"name": "X", "value": "X", "moves": [{"description": "Play card in which zone?", "templateName": "selectCard"}]},
-		{"name": "O", "value": "O", "moves": [{"description": "Play card in which zone?", "templateName": "selectCard"}]}
+		{"name": "X", "value": "X", "moves": [{"description": "Play card in a selected zone.", "templateName": "selectCard"}]},
+		{"name": "O", "value": "O", "moves": [{"description": "Play card in a selected zone.", "templateName": "selectCard"}]}
 	],
 	"moveTemplates":
 	[
@@ -29,8 +29,8 @@
 	],
 	"init":
 	[
-		{"playerName": "X", "cardNames": ["X", "X", "X", "X", "X"]},
-		{"playerName": "O", "cardNames": ["O", "O", "O", "O", "O"]},
+		{"zoneName": "X's Hand", "cardNames": ["X", "X", "X", "X", "X"]},
+		{"zoneName": "O's Hand", "cardNames": ["O", "O", "O", "O", "O"]},
 		{"zonesPerLine": 3}
 	],
 	"winCondition": "TTTWinCondition",

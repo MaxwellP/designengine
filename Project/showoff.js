@@ -44,23 +44,17 @@ function toAnyZoneResult()
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 	var zone = arguments[0];
-	zone.cards.push(move.card);
-	player.cards.splice(player.cards.indexOf(move.card),1);
+
+	moveCard(move.card, zone, gamestate);
+
 };
 function toAnyZoneCheckLegality()
 {
 	var player = arguments[arguments.length - 3];
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var zone = arguments[0];
-	for(var i = 0; i < player.cards.length; i += 1)
-	{
-		if(player.cards[i] == move.card)
-		{
-			return true;
-		}
-	}
-	return false;
+	
+	return (cardIsInPlayerHand(move.card, player, gamestate));
 };
 
 function toPublic1Result()
@@ -68,24 +62,17 @@ function toPublic1Result()
 	var player = arguments[arguments.length - 3];
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var zone = arguments[0];
-	zone.cards.push(move.card);
-	player.cards.splice(player.cards.indexOf(move.card),1);
+
+	var zone = lookupZone(["name"], ["public1"], gamestate);
+	moveCard(move.card, zone, gamestate);
 };
 function toPublic1CheckLegality()
 {
 	var player = arguments[arguments.length - 3];
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var zone = arguments[0];
-	for(var i = 0; i < player.cards.length; i += 1)
-	{
-		if(player.cards[i] == move.card && zone.name == "public1")
-		{
-			return true;
-		}
-	}
-	return false;
+
+	return (cardIsInPlayerHand(move.card, player, gamestate));
 };
 
 function toPublic2Result()
@@ -94,23 +81,15 @@ function toPublic2Result()
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 	var zone = arguments[0];
-	zone.cards.push(move.card);
-	player.cards.splice(player.cards.indexOf(move.card),1);
+	var zone = lookupZone(["name"], ["public2"], gamestate);
+	moveCard(move.card, zone, gamestate);
 };
 function toPublic2CheckLegality()
 {
 	var player = arguments[arguments.length - 3];
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var zone = arguments[0];
-	for(var i = 0; i < player.cards.length; i += 1)
-	{
-		if(player.cards[i] == move.card && zone.name == "public2")
-		{
-			return true;
-		}
-	}
-	return false;
+	return (cardIsInPlayerHand(move.card, player, gamestate));
 };
 
 function toPublic3Result()
@@ -119,23 +98,15 @@ function toPublic3Result()
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 	var zone = arguments[0];
-	zone.cards.push(move.card);
-	player.cards.splice(player.cards.indexOf(move.card),1);
+	var zone = lookupZone(["name"], ["public3"], gamestate);
+	moveCard(move.card, zone, gamestate);
 };
 function toPublic3CheckLegality()
 {
 	var player = arguments[arguments.length - 3];
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var zone = arguments[0];
-	for(var i = 0; i < player.cards.length; i += 1)
-	{
-		if(player.cards[i] == move.card && zone.name == "public3")
-		{
-			return true;
-		}
-	}
-	return false;
+	return (cardIsInPlayerHand(move.card, player, gamestate));
 };
 
 
@@ -150,14 +121,16 @@ function swapZonesResult()
 	var zone2Size = zone2.cards.length;
 	for(var i = 0; i < zone1Size; i += 1)
 	{
-		zone2.cards.push(zone1.cards[0]);
-		zone1.cards.shift();
+		/*zone2.cards.push(zone1.cards[0]);
+		zone1.cards.shift();*/
+		moveCard(zone1.cards[0], zone2, gamestate);
 	}
 
 	for(var i = 0; i < zone2Size; i += 1)
 	{
-		zone1.cards.push(zone2.cards[0]);
-		zone2.cards.shift();
+		/*zone1.cards.push(zone2.cards[0]);
+		zone2.cards.shift();*/
+		moveCard(zone2.cards[0], zone1, gamestate);
 	}
 };
 function swapZonesCheckLegality()

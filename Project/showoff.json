@@ -4,8 +4,8 @@
 		{"name": "public1", "cards": []},
 		{"name": "public2", "cards": []},
 		{"name": "public3", "cards": []},
-		{"name": "player1hand", "cards": []},
-		{"name": "player2hand", "cards": []}
+		{"name": "player1Hand", "cards": []},
+		{"name": "player2Hand", "cards": []}
 	],
 	"cardTypes":
 	[
@@ -33,25 +33,23 @@
 		{"templateName": "increaseValue", "numArgs": 0, "argTypes": []},
 		{"templateName": "decreaseValue", "numArgs": 0, "argTypes": []},
 		{"templateName": "toAnyZone", "numArgs": 1, "argTypes": ["zone"]},
-		{"templateName": "toPublic1", "numArgs": 1, "argTypes": ["zone"]},
-		{"templateName": "toPublic2", "numArgs": 1, "argTypes": ["zone"]},
-		{"templateName": "toPublic3", "numArgs": 1, "argTypes": ["zone"]},
+		{"templateName": "toPublic1", "numArgs": 0, "argTypes": []},
+		{"templateName": "toPublic2", "numArgs": 0, "argTypes": []},
+		{"templateName": "toPublic3", "numArgs": 0, "argTypes": []},
 		{"templateName": "swapZones", "numArgs": 2, "argTypes": ["zone", "zone"]}
 	],
 	"players":
 	[
-		{"name": "Player1", "cards": []},
-		{"name": "Player2", "cards": []}
+		{"name": "Player1", "hand": "player1Hand"},
+		{"name": "Player2", "hand": "player2Hand"}
 	],
 	"init":
 	[
-		{"name": "Player1" , "hand" : "player1hand"},
-		{"name": "Player2" , "hand" : "player2hand"},
 		{"zoneName": "public1", "cardNames": ["blank"]},
 		{"zoneName": "public2", "cardNames": ["blank", "incdec", "blank"]},
 		{"zoneName": "public3", "cardNames": ["blank", "blank"]},
-		{"zoneName": "player1hand", "cardNames": ["inc"]},
-		{"zoneName": "player2hand", "cardNames": ["dec"]},
+		{"zoneName": "player1Hand", "cardNames": ["inc"]},
+		{"zoneName": "player2Hand", "cardNames": ["dec"]},
 		{"zonesPerLine": 3}
 	],
 	"winCondition": "showoffWinCondition",

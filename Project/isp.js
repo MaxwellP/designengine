@@ -262,7 +262,7 @@ function lookupZone(parameterArray, valueArray, gs)
 		for (var j = 0; j < parameterArray.length; j++) {
 			if (gs.zones[i][parameterArray[j]] != valueArray[j])
 			{
-				correctZone = false
+				correctZone = false;
 			}
 		};
 		if (correctZone)
@@ -292,6 +292,18 @@ function zoneIsPlayerHand(zone, gs)
 {
 	for (var i = 0; i < gs.players.length; i++) {
 		if (lookupPlayerHand(gs.players[i], gs) == zone)
+		{
+			return true;
+		}
+	};
+	return false;
+}
+
+function cardIsInPlayerHand(card, player, gs)
+{
+	var playerHand = lookupPlayerHand(player, gs);
+	for (var i = 0; i < playerHand.cards.length; i++) {
+		if (playerHand.cards[i] == card)
 		{
 			return true;
 		}
@@ -539,7 +551,9 @@ function singleLineStringifyFunction (func)
 	return (func + "").split("\n").join("").split("\t").join("");
 };
 
-readJSON("ttt");
+//readJSON("ttt");
+readJSON("showoff");
+
 
 //function () {var zone = lookupZone(["x", "y"], [arguments[0], arguments[1]]); var cardToMove = zone.cards[0]; var newZone = lookupZone(["x", "y"], [arguments[0] - 1, arguments[1] - 1]); newZone.cards.push(cardToMove); zone.cards.splice(0, 1);}
 

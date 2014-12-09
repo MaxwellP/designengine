@@ -202,7 +202,7 @@ function drawZone (zone, x, y) {
 	}
 	else if (zone.type == "showEachCard")
 	{
-		if (zone.cards[0])
+		if (zone.cards.length > 0)
 		{
 			var numCards = zone.cards.length;
 		}
@@ -233,7 +233,7 @@ function drawZone (zone, x, y) {
 
 function getZoneWidth (zone) {
 	var numCards = 1;
-	if (zone.cards[0] != undefined)
+	if (zone.cards.length > 0)
 	{
 		numCards = zone.cards.length;
 	}
@@ -547,6 +547,4 @@ function DoMouseDown (e) {
 			}
 		}
 	}
-
-	console.log(findZone(mouseX, mouseY))
 }
