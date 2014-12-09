@@ -357,10 +357,11 @@ function findPopUpMenu (x, y) {
 function findZone (x, y) {
 	var returnZone;
 	for (var i = 0; i < currentGS.zones.length; i++) {
-		var menu = popUpMenus[i];
-		if (x >= menu.x && x <= (menu.x + menu.width) && y >= menu.y && y <= (menu.y + menu.height))
+		var zone = currentGS.zones[i];
+		var zoneGUI = lookupZoneGUI(zone);
+		if (x >= zoneGUI.x && x <= (zoneGUI.x + zoneGUI.width) && y >= zoneGUI.y && y <= (zoneGUI.y + zoneGUI.height))
 		{
-			return menu;
+			return zone;
 		}
 	};
 	return false;
@@ -503,4 +504,6 @@ function DoMouseDown (e) {
 			popUpMenus = [];
 		}
 	}
+
+	console.log(findZone(mouseX, mouseY))
 }
