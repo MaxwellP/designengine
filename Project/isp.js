@@ -90,6 +90,19 @@ function generateMovesFromCard(card, gs)
 	{
 		var moveTemp = lookupMoveTemplate(card.moves[i].templateName);
 		var possibleArgs = []; //needs renaming
+		if(moveTemp.numArgs == 0)
+		{
+			var move = {
+				"name": moveTemp.templateName,
+				"description": card.moves[i].description,
+				"card": card, 
+				"numArgs": moveTemp.numArgs,
+				"arguments": [],
+				"result": moveTemp.templateName + "Result",
+				"checkLegality": moveTemp.templateName + "CheckLegality"
+			};
+			moveList.push(move);
+		}
 		for(var j = 0; j < moveTemp.numArgs; j += 1)
 		{
 			switch(moveTemp.argTypes[j])

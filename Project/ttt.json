@@ -13,12 +13,8 @@
 	],
 	"cardTypes":
 	[
-		{"name": "X", "value": "X", "moves": [
-			{"description": "Play card in which zone?", "templateName": "selectCard"}]
-		},
-		{"name": "O", "value": "O", "moves": [
-			{"description": "Play card in which zone?", "templateName": "selectCard"}]
-		}
+		{"name": "X", "value": "X", "moves": [{"description": "Play card in which zone?", "templateName": "selectCard"}]},
+		{"name": "O", "value": "O", "moves": [{"description": "Play card in which zone?", "templateName": "selectCard"}]}
 	],
 	"moveTemplates":
 	[

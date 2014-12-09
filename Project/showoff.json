@@ -1,0 +1,34 @@
+{
+	"zones":
+	[
+		{"name": "public", "cards": []}
+	],
+	"cardTypes":
+	[
+		{"name": "inc", "value": 0, "moves": [{"description": "Increase the value of this card.", "templateName": "increaseValue"}]},
+		{"name": "dec", "value": 0, "moves": [{"description": "Decrease the value of this card.", "templateName": "decreaseValue"}]},
+		{"name": "incdec", "value": 0, "moves": [
+			{"description": "Increase the value of this card.", "templateName": "increaseValue"},
+			{"description": "Decrease the value of this card.", "templateName": "decreaseValue"}
+		]}
+	],
+	"moveTemplates":
+	[
+		{"templateName": "increaseValue", "numArgs": 0, "argTypes": []},
+		{"templateName": "decreaseValue", "numArgs": 0, "argTypes": []}
+	],
+	"players":
+	[
+		{"name": "Player1", "cards": []},
+		{"name": "Player2", "cards": []}
+	],
+	"init":
+	[
+		{"playerName": "Player1", "cardNames": ["inc"]},
+		{"playerName": "Player2", "cardNames": ["dec"]},
+		{"zoneName": "public", "cardNames": ["incdec"]},
+		{"zonesPerLine": 1}
+	],
+	"winCondition": "showoffWinCondition",
+	"functionFile": "showoff.js"
+}
