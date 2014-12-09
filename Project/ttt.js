@@ -16,8 +16,7 @@ function selectCardResult()
 	var gamestate = arguments[arguments.length - 1];
 	var zone = arguments[0];
 
-	zone.cards.push(move.card);
-	removeCardFromPlayer(lookupPlayer(move.card.owner, gamestate), move.card);
+	moveCard(move.card, zone, gamestate);
 };
 
 function selectCardCheckLegality()

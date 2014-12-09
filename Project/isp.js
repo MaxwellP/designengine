@@ -165,8 +165,9 @@ function assignMove(move, player, gs)
 function getLegalMoves(player, gs)
 {
 	var legalMoves = [];
-	for (var h = 0; h < player.cards.length; h++) {
-		var currentMoves = generateMovesFromCard(player.cards[h], gs);
+	var playerHand = lookupPlayerHand(player, gs);
+	for (var h = 0; h < playerHand.cards.length; h++) {
+		var currentMoves = generateMovesFromCard(playerHand.cards[h], gs);
 		for (var i = 0; i < currentMoves.length; i++) {
 			var move = currentMoves[i];
 			var moveArgs = currentMoves[i].arguments.slice();
@@ -189,7 +190,7 @@ function getLegalMovesFromCard(card, gs)
 	for (var i = 0; i < currentMoves.length; i++) {
 		var move = currentMoves[i];
 		var moveArgs = currentMoves[i].arguments.slice();
-		var player = lookupPlayer(card.owner, gs);
+		var player = getPlayerFromHand(card.owner, gs);
 		moveArgs.push(player);
 		moveArgs.push(move);
 		moveArgs.push(gs);
@@ -249,6 +250,21 @@ function lookupZone(parameterArray, valueArray, gs)
 	};
 	return false;
 };
+
+function lookupPlayerHand(player, gs)
+{
+	return lookupZone(["name"], [player.hand], gs);
+}
+
+function getPlayerFromHand(handName, gs)
+{
+	for (var i = 0; i < gs.players.length; i++) {
+		if (lookupPlayerHand(gs.players[i], gs).name == handName)
+		{
+			return gs.players[i];
+		}
+	};
+}
 
 //Uses the Current Game State (currentGS)
 //Specific to tic-tac-toe (since we have no GUI)
@@ -335,11 +351,19 @@ function playerMove(moveToDo, gs)
 	}
 };
 
+var cardIDCounter = 0;
+
 function initCard (cardType)
 {
 	var card = lookupCard(cardType.name);
 	var cardClone = objectClone(card);
+	cardClone.id = cardIDCounter;
+	cardIDCounter += 1;
 	cards.push(cardClone);
+
+	var guiCard = {"id": cardClone.id};
+	cardsGUIInfo.push(guiCard);
+
 	return cardClone;
 }
 
@@ -363,9 +387,9 @@ function initialize()
 					if (currentCard)
 					{
 						var cardClone = initCard(currentCard);
-						cardClone.owner = currentPlayer.name;
-						currentPlayer.cards.push(cardClone);
-
+						var playerHand = lookupPlayerHand(currentPlayer, currentGS);
+						cardClone.owner = playerHand.name;
+						playerHand.cards.push(cardClone);
 					}
 				}
 			}
@@ -392,7 +416,17 @@ function initialize()
 			ZONES_PER_LINE = init[i].zonesPerLine;
 		}
 	}
+
+	initializeZoneGUI(zones);
 };
+
+function initializeZoneGUI(zoneList)
+{
+	for (var i = 0; i < zoneList.length; i++) {
+		var zoneGUI = {"name": zoneList[i].name};
+		zonesGUIInfo.push(zoneGUI);
+	};
+}
 
 function lookupCard(name)
 {
@@ -431,10 +465,10 @@ function removeCardFromPlayer (player, card)
 	};
 }
 
-// "newOwner" must be a player or a zone
+// "newOwner" must be a zone
 function moveCard (card, newOwner, gs)
 {
-	var prevOwner = lookupPlayer(card.owner, gs) || lookupZone(["name"], [card.owner], gs);
+	var prevOwner = lookupZone(["name"], [card.owner], gs);
 	if (prevOwner)
 	{
 		for (var i = 0; i < prevOwner.cards.length; i++) {

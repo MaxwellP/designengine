@@ -27,6 +27,9 @@ var ctx = canvas.getContext('2d');
 var mouseX;
 var mouseY;
 
+var cardsGUIInfo = [];
+var zonesGUIInfo = [];
+
 //var onScreenCards = [];
 
 var popUpMenus = [];
@@ -60,8 +63,9 @@ function renderFrame () {
 	//TESTING
 	//drawCard(50, 50, {value: "Hello"});
 	//drawZoneBox(40, 40, CARD_WIDTH + 20, CARD_HEIGHT + 20, "Hello Zone");
-	zoneGridLayout();
-	drawPlayersHands();
+	//zoneGridLayout();
+	//drawPlayersHands();
+	drawAllZones();
 	drawAllCards();
 	drawAllPopUpMenus();
 
@@ -71,16 +75,44 @@ function clearFrame () {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function lookupCardGUI(card)
+{
+	for(var i = 0; i < cardsGUIInfo.length; i += 1)
+	{
+		if (cardsGUIInfo[i].id == card.id)
+		{
+			return cardsGUIInfo[i];
+		}
+	}
+	console.log("Could not find cardGUIInfo with id \"" + card.id + "\".");
+	return false;
+}; 
+
+function lookupZoneGUI(zone)
+{
+	for(var i = 0; i < zonesGUIInfo.length; i += 1)
+	{
+		if (zonesGUIInfo[i].name == zone.name)
+		{
+			return zonesGUIInfo[i];
+		}
+	}
+	console.log("Could not find zone GUIInfo with name \"" + zone.name + "\".");
+	return false;
+}; 
 
 // Drawing functions
 
 function addCard (card, x, y) {
 	var newCard = card;
 
-	newCard.x = x;
-	newCard.y = y;
-	newCard.width = CARD_WIDTH;
-	newCard.height = CARD_HEIGHT;
+	var newCardInfo = lookupCardGUI(card);
+
+	newCardInfo.x = x;
+	newCardInfo.y = y;
+	newCardInfo.width = CARD_WIDTH;
+	newCardInfo.height = CARD_HEIGHT;
+	newCardInfo.fontSize = CARD_DEFAULT_FONT_SIZE;
 
 	/*var foundCard = false;
 	for (var i = 0; i < onScreenCards.length; i++) {
@@ -101,11 +133,13 @@ function addCard (card, x, y) {
 }
 
 function drawCard (card) {
+	var cardGUI = lookupCardGUI(card);
+
 	ctx.save();
 	ctx.beginPath();
 	ctx.lineWidth = CARD_OUTLINE_WEIGHT;
 	ctx.strokeStyle = "black";
-	ctx.rect(card.x, card.y, CARD_WIDTH, CARD_HEIGHT);
+	ctx.rect(cardGUI.x, cardGUI.y, cardGUI.width, cardGUI.height);
 	ctx.stroke();
 	ctx.fillStyle = "white";
 	ctx.fill();
@@ -115,9 +149,9 @@ function drawCard (card) {
 	ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Georgia";
 	ctx.fillStyle = "black";
 	ctx.textAlign = "center";
-	var cardTextX = card.x + (CARD_WIDTH / 2);
-	var cardTextY = card.y + (CARD_HEIGHT / 2) + (CARD_DEFAULT_FONT_SIZE / 4);
-	ctx.fillText(card.value, cardTextX, cardTextY, CARD_WIDTH);
+	var cardTextX = cardGUI.x + (cardGUI.width / 2);
+	var cardTextY = cardGUI.y + (cardGUI.height / 2) + (cardGUI.fontSize / 4);
+	ctx.fillText(card.value, cardTextX, cardTextY, cardGUI.width);
 	ctx.restore();
 
 }
@@ -184,6 +218,11 @@ function drawZone (zone, x, y) {
 	}
 
 	drawZoneBox(x, y, zoneWidth, zoneHeight, zone.name);
+	var zoneGUI = lookupZoneGUI(zone);
+	zoneGUI.x = x;
+	zoneGUI.y = y;
+	zoneGUI.width = zoneWidth;
+	zoneGUI.height = zoneHeight;
 
 }
 
@@ -201,18 +240,18 @@ function getZoneHeight (zone) {
 	return zoneHeight;
 }
 
-function zoneGridLayout () {
+function zoneGridLayout (zoneList) {
 	var centerX = canvas.width / 2;
 	var centerY = canvas.height / 2;
 
-	var numRows = Math.ceil(currentGS.zones.length / ZONES_PER_LINE);
+	var numRows = Math.ceil(zoneList.length / ZONES_PER_LINE);
 
 	var grid = [[]];
 	var currentRow = 0;
 	var currentColumn = 0;
 
-	for (var i = 0; i < currentGS.zones.length; i++) {
-		grid[currentRow][currentColumn] = currentGS.zones[i];
+	for (var i = 0; i < zoneList.length; i++) {
+		grid[currentRow][currentColumn] = zoneList[i];
 
 		if (i % ZONES_PER_LINE == ZONES_PER_LINE - 1)
 		{
@@ -261,21 +300,41 @@ function zoneGridLayout () {
 	};
 }
 
+function drawAllZones() {
+	drawPlayersHands();
+	var zonesToDraw = [];
+
+	var player1Hand = lookupPlayerHand(currentGS.players[0], currentGS);
+	var player2Hand = lookupPlayerHand(currentGS.players[1], currentGS);
+	for (var i = 0; i < currentGS.zones.length; i++) {
+		var curZone = currentGS.zones[i];
+		if ((curZone != player1Hand) && (curZone != player2Hand))
+		{
+			zonesToDraw.push(curZone);
+		}
+	};
+	zoneGridLayout(zonesToDraw);
+}
+
 function drawPlayersHands () {
-	drawZone(currentGS.players[0], (canvas.width / 2) - (getZoneWidth(currentGS.players[0]) / 2), (canvas.height) - (getZoneHeight(currentGS.players[0])));
+	var player1Hand = lookupPlayerHand(currentGS.players[0], currentGS);
+	drawZone(player1Hand, (canvas.width / 2) - (getZoneWidth(player1Hand) / 2), (canvas.height) - (getZoneHeight(player1Hand)));
+
+	var player2Hand = lookupPlayerHand(currentGS.players[1], currentGS);
 	var player2Height = 0;
 	if (SHOW_ZONE_NAMES)
 	{
 		player2Height += CARD_DEFAULT_FONT_SIZE;
 	}
-	drawZone(currentGS.players[1], (canvas.width / 2) - (getZoneWidth(currentGS.players[1]) / 2), player2Height);
+	drawZone(player2Hand, (canvas.width / 2) - (getZoneWidth(player2Hand) / 2), player2Height);
 }
 
 function findCard (x, y) {
 	var returnCard;
 	for (var i = 0; i < cards.length; i++) {
 		var card = cards[i];
-		if (x >= card.x && x <= (card.x + card.width) && y >= card.y && y <= (card.y + card.height))
+		var cardGUI = lookupCardGUI(card);
+		if (x >= cardGUI.x && x <= (cardGUI.x + cardGUI.width) && y >= cardGUI.y && y <= (cardGUI.y + cardGUI.height))
 		{
 			return card;
 		}
@@ -286,6 +345,18 @@ function findCard (x, y) {
 function findPopUpMenu (x, y) {
 	var returnMenu;
 	for (var i = 0; i < popUpMenus.length; i++) {
+		var menu = popUpMenus[i];
+		if (x >= menu.x && x <= (menu.x + menu.width) && y >= menu.y && y <= (menu.y + menu.height))
+		{
+			return menu;
+		}
+	};
+	return false;
+}
+
+function findZone (x, y) {
+	var returnZone;
+	for (var i = 0; i < currentGS.zones.length; i++) {
 		var menu = popUpMenus[i];
 		if (x >= menu.x && x <= (menu.x + menu.width) && y >= menu.y && y <= (menu.y + menu.height))
 		{
