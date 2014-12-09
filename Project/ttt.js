@@ -14,6 +14,7 @@ function selectCardResult()
 	var player = arguments[arguments.length - 3];
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
+	
 	var zone = arguments[0];
 
 	moveCard(move.card, zone, gamestate);
@@ -26,7 +27,7 @@ function selectCardCheckLegality()
 	var gamestate = arguments[arguments.length - 1];
 
 	var zone = arguments[0];
-	if (zone.cards.length == 0)
+	if ((zone.cards.length == 0) && (!(zoneIsPlayerHand(zone, gamestate))))
 	{
 		return true;
 	}

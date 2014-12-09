@@ -142,6 +142,28 @@ function generateMovesFromCard(card, gs)
 	return moveList;
 }
 
+function generateMovesWithoutArgs(card, gs)
+{
+	var moveList = [];
+	for (var i = 0; i < card.moves.length; i++)
+	{
+		var moveTemp = lookupMoveTemplate(card.moves[i].templateName);
+		
+		var move = {
+			"name": moveTemp.templateName,
+			"description": card.moves[i].description,
+			"card": card, 
+			"numArgs": moveTemp.numArgs,
+			"arguments": [],
+			"result": moveTemp.templateName + "Result",
+			"checkLegality": moveTemp.templateName + "CheckLegality"
+		};
+		moveList.push(move);
+	}
+
+	return moveList;
+}
+
 function assignMove(move, player, gs)
 {
 	var moveArgs = move.arguments.slice();
@@ -264,6 +286,17 @@ function getPlayerFromHand(handName, gs)
 			return gs.players[i];
 		}
 	};
+}
+
+function zoneIsPlayerHand(zone, gs)
+{
+	for (var i = 0; i < gs.players.length; i++) {
+		if (lookupPlayerHand(gs.players[i], gs) == zone)
+		{
+			return true;
+		}
+	};
+	return false;
 }
 
 //Uses the Current Game State (currentGS)

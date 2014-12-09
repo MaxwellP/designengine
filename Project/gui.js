@@ -30,6 +30,11 @@ var mouseY;
 var cardsGUIInfo = [];
 var zonesGUIInfo = [];
 
+var waitingForPlayerInput = false;
+var queuedMove;
+var inputTypes = [];
+var currentArg = 0;
+
 //var onScreenCards = [];
 
 var popUpMenus = [];
@@ -433,7 +438,21 @@ function PopUpMenu (x, y, options) {
 		{
 			var optionIndex = Math.floor(localY / optionHeight);
 			var moveToDo = options[optionIndex];
-			playerMove(moveToDo, currentGS);
+			console.log(moveToDo);
+
+			var moveTemp = lookupMoveTemplate(moveToDo.name);
+
+			if (moveToDo.numArgs == 0)
+			{
+				playerMove(moveToDo, currentGS);
+			}
+			else
+			{
+				queuedMove = moveToDo;
+				inputTypes = moveTemp.argTypes;
+				currentArg = 0;
+				waitingForPlayerInput = true;
+			}
 			removePopUpMenu(this);
 		}
 	}
@@ -446,7 +465,9 @@ function drawAllPopUpMenus () {
 }
 
 function addMoveMenu (card, x, y) {
-	var moveList = getLegalMovesFromCard(card, currentGS);
+	//var moveList = getLegalMovesFromCard(card, currentGS);
+	//var moveList = card.moves;
+	var moveList = generateMovesWithoutArgs(card, currentGS);
 
 	var menuOptions = [];
 	for (var i = 0; i < moveList.length; i++) {
@@ -486,22 +507,44 @@ function DoMouseDown (e) {
 	var mouseY = e.y - 8;*/
 	var mouseX = e.pageX - 8;
 	var mouseY = e.pageY - 8;
-	var clickedMenu = findPopUpMenu(mouseX, mouseY);
-	if (clickedMenu)
+
+	if (waitingForPlayerInput)
 	{
-		clickedMenu.getOption(mouseX, mouseY);
+		var inputType = inputTypes[currentArg];
+		if (inputType == "zone")
+		{
+			var clickedZone = findZone(mouseX, mouseY);
+			if (clickedZone)
+			{
+				queuedMove.arguments.push(clickedZone);
+				currentArg += 1;
+				if (currentArg >= queuedMove.numArgs)
+				{
+					playerMove(queuedMove, currentGS);
+					waitingForPlayerInput = false;
+				}
+			}
+		}
 	}
 	else
 	{
-		var clickedCard = findCard(mouseX, mouseY);
-		if (clickedCard)
+		var clickedMenu = findPopUpMenu(mouseX, mouseY);
+		if (clickedMenu)
 		{
-			popUpMenus = [];
-			addMoveMenu(clickedCard, mouseX, mouseY);
+			clickedMenu.getOption(mouseX, mouseY);
 		}
 		else
 		{
-			popUpMenus = [];
+			var clickedCard = findCard(mouseX, mouseY);
+			if (clickedCard)
+			{
+				popUpMenus = [];
+				addMoveMenu(clickedCard, mouseX, mouseY);
+			}
+			else
+			{
+				popUpMenus = [];
+			}
 		}
 	}
 
