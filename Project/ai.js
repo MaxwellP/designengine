@@ -10,6 +10,10 @@ function alphaBetaMax (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
 		return evaluate(curPlNum, altPlNum, gs);
 	}
 	var legalMoves = getLegalMoves(gs.players[curPlNum], gs);
+	if (depthLevel == 3)
+	{
+		console.log(legalMoves.length);
+	}
 	for (var i = 0; i < legalMoves.length; i++) {
 		//Make a new copy of the game state
 		var tempGS = objectClone(gs);//owl.deepCopy(gs);
@@ -23,14 +27,32 @@ function alphaBetaMax (alpha, beta, depthLevel, gs, curPlNum, altPlNum) {
 		var score = alphaBetaMin(alpha, beta, depthLevel - 1, tempGS, altPlNum, curPlNum);
 		if (score >= beta)
 		{
+			if (depthLevel == startDepth)
+			{
+				bestMove = moveCopy;
+				console.log("Got best move");
+			}
+			else
+			{
+				console.log("Not at depth");
+			}
 			return beta;
 		}
 		if (score > alpha)
 		{
+			if (depthLevel == startDepth)
+			{
+				bestMove = moveCopy;
+				console.log("Got best move");
+			}
+			else
+			{
+				console.log("Not at depth");
+			}
 			alpha = score;
+
 			//console.log("Found better move with score " + score);
-			bestMove = moveCopy;
-			bestMoveNum = i;
+			//bestMoveNum = i;
 			//console.log(bestMove);
 		}
 	};
@@ -90,10 +112,11 @@ function testAI () {
 	console.log(result);
 	console.log(bestMove);
 }
-var COOL = false;
+
 function tryAI (gs) {
 	bestMove = undefined;
-	alphaBetaMax(-Infinity, Infinity, 3, gs, 1, 0);
+	startDepth = 3;
+	alphaBetaMax(-Infinity, Infinity, startDepth, gs, 1, 0);
 	//sets up bestMove
 	if (bestMove)
 	{
