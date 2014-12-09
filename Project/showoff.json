@@ -3,7 +3,9 @@
 	[
 		{"name": "public1", "cards": []},
 		{"name": "public2", "cards": []},
-		{"name": "public3", "cards": []}
+		{"name": "public3", "cards": []},
+		{"name": "player1hand", "cards": []},
+		{"name": "player2hand", "cards": []}
 	],
 	"cardTypes":
 	[
@@ -43,11 +45,13 @@
 	],
 	"init":
 	[
-		{"playerName": "Player1", "cardNames": ["inc"]},
-		{"playerName": "Player2", "cardNames": ["dec"]},
+		{"name": "Player1" , "hand" : "player1hand"},
+		{"name": "Player2" , "hand" : "player2hand"},
 		{"zoneName": "public1", "cardNames": ["blank"]},
 		{"zoneName": "public2", "cardNames": ["blank", "incdec", "blank"]},
 		{"zoneName": "public3", "cardNames": ["blank", "blank"]},
+		{"zoneName": "player1hand", "cardNames": ["inc"]},
+		{"zoneName": "player2hand", "cardNames": ["dec"]},
 		{"zonesPerLine": 3}
 	],
 	"winCondition": "showoffWinCondition",

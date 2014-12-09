@@ -53,7 +53,6 @@ function toAnyZoneCheckLegality()
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 	var zone = arguments[0];
-
 	for(var i = 0; i < player.cards.length; i += 1)
 	{
 		if(player.cards[i] == move.card)
@@ -79,7 +78,6 @@ function toPublic1CheckLegality()
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 	var zone = arguments[0];
-
 	for(var i = 0; i < player.cards.length; i += 1)
 	{
 		if(player.cards[i] == move.card && zone.name == "public1")
@@ -121,7 +119,6 @@ function toPublic3Result()
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 	var zone = arguments[0];
-
 	zone.cards.push(move.card);
 	player.cards.splice(player.cards.indexOf(move.card),1);
 };
@@ -147,12 +144,10 @@ function swapZonesResult()
 	var player = arguments[arguments.length - 3];
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-
 	var zone1 = arguments[0];
 	var zone2 = arguments[1];
 	var zone1Size = zone1.cards.length;
 	var zone2Size = zone2.cards.length;
-
 	for(var i = 0; i < zone1Size; i += 1)
 	{
 		zone2.cards.push(zone1.cards[0]);
@@ -172,7 +167,6 @@ function swapZonesCheckLegality()
 	var gamestate = arguments[arguments.length - 1];
 	var zone1 = arguments[0];
 	var zone2 = arguments[1];
-
 	if(zone1.name != zone2.name)
 	{
 		return true;
