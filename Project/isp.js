@@ -69,7 +69,7 @@ function lookupMoveTemplate(name)
 	var success = false;
 	var returnTemplate;
 	for (var i = 0; i < moveTemplates.length; i++) {
-		if (name == moveTemplates[i].templateName)
+		if (name == moveTemplates[i].name)
 		{
 			success = true;
 			returnTemplate = moveTemplates[i];
@@ -92,20 +92,20 @@ function generateMovesFromCard(card, gs)
 	{
 		var moveTemp = lookupMoveTemplate(card.moves[i].templateName);
 		var possibleArgs = []; //needs renaming
-		if(moveTemp.numArgs == 0)
+		if(moveTemp.argTypes.length == 0)
 		{
 			var move = {
-				"name": moveTemp.templateName,
+				"name": moveTemp.name,
 				"description": card.moves[i].description,
 				"card": card, 
 				"numArgs": moveTemp.numArgs,
 				"arguments": [],
-				"result": moveTemp.templateName + "Result",
-				"checkLegality": moveTemp.templateName + "CheckLegality"
+				"result": moveTemp.name + "Result",
+				"checkLegality": moveTemp.name + "CheckLegality"
 			};
 			moveList.push(move);
 		}
-		for(var j = 0; j < moveTemp.numArgs; j += 1)
+		for(var j = 0; j < moveTemp.argTypes.length; j += 1)
 		{
 			switch(moveTemp.argTypes[j])
 			{
@@ -118,6 +118,11 @@ function generateMovesFromCard(card, gs)
 				case "card":
 					console.log("The code for card selection doesn't exist yet.");
 					break;
+				case "given":
+					var argToPush = [];
+					argToPush[0] = card.moves[i].givenArgs[j];
+					possibleArgs.push(argToPush);
+					break;
 				default:
 					console.log("The argument type " + moveTemp.argTypes[j] + " is invalid.");
 					break;
@@ -129,13 +134,13 @@ function generateMovesFromCard(card, gs)
 			for (var k = 0; k < possibleArgCombs.length; k++)
 			{
 				var move = {
-					"name": moveTemp.templateName,
+					"name": moveTemp.name,
 					"description": card.moves[i].description,
 					"card": card, 
 					"numArgs": moveTemp.numArgs,
 					"arguments": possibleArgCombs[k],
-					"result": moveTemp.templateName + "Result",
-					"checkLegality": moveTemp.templateName + "CheckLegality"
+					"result": moveTemp.name + "Result",
+					"checkLegality": moveTemp.name + "CheckLegality"
 				};
 				moveList.push(move);
 			}
@@ -152,13 +157,13 @@ function generateMovesWithoutArgs(card, gs)
 		var moveTemp = lookupMoveTemplate(card.moves[i].templateName);
 		
 		var move = {
-			"name": moveTemp.templateName,
+			"name": moveTemp.name,
 			"description": card.moves[i].description,
 			"card": card, 
 			"numArgs": moveTemp.numArgs,
 			"arguments": [],
-			"result": moveTemp.templateName + "Result",
-			"checkLegality": moveTemp.templateName + "CheckLegality"
+			"result": moveTemp.name + "Result",
+			"checkLegality": moveTemp.name + "CheckLegality"
 		};
 		moveList.push(move);
 	}

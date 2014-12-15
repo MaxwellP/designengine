@@ -19,6 +19,8 @@ var POPUP_OUTLINE_WEIGHT = "2";
 var POPUP_FONT_SIZE = 16;
 var POPUP_MARGIN = 5;
 
+var DECK_OFFSET = 3;
+
 var SHOW_ZONE_NAMES = true;
 
 var canvas = document.getElementById('Canvas2D');
@@ -65,11 +67,6 @@ function renderFrame () {
 	clearFrame();
 	onScreenCards = [];
 
-	//TESTING
-	//drawCard(50, 50, {value: "Hello"});
-	//drawZoneBox(40, 40, CARD_WIDTH + 20, CARD_HEIGHT + 20, "Hello Zone");
-	//zoneGridLayout();
-	//drawPlayersHands();
 	drawAllZones();
 	drawAllCards();
 	drawAllPopUpMenus();
@@ -133,7 +130,7 @@ function addCard (card, x, y) {
 		onScreenCards.push(card);
 	}*/
 
-	//onScreenCards.push(newCard);
+	onScreenCards.push(newCard);
 
 }
 
@@ -162,8 +159,11 @@ function drawCard (card) {
 }
 
 function drawAllCards () {
-	for (var i = 0; i < cards.length; i++) {
+	/*for (var i = 0; i < cards.length; i++) {
 		drawCard(cards[i]);
+	};*/
+	for (var i = 0; i < onScreenCards.length; i++) {
+		drawCard(onScreenCards[i]);
 	};
 }
 
@@ -193,12 +193,30 @@ function drawZone (zone, x, y) {
 	var zoneHeight;
 
 	// PLACEHOLDER
-	zone.type = "showEachCard"
+	//zone.type = "showEachCard"
 
 	if (zone.type == "deck")
 	{
-		zoneWidth = CARD_WIDTH + (ZONE_MARGIN * 2);
+		zoneWidth = getZoneWidth(zone);
 		zoneHeight = getZoneHeight(zone);
+
+		var currentX = x + ZONE_MARGIN;
+		var currentY = y + ZONE_MARGIN;
+		for (var i = 0; i < zone.cards.length; i++) {
+			if (i == zone.cards.length - 1)
+			{
+				addCard(zone.cards[i], currentX, currentY);
+			}
+			else if (i == zone.cards.length - 2)
+			{
+				addCard(zone.cards[i], currentX - DECK_OFFSET, currentY - DECK_OFFSET);
+			}
+			else
+			{
+				addCard(zone.cards[i], currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2));
+			}
+		};
+
 	}
 	else if (zone.type == "showEachCard")
 	{
@@ -213,8 +231,8 @@ function drawZone (zone, x, y) {
 		zoneWidth = getZoneWidth(zone);
 		zoneHeight = getZoneHeight(zone);
 
-		currentX = x + ZONE_MARGIN;
-		currentY = y + ZONE_MARGIN;
+		var currentX = x + ZONE_MARGIN;
+		var currentY = y + ZONE_MARGIN;
 		for (var i = 0; i < zone.cards.length; i++) {
 			addCard(zone.cards[i], currentX, currentY);
 			currentX += CARD_WIDTH;
@@ -237,7 +255,14 @@ function getZoneWidth (zone) {
 	{
 		numCards = zone.cards.length;
 	}
-	return (numCards * CARD_WIDTH) + ((numCards + 1) * ZONE_MARGIN);
+	if (zone.type == "showEachCard")
+	{
+		return (numCards * CARD_WIDTH) + ((numCards + 1) * ZONE_MARGIN);
+	}
+	else if (zone.type == "deck")
+	{
+		return CARD_WIDTH + (ZONE_MARGIN * 2);	
+	}
 }
 
 function getZoneHeight (zone) {
@@ -336,8 +361,9 @@ function drawPlayersHands () {
 
 function findCard (x, y) {
 	var returnCard;
-	for (var i = 0; i < cards.length; i++) {
-		var card = cards[i];
+	//for (var i = 0; i < onScreenCards.length; i++) {
+	for (var i = onScreenCards.length - 1; i >= 0; i--) {
+		var card = onScreenCards[i];
 		var cardGUI = lookupCardGUI(card);
 		if (x >= cardGUI.x && x <= (cardGUI.x + cardGUI.width) && y >= cardGUI.y && y <= (cardGUI.y + cardGUI.height))
 		{
@@ -442,7 +468,8 @@ function PopUpMenu (x, y, options) {
 
 			var moveTemp = lookupMoveTemplate(moveToDo.name);
 
-			if (moveToDo.numArgs == 0)
+			//if (moveToDo.numArgs == 0)
+			if (moveTemp.argTypes.length == 0)
 			{
 				playerMove(moveToDo, currentGS);
 			}

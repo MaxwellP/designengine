@@ -1,17 +1,17 @@
 {
 	"zones":
 	[
-		{"name": "1,1", "locationX": 1, "locationY": 1, "cards": []},
-		{"name": "2,1", "locationX": 2, "locationY": 1, "cards": []},
-		{"name": "3,1", "locationX": 3, "locationY": 1, "cards": []},
-		{"name": "1,2", "locationX": 1, "locationY": 2, "cards": []},
-		{"name": "2,2", "locationX": 2, "locationY": 2, "cards": []},
-		{"name": "3,2", "locationX": 3, "locationY": 2, "cards": []},
-		{"name": "1,3", "locationX": 1, "locationY": 3, "cards": []},
-		{"name": "2,3", "locationX": 2, "locationY": 3, "cards": []},
-		{"name": "3,3", "locationX": 3, "locationY": 3, "cards": []},
-		{"name": "X's Hand", "cards": []},
-		{"name": "O's Hand", "cards": []}
+		{"name": "1,1", "locationX": 1, "locationY": 1, "cards": [], "type": "showEachCard"},
+		{"name": "2,1", "locationX": 2, "locationY": 1, "cards": [], "type": "showEachCard"},
+		{"name": "3,1", "locationX": 3, "locationY": 1, "cards": [], "type": "showEachCard"},
+		{"name": "1,2", "locationX": 1, "locationY": 2, "cards": [], "type": "showEachCard"},
+		{"name": "2,2", "locationX": 2, "locationY": 2, "cards": [], "type": "showEachCard"},
+		{"name": "3,2", "locationX": 3, "locationY": 2, "cards": [], "type": "showEachCard"},
+		{"name": "1,3", "locationX": 1, "locationY": 3, "cards": [], "type": "showEachCard"},
+		{"name": "2,3", "locationX": 2, "locationY": 3, "cards": [], "type": "showEachCard"},
+		{"name": "3,3", "locationX": 3, "locationY": 3, "cards": [], "type": "showEachCard"},
+		{"name": "X's Hand", "cards": [], "type": "showEachCard"},
+		{"name": "O's Hand", "cards": [], "type": "showEachCard"}
 	],
 	"cardTypes":
 	[
@@ -20,7 +20,7 @@
 	],
 	"moveTemplates":
 	[
-		{"templateName": "selectCard", "numArgs": 1, "argTypes": ["zone"]}
+		{"name": "selectCard", "numArgs": 1, "argTypes": ["zone"]}
 	],
 	"players":
 	[

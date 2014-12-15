@@ -1,11 +1,11 @@
 {
 	"zones":
 	[
-		{"name": "public1", "cards": []},
-		{"name": "public2", "cards": []},
-		{"name": "public3", "cards": []},
-		{"name": "player1Hand", "cards": []},
-		{"name": "player2Hand", "cards": []}
+		{"name": "public1", "cards": [], "type": "showEachCard"},
+		{"name": "public2", "cards": [], "type": "deck"},
+		{"name": "public3", "cards": [], "type": "showEachCard"},
+		{"name": "player1Hand", "cards": [], "type": "showEachCard"},
+		{"name": "player2Hand", "cards": [], "type": "showEachCard"}
 	],
 	"cardTypes":
 	[
@@ -30,13 +30,13 @@
 	],
 	"moveTemplates":
 	[
-		{"templateName": "increaseValue", "numArgs": 0, "argTypes": []},
-		{"templateName": "decreaseValue", "numArgs": 0, "argTypes": []},
-		{"templateName": "toAnyZone", "numArgs": 1, "argTypes": ["zone"]},
-		{"templateName": "toPublic1", "numArgs": 0, "argTypes": []},
-		{"templateName": "toPublic2", "numArgs": 0, "argTypes": []},
-		{"templateName": "toPublic3", "numArgs": 0, "argTypes": []},
-		{"templateName": "swapZones", "numArgs": 2, "argTypes": ["zone", "zone"]}
+		{"name": "increaseValue", "numArgs": 0, "argTypes": []},
+		{"name": "decreaseValue", "numArgs": 0, "argTypes": []},
+		{"name": "toAnyZone", "numArgs": 1, "argTypes": ["zone"]},
+		{"name": "toPublic1", "numArgs": 0, "argTypes": []},
+		{"name": "toPublic2", "numArgs": 0, "argTypes": []},
+		{"name": "toPublic3", "numArgs": 0, "argTypes": []},
+		{"name": "swapZones", "numArgs": 2, "argTypes": ["zone", "zone"]}
 	],
 	"players":
 	[
