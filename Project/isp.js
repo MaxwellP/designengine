@@ -5,6 +5,7 @@ var players;
 var init;
 var winCondition;
 var functionFile;
+var stateScore;
 
 var cards = [];
 
@@ -34,6 +35,7 @@ function readJSON(file)
 		init = read.init;
 		winCondition = read.winCondition;
 		functionFile = read.functionFile;
+		stateScore = read.stateScore;
 		initialize();
 	};
 	request.send();

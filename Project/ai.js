@@ -201,15 +201,16 @@ function evaluate(curPlNum, altPlNum, gs)
 
 	if (result == curPlayer.name)
 	{
-		return 5;
+		return 5000;
 	}
 	else if (result == altPlayer.name)
 	{
-		return -5;
+		return -5000;
 	}
 	else
 	{
-		return 0;
+		var scores = window[stateScore].apply(this, [gs]);
+		return scores[curPlNum];
 	}
 };
 

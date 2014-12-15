@@ -34,5 +34,6 @@
 		{"zonesPerLine": 3}
 	],
 	"winCondition": "TTTWinCondition",
-	"functionFile": "ttt.js"
+	"functionFile": "ttt.js",
+	"stateScore": "TTTStateScore"
 }
