@@ -255,7 +255,7 @@ function enemyMove(gs)
 	var legalMoves = getLegalMoves(gs.players[1], gs);
 	if (legalMoves.length == 0)
 	{
-		console.log("No legal moves, turn skipped")
+		console.log("Enemy  has no legal moves, turn skipped")
 		return;
 	}
 	if (!USE_AI)
@@ -414,13 +414,17 @@ function playerMove(moveToDo, gs)
 			return;
 		}
 
-		enemyMoveLoop(gs);
+		enemyMoveLoop(gs, 10);
 	}
 };
 
-function enemyMoveLoop(gs)
+function enemyMoveLoop(gs, limit)
 {
-
+	if (limit < 0)
+	{
+		console.log("Reached loop limit")
+		return;
+	}
 	var playerLegalMoves = getLegalMoves(gs.players[0], gs);
 	if (playerLegalMoves.length == 0)
 	{
@@ -438,7 +442,7 @@ function enemyMoveLoop(gs)
 		{
 			return;
 		}
-		enemyMoveLoop(gs);
+		enemyMoveLoop(gs, limit - 1);
 	}
 }
 
