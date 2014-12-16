@@ -476,7 +476,7 @@ function initialize()
 		}
 		else if (init[i].startingPhase)
 		{
-			currentGS = init[i].startingPhase;
+			currentGS.phase = lookupPhase(init[i].startingPhase);
 		}
 	}
 
