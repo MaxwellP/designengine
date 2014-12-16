@@ -103,7 +103,7 @@ function generateMovesFromCard(card, gs)
 		{
 			var move = {
 				"name": moveTemp.name,
-				"description": card.moves[i].description,
+				"description": moveTemp.description,
 				"card": card, 
 				"numArgs": moveTemp.numArgs,
 				"arguments": [],
@@ -142,7 +142,7 @@ function generateMovesFromCard(card, gs)
 			{
 				var move = {
 					"name": moveTemp.name,
-					"description": card.moves[i].description,
+					"description": moveTemp.description,
 					"card": card, 
 					"numArgs": moveTemp.numArgs,
 					"arguments": possibleArgCombs[k],
@@ -165,7 +165,7 @@ function generateMovesWithoutArgs(card, gs)
 		
 		var move = {
 			"name": moveTemp.name,
-			"description": card.moves[i].description,
+			"description": moveTemp.description,
 			"card": card, 
 			"numArgs": moveTemp.numArgs,
 			"arguments": [],
