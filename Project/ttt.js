@@ -17,7 +17,18 @@ function selectCardResult()
 	
 	var zone = arguments[0];
 
+	//Move card to new zone
 	moveCard(move.card, zone, gamestate);
+
+	//Change phase
+	if (player.name == "X")
+	{
+		gamestate.phase = lookupPhase("O's Turn");
+	}
+	else if (player.name == "O")
+	{
+		gamestate.phase = lookupPhase("X's Turn");
+	}
 };
 
 function selectCardCheckLegality()
@@ -26,6 +37,19 @@ function selectCardCheckLegality()
 	var move = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
+	//Check if phase is correct
+	if (!((player.name == "X" && gamestate.phase.name == "X's Turn") || (player.name == "O" && gamestate.phase.name == "O's Turn")))
+	{
+		return false;
+	}
+
+	//Check if card is in player's hand
+	if (false)
+	{
+		return false;
+	}
+
+	//Check if zone is empty
 	var zone = arguments[0];
 	if ((zone.cards.length == 0) && (!(zoneIsPlayerHand(zone, gamestate))))
 	{

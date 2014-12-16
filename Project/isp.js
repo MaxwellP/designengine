@@ -245,13 +245,19 @@ function pickLegalMove(player, gs)
 	if (legalMoves.length == 0)
 	{
 		console.log("No legal moves");
-		return;
+		return false;
 	}
 	return legalMoves[Math.floor(Math.random() * legalMoves.length)];
 };
 
 function enemyMove(gs)
 {
+	var legalMoves = getLegalMoves(gs.players[1], gs);
+	if (legalMoves.length == 0)
+	{
+		console.log("No legal moves, turn skipped")
+		return;
+	}
 	if (!USE_AI)
 	{
 		var enemyMove = pickLegalMove(gs.players[1], gs);
@@ -407,8 +413,34 @@ function playerMove(moveToDo, gs)
 		{
 			return;
 		}
+
+		enemyMoveLoop(gs);
 	}
 };
+
+function enemyMoveLoop(gs)
+{
+
+	var playerLegalMoves = getLegalMoves(gs.players[0], gs);
+	if (playerLegalMoves.length == 0)
+	{
+		console.log("Player has no legal moves, turn skipped")
+
+		var enemyLegalMoves = getLegalMoves(gs.players[1], gs);
+		if (enemyLegalMoves.length == 0)
+		{
+			console.log("Neither player has any legal moves, game is over");
+			return;
+		}
+
+		enemyMove(gs);
+		if (checkWin(gs))
+		{
+			return;
+		}
+		enemyMoveLoop(gs);
+	}
+}
 
 var cardIDCounter = 0;
 
