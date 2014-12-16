@@ -10,33 +10,33 @@
 	"cardTypes":
 	[
 		{"name": "inc", "value": 0, "moves": [
-			{"description": "Increase the value of this card.", "templateName": "increaseValue"},
-			{"description": "Move this card to a different zone", "templateName": "toAnyZone"},
-			{"description": "Move this card to Public1", "templateName": "toPublic1"},
-			{"description": "Move this card to Public2", "templateName": "toPublic2"},
-			{"description": "Move this card to Public3", "templateName": "toPublic3"},
-			{"description": "Swap the contents to two zones", "templateName": "swapZones"}
+			{"templateName": "increaseValue"},
+			{"templateName": "toAnyZone"},
+			{"templateName": "toPublic1"},
+			{"templateName": "toPublic2"},
+			{"templateName": "toPublic3"},
+			{"templateName": "swapZones"}
 			]
 		},
 		{"name": "dec", "value": 0, "moves": [
-			{"description": "Decrease the value of this card.", "templateName": "decreaseValue"}
+			{"templateName": "decreaseValue"}
 			]
 		},
 		{"name": "incdec", "value": 0, "moves": [
-			{"description": "Increase the value of this card.", "templateName": "increaseValue"},
-			{"description": "Decrease the value of this card.", "templateName": "decreaseValue"}
+			{"templateName": "increaseValue"},
+			{"templateName": "decreaseValue"}
 		]},
 		{"name": "blank", "value": "BLANK", "moves": []}
 	],
 	"moveTemplates":
 	[
-		{"name": "increaseValue", "numArgs": 0, "argTypes": []},
-		{"name": "decreaseValue", "numArgs": 0, "argTypes": []},
-		{"name": "toAnyZone", "numArgs": 1, "argTypes": ["zone"]},
-		{"name": "toPublic1", "numArgs": 0, "argTypes": []},
-		{"name": "toPublic2", "numArgs": 0, "argTypes": []},
-		{"name": "toPublic3", "numArgs": 0, "argTypes": []},
-		{"name": "swapZones", "numArgs": 2, "argTypes": ["zone", "zone"]}
+		{"name": "increaseValue", "description": "Increase the value of this card.", "numArgs": 0, "argTypes": []},
+		{"name": "decreaseValue", "description": "Decrease the value of this card.", "numArgs": 0, "argTypes": []},
+		{"name": "toAnyZone", "description": "Move this card to a different zone", "numArgs": 1, "argTypes": ["zone"]},
+		{"name": "toPublic1", "description": "Move this card to Public1", "numArgs": 0, "argTypes": []},
+		{"name": "toPublic2", "description": "Move this card to Public2", "numArgs": 0, "argTypes": []},
+		{"name": "toPublic3", "description": "Move this card to Public3", "numArgs": 0, "argTypes": []},
+		{"name": "swapZones", "description": "Swap the contents to two zones", "numArgs": 2, "argTypes": ["zone", "zone"]}
 	],
 	"players":
 	[

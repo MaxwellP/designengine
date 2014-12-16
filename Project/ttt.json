@@ -15,12 +15,12 @@
 	],
 	"cardTypes":
 	[
-		{"name": "X", "value": "X", "moves": [{"description": "Play card in a selected zone.", "templateName": "selectCard"}]},
-		{"name": "O", "value": "O", "moves": [{"description": "Play card in a selected zone.", "templateName": "selectCard"}]}
+		{"name": "X", "value": "X", "moves": [{"templateName": "selectCard"}]},
+		{"name": "O", "value": "O", "moves": [{"templateName": "selectCard"}]}
 	],
 	"moveTemplates":
 	[
-		{"name": "selectCard", "numArgs": 1, "argTypes": ["zone"]}
+		{"name": "selectCard", "description": "Play card in a selected zone.", "numArgs": 1, "argTypes": ["zone"]}
 	],
 	"players":
 	[
