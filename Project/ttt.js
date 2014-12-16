@@ -156,3 +156,13 @@ function TTTStateScore () {
 
 	return [xScore - oScore, oScore - xScore];
 }
+
+function TTTXPhaseEnd () {
+	var gamestate = arguments[arguments.length - 1];
+	return false;
+}
+
+function TTTOPhaseEnd () {
+	var gamestate = arguments[arguments.length - 1];
+	return false;
+}

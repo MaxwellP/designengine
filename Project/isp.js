@@ -6,6 +6,7 @@ var init;
 var winCondition;
 var functionFile;
 var stateScore;
+var phases;
 
 var cards = [];
 
@@ -13,10 +14,15 @@ var ZONES_PER_LINE = 3;
 
 var USE_AI = false;
 
+function returnFalse () {
+	return false;
+}
+
 function GameState (zones, players)
 {
 	this.zones = zones;
 	this.players = players;
+	this.phase = {"name": "Default phase", "endCondition": returnFalse};
 }
 
 var currentGS;
@@ -36,6 +42,7 @@ function readJSON(file)
 		winCondition = read.winCondition;
 		functionFile = read.functionFile;
 		stateScore = read.stateScore;
+		phases = read.phases;
 		initialize();
 	};
 	request.send();
@@ -467,6 +474,10 @@ function initialize()
 		{
 			ZONES_PER_LINE = init[i].zonesPerLine;
 		}
+		else if (init[i].startingPhase)
+		{
+			currentGS = init[i].startingPhase;
+		}
 	}
 
 	initializeZoneGUI(zones);
@@ -490,6 +501,19 @@ function lookupCard(name)
 		}
 	}
 	console.log("Could not find cardType with name \"" + name + "\".");
+	return false;
+};
+
+function lookupPhase(name)
+{
+	for(var i = 0; i < phases.length; i += 1)
+	{
+		if (phases[i].name == name)
+		{
+			return phases[i];
+		}
+	}
+	console.log("Could not find phase with name \"" + name + "\".");
 	return false;
 };
 

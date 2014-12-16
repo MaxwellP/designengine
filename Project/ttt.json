@@ -31,9 +31,15 @@
 	[
 		{"zoneName": "X's Hand", "cardNames": ["X", "X", "X", "X", "X"]},
 		{"zoneName": "O's Hand", "cardNames": ["O", "O", "O", "O", "O"]},
-		{"zonesPerLine": 3}
+		{"zonesPerLine": 3},
+		{"startingPhase": "X's Turn"}
 	],
 	"winCondition": "TTTWinCondition",
 	"functionFile": "ttt.js",
-	"stateScore": "TTTStateScore"
+	"stateScore": "TTTStateScore",
+	"phases":
+	[
+		{"name": "X's Turn", "endCondition": "TTTXPhaseEnd"},
+		{"name": "O's Turn", "endCondition": "TTTOPhaseEnd"}
+	]
 }
