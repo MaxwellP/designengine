@@ -2,34 +2,45 @@
 DESIGN-TIME GUI
 */
 
-zebra.ready(function() {
-	eval(zebra.Import("ui", "layout"));
+var zoneTreeModel;
+var playerTreeModel;
+var moveTemplateTreeModel;
+var zoneTreeModel;
 
-	var designCanvas = new zCanvas("DesignCanvas");
 
-	var zoneTreeModel = {
+function updateTrees() {
+	zoneTreeModel = {
 		value: "Zones",
 		kids: getAllNames(zones)
 		//kids: zones
 	}
 
-	var playerTreeModel = {
+	playerTreeModel = {
 		value: "Players",
 		kids: getAllNames(players)
 		//kids: players
 	}
 
-	var moveTemplateTreeModel = {
+	moveTemplateTreeModel = {
 		value: "Move Templates",
 		kids: getAllNames(moveTemplates)
 		//kids: moveTemplates
 	}
 
-	var cardTypeTreeModel = {
+	cardTypeTreeModel = {
 		value: "Card Types",
 		kids: getAllNames(cardTypes)
 		//kids: cardTypes
 	}
+	
+}
+
+
+zebra.ready(function() {
+	eval(zebra.Import("ui", "layout"));
+
+	var designCanvas = new zCanvas("DesignCanvas");
+
 
 	// Eventually I'd like the trees to actually store the arrays instead of names
 	//		But I'm not sure how to get the tree to show them properly
@@ -76,7 +87,7 @@ zebra.ready(function() {
 	playerEditPanel.add(playerHandPanel);
 
 	var moveTemplateEditPanel = new Panel();
-	moveTemplateEditPanel.setLayout(new ListLayout(STRETCH, 2));
+	moveTemplateEditPanel.setLayout(new PercentLayout(VERTICAL, 2, true));
 	
 	var moveTemplateNamePanel = new Panel().setLayout(new PercentLayout(HORIZONTAL, 2, true));
 	var moveTemplateNameTextBox = new TextField();
@@ -109,11 +120,11 @@ zebra.ready(function() {
 	moveTemplateLegalityPanel.add(20, new Label("Legality Checker:"));
 	moveTemplateLegalityPanel.add(80, moveTemplateLegalityTextArea);
 
-	moveTemplateEditPanel.add(moveTemplateNamePanel);
-	moveTemplateEditPanel.add(moveTemplateDescriptionPanel);
-	moveTemplateEditPanel.add(moveTemplateArgTypePanel);
-	moveTemplateEditPanel.add(moveTemplateResultPanel);
-	moveTemplateEditPanel.add(moveTemplateLegalityPanel);
+	moveTemplateEditPanel.add(10, moveTemplateNamePanel);
+	moveTemplateEditPanel.add(10, moveTemplateDescriptionPanel);
+	moveTemplateEditPanel.add(20, moveTemplateArgTypePanel);
+	moveTemplateEditPanel.add(30, moveTemplateResultPanel);
+	moveTemplateEditPanel.add(30, moveTemplateLegalityPanel);
 	
 
 	var innerEditPanel = new Panel();
@@ -215,6 +226,8 @@ function getAllNames(obj) {
 	};
 	return returnArray;
 }
+
+
 
 
 function togglePanel (panel) {

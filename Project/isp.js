@@ -517,6 +517,8 @@ function initialize()
 	}
 
 	initializeZoneGUI(zones);
+	updateTrees();
+	zebra.ready();
 };
 
 function initializeZoneGUI(zoneList)
