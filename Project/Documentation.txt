@@ -1,0 +1,84 @@
+Card: an instance of a card type (card in database of cards for given game)
+	Card.id	
+		hidden - number
+		system assigned unique id for the given card
+	Card.zone:
+		hidden - string
+		name of the zone the card is currently in
+	Card.name
+		visible - string
+		designer assigned name for a card
+	Card.attributes
+		visible - js object
+		object containing (name of attributes as a string : value of attribute of the given type)
+	Card.actions
+		visible - array of <!(names of?)!> actions
+		array of names of actions this card allows
+
+CARD TEMPLATES
+
+Event: a namespace for fundamental gamestate manipulations
+	Event.moveCardToZone
+		parameters: card, zone, gamestate
+		does: moves the given card to the specified zone
+	Event.changeCardAttribute:
+	Event.changePlayerAttribute:
+	Event.changeZoneAttribute:
+	Event.endPhase
+	Event.endTurn
+
+Action: a logic based sequence of events
+	Action.name
+	Action.template
+	Action.card
+		optional field if action is based on card
+	Action.inputs
+	Action.result (function)
+	Action.checkLegality (function)
+
+ActionTemplate: template for an action
+	ActionTemplate.name
+	ActionTemplate.description
+	ActionTemplate.result
+	ActionTemplate.checkLegality
+	ActionTemplate.inputTypes (infers num inputs)
+
+Zone: a place that contains cards
+	Zone.name
+	Zone.attributes
+	Zone.cards
+		not really cards, array of card id's in zone
+	Zone.type
+		deck (deck, showEachCard)
+	Zone.visibleTo (list of players cards in the given zone are visible to)
+
+Player:
+	Player.id
+	Player.name
+	Player.zones
+		a list of zones the player can take actions on
+	Player.attributes
+
+Phase:
+	name
+	init - action? function?
+	endConditions
+	indexInList?
+
+Turn:
+	name
+	list of phases
+
+
+-----------------------------------------------------
+InitialConditions
+turnLoop
+turnPlayer
+
+ASYMETTRICAL DIFFERENT TURN STRUCTURES
+
+Gamestate:
+	currentPhase
+	players
+	cards
+	zones
