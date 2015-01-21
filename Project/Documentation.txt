@@ -56,18 +56,13 @@ Player:
 	Player.id
 	Player.name
 	Player.zones
-		a list of zones the player can take actions on
+		a list of zone names the player can take actions on
 	Player.attributes
 
 Phase:
 	name
-	init - action? function?
+	init
 	endConditions
-	indexInList?
-
-Turn:
-	name
-	list of phases
 
 
 -----------------------------------------------------
@@ -78,7 +73,8 @@ turnPlayer
 ASYMETTRICAL DIFFERENT TURN STRUCTURES
 
 Gamestate:
-	currentPhase
+	currentPhase - name of currentPhase
 	players
 	cards
 	zones
+	turnPlayer - name of player

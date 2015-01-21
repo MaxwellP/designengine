@@ -1,5 +1,5 @@
 /*Action: a logic based sequence of events*/
-function Action(name, template, card,  inputs, checkLegality, result)
+function Action(name, template, card, inputs, checkLegality, result)
 {
 	this.name = name;
 	this.template = template;

@@ -156,6 +156,7 @@ function generateMovesFromCard(card, gs)
 	return moveList;
 }
 
+//for gui
 function generateMovesWithoutArgs(card, gs)
 {
 	var moveList = [];
@@ -219,6 +220,7 @@ function getLegalMoves(player, gs)
 	return legalMoves;
 }
 
+//for gui
 function getLegalMovesFromCard(card, gs)
 {
 	var legalMoves = [];
@@ -255,7 +257,7 @@ function enemyMove(gs)
 	var legalMoves = getLegalMoves(gs.players[1], gs);
 	if (legalMoves.length == 0)
 	{
-		console.log("Enemy  has no legal moves, turn skipped")
+		console.log("Enemy has no legal moves, turn skipped")
 		return;
 	}
 	if (!USE_AI)
