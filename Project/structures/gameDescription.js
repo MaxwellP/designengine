@@ -19,19 +19,20 @@ GameDescription.prototype.initializeGameState = function() {
 		this.players,
 		this.zones,
 		this.cards,
-		this.currentPhase,
-		this.currentTurn);
+		this.phases[0].name,
+		this.players[0].name);
 	this.initializeCards(newGS);
 	return newGS;
 };
 
 //Creates and places the cards into the zones
 GameDescription.prototype.initializeCards = function(gs) {
+
 	for (var i = 0; i < this.init.length; i += 1)
 	{
 		if (this.init[i].zoneName)
 		{
-			var currentZone = lookupZone(["name"], [this.init[i].zoneName], gs);
+			var currentZone = lookupZone(this.init[i].zoneName, gs);
 			if (currentZone)
 			{
 				for(var j = 0; j < this.init[i].cardNames.length; j += 1)
@@ -41,6 +42,7 @@ GameDescription.prototype.initializeCards = function(gs) {
 					{
 						var newCard = initCard(currentCard, currentZone);
 						currentZone.cards.push(newCard.id);
+						gs.cards.push(newCard);
 					}
 				}
 			}

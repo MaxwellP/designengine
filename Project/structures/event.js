@@ -2,17 +2,17 @@
 var Event = {
 	moveCardToZone: function(card, zone, gs)
 	{
-		var prevOwner = lookupZone(["name"], [card.owner], gs);
+		var prevOwner = lookupZone(card.zone, gs);
 		if (prevOwner)
 		{
 			for (var i = 0; i < prevOwner.cards.length; i++) {
-				if (prevOwner.cards[i] === card)
+				if (prevOwner.cards[i] === card.id)
 				{
 					prevOwner.cards.splice(i, 1);
 				}
 			};
 		}
-		zone.cards.push(card);
+		zone.cards.push(card.id);
 		card.owner = zone.name;
 	},
 	changeAttribute: function (obj, attributeName, newValue, gs)
@@ -20,27 +20,24 @@ var Event = {
 		/*do lookup*/
 		obj.attributeName = newValue;
 	},
-	endPhase: function (gs, gd)
+	endPhase: function (gs)
 	{
-		var index = gd.phases.indexOf(lookupPhase(gs.currentPhase, gd));
+		var index = gameDescription.phases.indexOf(lookupPhase(gs.currentPhase, gameDescription));
 		index ++;
-		if (index >= gd.phases.length)
+		if (index >= gameDescription.phases.length)
 		{
 			index = 0;
-			Event.endTurn(gs, gd);
-			gs.currentPhase = gd.phases[0].name;
+			Event.endTurn(gs);
+			gs.currentPhase = gameDescription.phases[0].name;
 		}
 		else
 		{
-			gs.currentPhase = gd.phases[index].name;
+			gs.currentPhase = gameDescription.phases[index].name;
 		}
 		//Run initial function for phase
-		window[lookupPhase(gs.currentPhase, gd).init].apply(this, [gs]);
-
-
-		
+		window[lookupPhase(gs.currentPhase, gameDescription).init].apply(this, [gs]);		
 	},
-	endTurn: function (gs, gd)
+	endTurn: function (gs)
 	{
 		var player = lookupPlayer(gs.turnPlayer, gs)
 		var index = gs.players.indexOf(player);
@@ -56,7 +53,7 @@ var Event = {
 		//Run AI if it is AI's turn
 		if (player.isAI)
 		{
-			runAI(player, gs, gd, 10);
+			runAI(player, gs, gameDescription, 10);
 		}
 	}
 };

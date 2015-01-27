@@ -31,6 +31,7 @@ function lookupZone (name, gs) {
 		}
 	}
 	console.log("Could not find zone with name \"" + name + "\".");
+	throw new Error("Zone Lookup Error");
 	return false;
 }
 
@@ -51,7 +52,7 @@ function lookupActionTemplate (name, gd)
 {
 	for (var i = 0; i < gd.actionTemplates.length; i++)
 	{
-		if (gd.actionTemplates[i] == name)
+		if (gd.actionTemplates[i].name == name)
 		{
 			return gd.actionTemplates[i];
 		}
@@ -64,12 +65,13 @@ function lookupPhase (name, gd)
 {
 	for (var i = 0; i < gd.phases.length; i++)
 	{
-		if (gd.phases[i] == name)
+		if (gd.phases[i].name == name)
 		{
 			return gd.phases[i];
 		}
 	}
 	console.log("No phase named \"" + name + "\" exists");
+	throw new Error("Phase Lookup Error");
 	return false;
 }
 
@@ -120,9 +122,16 @@ function lookupCard(id, gs) {
 }
 
 function lookupPlayer (name, gs) {
-	for (var i = 0; i < Things.length; i++) {
-		Things[i]
+	for (var i = 0; i < gs.players.length; i++) {
+		if (gs.players[i].name == name)
+		{
+			return gs.players[i];
+		}
 	};
+
+	console.log("No player named \"" + name + "\" exists");
+	throw new Error("Player Lookup Error");
+	return false;
 }
 
 //Using a function found from:

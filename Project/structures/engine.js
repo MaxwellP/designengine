@@ -19,7 +19,7 @@ function readJSON(file)
 			read.stateScore,
 			read.phases);
 		var gameState = newGameDescription.initializeGameState();
-		initialize();
+		initialize(newGameDescription);
 		gameDescription = newGameDescription;
 		currentGS = gameState;
 	};
@@ -27,10 +27,11 @@ function readJSON(file)
 };
 
 
-function initialize()
+function initialize(gd)
 {
+	//debugger;
 	var imported = document.createElement("script");
-	imported.src = functionFile;
+	imported.src = gd.functionFile;
 	document.head.appendChild(imported);
 	
 	//TODO: Change this for gui
@@ -132,8 +133,8 @@ function getLegalActions (player, gs) {
 		var currentZone = lookupZone(player.zones[i], gs);
 		for (var j = 0; j < currentZone.cards.length; j++)
 		{
-			var card = currentZone.cards[j];
-			legalActions.concat(getLegalActionsFromCard(card, player, gs));
+			var card = lookupCard(currentZone.cards[j], gs);
+			legalActions = legalActions.concat(getLegalActionsFromCard(card, player, gs));
 		}
 	}
 	return legalActions;
@@ -141,7 +142,8 @@ function getLegalActions (player, gs) {
 
 function getLegalActionsFromCard (card, player, gs) {
 	var legalActions = [];
-	var currentActions = generateActionsFromCard(card, gs);
+	var currentActions = generateActionsFromCard(card, gs, gameDescription);
+
 	for (var k = 0; k < currentActions.length; k++)
 	{
 		var action = currentActions[k]
@@ -170,4 +172,3 @@ function checkWin(gs, gd)
 		return false;
 	}
 }
-
