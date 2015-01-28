@@ -1,0 +1,48 @@
+{
+	"zones":
+	[
+		{"name": "deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
+		{"name": "P1 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1",]},
+		{"name": "P1 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
+		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]},
+		{"name": "P2 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]}
+	],
+	"cardTypes":
+	[
+		{"name": "Ace", "attributes": {"value": "Ace"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "King", "attributes": {"value": "King"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "Queen", "attributes": {"value": "Queen"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "Jack", "attributes": {"value": "Jack"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "10", "attributes": {"value": "10"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "9", "attributes": {"value": "9"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "8", "attributes": {"value": "8"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "7", "attributes": {"value": "7"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "6", "attributes": {"value": "6"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "5", "attributes": {"value": "5"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "4", "attributes": {"value": "4"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "3", "attributes": {"value": "3"}, "actions": [{"templateName": "gotAny"}]},
+		{"name": "2", "attributes": {"value": "2"}, "actions": [{"templateName": "gotAny"}]}
+	],
+	"actionTemplates":
+	[
+		{"name": "gotAny", "description": "Ask for this card.", "result": "gotAnyResult", "checkLegality": "gotAnyCheckLegality", "inputTypes": []}
+	],
+	"players":
+	[
+		{"name": "P1", "zones": ["P1 Hand"], "attributes": {"score": 0, "isAI": false}},
+		{"name": "P2", "zones": ["P2 Hand"], "attributes": {"score": 0, "isAI": true}}
+	],
+	"init":
+	[
+		{"zoneName": "deck", "cardNames": ["Ace","Ace", "Ace", "Ace", "King", "King", "King", "King", "Queen", "Queen", "Queen", "Queen", "Jack", "Jack", "Jack", "Jack", "10", "10", "10", "10", "9", "9", "9", "9", "8", "8", "8", "8", "7", "7", "7", "7", "6", "6", "6", "6", "5", "5", "5", "5", "4", "4", "4", "4", "3", "3", "3", "3", "2", "2", "2", "2"]},
+		{"zonesPerLine": 1},
+		{"setupFunction": "fishSetup"}
+	],
+	"functionFile": "fish.js",
+	"winCondition": "fishWinCondition",
+	"stateScore": "fishStateScore",
+	"phases":
+	[
+		{"name": "ask", "init": "askPhaseInit", "endCondition": "askPhaseEnd"}
+	]
+}
