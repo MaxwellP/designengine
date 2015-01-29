@@ -1,15 +1,9 @@
 {
 	"zones":
 	[
-<<<<<<< HEAD
-		{"name": "P1 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
-		{"name": "deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
-		{"name": "P2 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
-=======
 		{"name": "P2 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
 		{"name": "deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
 		{"name": "P1 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
->>>>>>> origin/master
 		{"name": "P1 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]},
 		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]}
 	],
