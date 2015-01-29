@@ -168,3 +168,9 @@ function cartProd() {
 	}
 	return result;
 }
+
+//Object clone function
+function objectClone (oldObject) 
+{
+	return JSON.parse(JSON.stringify(oldObject));
+};

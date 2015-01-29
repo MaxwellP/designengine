@@ -172,3 +172,10 @@ function checkWin(gs, gd)
 		return false;
 	}
 }
+
+function isGameOver(gs, gd)
+{
+	//possibility for ties
+	//     if (game is tied) return true
+	return checkWin(gs, gd);
+}
