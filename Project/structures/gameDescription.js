@@ -1,13 +1,28 @@
 /* Initial Conditions for the game structure*/
 
-function GameDescription (zones, cardTypes, actionTemplates, players, init, winCondition, functionFile, stateScore, phases) {
-	this.zones = zones;
+function GameDescription (zones, cardTypes, actionTemplates, players, init, winCondition, functionFile, setupFunction, stateScore, phases) {
+	var playerArr = [];
+	for (var i = 0; i < players.length; i++) {
+		var curPlayer = players[i];
+		var newPlayer = new Player (curPlayer.name, curPlayer.attributes, curPlayer.zones);
+		playerArr.push(newPlayer);
+	};
+
+	var zoneArr = [];
+	for (var i = 0; i < zones.length; i++) {
+		var curZone = zones[i];
+		var newZone = new Zone (curZone.name, curZone.attributes, curZone.type, curZone.visibleTo);
+		zoneArr.push(newZone);
+	};
+
+	this.zones = zoneArr;
 	this.cardTypes = cardTypes;
 	this.actionTemplates = actionTemplates;
-	this.players = players;
+	this.players = playerArr;
 	this.init = init;
 	this.winCondition = winCondition;
 	this.functionFile = functionFile;
+	this.setupFunction = setupFunction;
 	this.stateScore = stateScore;
 	this.phases = phases;
 	this.cards = [];
@@ -18,7 +33,7 @@ GameDescription.prototype.initializeGameState = function() {
 	var newGS = new GameState(
 		this.players,
 		this.zones,
-		this.cards,
+		[],
 		this.phases[0].name,
 		this.players[0].name);
 	this.initializeCards(newGS);
@@ -46,6 +61,10 @@ GameDescription.prototype.initializeCards = function(gs) {
 					}
 				}
 			}
+		}
+		else if (this.init[i].zonesPerLine)
+		{
+			ZONES_PER_LINE = this.init[i].zonesPerLine;
 		}
 	}
 };

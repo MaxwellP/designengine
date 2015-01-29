@@ -1,6 +1,8 @@
 var gameDescription;
 var currentGS;
 
+var printLog = true;
+
 function readJSON(file)
 {
 	var request = new XMLHttpRequest();
@@ -16,13 +18,14 @@ function readJSON(file)
 			read.init,
 			read.winCondition,
 			read.functionFile,
+			read.setupFunction,
 			read.stateScore,
 			read.phases);
 		var gameState = newGameDescription.initializeGameState();
-		initialize(newGameDescription);
 		gameDescription = newGameDescription;
 		currentGS = gameState;
-		Init();
+		initialize(newGameDescription);
+		
 	};
 	request.send();
 
@@ -37,6 +40,17 @@ function initialize(gd)
 	imported.src = gd.functionFile;
 	document.head.appendChild(imported);
 	
+	imported.onload = function(response)
+	{
+		Init();
+		gameLog("Initialized game state.");
+		
+		gameSetup(currentGS);
+
+		gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
+		gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
+	}
+	
 	//TODO: Change this for gui
 	/*
 	initializeZoneGUI(zones);
@@ -44,6 +58,12 @@ function initialize(gd)
 	zebra.ready();
 	*/
 };
+
+function gameSetup (gs)
+{
+	gameLog("Running game setup function.");
+	window[gameDescription.setupFunction].apply(this, [currentGS]);
+}
 
 
 function generateActionsFromCard (card, gs, gd)
@@ -139,6 +159,7 @@ function applyAction (action, player, gs)
 
 	if (window[action.checkLegality].apply(this, actionInputs))
 	{
+		gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
 		window[action.result].apply(this, actionInputs);
 		//printGameState(gs);
 		return true;
@@ -202,4 +223,11 @@ function isGameOver(gs, gd)
 	//possibility for ties
 	//     if (game is tied) return true
 	return checkWin(gs, gd);
+}
+
+function gameLog (string) {
+	if (printLog)
+	{
+		console.log(string);
+	}
 }

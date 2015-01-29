@@ -7,3 +7,8 @@ function Card(name, zone, attributes, actions)
 	this.attributes = attributes;
 	this.actions = actions;
 }
+
+Card.prototype.isVisibleTo = function(playerName, gs) {
+	var cardZone = lookupZone(this.zone, gs);
+	return cardZone.isVisibleTo(playerName);
+};

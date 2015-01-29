@@ -5,6 +5,12 @@ function getNewCardID () {
 	return cardIDCounter ++;
 }
 
+//Determines the next ID number
+var playerIDCounter = 0;
+function getNewPlayerID () {
+	return playerIDCounter ++;
+}
+
 function lookupZoneByParam(parameterArray, valueArray, gs)
 {
 	for (var i = 0; i < gs.zones.length; i++) {

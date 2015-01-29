@@ -7,3 +7,14 @@ function Zone(name, attributes, type, visibleTo)
 	this.type = type;
 	this.visibleTo = visibleTo;
 }
+
+Zone.prototype.isVisibleTo = function(playerName) {
+	for (var i = 0; i < this.visibleTo.length; i++) 
+	{
+		if (this.visibleTo[i] == playerName)
+		{
+			return true;
+		}
+	};
+	return false;
+};

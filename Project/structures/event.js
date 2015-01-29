@@ -1,7 +1,9 @@
 /*Event: a namespace for fundamental gamestate manipulations*/
 var Event = {
-	moveCardToZone: function(card, zone, gs)
+	moveCardToZone: function(cardID, zoneName, gs)
 	{
+		var card = lookupCard(cardID, gs);
+		var zone = lookupZone(zoneName, gs);
 		var prevOwner = lookupZone(card.zone, gs);
 		if (prevOwner)
 		{
@@ -13,7 +15,9 @@ var Event = {
 			};
 		}
 		zone.cards.push(card.id);
-		card.owner = zone.name;
+		card.zone = zone.name;
+
+		gameLog("Moved card with id: " + card.id + " to zone " + zone.name + ".");
 	},
 	changeAttribute: function (obj, attributeName, newValue, gs)
 	{
@@ -22,6 +26,7 @@ var Event = {
 	},
 	endPhase: function (gs)
 	{
+		gameLog("End phase \"" + gs.currentPhase + "\".");
 		var index = gameDescription.phases.indexOf(lookupPhase(gs.currentPhase, gameDescription));
 		index ++;
 		if (index >= gameDescription.phases.length)
@@ -34,12 +39,16 @@ var Event = {
 		{
 			gs.currentPhase = gameDescription.phases[index].name;
 		}
+
+		gameLog("Begin phase \"" + gs.currentPhase + "\".");
 		//Run initial function for phase
-		window[lookupPhase(gs.currentPhase, gameDescription).init].apply(this, [gs]);		
+		window[lookupPhase(gs.currentPhase, gameDescription).init].apply(this, [gs]);
+
 	},
 	endTurn: function (gs)
 	{
-		var player = lookupPlayer(gs.turnPlayer, gs)
+		var player = lookupPlayer(gs.turnPlayer, gs);
+		gameLog("End of " + player.name + "'s turn.");
 		var index = gs.players.indexOf(player);
 		index ++;
 		if (index >= gs.players.length)
@@ -48,6 +57,7 @@ var Event = {
 		}
 		gs.turnPlayer = gs.players[index].name;
 
+		gameLog("Begin " + gs.turnPlayer + "'s turn.");
 
 		player = lookupPlayer(gs.turnPlayer, gs)
 		//Run AI if it is AI's turn

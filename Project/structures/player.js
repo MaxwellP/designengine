@@ -1,5 +1,5 @@
 /*Player: a place that contains cards*/
-function Player(id, name, attributes, attributes, zones)
+function Player(name, attributes, zones)
 {
 	this.id = getNewPlayerID();
 	this.name = name;

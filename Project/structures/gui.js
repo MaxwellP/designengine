@@ -187,7 +187,10 @@ function drawCard (card) {
 	var cardTextX = cardGUI.x + (cardGUI.width / 2);
 	var cardTextY = cardGUI.y + (cardGUI.height / 2) + (cardGUI.fontSize / 4);
 	//ctx.fillText(card.value, cardTextX, cardTextY, cardGUI.width);
-	ctx.fillText(card.attributes.value, cardTextX, cardTextY, cardGUI.width);
+	if (card.isVisibleTo(guiPlayer.name, currentGS))
+	{
+		ctx.fillText(card.attributes.value, cardTextX, cardTextY, cardGUI.width);
+	}
 	ctx.restore();
 
 }
@@ -315,7 +318,7 @@ function zoneGridLayout (fullZoneList) {
 	var centerX = canvas.width / 2;
 	var centerY = canvas.height / 2;
 
-	ZONES_PER_LINE = 3;
+	//ZONES_PER_LINE = 3;
 
 	zoneList = fullZoneList.slice(0, fullZoneList.length - 2);
 
@@ -402,7 +405,7 @@ function findCard (x, y) {
 		var card = lookupCard(cardGUI.id, currentGS);
 		if (x >= cardGUI.x && x <= (cardGUI.x + cardGUI.width) && y >= cardGUI.y && y <= (cardGUI.y + cardGUI.height))
 		{
-			console.log(card);
+			//console.log(card);
 			return card;
 		}
 	};
@@ -500,7 +503,7 @@ function PopUpMenu (x, y, options) {
 		{
 			var optionIndex = Math.floor(localY / optionHeight);
 			var actionToDo = options[optionIndex];
-			console.log(actionToDo);
+			//console.log(actionToDo);
 
 			var actionTemp = actionToDo.template;
 

@@ -1,11 +1,11 @@
 {
 	"zones":
 	[
-		{"name": "deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
-		{"name": "P1 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1",]},
 		{"name": "P1 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
-		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]},
-		{"name": "P2 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]}
+		{"name": "deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
+		{"name": "P2 Pile", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
+		{"name": "P1 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]},
+		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]}
 	],
 	"cardTypes":
 	[
@@ -29,16 +29,16 @@
 	],
 	"players":
 	[
-		{"name": "P1", "zones": ["P1 Hand"], "attributes": {"score": 0, "isAI": false}},
-		{"name": "P2", "zones": ["P2 Hand"], "attributes": {"score": 0, "isAI": true}}
+		{"name": "P1", "zones": ["P1 Hand"], "attributes": {"score": 0}, "isAI": false},
+		{"name": "P2", "zones": ["P2 Hand"], "attributes": {"score": 0}, "isAI": true}
 	],
 	"init":
 	[
 		{"zoneName": "deck", "cardNames": ["Ace","Ace", "Ace", "Ace", "King", "King", "King", "King", "Queen", "Queen", "Queen", "Queen", "Jack", "Jack", "Jack", "Jack", "10", "10", "10", "10", "9", "9", "9", "9", "8", "8", "8", "8", "7", "7", "7", "7", "6", "6", "6", "6", "5", "5", "5", "5", "4", "4", "4", "4", "3", "3", "3", "3", "2", "2", "2", "2"]},
-		{"zonesPerLine": 1},
-		{"setupFunction": "fishSetup"}
+		{"zonesPerLine": 1}
 	],
 	"functionFile": "fish.js",
+	"setupFunction": "fishSetup",
 	"winCondition": "fishWinCondition",
 	"stateScore": "fishStateScore",
 	"phases":

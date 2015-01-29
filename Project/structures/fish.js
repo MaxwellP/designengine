@@ -8,7 +8,8 @@ var gamestate = arguments[arguments.length - 1];
 */
 function fishSetup()
 {
-	var gamestate;
+	//var gamestate;
+	var gamestate = arguments[arguments.length - 1];
 	var pile = lookupZone("deck", gamestate).cards;
 
 	/*Fisher-Yates Shuffle*/
@@ -35,13 +36,14 @@ function fishSetup()
 	{
 		for(var j = 0; j < gamestate.players.length; j += 1)
 		{
+			var deckZone = lookupZone("deck", gamestate);
 			if(gamestate.players[j].name == "P1")
 			{
-				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P1 Hand", gamestate);
+				Event.moveCardToZone(deckZone.cards[0], "P1 Hand", gamestate);
 			}
 			else
 			{
-				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P2 Hand", gamestate);
+				Event.moveCardToZone(deckZone.cards[0], "P2 Hand", gamestate);
 			}
 		}
 	}
@@ -55,9 +57,9 @@ function gotAnyResult()
 
 	if(player.name == "P1")
 	{
-		for(var i = 0; i < lookupZone("P2 Hand", gamestate).cards.length; i ++ 1;)
+		for(var i = 0; i < lookupZone("P2 Hand", gamestate).cards.length; i += 1)
 		{
-			if(lookupZone("P2 Hand", gamestate).cards[i].attributes["value"] == action.card.attributes["value"])
+			if(lookupZone("P2 Hand", gamestate).cards[i].attributes.value == action.card.attributes.value)
 			{
 				Event.moveCardToZone(lookupZone("P2 Hand", gamestate).cards[i], "P1 Hand", gamestate);
 				cardWasMoved = true;
@@ -71,9 +73,9 @@ function gotAnyResult()
 	}
 	else
 	{
-		for(var i = 0; i < lookupZone("P1 Hand", gamestate).cards.length; i ++ 1;)
+		for(var i = 0; i < lookupZone("P1 Hand", gamestate).cards.length; i += 1)
 		{
-			if(lookupZone("P1 Hand", gamestate).cards[i].attributes["value"] == action.card.attributes["value"])
+			if(lookupZone("P1 Hand", gamestate).cards[i].attributes.value == action.card.attributes.value)
 			{
 				Event.moveCardToZone(lookupZone("P1 Hand", gamestate).cards[i], "P2 Hand", gamestate);
 				cardWasMoved = true;
