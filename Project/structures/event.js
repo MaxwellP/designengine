@@ -63,7 +63,7 @@ var Event = {
 		//Run AI if it is AI's turn
 		if (player.isAI)
 		{
-			runAI(player, gs, gameDescription, 10);
+			runAI_random(player, gs, gameDescription, 10);
 		}
 	}
 };

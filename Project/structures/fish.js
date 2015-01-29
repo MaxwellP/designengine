@@ -48,6 +48,15 @@ function fishSetup()
 		}
 	}
 }
+
+function sortCardsInZone (zone) {
+
+}
+
+function moveQuadFromZoneAtoZoneB (zoneA, zoneB, gs) {
+	for ()
+}
+
 function gotAnyResult()
 {
 	var player = arguments[arguments.length - 3];
@@ -90,6 +99,7 @@ function gotAnyResult()
 			Event.endPhase(gamestate);
 		}
 	}
+
 }
 function gotAnyCheckLegality()
 {

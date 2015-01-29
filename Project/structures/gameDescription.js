@@ -4,7 +4,7 @@ function GameDescription (zones, cardTypes, actionTemplates, players, init, winC
 	var playerArr = [];
 	for (var i = 0; i < players.length; i++) {
 		var curPlayer = players[i];
-		var newPlayer = new Player (curPlayer.name, curPlayer.attributes, curPlayer.zones);
+		var newPlayer = new Player (curPlayer.name, curPlayer.attributes, curPlayer.zones, curPlayer.isAI);
 		playerArr.push(newPlayer);
 	};
 

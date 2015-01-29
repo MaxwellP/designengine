@@ -179,15 +179,15 @@ function applyAction (action, player, gs)
 	}
 }
 
-function getLegalActions (player, gs) {
+function getLegalActions (playerObj, gs) {
 	var legalActions = [];
-	for (var i = 0; i < player.zones.length; i++)
+	for (var i = 0; i < playerObj.zones.length; i++)
 	{
-		var currentZone = lookupZone(player.zones[i], gs);
+		var currentZone = lookupZone(playerObj.zones[i], gs);
 		for (var j = 0; j < currentZone.cards.length; j++)
 		{
 			var card = lookupCard(currentZone.cards[j], gs);
-			legalActions = legalActions.concat(getLegalActionsFromCard(card, player, gs));
+			legalActions = legalActions.concat(getLegalActionsFromCard(card, playerObj, gs));
 		}
 	}
 	return legalActions;
