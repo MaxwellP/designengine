@@ -53,8 +53,42 @@ function sortCardsInZone (zone) {
 
 }
 
-function moveQuadFromZoneAtoZoneB (zoneA, zoneB, gs) {
-	for ()
+//Find all quads of cards in zoneA and move them all to zoneB
+function moveQuadsFromZoneAtoZoneB (zoneAName, zoneBName, gs) {
+	var zoneA = lookupZone(zoneAName, gs);
+	//var zoneB = lookupZone(zoneBName, gs);
+	var cardsToMove = [];
+	for (var i = 0; i < zoneA.cards.length; i++)
+	{
+		var card = zoneA.cards[i];
+		var value = card.attributes["value"];
+		var counter = 0;
+		for (var j = 0; j < zoneA.cards.length; j++)
+		{
+			var card2 = zoneA.cards[j];
+			var value2 = card2.attributes["value"];
+			if (value == value2)
+			{
+				counter += 1;
+			}
+		}
+		if (counter == 4)
+		{
+			for (var j = 0; j < zoneA.cards.length; j++)
+			{
+				var cardId = zoneA.cards[j];
+				//If the card is not already in the cardsToMove array
+				if (cardsToMove.indexOf(cardId) == -1)
+				{
+					cardsToMove.push(zoneA.cards[j]);
+				}
+			}
+		}
+	}
+	for (var i = 0; i < cardsToMove.length; i++)
+	{
+		Event.moveCardToZone(cardsToMove[i], zoneBName, gs);
+	}
 }
 
 function gotAnyResult()
