@@ -176,3 +176,8 @@ function newTTTInitPhase () {
 	var gamestate = arguments[arguments.length - 1];
 	return false;
 }
+
+function newTTTSetup () {
+	var gamestate = arguments[arguments.length - 1];
+	return false;
+}

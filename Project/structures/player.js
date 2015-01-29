@@ -6,3 +6,14 @@ function Player(name, attributes, zones)
 	this.attributes = attributes;
 	this.zones = zones;
 }
+
+Player.prototype.controlsZone = function(zoneName) {
+	for (var i = 0; i < this.zones.length; i++) 
+	{
+		if (this.zones[i] == zoneName)
+		{
+			return true;
+		}
+	};
+	return false;
+};

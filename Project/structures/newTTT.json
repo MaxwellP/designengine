@@ -35,6 +35,7 @@
 	],
 	"functionFile": "newTTT.js",
 	"winCondition": "newTTTWinCondition",
+	"setupFunction": "newTTTSetup",
 	"stateScore": "newTTTStateScore",
 	"phases":
 	[

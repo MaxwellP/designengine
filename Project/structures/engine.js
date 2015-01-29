@@ -159,10 +159,18 @@ function applyAction (action, player, gs)
 
 	if (window[action.checkLegality].apply(this, actionInputs))
 	{
-		gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
-		window[action.result].apply(this, actionInputs);
-		//printGameState(gs);
-		return true;
+		if (player.controlsZone(action.card.zone))
+		{
+			gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
+			window[action.result].apply(this, actionInputs);
+			//printGameState(gs);
+			return true;
+		}
+		else
+		{
+			console.log("Player does not have access to card.")
+			return false;
+		}
 	}
 	else
 	{
