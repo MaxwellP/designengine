@@ -60,12 +60,12 @@ function moveQuadsFromZoneAtoZoneB (zoneAName, zoneBName, gs) {
 	var cardsToMove = [];
 	for (var i = 0; i < zoneA.cards.length; i++)
 	{
-		var card = zoneA.cards[i];
+		var card = lookupCard(zoneA.cards[i], gs);
 		var value = card.attributes["value"];
 		var counter = 0;
 		for (var j = 0; j < zoneA.cards.length; j++)
 		{
-			var card2 = zoneA.cards[j];
+			var card2 = lookupCard(zoneA.cards[j], gs);
 			var value2 = card2.attributes["value"];
 			if (value == value2)
 			{
