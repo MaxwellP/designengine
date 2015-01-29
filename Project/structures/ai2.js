@@ -31,9 +31,8 @@ function runAI_abnm (player, gs, gd, limit) {
 		console.log("Reached loop limit");
 		return;
 	}
-	//*** Is it player or player.name?
-	//****** HOW TO GET ALTPLAYERNAME???? look it up
-	var action = getBestMove(gs, gd, 2, player, altPlayerName);
+	var altPlayer = getAltPlayer(player, gs);
+	var action = getBestMove(gs, gd, 2, player, altPlayer);
 	if (gs.turnPlayer == player.name)
 	{
 		runAI_abnm(player, gs, gd, limit - 1);

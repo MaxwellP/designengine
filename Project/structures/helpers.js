@@ -179,4 +179,21 @@ function cartProd() {
 function objectClone (oldObject) 
 {
 	return JSON.parse(JSON.stringify(oldObject));
-};
+}
+
+//Give the player's name and gs, get the other player's name
+//Works like lookupPlayer but opposite
+function getAltPlayer (player, gs)
+{
+	for (var i = 0; i < gs.players.length; i++)
+	{
+		if (gs.players[i].name != name)
+		{
+			return gs.players[i];
+		}
+	}
+
+	console.log("No player NOT named \"" + name + "\" exists");
+	throw new Error("Alternate Player Lookup Error");
+	return false;
+}
