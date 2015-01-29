@@ -14,10 +14,10 @@ function putInZoneResult()
 	var player = arguments[arguments.length - 3];
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var zone = lookupZone(arguments[0], gamestate);
+	var zone = arguments[0];
 
 	//Move card to new zone
-	Event.moveCardToZone(action.card, zone, gamestate);
+	Event.moveCardToZone(action.card.id, zone, gamestate);
 	Event.endPhase(gamestate);
 };
 

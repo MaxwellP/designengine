@@ -55,13 +55,16 @@ function gotAnyResult()
 	var gamestate = arguments[arguments.length - 1];
 	var cardWasMoved = false;
 
+	var p1Hand = lookupZone("P1 Hand", gamestate);
+	var p2Hand = lookupZone("P2 Hand", gamestate);
+
 	if(player.name == "P1")
 	{
-		for(var i = 0; i < lookupZone("P2 Hand", gamestate).cards.length; i += 1)
+		for(var i = 0; i < p2Hand.cards.length; i += 1)
 		{
-			if(lookupZone("P2 Hand", gamestate).cards[i].attributes.value == action.card.attributes.value)
+			if(lookupCard(p2Hand.cards[i], gamestate).attributes.value == action.card.attributes.value)
 			{
-				Event.moveCardToZone(lookupZone("P2 Hand", gamestate).cards[i], "P1 Hand", gamestate);
+				Event.moveCardToZone(p2Hand.cards[i], "P1 Hand", gamestate);
 				cardWasMoved = true;
 			}
 		}
@@ -73,11 +76,11 @@ function gotAnyResult()
 	}
 	else
 	{
-		for(var i = 0; i < lookupZone("P1 Hand", gamestate).cards.length; i += 1)
+		for(var i = 0; i < p1Hand.cards.length; i += 1)
 		{
-			if(lookupZone("P1 Hand", gamestate).cards[i].attributes.value == action.card.attributes.value)
+			if(lookupCard(p1Hand.cards[i], gamestate).attributes.value == action.card.attributes.value)
 			{
-				Event.moveCardToZone(lookupZone("P1 Hand", gamestate).cards[i], "P2 Hand", gamestate);
+				Event.moveCardToZone(p1Hand.cards[i], "P2 Hand", gamestate);
 				cardWasMoved = true;
 			}
 		}
@@ -131,7 +134,7 @@ function askPhaseInit()
 	var gamestate = arguments[arguments.length - 1];
 	if(lookupPlayer(gamestate.turnPlayer, gamestate) == "P1")
 	{
-		if(lookupZone("P1 Hand", gamestate))
+		if(lookupZone("P1 Hand", gamestate).cards.length == 0)
 		{
 			for(var i = 0; i < 7; i += 1)
 			{
@@ -141,7 +144,7 @@ function askPhaseInit()
 	}
 	else
 	{
-		if(lookupZone("P2 Hand", gamestate))
+		if(lookupZone("P2 Hand", gamestate).cards.length == 0)
 		{
 			for(var i = 0; i < 7; i += 1)
 			{

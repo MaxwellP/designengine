@@ -79,6 +79,9 @@ function renderFrame () {
 
 	updateGUI(currentGS);
 
+	//QUICK FIX
+	zoneGridLayout(currentGS.zones);
+
 	drawAllZones(currentGS);
 	drawAllCards(currentGS);
 	drawAllPopUpMenus();
