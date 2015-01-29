@@ -55,7 +55,7 @@ function gotAnyResult()
 
 	if(player.name == "P1")
 	{
-		for(var i = 0; i < lookupZone("P2 Hand", gamestate).cards.length; i ++ 1;)
+		for(var i = 0; i < lookupZone("P2 Hand", gamestate).cards.length; i += 1)
 		{
 			if(lookupZone("P2 Hand", gamestate).cards[i].attributes["value"] == action.card.attributes["value"])
 			{
@@ -71,7 +71,7 @@ function gotAnyResult()
 	}
 	else
 	{
-		for(var i = 0; i < lookupZone("P1 Hand", gamestate).cards.length; i ++ 1;)
+		for(var i = 0; i < lookupZone("P1 Hand", gamestate).cards.length; i += 1)
 		{
 			if(lookupZone("P1 Hand", gamestate).cards[i].attributes["value"] == action.card.attributes["value"])
 			{
