@@ -22,8 +22,11 @@ function readJSON(file)
 		initialize(newGameDescription);
 		gameDescription = newGameDescription;
 		currentGS = gameState;
+		Init();
 	};
 	request.send();
+
+
 };
 
 
@@ -103,6 +106,27 @@ function generateActionsFromCard (card, gs, gd)
 			}
 		}
 	}
+	return actionList;
+}
+
+function generateActionsWithoutInputs(card, gs)
+{
+	var actionList = [];
+	for (var i = 0; i < card.actions.length; i++)
+	{
+		var actionTemp = lookupActionTemplate(card.actions[i].templateName, gameDescription);
+
+		var action = new Action (
+			actionTemp.name,
+			actionTemp,
+			card,
+			[],
+			actionTemp.name + "CheckLegality",
+			actionTemp.name + "Result");
+		
+		actionList.push(action);
+	}
+
 	return actionList;
 }
 
