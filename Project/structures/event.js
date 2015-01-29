@@ -17,7 +17,7 @@ var Event = {
 		zone.cards.push(card.id);
 		card.zone = zone.name;
 
-		gameLog("Moved card with id: " + card.id + " to zone " + zone.name + ".");
+		gameLog("	Moved card: " + card.name + " (Id: " + card.id + ") from zone: " + prevOwner.name + " to zone: " + zone.name + ".");
 	},
 	changeAttribute: function (obj, attributeName, newValue, gs)
 	{

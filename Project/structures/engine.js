@@ -239,3 +239,7 @@ function gameLog (string) {
 		console.log(string);
 	}
 }
+
+
+//Start the Go Fish game
+readJSON("fish");

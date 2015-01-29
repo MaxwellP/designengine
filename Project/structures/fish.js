@@ -47,6 +47,11 @@ function fishSetup()
 			}
 		}
 	}
+	//Sort both hands and move quads to piles
+	sortCardsInZone(lookupZone("P1 Hand", gamestate));
+	moveQuadsFromZoneAtoZoneB("P1 Hand", "P1 Pile", gamestate);
+	sortCardsInZone(lookupZone("P2 Hand", gamestate));
+	moveQuadsFromZoneAtoZoneB("P2 Hand", "P2 Pile", gamestate);
 }
 
 function compareCards (a, b) {
@@ -104,12 +109,12 @@ function moveQuadsFromZoneAtoZoneB (zoneAName, zoneBName, gs) {
 	for (var i = 0; i < zoneA.cards.length; i++)
 	{
 		var card = lookupCard(zoneA.cards[i], gs);
-		var value = card.attributes["value"];
+		var value = card.attributes.value;
 		var counter = 0;
 		for (var j = 0; j < zoneA.cards.length; j++)
 		{
 			var card2 = lookupCard(zoneA.cards[j], gs);
-			var value2 = card2.attributes["value"];
+			var value2 = card2.attributes.value;
 			if (value == value2)
 			{
 				counter += 1;
@@ -119,11 +124,15 @@ function moveQuadsFromZoneAtoZoneB (zoneAName, zoneBName, gs) {
 		{
 			for (var j = 0; j < zoneA.cards.length; j++)
 			{
-				var cardId = zoneA.cards[j];
-				//If the card is not already in the cardsToMove array
-				if (cardsToMove.indexOf(cardId) == -1)
+				var card3 = lookupCard(zoneA.cards[j], gs);
+				if (card3.attributes.value == value)
 				{
-					cardsToMove.push(zoneA.cards[j]);
+					var card3Id = zoneA.cards[j];
+					//If the card is not already in the cardsToMove array
+					if (cardsToMove.indexOf(card3Id) == -1)
+					{
+						cardsToMove.push(card3Id);
+					}
 				}
 			}
 		}
@@ -159,6 +168,8 @@ function gotAnyResult()
 			Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P1 Hand", gamestate);
 			Event.endPhase(gamestate);
 		}
+		sortCardsInZone(p1Hand);
+		moveQuadsFromZoneAtoZoneB("P1 Hand", "P1 Pile", gamestate);
 	}
 	else
 	{
@@ -175,6 +186,8 @@ function gotAnyResult()
 			Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P2 Hand", gamestate);
 			Event.endPhase(gamestate);
 		}
+		sortCardsInZone(p2Hand);
+		moveQuadsFromZoneAtoZoneB("P2 Hand", "P2 Pile", gamestate);
 	}
 
 }
