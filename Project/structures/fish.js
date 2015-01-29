@@ -49,8 +49,51 @@ function fishSetup()
 	}
 }
 
-function sortCardsInZone (zone) {
+function compareCards (a, b) {
+	var aNum = parseInt(lookupCard(a, currentGS).attributes.value);
+	var bNum = parseInt(lookupCard(b, currentGS).attributes.value);
 
+	if (!aNum)
+	{
+		switch (lookupCard(a, currentGS).attributes.value) {
+			case "Jack":
+				aNum = 11;
+				break;
+			case "Queen":
+				aNum = 12;
+				break;
+			case "King":
+				aNum = 13;
+				break;
+			case "Ace":
+				aNum = 14;
+				break;
+		}
+	}
+
+	if (!bNum)
+	{
+		switch (lookupCard(b, currentGS).attributes.value) {
+			case "Jack":
+				bNum = 11;
+				break;
+			case "Queen":
+				bNum = 12;
+				break;
+			case "King":
+				bNum = 13;
+				break;
+			case "Ace":
+				bNum = 14;
+				break;
+		}
+	}
+
+	return aNum - bNum;
+}
+
+function sortCardsInZone (zone) {
+	zone.cards.sort(compareCards);
 }
 
 //Find all quads of cards in zoneA and move them all to zoneB
