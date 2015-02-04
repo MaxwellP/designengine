@@ -39,7 +39,7 @@ function runAI_abnm (playerName, gs, gd, limit) {
 	var altPlayerObj = getAltPlayer(playerName, gs);
 
 	currentlySimulating = true;
-	var action = getBestAction(gs, gd, 2, playerName, altPlayerObj.name);
+	var action = getBestAction(gs, gd, 3, playerName, altPlayerObj.name);
 	currentlySimulating = false;
 	
 	//Apply action here
@@ -62,6 +62,12 @@ function ScoreAction (score, action) {
 
 //AB Negamax
 function abNegamax (gs, gd, maxDepth, currentDepth, alpha, beta, curPlayerName, altPlayerName) {
+	if (curPlayerName != gs.turnPlayer)
+	{
+		//console.log("Loop negamax because same turn player");
+		return abNegamax(gs, gd, maxDepth, currentDepth, - beta, - alpha, altPlayerName, curPlayerName);
+	}
+
 	//Game is over or done recursing
 	if (isGameOver(gs, gd) || currentDepth == maxDepth)
 	{
@@ -72,7 +78,7 @@ function abNegamax (gs, gd, maxDepth, currentDepth, alpha, beta, curPlayerName, 
 
 	var bestAction = undefined;
 	var bestScore = -Infinity;
-
+	
 	var curPlayerObj = lookupPlayer(curPlayerName, gs)
 
 	//Loop through possible actions
@@ -87,7 +93,9 @@ function abNegamax (gs, gd, maxDepth, currentDepth, alpha, beta, curPlayerName, 
 		//Recursion - use new game state, increase depth, swap and invert alpha / beta and consider new best scores, swap current/alternate players
 
 		//*** Needs to be changed to account for multiple actions by one player?
+
 		var recurse = abNegamax(newGS, gd, maxDepth, currentDepth + 1, - beta, - Math.max(alpha, bestScore), altPlayerName, curPlayerName);
+
 		//var recScore = recurse.score;
 		//var currentAction = recurse.action;
 		var currentScore = -recurse.score

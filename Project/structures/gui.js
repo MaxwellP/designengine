@@ -97,6 +97,7 @@ function CardGUIInfo (card)
 	this.id = card.id;
 	this.x = 0;
 	this.y = 0;
+	this.z = 0;
 	this.width = CARD_WIDTH;
 	this.height = CARD_HEIGHT;
 	this.fontSize = CARD_DEFAULT_FONT_SIZE;
@@ -163,11 +164,12 @@ function updateGUI (gs) {
 
 // Drawing functions
 
-function updateCard (card, x, y) {
+function updateCard (card, x, y, z) {
 	var cardInfo = lookupCardGUI(card);
 
 	cardInfo.x = x;
 	cardInfo.y = y;
+	cardInfo.z = z;
 }
 
 function drawCard (card) {
@@ -186,9 +188,11 @@ function drawCard (card) {
 	ctx.save();
 	ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Georgia";
 	ctx.fillStyle = "black";
-	ctx.textAlign = "center";
-	var cardTextX = cardGUI.x + (cardGUI.width / 2);
-	var cardTextY = cardGUI.y + (cardGUI.height / 2) + (cardGUI.fontSize / 4);
+	ctx.textAlign = "left";
+	//var cardTextX = cardGUI.x + (cardGUI.width / 2);
+	//var cardTextY = cardGUI.y + (cardGUI.height / 2) + (cardGUI.fontSize / 4);
+	var cardTextX = cardGUI.x;
+	var cardTextY = cardGUI.y + (cardGUI.fontSize / 2) + 5;
 	//ctx.fillText(card.value, cardTextX, cardTextY, cardGUI.width);
 	if (card.isVisibleTo(guiPlayer.name, currentGS))
 	{
@@ -199,9 +203,19 @@ function drawCard (card) {
 }
 
 function drawAllCards (gs) {
+	cardsGUIInfo.sort(cardCompare);
+	for (var i = 0; i < cardsGUIInfo.length; i++) {
+		drawCard(lookupCard(cardsGUIInfo[i].id, gs));
+	};
+	/*
 	for (var i = 0; i < gs.cards.length; i++) {
 		drawCard(gs.cards[i]);
 	};
+	*/
+}
+
+function cardCompare(a, b) {
+	return a.z - b.z;
 }
 
 function drawZoneBox (x, y, width, height, name) {
@@ -209,7 +223,7 @@ function drawZoneBox (x, y, width, height, name) {
 	ctx.beginPath();
 	ctx.lineWidth = ZONE_OUTLINE_WEIGHT;
 	ctx.strokeStyle = "#999999";
-	ctx.rect(x, y, width, height);
+	ctx.rect(x - (width / 2), y - (height / 2), width, height);
 	ctx.stroke();
 	ctx.restore();
 
@@ -219,7 +233,7 @@ function drawZoneBox (x, y, width, height, name) {
 		ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Georgia";
 		ctx.fillStyle = "#999999";
 		ctx.textAlign = "left";
-		ctx.fillText(name, x, y - ZONE_OUTLINE_WEIGHT, width);
+		ctx.fillText(name, x - (width / 2), y - (height / 2) - ZONE_OUTLINE_WEIGHT, width);
 		ctx.restore();
 	}
 }
@@ -243,8 +257,8 @@ function updateCardsInZones (gs) {
 	for (var h = 0; h < gs.zones.length; h++) {
 		var zone = gs.zones[h];
 		var zoneGUI = lookupZoneGUI(zone);
-		var x = zoneGUI.x;
-		var y = zoneGUI.y;
+		var x = zoneGUI.x - (zoneGUI.width / 2);
+		var y = zoneGUI.y - (zoneGUI.height / 2);
 
 		if (zone.type == "deck")
 		{
@@ -255,17 +269,17 @@ function updateCardsInZones (gs) {
 			var currentY = y + ZONE_MARGIN;
 			for (var i = 0; i < zone.cards.length; i++) {
 				var currentCard = lookupCard(zone.cards[i], gs);
-				if (i == zone.cards.length - 1)
+				if (i == 0)
 				{
-					updateCard(currentCard, currentX, currentY);
+					updateCard(currentCard, currentX, currentY, zone.cards.length);
 				}
-				else if (i == zone.cards.length - 2)
+				else if (i == 1)
 				{
-					updateCard(currentCard, currentX - DECK_OFFSET, currentY - DECK_OFFSET);
+					updateCard(currentCard, currentX - DECK_OFFSET, currentY - DECK_OFFSET, zone.cards.length - 1);
 				}
 				else
 				{
-					updateCard(currentCard, currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2));
+					updateCard(currentCard, currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2), zone.cards.length - i);
 				}
 			};
 
@@ -283,13 +297,21 @@ function updateCardsInZones (gs) {
 			zoneWidth = getZoneWidth(zone);
 			zoneHeight = getZoneHeight(zone);
 
+			var cardOffset = (zoneWidth - (2 * ZONE_MARGIN)) / zone.cards.length;
+			if (cardOffset < CARD_WIDTH)
+			{
+				var overlap = CARD_WIDTH - cardOffset;
+				cardOffset = (zoneWidth - (2 * ZONE_MARGIN) - overlap) / zone.cards.length;
+			}
+
 			var currentX = x + ZONE_MARGIN;
 			var currentY = y + ZONE_MARGIN;
 			for (var i = 0; i < zone.cards.length; i++) {
 				var currentCard = lookupCard(zone.cards[i], gs);
-				updateCard(currentCard, currentX, currentY);
-				currentX += CARD_WIDTH;
-				currentX += ZONE_MARGIN;
+				updateCard(currentCard, currentX, currentY, i);
+				//currentX += CARD_WIDTH;
+				currentX += cardOffset;
+				//currentX += ZONE_MARGIN;
 			};
 		}
 	};
@@ -297,18 +319,26 @@ function updateCardsInZones (gs) {
 
 function getZoneWidth (zone) {
 	var numCards = 1;
+	var zoneWidth;
 	if (zone.cards.length > 0)
 	{
 		numCards = zone.cards.length;
 	}
 	if (zone.type == "showEachCard")
 	{
-		return (numCards * CARD_WIDTH) + ((numCards + 1) * ZONE_MARGIN);
+		//zoneWidth = (numCards * CARD_WIDTH) + ((numCards + 1) * ZONE_MARGIN);
+		zoneWidth = (numCards * CARD_WIDTH) + (2 * ZONE_MARGIN);
 	}
 	else if (zone.type == "deck")
 	{
-		return CARD_WIDTH + (ZONE_MARGIN * 2);	
+		zoneWidth = CARD_WIDTH + (ZONE_MARGIN * 2);	
 	}
+
+	if (zoneWidth > canvas.width)
+	{
+		zoneWidth = canvas.width;
+	}
+	return zoneWidth;
 }
 
 function getZoneHeight (zone) {
@@ -365,8 +395,9 @@ function zoneGridLayout (fullZoneList) {
 		rowLengths[i] = rowLength;
 	};
 
-	var currentX = centerX - (rowLengths[0] / 2);
-	var currentY = centerY - (gridHeight / 2);
+	//var currentX = centerX - (rowLengths[0] / 2);
+	var currentX = centerX;
+	var currentY = centerY - (gridHeight / 2) + (rowHeight / 2);
 
 	// Draw rows
 	for (var i = 0; i < numRows; i++) {
@@ -379,12 +410,12 @@ function zoneGridLayout (fullZoneList) {
 		};
 		currentY += rowHeight;
 		currentY += ZONE_MARGIN;
-		currentX = centerX - (rowLengths[0] / 2);
+		currentX = centerX;
 	};
 
 	var p1HandGUI = lookupZoneGUI(fullZoneList[zoneList.length]);
-	p1HandGUI.x = (canvas.width / 2) - (p1HandGUI.width / 2)
-	p1HandGUI.y = (canvas.height) - (p1HandGUI.height);
+	p1HandGUI.x = (canvas.width / 2)
+	p1HandGUI.y = (canvas.height) - (p1HandGUI.height / 2);
 
 	var p2Height = 0;
 	if (SHOW_ZONE_NAMES)
@@ -392,8 +423,8 @@ function zoneGridLayout (fullZoneList) {
 		p2Height += CARD_DEFAULT_FONT_SIZE;
 	}
 	var p2HandGUI = lookupZoneGUI(fullZoneList[zoneList.length + 1]);
-	p2HandGUI.x = (canvas.width / 2) - (p2HandGUI.width / 2)
-	p2HandGUI.y = p2Height;
+	p2HandGUI.x = (canvas.width / 2)
+	p2HandGUI.y = p2Height + (p2HandGUI.height / 2);
 }
 
 function drawAllZones (gs) {
