@@ -1,0 +1,324 @@
+{
+    "project": {},
+    "files": {
+        "action.js": {
+            "name": "action.js",
+            "modules": {},
+            "classes": {
+                "Action": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "card.js": {
+            "name": "card.js",
+            "modules": {},
+            "classes": {
+                "Card": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "event.js": {
+            "name": "event.js",
+            "modules": {},
+            "classes": {
+                "Event": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "gameDescription.js": {
+            "name": "gameDescription.js",
+            "modules": {},
+            "classes": {
+                "GameDescription": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Action": {
+            "name": "Action",
+            "shortname": "Action",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "action.js",
+            "line": 1,
+            "description": "A logic based sequence of events",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- a unique identifier for the action",
+                    "type": "String"
+                },
+                {
+                    "name": "template",
+                    "description": "- the template from which this event is created",
+                    "type": "ActionTemplate"
+                },
+                {
+                    "name": "card",
+                    "description": "- an optional field containing the id of the card the action came from",
+                    "type": "Card"
+                },
+                {
+                    "name": "inputs",
+                    "description": "- an array of types over which the action takes place",
+                    "type": "Array"
+                },
+                {
+                    "name": "checkLegality",
+                    "description": "- the function returns whether or not the action is legal in a given game state",
+                    "type": "Function"
+                },
+                {
+                    "name": "result",
+                    "description": "- the function produces a new game state having preformed the action",
+                    "type": "Function"
+                }
+            ]
+        },
+        "Card": {
+            "name": "Card",
+            "shortname": "Card",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "card.js",
+            "line": 1,
+            "description": "An instance of a card type",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- a unique ID for this card",
+                    "type": "Int"
+                },
+                {
+                    "name": "zone",
+                    "description": "- the name of the zone that the card currently resides in",
+                    "type": "Zone"
+                },
+                {
+                    "name": "name",
+                    "description": "- the name of the card type that this card is an instance of",
+                    "type": "String"
+                },
+                {
+                    "name": "attributes",
+                    "description": "- an object containing all attributes for this card",
+                    "type": "Object"
+                },
+                {
+                    "name": "actions",
+                    "description": "- an array of all actions the card has",
+                    "type": "Array"
+                }
+            ]
+        },
+        "Event": {
+            "name": "Event",
+            "shortname": "Event",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "event.js",
+            "line": 1,
+            "description": "A namespace for fundamental gamestate manipulations"
+        },
+        "GameDescription": {
+            "name": "GameDescription",
+            "shortname": "GameDescription",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "gameDescription.js",
+            "line": 1,
+            "description": "Initial conditions for the game structure",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "zones",
+                    "description": "- an array of zones defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "cardTypes",
+                    "description": "- an array of card types defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "actionTemplates",
+                    "description": "- an array of action templates defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "players",
+                    "description": "- an array of players defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "init",
+                    "description": "-",
+                    "type": "Function"
+                },
+                {
+                    "name": "winCondition",
+                    "description": "- a designer defined function that returns when a game state is considered a termination state and who the victor is in that state",
+                    "type": "Function"
+                },
+                {
+                    "name": "functionFile",
+                    "description": "- the name of the file containing all designer defined functions",
+                    "type": "String"
+                },
+                {
+                    "name": "setupFunction",
+                    "description": "- a designer defined function that is run at the start of a game",
+                    "type": "Function"
+                },
+                {
+                    "name": "stateScore",
+                    "description": "- a designer defined function run at the start of a game",
+                    "type": "Function"
+                },
+                {
+                    "name": "phases",
+                    "description": "- an array of zones defined in the designer's json file",
+                    "type": "Array"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "card.js",
+            "line": 20,
+            "itemtype": "method",
+            "name": "Card.prototype.isVisibleTo",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the player who's ability to view the card is being questioned",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate over which the query is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "return": {
+                "description": "Returns true if the given player can view the card",
+                "type": "Boolean"
+            },
+            "class": "Card"
+        },
+        {
+            "file": "event.js",
+            "line": 7,
+            "itemtype": "method",
+            "name": "moveCardToZone",
+            "params": [
+                {
+                    "name": "cardID",
+                    "description": "- the unique identification number of the card being moved",
+                    "type": "Int"
+                },
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone to which the card is being moved to",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "event.js",
+            "line": 32,
+            "itemtype": "method",
+            "name": "changeAttribute",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "- the object whose attribute value is being changed",
+                    "type": "Object"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "newValue",
+                    "description": "- the new value being given to the object's attribute",
+                    "type": "..."
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "event.js",
+            "line": 44,
+            "itemtype": "method",
+            "name": "endPhase",
+            "params": [
+                {
+                    "name": "gs",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "event.js",
+            "line": 69,
+            "itemtype": "method",
+            "name": "endTurn",
+            "params": [
+                {
+                    "name": "gs",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "gameDescription.js",
+            "line": 44,
+            "itemtype": "method",
+            "name": "GameDescription.prototype.initializeGameState",
+            "return": {
+                "description": "Returns the starting game state based on this game structure",
+                "type": "GameState"
+            },
+            "class": "GameDescription"
+        }
+    ],
+    "warnings": []
+}

@@ -1,5 +1,19 @@
-/* Initial Conditions for the game structure*/
-
+/**
+* Initial conditions for the game structure
+*
+* @class GameDescription
+* @constructor
+* @param {Array} zones - an array of zones defined in the designer's json file
+* @param {Array} cardTypes - an array of card types defined in the designer's json file
+* @param {Array} actionTemplates - an array of action templates defined in the designer's json file
+* @param {Array} players - an array of players defined in the designer's json file
+* @param {Function} init - 
+* @param {Function} winCondition - a designer defined function that returns when a game state is considered a termination state and who the victor is in that state
+* @param {String} functionFile - the name of the file containing all designer defined functions
+* @param {Function} setupFunction - a designer defined function that is run at the start of a game
+* @param {Function} stateScore - a designer defined function run at the start of a game
+* @param {Array} phases - an array of zones defined in the designer's json file
+*/
 function GameDescription (zones, cardTypes, actionTemplates, players, init, winCondition, functionFile, setupFunction, stateScore, phases) {
 	var playerArr = [];
 	for (var i = 0; i < players.length; i++) {
@@ -27,8 +41,10 @@ function GameDescription (zones, cardTypes, actionTemplates, players, init, winC
 	this.phases = phases;
 	this.cards = [];
 }
-
-//Creates the starting game state based on this game structure
+/**
+* @method GameDescription.prototype.initializeGameState
+* @return {GameState} Returns the starting game state based on this game structure
+*/
 GameDescription.prototype.initializeGameState = function() {
 	var newGS = new GameState(
 		this.players,

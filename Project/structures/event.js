@@ -1,5 +1,15 @@
-/*Event: a namespace for fundamental gamestate manipulations*/
+/**
+* A namespace for fundamental gamestate manipulations
+*
+* @class Event
+*/
 var Event = {
+	/**
+	* @method moveCardToZone
+	* @param {Int} cardID - the unique identification number of the card being moved
+	* @param {String} zoneName - the name of the zone to which the card is being moved to
+	* @param {GameState} gs - the gamestate in which this event is taking place
+	*/
 	moveCardToZone: function(cardID, zoneName, gs)
 	{
 		var card = lookupCard(cardID, gs);
@@ -19,11 +29,22 @@ var Event = {
 
 		gameLog("	Moved card: " + card.name + " (Id: " + card.id + ") from zone: " + prevOwner.name + " to zone: " + zone.name + ".");
 	},
+	/**
+	* @method changeAttribute
+	* @param {Object} obj - the object whose attribute value is being changed
+	* @param {String} attributeName - the name of the attribute to be changed
+	* @param {...} newValue - the new value being given to the object's attribute
+	* @param {GameState} gs - the gamestate in which this event is taking place
+	*/
 	changeAttribute: function (obj, attributeName, newValue, gs)
 	{
 		/*do lookup*/
 		obj.attributeName = newValue;
 	},
+	/**
+	* @method endPhase
+	* @param {GameState} gs - the gamestate in which this event is taking place
+	*/
 	endPhase: function (gs)
 	{
 		gameLog("End phase \"" + gs.currentPhase + "\".");
@@ -45,6 +66,10 @@ var Event = {
 		window[lookupPhase(gs.currentPhase, gameDescription).init].apply(this, [gs]);
 
 	},
+	/**
+	* @method endTurn
+	* @param {GameState} gs - the gamestate in which this event is taking place
+	*/
 	endTurn: function (gs)
 	{
 		var player = lookupPlayer(gs.turnPlayer, gs);
