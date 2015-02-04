@@ -18,3 +18,9 @@ Zone.prototype.isVisibleTo = function(playerName) {
 	};
 	return false;
 };
+
+Zone.prototype.clone = function() {
+	var zoneClone = new Zone(this.name, objectClone(this.attributes), this.type, objectClone(this.visibleTo));
+	zoneClone.cards = objectClone(this.cards);
+	return zoneClone;
+};

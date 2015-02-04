@@ -124,6 +124,7 @@ function lookupCard(id, gs) {
 		}
 	}
 	console.log("Could not find card with id \"" + id + "\".");
+	throw new Error("Card Lookup Error");
 	return false;
 }
 
@@ -134,7 +135,6 @@ function lookupPlayer (name, gs) {
 			return gs.players[i];
 		}
 	};
-
 	console.log("No player named \"" + name + "\" exists");
 	throw new Error("Player Lookup Error");
 	return false;
@@ -183,11 +183,11 @@ function objectClone (oldObject)
 
 //Give the player's name and gs, get the other player's name
 //Works like lookupPlayer but opposite
-function getAltPlayer (player, gs)
+function getAltPlayer (playerName, gs)
 {
 	for (var i = 0; i < gs.players.length; i++)
 	{
-		if (gs.players[i].name != name)
+		if (gs.players[i].name != playerName)
 		{
 			return gs.players[i];
 		}

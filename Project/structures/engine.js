@@ -234,7 +234,7 @@ function isGameOver(gs, gd)
 }
 
 function gameLog (string) {
-	if (printLog)
+	if (printLog && !currentlySimulating)
 	{
 		console.log(string);
 	}

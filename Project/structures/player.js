@@ -1,7 +1,11 @@
 /*Player: a place that contains cards*/
-function Player(name, attributes, zones, isAI)
+function Player(name, attributes, zones, isAI, isAClone)
 {
-	this.id = getNewPlayerID();
+	//Only get new ID if not cloning the card
+	if (isAClone !== true)
+	{
+		this.id = getNewPlayerID();
+	}
 	this.name = name;
 	this.attributes = attributes;
 	this.zones = zones;
@@ -17,4 +21,10 @@ Player.prototype.controlsZone = function(zoneName) {
 		}
 	};
 	return false;
+};
+
+Player.prototype.clone = function() {
+	var playerClone = new Player(this.name, objectClone(this.attributes), objectClone(this.zones), this.isAI, true); 
+	playerClone.id = this.id;
+	return playerClone;
 };
