@@ -155,7 +155,7 @@ function gotAnyResult()
 
 	if(player.name == "P1")
 	{
-		for(var i = 0; i < p2Hand.cards.length; i += 1)
+		for (var i = p2Hand.cards.length - 1; i >= 0; i--)
 		{
 			if(lookupCard(p2Hand.cards[i], gamestate).attributes.value == action.card.attributes.value)
 			{
@@ -173,7 +173,7 @@ function gotAnyResult()
 	}
 	else
 	{
-		for(var i = 0; i < p1Hand.cards.length; i += 1)
+		for (var i = p1Hand.cards.length - 1; i >= 0; i--)
 		{
 			if(lookupCard(p1Hand.cards[i], gamestate).attributes.value == action.card.attributes.value)
 			{
@@ -209,25 +209,56 @@ function fishWinCondition()
 		if(lookupZone("P1 Pile", gamestate).cards.length > lookupZone("P2 Pile", gamestate).cards.length)
 		{
 			console.log("Player 1 Wins");
+			return lookupPlayer("P1");
 		}
 		else if(lookupZone("P2 Pile", gamestate).cards.length > lookupZone("P1 Pile", gamestate).cards.length)
 		{
 			console.log("Player 2 Wins");
+			return lookupPlayer("P2");
 		}
 		else
 		{
 			console.log("Players 1 and 2 Tied");
+			return true;
 		}
-		return true;
 	}
 	else
 	{
 		return false;
 	}
 }
+
+//Arguments end with: gs, playerName
 function fishStateScore()
 {
 	var gamestate = arguments[arguments.length - 1];
+	var playerName = arguments[arguments.length - 2];
+	//TODO: fish this
+
+	/*var curPlayerObj = lookupPlayer(playerName, gamestate);
+	var altPlayerObj = getAltPlayer(playerName, gamestate);*/
+
+	var curPlayerPile;
+	var altPlayerPile;
+	var curPlayerHand;
+	var altPlayerHand;
+
+	if (playerName == "P1")
+	{
+		curPlayerPile = lookupZone("P1 Pile", gamestate);
+		altPlayerPile = lookupZone("P2 Pile", gamestate);
+		curPlayerHand = lookupZone("P1 Hand", gamestate);
+		altPlayerHand = lookupZone("P2 Hand", gamestate);
+	}
+	else
+	{
+		curPlayerPile = lookupZone("P2 Pile", gamestate);
+		altPlayerPile = lookupZone("P1 Pile", gamestate);
+		curPlayerHand = lookupZone("P2 Hand", gamestate);
+		altPlayerHand = lookupZone("P1 Hand", gamestate);
+	}
+
+	return curPlayerPile.cards.length - altPlayerPile.cards.length + (curPlayerHand.cards.length / 4) - (altPlayerHand.cards.length / 4);
 }
 function askPhaseInit()
 {
@@ -258,4 +289,16 @@ function askPhaseEnd()
 {
 	var gamestate = arguments[arguments.length - 1];
 	return false;
+}
+
+function dispDeckOrder () {
+	var message = "";
+	var deck = lookupZone("deck", currentGS);
+	for (var i = 0; i < deck.cards.length; i++)
+	{
+		var card = lookupCard(deck.cards[i], currentGS);
+		message += card.name;
+		message += ", ";
+	}
+	console.log(message);
 }

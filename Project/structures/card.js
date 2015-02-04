@@ -9,9 +9,12 @@
 * @param {Object} attributes - an object containing all attributes for this card
 * @param {Array} actions - an array of all actions the card has
 */
-function Card(name, zone, attributes, actions)
+function Card(name, zone, attributes, actions, isAClone)
 {
-	this.id = getNewCardID();
+	if (isAClone !== true)
+	{
+		this.id = getNewCardID();
+	}
 	this.zone = zone;
 	this.name = name;
 	this.attributes = attributes;
@@ -26,4 +29,10 @@ function Card(name, zone, attributes, actions)
 Card.prototype.isVisibleTo = function(playerName, gs) {
 	var cardZone = lookupZone(this.zone, gs);
 	return cardZone.isVisibleTo(playerName);
+};
+
+Card.prototype.clone = function() {
+	var cardClone = new Card(this.name, this.zone, objectClone(this.attributes), objectClone(this.actions), true);
+	cardClone.id = this.id;
+	return cardClone;
 };

@@ -86,9 +86,9 @@ var Event = {
 
 		player = lookupPlayer(gs.turnPlayer, gs)
 		//Run AI if it is AI's turn
-		if (player.isAI)
+		if (player.isAI && !currentlySimulating)
 		{
-			runAI_random(player, gs, gameDescription, 10);
+			runAI_abnm(player.name, gs, gameDescription, 5);
 		}
 	}
 };
