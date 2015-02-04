@@ -55,6 +55,9 @@ function Init () {
 	canvas = document.getElementById("Canvas2D");
 	ctx = canvas.getContext('2d');
 
+	canvas.width = window.innerWidth - 20;
+	canvas.height = window.innerHeight - 20;
+
 	initCardGUIInfo(currentGS);
 	initZoneGUIInfo(currentGS);
 
