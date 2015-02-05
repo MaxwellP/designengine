@@ -169,10 +169,13 @@ function gotAnyResult()
 			{
 				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P1 Hand", gamestate);
 			}
-			Event.endPhase(gamestate);
 		}
 		sortCardsInZone(p1Hand);
 		moveQuadsFromZoneAtoZoneB("P1 Hand", "P1 Pile", gamestate);
+		if(!cardWasMoved)
+		{
+			Event.endPhase(gamestate);
+		}
 	}
 	else
 	{
@@ -190,10 +193,13 @@ function gotAnyResult()
 			{
 				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P2 Hand", gamestate);
 			}
-			Event.endPhase(gamestate);
 		}
 		sortCardsInZone(p2Hand);
 		moveQuadsFromZoneAtoZoneB("P2 Hand", "P2 Pile", gamestate);
+		if(!cardWasMoved)
+		{
+			Event.endPhase(gamestate);
+		}
 	}
 
 }
