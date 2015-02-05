@@ -20,7 +20,7 @@ function playCardResult()
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
-	Event.moveCardToZone(action.card, "P2 Pile", gamestate);
+	Event.moveCardToZone(action.card.id, "P2 Pile", gamestate);
 }
 function playCardCheckLegality()
 {
@@ -61,11 +61,11 @@ function AIGameWinCondition()
 			var card = lookupCard(pile.cards[i], gamestate);
 			if (card.name != "B")
 			{
-				return lookupPlayer("P1");
+				return lookupPlayer("P1", gamestate);
 			}
 		}
 		//All "B" cards - P2 wins
-		return lookupPlayer("P2");
+		return lookupPlayer("P2", gamestate);
 	}
 	else
 	{

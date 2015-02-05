@@ -78,7 +78,7 @@ function generateActionsFromCard (card, gs, gd)
 			var action = new Action (
 				actionTemp.name,
 				actionTemp,
-				`,
+				card,
 				[],
 				actionTemp.name + "CheckLegality",
 				actionTemp.name + "Result");
