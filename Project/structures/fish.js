@@ -165,7 +165,10 @@ function gotAnyResult()
 		}
 		if(!cardWasMoved)
 		{
-			Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P1 Hand", gamestate);
+			if (lookupZone("deck", gamestate).cards.length > 0)
+			{
+				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P1 Hand", gamestate);
+			}
 			Event.endPhase(gamestate);
 		}
 		sortCardsInZone(p1Hand);
@@ -183,7 +186,10 @@ function gotAnyResult()
 		}
 		if(!cardWasMoved)
 		{
-			Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P2 Hand", gamestate);
+			if (lookupZone("deck", gamestate).cards.length > 0)
+			{
+				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P2 Hand", gamestate);
+			}
 			Event.endPhase(gamestate);
 		}
 		sortCardsInZone(p2Hand);
