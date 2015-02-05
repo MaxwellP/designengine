@@ -21,6 +21,8 @@ function playCardResult()
 	var gamestate = arguments[arguments.length - 1];
 
 	Event.moveCardToZone(action.card.id, "P2 Pile", gamestate);
+	
+	Event.endPhase(gamestate);
 }
 function playCardCheckLegality()
 {

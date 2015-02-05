@@ -92,7 +92,7 @@ var Event = {
 		//Run AI if it is AI's turn
 		if (player.isAI && !currentlySimulating)
 		{
-			runAI_abnm(player.name, gs, gameDescription, 5);
+			runAI_abnm(player.name, gs, gameDescription, MAX_CONSEC_TURNS);
 		}
 	}
 };

@@ -217,7 +217,7 @@ function checkWin(gs, gd)
 	var result = window[gd.winCondition].apply(this, [gs]);
 	if (result)
 	{
-		console.log("Player " + result.name + " wins!");
+		gameLog("****	Player " + result.name + " wins!");
 		return true;
 	}
 	else

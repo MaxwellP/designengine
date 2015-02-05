@@ -1,5 +1,9 @@
 var currentlySimulating = false;
 
+var DEPTH = 80;
+
+var MAX_CONSEC_TURNS = 10;
+
 function pickRandomLegalAction (player, gs) {
 	var legalActions = getLegalActions(player, gs);
 	if (legalActions.length == 0)
@@ -39,10 +43,15 @@ function runAI_abnm (playerName, gs, gd, limit) {
 	var altPlayerObj = getAltPlayer(playerName, gs);
 
 	currentlySimulating = true;
-	var action = getBestAction(gs, gd, 3, playerName, altPlayerObj.name);
+	var action = getBestAction(gs, gd, DEPTH, playerName, altPlayerObj.name);
 	currentlySimulating = false;
 	
 	//Apply action here
+	if (!action)
+	{
+		console.log("No action found. (Game ended)");
+		return;
+	}
 	applyAction(action, lookupPlayer(playerName, gs), gs);
 
 	if (gs.turnPlayer == playerName)
