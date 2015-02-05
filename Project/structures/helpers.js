@@ -1,16 +1,34 @@
-
+/**
+* Helper functions
+* @Class Helpers
+*/
 //Determines the next ID number
 var cardIDCounter = 0;
+/**
+* Creates a new unique id for cards
+* @method getNewCardID
+* @return {Int} Returns the newly created id
+*/
 function getNewCardID () {
 	return cardIDCounter ++;
 }
-
-//Determines the next ID number
+/**
+* Determines the next ID number for players
+* @method getNewPlayerID
+* @return {Int} Returns the newly created id
+*/
 var playerIDCounter = 0;
 function getNewPlayerID () {
 	return playerIDCounter ++;
 }
-
+/**
+* Search for a specific by given search parameters
+* @method getNewPlayerID
+* @param {Array} parameterArray - 
+* @param {Array} valueArray - 
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Zone} Returns the zone if found
+*/
 function lookupZoneByParam(parameterArray, valueArray, gs)
 {
 	for (var i = 0; i < gs.zones.length; i++) {
@@ -28,7 +46,13 @@ function lookupZoneByParam(parameterArray, valueArray, gs)
 	};
 	return false;
 };
-
+/**
+* Search for a specific zone by name
+* @method lookupZone
+* @param {String} name - the name of the zone being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Zone} Returns the zone if found
+*/
 function lookupZone (name, gs) {
 	for (var i = 0; i < gs.zones.length; i++) {
 		if (gs.zones[i].name == name)
@@ -40,7 +64,13 @@ function lookupZone (name, gs) {
 	throw new Error("Zone Lookup Error");
 	return false;
 }
-
+/**
+* Search for a specific card type by name
+* @method lookupCardType
+* @param {String} name - the name of the card type being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {CardType} Returns the card type if found
+*/
 function lookupCardType(name, gd)
 {
 	for(var i = 0; i < gd.cardTypes.length; i += 1)
@@ -53,7 +83,13 @@ function lookupCardType(name, gd)
 	console.log("Could not find cardType with name \"" + name + "\".");
 	return false;
 };
-
+/**
+* Search for a specific action template type by name
+* @method lookupActionTemplate
+* @param {String} name - the name of the action template being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {ActionTemplate} Returns the action template type if found
+*/
 function lookupActionTemplate (name, gd)
 {
 	for (var i = 0; i < gd.actionTemplates.length; i++)
@@ -66,7 +102,13 @@ function lookupActionTemplate (name, gd)
 	console.log("No template named \"" + name + "\" exists");
 	return false;
 }
-
+/**
+* Search for a specific phase type by name
+* @method lookupActionTemplate
+* @param {String} name - the name of the phase being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Phase} Returns the phase type if found
+*/
 function lookupPhase (name, gd)
 {
 	for (var i = 0; i < gd.phases.length; i++)
@@ -80,7 +122,12 @@ function lookupPhase (name, gd)
 	throw new Error("Phase Lookup Error");
 	return false;
 }
-
+/**
+* Get the array of all zone names
+* @method getZoneNameArray
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns a list of all zone names
+*/
 function getZoneNameArray (gs)
 {
 	var zoneNames = [];
@@ -90,7 +137,12 @@ function getZoneNameArray (gs)
 	}
 	return zoneNames;
 }
-
+/**
+* Get the array of all player names
+* @method getPlayerNameArray
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns a list of all player names
+*/
 function getPlayerNameArray (gs)
 {
 	var playerNames = [];
@@ -100,7 +152,12 @@ function getPlayerNameArray (gs)
 	}
 	return playerNames;
 }
-
+/**
+* Get the array of all card id's
+* @method getCardIDArray
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns a list of all card id's
+*/
 function getCardIDArray (gs)
 {
 	var cardIDs = [];
@@ -110,9 +167,15 @@ function getCardIDArray (gs)
 	}
 	return cardIDs;
 }
-
+/**
+* Get the card with the given id
+* @method getCardIDArray
+* @param {Int} id - the id of the card being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns the card with the given id
+*/
 function lookupCard(id, gs) {
-	//Experimental version:
+	//Experimental version: doesn't work if cards are ever removed
 	//return gs.cards[id];
 
 	//Reliable version
@@ -127,7 +190,13 @@ function lookupCard(id, gs) {
 	throw new Error("Card Lookup Error");
 	return false;
 }
-
+/**
+* Search for a player by name
+* @method lookupPlayer
+* @param {String} name - the name of the player being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Player} Returns the player if found
+*/
 function lookupPlayer (name, gs) {
 	for (var i = 0; i < gs.players.length; i++) {
 		if (gs.players[i].name == name)
@@ -139,10 +208,12 @@ function lookupPlayer (name, gs) {
 	throw new Error("Player Lookup Error");
 	return false;
 }
-
-//Using a function found from:
-//http://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript
-//(Second answer, from ckozl)
+/**
+* A Cartesian Product function that acts on all given arrays.
+* Found here: http://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript
+* @method cartProd
+* @return {Array} Returns all possible combinations of elements taking a single element from each array
+*/
 function cartProd() {
 	var args = [].slice.call(arguments);
 
@@ -174,15 +245,23 @@ function cartProd() {
 	}
 	return result;
 }
-
-//Object clone function
+/**
+* Create a clone of a given Javascript object
+* @method lookupPlayer
+* @param {Object} oldObject - the object to be cloned
+* @return {Object} Returns the cloned object
+*/
 function objectClone (oldObject) 
 {
 	return JSON.parse(JSON.stringify(oldObject));
 }
-
-//Give the player's name and gs, get the other player's name
-//Works like lookupPlayer but opposite
+/**
+* Gets the first player with a name other than the given name
+* @method getAltPlayer
+* @param {String} playerName - the name of the player not being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Object} Returns the first player with a name not equal to the given one
+*/
 function getAltPlayer (playerName, gs)
 {
 	for (var i = 0; i < gs.players.length; i++)

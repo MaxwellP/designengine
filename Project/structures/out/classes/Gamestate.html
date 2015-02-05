@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>GameDescription</title>
+    <title>Gamestate</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -83,12 +83,12 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>GameDescription Class</h1>
+<h1>Gamestate Class</h1>
 <div class="box meta">
 
 
         <div class="foundat">
-            Defined in: <a href="../files/gameDescription.js.html#l1"><code>gameDescription.js:1</code></a>
+            Defined in: <a href="../files/gamestate.js.html#l1"><code>gamestate.js:1</code></a>
         </div>
 
 
@@ -96,46 +96,31 @@
 
 
 <div class="box intro">
-    <p>Initial conditions for the game structure</p>
+    <p>The state of the dynamic elements of the game</p>
 
 </div>
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_GameDescription" class="method item">
-            <h3 class="name"><code>GameDescription</code></h3>
+        <div id="method_Gamestate" class="method item">
+            <h3 class="name"><code>Gamestate</code></h3>
         
                 <div class="args">
                     <span class="paren">(</span><ul class="args-list inline commas">
                         <li class="arg">
-                                <code>zones</code>
-                        </li>
-                        <li class="arg">
-                                <code>cardTypes</code>
-                        </li>
-                        <li class="arg">
-                                <code>actionTemplates</code>
-                        </li>
-                        <li class="arg">
                                 <code>players</code>
                         </li>
                         <li class="arg">
-                                <code>init</code>
+                                <code>zones</code>
                         </li>
                         <li class="arg">
-                                <code>winCondition</code>
+                                <code>cards</code>
                         </li>
                         <li class="arg">
-                                <code>functionFile</code>
+                                <code>currentPhase</code>
                         </li>
                         <li class="arg">
-                                <code>setupFunction</code>
-                        </li>
-                        <li class="arg">
-                                <code>stateScore</code>
-                        </li>
-                        <li class="arg">
-                                <code>phases</code>
+                                <code>turnPlayer</code>
                         </li>
                     </ul><span class="paren">)</span>
                 </div>
@@ -150,7 +135,7 @@
             <div class="meta">
                         <p>
                         Defined in
-                <a href="../files/gameDescription.js.html#l1"><code>gameDescription.js:1</code></a>
+                <a href="../files/gamestate.js.html#l1"><code>gamestate.js:1</code></a>
                 </p>
         
         
@@ -166,128 +151,65 @@
         
                     <ul class="params-list">
                         <li class="param">
-                                <code class="param-name">zones</code>
-                                <span class="type">Array</span>
-        
-        
-                            <div class="param-description">
-                                <ul>
-        <li>an array of zones defined in the designer&#39;s json file</li>
-        </ul>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
-                                <code class="param-name">cardTypes</code>
-                                <span class="type">Array</span>
-        
-        
-                            <div class="param-description">
-                                <ul>
-        <li>an array of card types defined in the designer&#39;s json file</li>
-        </ul>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
-                                <code class="param-name">actionTemplates</code>
-                                <span class="type">Array</span>
-        
-        
-                            <div class="param-description">
-                                <ul>
-        <li>an array of action templates defined in the designer&#39;s json file</li>
-        </ul>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
                                 <code class="param-name">players</code>
                                 <span class="type">Array</span>
         
         
                             <div class="param-description">
                                 <ul>
-        <li>an array of players defined in the designer&#39;s json file</li>
+        <li>an array of all players in the game</li>
         </ul>
         
                             </div>
         
                         </li>
                         <li class="param">
-                                <code class="param-name">init</code>
-                                <span class="type">Function</span>
-        
-        
-                            <div class="param-description">
-                                <p>-</p>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
-                                <code class="param-name">winCondition</code>
-                                <span class="type">Function</span>
-        
-        
-                            <div class="param-description">
-                                <ul>
-        <li>a designer defined function that returns when a game state is considered a termination state and who the victor is in that state</li>
-        </ul>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
-                                <code class="param-name">functionFile</code>
-                                <span class="type">String</span>
-        
-        
-                            <div class="param-description">
-                                <ul>
-        <li>the name of the file containing all designer defined functions</li>
-        </ul>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
-                                <code class="param-name">setupFunction</code>
-                                <span class="type">Function</span>
-        
-        
-                            <div class="param-description">
-                                <ul>
-        <li>a designer defined function that is run at the start of a game</li>
-        </ul>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
-                                <code class="param-name">stateScore</code>
-                                <span class="type">Function</span>
-        
-        
-                            <div class="param-description">
-                                <ul>
-        <li>a designer defined function run at the start of a game</li>
-        </ul>
-        
-                            </div>
-        
-                        </li>
-                        <li class="param">
-                                <code class="param-name">phases</code>
+                                <code class="param-name">zones</code>
                                 <span class="type">Array</span>
         
         
                             <div class="param-description">
                                 <ul>
-        <li>an array of zones defined in the designer&#39;s json file</li>
+        <li>an array of all zones in the game</li>
+        </ul>
+        
+                            </div>
+        
+                        </li>
+                        <li class="param">
+                                <code class="param-name">cards</code>
+                                <span class="type">Array</span>
+        
+        
+                            <div class="param-description">
+                                <ul>
+        <li>an array of all cards in the game</li>
+        </ul>
+        
+                            </div>
+        
+                        </li>
+                        <li class="param">
+                                <code class="param-name">currentPhase</code>
+                                <span class="type"><a href="../classes/Phase.html" class="crosslink">Phase</a></span>
+        
+        
+                            <div class="param-description">
+                                <ul>
+        <li>the current phase of the turn</li>
+        </ul>
+        
+                            </div>
+        
+                        </li>
+                        <li class="param">
+                                <code class="param-name">turnPlayer</code>
+                                <span class="type"><a href="../classes/Player.html" class="crosslink">Player</a></span>
+        
+        
+                            <div class="param-description">
+                                <ul>
+        <li>the player whose turn it is</li>
         </ul>
         
                             </div>
@@ -317,15 +239,7 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_GameDescription.prototype.initializeCards">GameDescription.prototype.initializeCards</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_GameDescription.prototype.initializeGameState">GameDescription.prototype.initializeGameState</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_initCard">initCard</a>
+                                <a href="#method_GameState.prototype.clone">GameState.prototype.clone</a>
 
                             </li>
                     </ul>
@@ -338,39 +252,8 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_GameDescription.prototype.initializeCards" class="method item">
-    <h3 class="name"><code>GameDescription.prototype.initializeCards</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/gameDescription.js.html#l59"><code>gameDescription.js:59</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Creates and places the cards into the zones</p>
-
-    </div>
-
-
-
-
-</div>
-<div id="method_GameDescription.prototype.initializeGameState" class="method item">
-    <h3 class="name"><code>GameDescription.prototype.initializeGameState</code></h3>
+<div id="method_GameState.prototype.clone" class="method item">
+    <h3 class="name"><code>GameState.prototype.clone</code></h3>
 
         <span class="paren">()</span>
 
@@ -387,7 +270,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/gameDescription.js.html#l44"><code>gameDescription.js:44</code></a>
+        <a href="../files/gamestate.js.html#l19"><code>gamestate.js:19</code></a>
         </p>
 
 
@@ -395,7 +278,7 @@
     </div>
 
     <div class="description">
-        <p>Creates a clean game state</p>
+        <p>Creates a new gamestate that is a copy of this gamestate</p>
 
     </div>
 
@@ -405,91 +288,7 @@
 
             <div class="returns-description">
                         <span class="type">GameState</span>:
-                    <p>Returns the starting game state based on this game structure</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_initCard" class="method item">
-    <h3 class="name"><code>initCard</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cardType</code>
-                </li>
-                <li class="arg">
-                        <code>zone</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/Card.html" class="crosslink">Card</a></span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/gameDescription.js.html#l90"><code>gameDescription.js:90</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Creates a new card of the given card type and places it in the given zone</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cardType</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>he name of the card type to create a new card based on</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">zone</code>
-                        <span class="type"><a href="../classes/Zone.html" class="crosslink">Zone</a></span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the zone into which the new car should be placed in</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type"><a href="../classes/Card.html" class="crosslink">Card</a></span>:
-                    <p>Returns the newly created card</p>
+                    <p>Returns the newly created gamestate</p>
 
             </div>
         </div>

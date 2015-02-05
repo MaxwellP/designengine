@@ -42,6 +42,11 @@
                                 <li><a href="../classes/Card.html">Card</a></li>
                                 <li><a href="../classes/Event.html">Event</a></li>
                                 <li><a href="../classes/GameDescription.html">GameDescription</a></li>
+                                <li><a href="../classes/Gamestate.html">Gamestate</a></li>
+                                <li><a href="../classes/Helpers.html">Helpers</a></li>
+                                <li><a href="../classes/Phase.html">Phase</a></li>
+                                <li><a href="../classes/Player.html">Player</a></li>
+                                <li><a href="../classes/Zone.html">Zone</a></li>
                             </ul>
                 
                             <ul id="api-modules" class="apis modules">
@@ -160,7 +165,7 @@
                         </li>
                         <li class="param">
                                 <code class="param-name">zone</code>
-                                <span class="type">Zone</span>
+                                <span class="type"><a href="../classes/Zone.html" class="crosslink">Zone</a></span>
         
         
                             <div class="param-description">
@@ -234,6 +239,10 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
+                                <a href="#method_Card.prototype.clone">Card.prototype.clone</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_Card.prototype.isVisibleTo">Card.prototype.isVisibleTo</a>
 
                             </li>
@@ -247,6 +256,49 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
+<div id="method_Card.prototype.clone" class="method item">
+    <h3 class="name"><code>Card.prototype.clone</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Card.html" class="crosslink">Card</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/card.js.html#l35"><code>card.js:35</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>A function that creates a new card that is a clone of this card</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="../classes/Card.html" class="crosslink">Card</a></span>:
+                    <p>Returns a new card that is a clone of this card</p>
+
+            </div>
+        </div>
+
+
+</div>
 <div id="method_Card.prototype.isVisibleTo" class="method item">
     <h3 class="name"><code>Card.prototype.isVisibleTo</code></h3>
 
@@ -274,7 +326,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/card.js.html#l20"><code>card.js:20</code></a>
+        <a href="../files/card.js.html#l23"><code>card.js:23</code></a>
         </p>
 
 
@@ -282,7 +334,8 @@
     </div>
 
     <div class="description">
-        
+        <p>A function to determine whether a card is visible to a given player</p>
+
     </div>
 
         <div class="params">
