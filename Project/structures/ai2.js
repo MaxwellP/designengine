@@ -1,6 +1,6 @@
 var currentlySimulating = false;
 
-var DEPTH = 80;
+var DEPTH = 3;
 
 var MAX_CONSEC_TURNS = 10;
 

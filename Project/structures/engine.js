@@ -242,4 +242,4 @@ function gameLog (string) {
 
 
 //Start the AI Test game
-readJSON("AIGame");
+readJSON("fish");

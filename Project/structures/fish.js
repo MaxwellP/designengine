@@ -208,17 +208,17 @@ function fishWinCondition()
 	{
 		if(lookupZone("P1 Pile", gamestate).cards.length > lookupZone("P2 Pile", gamestate).cards.length)
 		{
-			console.log("Player 1 Wins");
-			return lookupPlayer("P1");
+			//gameLog("Player 1 Wins");
+			return lookupPlayer("P1", gamestate);
 		}
 		else if(lookupZone("P2 Pile", gamestate).cards.length > lookupZone("P1 Pile", gamestate).cards.length)
 		{
-			console.log("Player 2 Wins");
-			return lookupPlayer("P2");
+			//gameLog("Player 2 Wins");
+			return lookupPlayer("P2", gamestate);
 		}
 		else
 		{
-			console.log("Players 1 and 2 Tied");
+			//gameLog("Players 1 and 2 Tied");
 			return true;
 		}
 	}
@@ -269,7 +269,10 @@ function askPhaseInit()
 		{
 			for(var i = 0; i < 7; i += 1)
 			{
-				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P1 Hand", gamestate);
+				if (lookupZone("deck", gamestate).cards.length > 0)
+				{
+					Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P1 Hand", gamestate);
+				}
 			}
 		}
 	}
@@ -279,7 +282,10 @@ function askPhaseInit()
 		{
 			for(var i = 0; i < 7; i += 1)
 			{
-				Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P2 Hand", gamestate);
+				if (lookupZone("deck", gamestate).cards.length > 0)
+				{
+					Event.moveCardToZone(lookupZone("deck", gamestate).cards[0], "P2 Hand", gamestate);
+				}
 			}
 		}
 	}
