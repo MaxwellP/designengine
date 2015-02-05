@@ -78,7 +78,7 @@ function generateActionsFromCard (card, gs, gd)
 			var action = new Action (
 				actionTemp.name,
 				actionTemp,
-				card,
+				`,
 				[],
 				actionTemp.name + "CheckLegality",
 				actionTemp.name + "Result");
@@ -241,5 +241,5 @@ function gameLog (string) {
 }
 
 
-//Start the Go Fish game
-readJSON("fish");
+//Start the AI Test game
+readJSON("AIGame");
