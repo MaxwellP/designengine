@@ -4,7 +4,12 @@ YUI.add("yuidoc-meta", function(Y) {
         "Action",
         "Card",
         "Event",
-        "GameDescription"
+        "GameDescription",
+        "Gamestate",
+        "Helpers",
+        "Phase",
+        "Player",
+        "Zone"
     ],
     "modules": [],
     "allModules": []

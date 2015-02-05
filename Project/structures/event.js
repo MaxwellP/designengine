@@ -5,6 +5,7 @@
 */
 var Event = {
 	/**
+	* Moves the given card to the given zone
 	* @method moveCardToZone
 	* @param {Int} cardID - the unique identification number of the card being moved
 	* @param {String} zoneName - the name of the zone to which the card is being moved to
@@ -30,6 +31,7 @@ var Event = {
 		gameLog("	Moved card: " + card.name + " (Id: " + card.id + ") from zone: " + prevOwner.name + " to zone: " + zone.name + ".");
 	},
 	/**
+	* Changes the value of the given object's attribute
 	* @method changeAttribute
 	* @param {Object} obj - the object whose attribute value is being changed
 	* @param {String} attributeName - the name of the attribute to be changed
@@ -42,6 +44,7 @@ var Event = {
 		obj.attributeName = newValue;
 	},
 	/**
+	* Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called
 	* @method endPhase
 	* @param {GameState} gs - the gamestate in which this event is taking place
 	*/
@@ -67,6 +70,7 @@ var Event = {
 
 	},
 	/**
+	* Ends the current turn and allows the next player in the turn structure to begin their turn.
 	* @method endTurn
 	* @param {GameState} gs - the gamestate in which this event is taking place
 	*/

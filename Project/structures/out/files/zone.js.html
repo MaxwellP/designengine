@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>card.js</title>
+    <title>zone.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -83,53 +83,53 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: card.js</h1>
+<h1 class="file-heading">File: zone.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-* An instance of a card type
+* A place that contains cards
 *
-* @class Card
+* @class Zone
 * @constructor
-* @param {Int} id - a unique ID for this card
-* @param {Zone} zone - the name of the zone that the card currently resides in
-* @param {String} name - the name of the card type that this card is an instance of
-* @param {Object} attributes - an object containing all attributes for this card
-* @param {Array} actions - an array of all actions the card has
+* @param {String} name - the name of the zone, must be unique
+* @param {Object} attributes - all designer defined attributes for the zone
+* @param {String} type - determines how the cards in the zone are displayed
+* @param {Array} visibleTo - an array of all players the cards in the zone are visible to
 */
-function Card(name, zone, attributes, actions, isAClone)
+function Zone(name, attributes, type, visibleTo)
 {
-	if (isAClone !== true)
-	{
-		this.id = getNewCardID();
-	}
-	this.zone = zone;
 	this.name = name;
 	this.attributes = attributes;
-	this.actions = actions;
+	this.cards = [];
+	this.type = type;
+	this.visibleTo = visibleTo;
 }
 /**
-* A function to determine whether a card is visible to a given player
-* @method Card.prototype.isVisibleTo
-* @param {String} playerName - the player who&#x27;s ability to view the card is being questioned
-* @param {GameState} gs - the gamestate over which the query is taking place
-* @return {Boolean} Returns true if the given player can view the card
+* Determines whether the given player can view the zone
+* @method Zone.prototype.isVisibleTo
+* @param {String} playerName - the name of the player being checked
+* @return {Boolean} Returns whether or not the cards in the zone are visible to the given player
 */
-Card.prototype.isVisibleTo = function(playerName, gs) {
-	var cardZone = lookupZone(this.zone, gs);
-	return cardZone.isVisibleTo(playerName);
+Zone.prototype.isVisibleTo = function(playerName) {
+	for (var i = 0; i &lt; this.visibleTo.length; i++) 
+	{
+		if (this.visibleTo[i] == playerName)
+		{
+			return true;
+		}
+	};
+	return false;
 };
-
 /**
-* A function that creates a new card that is a clone of this card
-* @method Card.prototype.clone
-* @return {Card} Returns a new card that is a clone of this card
+* Creates a clone of the zone
+* @method Zone.prototype.clone
+* @return {Zone} Returns a copy of the zone
 */
-Card.prototype.clone = function() {
-	var cardClone = new Card(this.name, this.zone, objectClone(this.attributes), objectClone(this.actions), true);
-	cardClone.id = this.id;
-	return cardClone;
+Zone.prototype.clone = function() {
+	var zoneClone = new Zone(this.name, objectClone(this.attributes), this.type, objectClone(this.visibleTo));
+	zoneClone.cards = objectClone(this.cards);
+	return zoneClone;
 };
     </pre>
 </div>

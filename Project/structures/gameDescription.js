@@ -42,6 +42,7 @@ function GameDescription (zones, cardTypes, actionTemplates, players, init, winC
 	this.cards = [];
 }
 /**
+* Creates a clean game state
 * @method GameDescription.prototype.initializeGameState
 * @return {GameState} Returns the starting game state based on this game structure
 */
@@ -55,8 +56,10 @@ GameDescription.prototype.initializeGameState = function() {
 	this.initializeCards(newGS);
 	return newGS;
 };
-
-//Creates and places the cards into the zones
+/**
+* Creates and places the cards into the zones
+* @method GameDescription.prototype.initializeCards
+*/
 GameDescription.prototype.initializeCards = function(gs) {
 
 	for (var i = 0; i < this.init.length; i += 1)
@@ -84,7 +87,13 @@ GameDescription.prototype.initializeCards = function(gs) {
 		}
 	}
 };
-
+/**
+* Creates a new card of the given card type and places it in the given zone
+* @method initCard
+* @param {String} cardType - he name of the card type to create a new card based on
+* @param {Zone} zone - the zone into which the new car should be placed in
+* @return {Card} Returns the newly created card
+*/
 function initCard (cardType, zone) {
 	var card = new Card(cardType.name, zone.name, cardType.attributes, cardType.actions)
 	return card;

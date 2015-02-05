@@ -21,6 +21,7 @@ function Card(name, zone, attributes, actions, isAClone)
 	this.actions = actions;
 }
 /**
+* A function to determine whether a card is visible to a given player
 * @method Card.prototype.isVisibleTo
 * @param {String} playerName - the player who's ability to view the card is being questioned
 * @param {GameState} gs - the gamestate over which the query is taking place
@@ -31,6 +32,11 @@ Card.prototype.isVisibleTo = function(playerName, gs) {
 	return cardZone.isVisibleTo(playerName);
 };
 
+/**
+* A function that creates a new card that is a clone of this card
+* @method Card.prototype.clone
+* @return {Card} Returns a new card that is a clone of this card
+*/
 Card.prototype.clone = function() {
 	var cardClone = new Card(this.name, this.zone, objectClone(this.attributes), objectClone(this.actions), true);
 	cardClone.id = this.id;

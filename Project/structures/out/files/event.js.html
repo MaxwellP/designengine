@@ -42,6 +42,11 @@
                                 <li><a href="../classes/Card.html">Card</a></li>
                                 <li><a href="../classes/Event.html">Event</a></li>
                                 <li><a href="../classes/GameDescription.html">GameDescription</a></li>
+                                <li><a href="../classes/Gamestate.html">Gamestate</a></li>
+                                <li><a href="../classes/Helpers.html">Helpers</a></li>
+                                <li><a href="../classes/Phase.html">Phase</a></li>
+                                <li><a href="../classes/Player.html">Player</a></li>
+                                <li><a href="../classes/Zone.html">Zone</a></li>
                             </ul>
                 
                             <ul id="api-modules" class="apis modules">
@@ -89,6 +94,7 @@
 */
 var Event = {
 	/**
+	* Moves the given card to the given zone
 	* @method moveCardToZone
 	* @param {Int} cardID - the unique identification number of the card being moved
 	* @param {String} zoneName - the name of the zone to which the card is being moved to
@@ -114,6 +120,7 @@ var Event = {
 		gameLog(&quot;	Moved card: &quot; + card.name + &quot; (Id: &quot; + card.id + &quot;) from zone: &quot; + prevOwner.name + &quot; to zone: &quot; + zone.name + &quot;.&quot;);
 	},
 	/**
+	* Changes the value of the given object&#x27;s attribute
 	* @method changeAttribute
 	* @param {Object} obj - the object whose attribute value is being changed
 	* @param {String} attributeName - the name of the attribute to be changed
@@ -126,6 +133,7 @@ var Event = {
 		obj.attributeName = newValue;
 	},
 	/**
+	* Ends the current phase continues to the next one, if the current phase is the final phase in the game&#x27;s turn structure, the end turn event is called
 	* @method endPhase
 	* @param {GameState} gs - the gamestate in which this event is taking place
 	*/
@@ -151,6 +159,7 @@ var Event = {
 
 	},
 	/**
+	* Ends the current turn and allows the next player in the turn structure to begin their turn.
 	* @method endTurn
 	* @param {GameState} gs - the gamestate in which this event is taking place
 	*/
@@ -170,9 +179,9 @@ var Event = {
 
 		player = lookupPlayer(gs.turnPlayer, gs)
 		//Run AI if it is AI&#x27;s turn
-		if (player.isAI)
+		if (player.isAI &amp;&amp; !currentlySimulating)
 		{
-			runAI_random(player, gs, gameDescription, 10);
+			runAI_abnm(player.name, gs, gameDescription, 5);
 		}
 	}
 };

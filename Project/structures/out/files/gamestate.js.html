@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>card.js</title>
+    <title>gamestate.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -83,53 +83,54 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: card.js</h1>
+<h1 class="file-heading">File: gamestate.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-* An instance of a card type
+* The state of the dynamic elements of the game
 *
-* @class Card
+* @class Gamestate
 * @constructor
-* @param {Int} id - a unique ID for this card
-* @param {Zone} zone - the name of the zone that the card currently resides in
-* @param {String} name - the name of the card type that this card is an instance of
-* @param {Object} attributes - an object containing all attributes for this card
-* @param {Array} actions - an array of all actions the card has
+* @param {Array} players - an array of all players in the game
+* @param {Array} zones - an array of all zones in the game
+* @param {Array} cards - an array of all cards in the game
+* @param {Phase} currentPhase - the current phase of the turn
+* @param {Player} turnPlayer - the player whose turn it is
 */
-function Card(name, zone, attributes, actions, isAClone)
-{
-	if (isAClone !== true)
-	{
-		this.id = getNewCardID();
-	}
-	this.zone = zone;
-	this.name = name;
-	this.attributes = attributes;
-	this.actions = actions;
+function GameState (players, zones, cards, currentPhase, turnPlayer) {
+	this.players = players;
+	this.zones = zones;
+	this.cards = cards;
+	this.currentPhase = currentPhase;
+	this.turnPlayer = turnPlayer;
 }
 /**
-* A function to determine whether a card is visible to a given player
-* @method Card.prototype.isVisibleTo
-* @param {String} playerName - the player who&#x27;s ability to view the card is being questioned
-* @param {GameState} gs - the gamestate over which the query is taking place
-* @return {Boolean} Returns true if the given player can view the card
+* Creates a new gamestate that is a copy of this gamestate
+* @method GameState.prototype.clone
+* @return {GameState} Returns the newly created gamestate
 */
-Card.prototype.isVisibleTo = function(playerName, gs) {
-	var cardZone = lookupZone(this.zone, gs);
-	return cardZone.isVisibleTo(playerName);
-};
+GameState.prototype.clone = function() {
 
-/**
-* A function that creates a new card that is a clone of this card
-* @method Card.prototype.clone
-* @return {Card} Returns a new card that is a clone of this card
-*/
-Card.prototype.clone = function() {
-	var cardClone = new Card(this.name, this.zone, objectClone(this.attributes), objectClone(this.actions), true);
-	cardClone.id = this.id;
-	return cardClone;
+	var newPlayers = [];
+	for (var i = 0; i &lt; this.players.length; i++)
+	{
+		newPlayers.push(this.players[i].clone());
+	}
+
+	var newZones = [];
+	for (var i = 0; i &lt; this.zones.length; i++)
+	{
+		newZones.push(this.zones[i].clone());
+	}
+
+	var newCards = [];
+	for (var i = 0; i &lt; this.cards.length; i++)
+	{
+		newCards.push(this.cards[i].clone());
+	}
+
+	return new GameState(newPlayers, newZones, newCards, this.currentPhase, this.turnPlayer);
 };
     </pre>
 </div>
