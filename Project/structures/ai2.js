@@ -60,7 +60,13 @@ function runAI_abnm (playerName, gs, gd, limit) {
 		runAI_abnm(playerName, gs, gd, limit - 1);
 	}
 
-	return action;
+	return;// action;
+}
+
+//Use the abNegamax function
+function getBestAction (gs, gd, maxDepth, curPlayerName, altPlayerName) {
+	var result = abNegamax(gs, gd, maxDepth, 0, -Infinity, Infinity, curPlayerName, altPlayerName);
+	return result.action;
 }
 
 //Score + Action object
@@ -123,12 +129,6 @@ function abNegamax (gs, gd, maxDepth, currentDepth, alpha, beta, curPlayerName, 
 	return new ScoreAction(bestScore, bestAction);
 }
 
-//Use the abNegamax function
-function getBestAction (gs, gd, maxDepth, curPlayerName, altPlayerName) {
-	var result = abNegamax(gs, gd, maxDepth, 0, -Infinity, Infinity, curPlayerName, altPlayerName);
-	return result.action;
-}
-
 //Evaluate a game state
 function evaluate(curPlayerName, altPlayerName, gs, gd)
 {
@@ -153,4 +153,117 @@ function evaluate(curPlayerName, altPlayerName, gs, gd)
 		var score = window[gd.stateScore].apply(this, [curPlayerName, gs]);
 		return score;
 	}
-};
+}
+
+//gs - game state of the node
+//action - action that led to this state
+function GSNode (gs, action) {
+	this.gs = gs;
+	this.action = action;
+
+	//Legal actions available from this state, that haven't already been tried (Removed after being tried)
+	this.untriedLegalActions = getLegalActions(lookupPlayer(gs.turnPlayer, gs), gs);
+
+	//Child states accessible from this state
+	this.children = [];
+
+	this.totalReward = 0;
+	this.numVisits = 0;
+}
+
+//Call this from inside the game loop
+function run_ISMCTS (playerName, gs, gd, limit) {
+	if (limit < 0)
+	{
+		console.log("Reached loop limit");
+		return;
+	}
+	var altPlayerObj = getAltPlayer(playerName, gs);
+
+	currentlySimulating = true;
+	var action = ISMCTS(gs, gd, playerName, altPlayerObj.name);
+	currentlySimulating = false;
+	
+	//Apply action here
+	if (!action)
+	{
+		console.log("No action found. (Game ended)");
+		return;
+	}
+	applyAction(action, lookupPlayer(playerName, gs), gs);
+
+	if (gs.turnPlayer == playerName)
+	{
+		console.log("looping on runAI_ISMCTS");
+		run_ISMCTS(playerName, gs, gd, limit - 1);
+	}
+
+	return;
+}
+
+//Information Set Monte Carlo Tree Search
+//Returns the action that was most selected from the root
+function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
+
+	//root node
+	var root = new GSNode(gs, undefined);
+
+	//do many iterations
+	for (var i = 0; i < 100; i++)
+	{
+		ISMCTS_Traverse(root, gd, curPlayerName, altPlayerName)
+	}
+
+	//pick best action (most selected from root)
+	var bestAction = undefined;
+	var mostPasses = -1;
+
+	for (var i = 0; i < root.children.length; i++)
+	{
+		var child = root.children[i];
+		if (child.numVisits)
+	}
+}
+
+//If there are any untried actions, do one of those
+//Otherwise, select a child, choosing based on bandit algorithm
+function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
+	if (node.untriedLegalActions.length > 0)
+	{
+		//Pick random untried action
+		var randUntriedAction = node.untriedLegalActions[Math.floor(Math.random() * node.untriedLegalActions.length)];
+
+		var newGS = gs.clone();
+		//Apply the action to the new gamestate
+		applyAction(randUntriedAction, curPlayerObj, newGS);
+
+		var newNode = GSNode(randUntriedAction)
+
+		//Simulate outcome randomly (do random moves until the game ends)
+		ISMCTS_Simulation()
+
+		//Update 
+	}
+	else
+	{
+		//Select the child with the highest (exploitation + c * exploration) result
+		var chosenChild = undefined;
+		var highestResult = -1;
+		for (var i = 0; i < node.children.length; i++) {
+			var child = node.children[i]
+			var banditResult = (child.totalReward / child.numVisits) + 0.7 * Math.sqrt(Math.log(node.numVisits) / child.numVisits);
+			if (banditResult > highestResult)
+			{
+				chosenChild = child;
+			}
+		};
+		ISMCTS_Traverse(chosenChild, gd, curPlayerName, altPlayerName);
+	}
+}
+
+//From a state, apply random moves until the game is ended (or limit reached)
+//Returns terminal results (win/loss)
+function ISMCTS_Simulation (gs, gd) {
+	pickRandomLegalAction(gs.turnPlayer, gs);
+	runAI_random (gs.turnPlayer, gs, gd, limit) {
+}
