@@ -171,6 +171,10 @@ function GSNode (gs, action) {
 	this.numVisits = 0;
 }
 
+function Test_ISMCTS () {
+	run_ISMCTS("P1", currentGS, gameDescription, 10);
+}
+
 //Call this from inside the game loop
 function run_ISMCTS (playerName, gs, gd, limit) {
 	if (limit < 0)
@@ -216,28 +220,36 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 
 	//pick best action (most selected from root)
 	var bestAction = undefined;
-	var mostPasses = -1;
+	var mostVisits = -1;
 
 	for (var i = 0; i < root.children.length; i++)
 	{
 		var child = root.children[i];
-		if (child.numVisits)
+		if (child.numVisits > mostVisits)
+		{
+			bestAction = child.action;
+			mostVisits = child.numVisits;
+		}
 	}
 }
 
 //If there are any untried actions, do one of those
 //Otherwise, select a child, choosing based on bandit algorithm
 function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
+
+	//Add 1 to visit counter
+	node.numVisits += 1;
+
 	if (node.untriedLegalActions.length > 0)
 	{
 		//Pick random untried action
 		var randUntriedAction = node.untriedLegalActions[Math.floor(Math.random() * node.untriedLegalActions.length)];
 
-		var newGS = gs.clone();
+		var newGS = node.gs.clone();
 		//Apply the action to the new gamestate
 		applyAction(randUntriedAction, curPlayerObj, newGS);
 
-		var newNode = GSNode(randUntriedAction)
+		var newNode = GSNode(newGS, randUntriedAction)
 
 		//Simulate outcome randomly (do random moves until the game ends)
 		ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
