@@ -25,8 +25,10 @@ var SHOW_ZONE_NAMES = true;
 var canvas;
 var ctx;
 
-var mouseX;
-var mouseY;
+//var mouseX;
+//var mouseY;
+
+var initZoneGUI;
 
 var cardsGUIInfo = [];
 var zonesGUIInfo = [];
@@ -35,6 +37,11 @@ var waitingForPlayerInput = false;
 var queuedAction;
 var inputTypes = [];
 var currentInput = 0;
+
+var dragging = false;
+var dragGUIInfo;
+var prevX;
+var prevY;
 
 // The game player that is using the GUI (defaults to the first player in the player list)
 var guiPlayer;
@@ -61,7 +68,7 @@ function Init () {
 	initCardGUIInfo(currentGS);
 	initZoneGUIInfo(currentGS);
 
-	zoneGridLayout(currentGS.zones)
+	//zoneGridLayout(currentGS.zones)
 
 	updateGUI(currentGS);
 
@@ -83,7 +90,7 @@ function renderFrame () {
 	updateGUI(currentGS);
 
 	//QUICK FIX
-	zoneGridLayout(currentGS.zones);
+	//zoneGridLayout(currentGS.zones);
 
 	drawAllZones(currentGS);
 	drawAllCards(currentGS);
@@ -106,11 +113,13 @@ function CardGUIInfo (card)
 	this.fontSize = CARD_DEFAULT_FONT_SIZE;
 }
 
-function ZoneGUIInfo (zone)
+function ZoneGUIInfo (zone, xPct, yPct)
 {
 	this.name = zone.name;
 	this.x = 0;
 	this.y = 0;
+	this.xPct = xPct;
+	this.yPct = yPct;
 	this.width = getZoneWidth(zone);
 	this.height = getZoneHeight(zone);
 }
@@ -124,7 +133,8 @@ function initCardGUIInfo (gs) {
 
 function initZoneGUIInfo (gs) {
 	for (var i = 0; i < gs.zones.length; i++) {
-		var newZoneInfo = new ZoneGUIInfo(gs.zones[i]);
+		var guiObj = lookupInitZoneGUI(gs.zones[i].name);
+		var newZoneInfo = new ZoneGUIInfo(gs.zones[i], guiObj.xPct, guiObj.yPct);
 		zonesGUIInfo.push(newZoneInfo);
 	};
 }
@@ -150,6 +160,20 @@ function lookupZoneGUI(zone)
 		if (zonesGUIInfo[i].name == zone.name)
 		{
 			return zonesGUIInfo[i];
+		}
+	}
+	console.log("Could not find zoneGUIInfo with name \"" + zone.name + "\".");
+	throw new Error("ZoneGUIInfo Lookup Error");
+	return false;
+};
+
+function lookupInitZoneGUI(zoneName)
+{
+	for(var i = 0; i < initZoneGUI.length; i += 1)
+	{
+		if (initZoneGUI[i].name == zoneName)
+		{
+			return initZoneGUI[i];
 		}
 	}
 	console.log("Could not find zoneGUIInfo with name \"" + zone.name + "\".");
@@ -247,8 +271,19 @@ function updateZone (zone) {
 	var zoneHeight = getZoneHeight(zone);
 	var zoneGUI = lookupZoneGUI(zone);
 
+	if (!dragging)
+	{
+		zoneGUI.x = canvas.width * zoneGUI.xPct;
+		zoneGUI.y = canvas.height * zoneGUI.yPct;
+	}
+
 	zoneGUI.width = zoneWidth;
 	zoneGUI.height = zoneHeight;
+}
+
+function updatePercents (zoneGUI) {
+	zoneGUI.xPct = (zoneGUI.x / canvas.width);
+	zoneGUI.yPct = (zoneGUI.y / canvas.height);
 }
 
 function drawZone (zone) {
@@ -349,87 +384,6 @@ function getZoneHeight (zone) {
 	return zoneHeight;
 }
 
-// Temporary function: draws final two zones in zone list as player hands, draws rest as grid (3 per line) in center of canvas.
-function zoneGridLayout (fullZoneList) {
-	var centerX = canvas.width / 2;
-	var centerY = canvas.height / 2;
-
-	//ZONES_PER_LINE = 3;
-
-	zoneList = fullZoneList.slice(0, fullZoneList.length - 2);
-
-	var numRows = Math.ceil(zoneList.length / ZONES_PER_LINE);
-
-	var grid = [[]];
-	var currentRow = 0;
-	var currentColumn = 0;
-
-	for (var i = 0; i < zoneList.length; i++) {
-		grid[currentRow][currentColumn] = zoneList[i];
-
-		if (i % ZONES_PER_LINE == ZONES_PER_LINE - 1)
-		{
-			currentRow++;
-			currentColumn = 0;
-			grid[currentRow] = [];
-		}
-		else
-		{
-			currentColumn++;
-		}
-	};
-
-	var rowHeight = getZoneHeight(grid[0][0]);
-	if (SHOW_ZONE_NAMES)
-	{
-		rowHeight += CARD_DEFAULT_FONT_SIZE;
-	}
-	
-	var gridHeight = (numRows * rowHeight) + ((numRows - 1) * ZONE_MARGIN);
-
-	var rowLengths = [];
-
-	for (var i = 0; i < numRows; i++) {
-		var rowLength = 0;
-		for (var j = 0; j < grid[i].length; j++) {
-			rowLength += getZoneWidth(grid[i][j]);
-			rowLength += ZONE_MARGIN;
-		};
-		rowLengths[i] = rowLength;
-	};
-
-	//var currentX = centerX - (rowLengths[0] / 2);
-	var currentX = centerX;
-	var currentY = centerY - (gridHeight / 2) + (rowHeight / 2);
-
-	// Draw rows
-	for (var i = 0; i < numRows; i++) {
-		for (var j = 0; j < grid[i].length; j++) {
-			var curZoneGUI = lookupZoneGUI(grid[i][j]);
-			curZoneGUI.x = currentX;
-			curZoneGUI.y = currentY;
-			currentX += curZoneGUI.width;
-			currentX += ZONE_MARGIN;
-		};
-		currentY += rowHeight;
-		currentY += ZONE_MARGIN;
-		currentX = centerX;
-	};
-
-	var p1HandGUI = lookupZoneGUI(fullZoneList[zoneList.length]);
-	p1HandGUI.x = (canvas.width / 2)
-	p1HandGUI.y = (canvas.height) - (p1HandGUI.height / 2);
-
-	var p2Height = 0;
-	if (SHOW_ZONE_NAMES)
-	{
-		p2Height += CARD_DEFAULT_FONT_SIZE;
-	}
-	var p2HandGUI = lookupZoneGUI(fullZoneList[zoneList.length + 1]);
-	p2HandGUI.x = (canvas.width / 2)
-	p2HandGUI.y = p2Height + (p2HandGUI.height / 2);
-}
-
 function drawAllZones (gs) {
 	for (var i = 0; i < gs.zones.length; i++) {
 		drawZone(gs.zones[i]);
@@ -466,7 +420,7 @@ function findZone (x, y) {
 	for (var i = 0; i < currentGS.zones.length; i++) {
 		var zone = currentGS.zones[i];
 		var zoneGUI = lookupZoneGUI(zone);
-		if (x >= zoneGUI.x && x <= (zoneGUI.x + zoneGUI.width) && y >= zoneGUI.y && y <= (zoneGUI.y + zoneGUI.height))
+		if (x >= (zoneGUI.x - (zoneGUI.width / 2)) && x <= (zoneGUI.x + (zoneGUI.width / 2)) && y >= (zoneGUI.y - (zoneGUI.height / 2) - CARD_DEFAULT_FONT_SIZE) && y <= (zoneGUI.y + (zoneGUI.height / 2)))
 		{
 			return zone;
 		}
@@ -588,7 +542,17 @@ function removePopUpMenu (menu) {
 }
 
 function MousePos (e) {
+	var mouseX = e.pageX - 8;
+	var mouseY = e.pageY - 8;
 
+	if (dragging)
+	{
+		dragGUIInfo.x += (mouseX - prevX);
+		dragGUIInfo.y += (mouseY - prevY);
+
+		prevX = mouseX;
+		prevY = mouseY;
+	}
 }
 
 function hoverOn (e) {
@@ -600,49 +564,77 @@ function hoverOff (e) {
 }
 
 window.addEventListener('mousedown', DoMouseDown, true);
+window.addEventListener('mouseup', DoMouseUp, true);
 
 // Mouse down event
 function DoMouseDown (e) {
 	var mouseX = e.pageX - 8;
 	var mouseY = e.pageY - 8;
 
-	if (waitingForPlayerInput)
+	if (designing)
 	{
-		var inputType = inputTypes[currentInput];
-		if (inputType == "zone")
+		var clickedZone = findZone(mouseX, mouseY);
+		if (clickedZone) 
 		{
-			var clickedZone = findZone(mouseX, mouseY);
-			if (clickedZone)
-			{
-				queuedAction.inputs.push(clickedZone.name);
-				currentInput += 1;
-				if (currentInput >= queuedAction.template.inputTypes.length)
-				{
-					applyAction(queuedAction, guiPlayer, currentGS);
-					waitingForPlayerInput = false;
-				}
-			}
+			hideAllInfo();
+			fillZoneInfo(clickedZone);
+			dragging = true;
+			dragGUIInfo = lookupZoneGUI(clickedZone);
+			prevX = mouseX;
+			prevY = mouseY;
 		}
 	}
 	else
 	{
-		var clickedMenu = findPopUpMenu(mouseX, mouseY);
-		if (clickedMenu)
+		if (waitingForPlayerInput)
 		{
-			clickedMenu.getOption(mouseX, mouseY);
+			var inputType = inputTypes[currentInput];
+			if (inputType == "zone")
+			{
+				var clickedZone = findZone(mouseX, mouseY);
+				if (clickedZone)
+				{
+					queuedAction.inputs.push(clickedZone.name);
+					currentInput += 1;
+					if (currentInput >= queuedAction.template.inputTypes.length)
+					{
+						applyAction(queuedAction, guiPlayer, currentGS);
+						waitingForPlayerInput = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			var clickedCard = findCard(mouseX, mouseY);
-			if (clickedCard)
+			var clickedMenu = findPopUpMenu(mouseX, mouseY);
+			if (clickedMenu)
 			{
-				popUpMenus = [];
-				addActionMenu(clickedCard, mouseX, mouseY);
+				clickedMenu.getOption(mouseX, mouseY);
 			}
 			else
 			{
-				popUpMenus = [];
+				var clickedCard = findCard(mouseX, mouseY);
+				if (clickedCard)
+				{
+					popUpMenus = [];
+					addActionMenu(clickedCard, mouseX, mouseY);
+				}
+				else
+				{
+					popUpMenus = [];
+				}
 			}
+		}
+	}
+}
+
+function DoMouseUp () {
+	if (designing)
+	{
+		if (dragging)
+		{
+			dragging = false;
+			updatePercents(dragGUIInfo);
 		}
 	}
 }

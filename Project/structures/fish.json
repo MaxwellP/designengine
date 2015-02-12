@@ -7,6 +7,14 @@
 		{"name": "P1 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]},
 		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2", "P1"]}
 	],
+	"zoneGUI":
+	[
+		{"name": "P2 Pile", "xPct": 0.5, "yPct": 0.33},
+		{"name": "deck", "xPct": 0.5, "yPct": 0.5},
+		{"name": "P1 Pile", "xPct": 0.5, "yPct": 0.66},
+		{"name": "P1 Hand", "xPct": 0.5, "yPct": 0.9},
+		{"name": "P2 Hand", "xPct": 0.5, "yPct": 0.1}
+	],
 	"cardTypes":
 	[
 		{"name": "Ace", "attributes": {"value": "Ace"}, "actions": [{"templateName": "gotAny"}]},

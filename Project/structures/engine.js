@@ -3,6 +3,8 @@ var currentGS;
 
 var printLog = true;
 
+var designing = false;
+
 function readJSON(file)
 {
 	var request = new XMLHttpRequest();
@@ -22,6 +24,7 @@ function readJSON(file)
 			read.stateScore,
 			read.phases);
 		var gameState = newGameDescription.initializeGameState();
+		initZoneGUI = read.zoneGUI;
 		gameDescription = newGameDescription;
 		currentGS = gameState;
 		initialize(newGameDescription);
