@@ -41,7 +41,7 @@ var Event = {
 	changeAttribute: function (obj, attributeName, newValue, gs)
 	{
 		/*do lookup*/
-		obj.attributeName = newValue;
+		obj.attributes[attributeName] = newValue;
 	},
 	/**
 	* Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called
