@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="action.js"></script>
 	<script type="text/javascript" src="ai2.js"></script>
 	<script type="text/javascript" src="card.js"></script>
+	<script type="text/javascript" src="designer.js"></script>
 	<script type="text/javascript" src="engine.js"></script>
 	<script type="text/javascript" src="event.js"></script>
 	<script type="text/javascript" src="gameDescription.js"></script>
@@ -18,12 +19,39 @@
 	<script type="text/javascript" src="player.js"></script>
 	<script type="text/javascript" src="zone.js"></script>
 </head>
-<div id="game_canvas" >
+
+<div id="game_canvas" style="display:inline-block; vertical-align:top">
 	<body bgcolor='#C0C0C0'>
 		<canvas id="Canvas2D" width="960" height="720" onmousemove="MousePos(event)" onmouseover="hoverOn(event)" onmouseout="hoverOff(event)">
 			no canvas
 		</canvas>
-		<br/>
 	</body>
 </div>
+	
+<div id="design_area" style="vertical-align:top; display:none; width:20%; height:100%; border:1px solid;">
+	<button type="button" onclick="addNewZone()" style="width:100%; display:inline-block">New Zone</button>
+	<button type="button" onclick="addNewPlayer()" style="width:100%; display:inline-block">New Player</button>
+	<button type="button" onclick="addNewCard()" style="width:100%; display:inline-block">New Card</button>
+	<div id="zone_info" style="display:none">
+		<form id="zone_form">
+		<fieldset>
+		<legend>Zone Info:</legend>
+		Name:<br>
+		<input type="text" name="zoneName">
+		<br>
+		Display Type:<br>
+		<select name="zoneType">
+		<option value="showEachCard">Show Each Card</option>
+		<option value="deck">Deck</option>
+		</select>
+		<br>
+		Visible To:<br>
+		<div id="player_checkboxes"></div>
+
+		</fieldset>
+		</form>
+
+	</div>
+</div>
+
 </html>

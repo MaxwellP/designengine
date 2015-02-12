@@ -331,7 +331,7 @@ function zoneGridLayout (zoneList) {
 }
 
 function drawAllZones() {
-	drawPlayersHands();
+	//drawPlayersHands();
 	var zonesToDraw = [];
 
 	var player1Hand = lookupPlayerHand(currentGS.players[0], currentGS);
@@ -343,7 +343,7 @@ function drawAllZones() {
 			zonesToDraw.push(curZone);
 		}
 	};
-	zoneGridLayout(zonesToDraw);
+	//zoneGridLayout(zonesToDraw);
 }
 
 function drawPlayersHands () {
