@@ -130,7 +130,7 @@ function abNegamax (gs, gd, maxDepth, currentDepth, alpha, beta, curPlayerName, 
 }
 
 //Evaluate a game state
-function evaluate(curPlayerName, altPlayerName, gs, gd)
+function evaluate (curPlayerName, altPlayerName, gs, gd)
 {
 	var curPlayer = lookupPlayer (curPlayerName, gs);
 	var altPlayer = lookupPlayer (altPlayerName, gs);
@@ -240,7 +240,7 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 		var newNode = GSNode(randUntriedAction)
 
 		//Simulate outcome randomly (do random moves until the game ends)
-		ISMCTS_Simulation()
+		ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
 
 		//Update 
 	}
@@ -263,7 +263,34 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 
 //From a state, apply random moves until the game is ended (or limit reached)
 //Returns terminal results (win/loss)
-function ISMCTS_Simulation (gs, gd) {
-	pickRandomLegalAction(gs.turnPlayer, gs);
-	runAI_random (gs.turnPlayer, gs, gd, limit) {
+function ISMCTS_Simulation (gs, gd, curPlayerName, altPlayerName) {
+
+	//Game lasting longer than 50 turns - just evaluate at that point
+	var limit = 50;
+	while (!isGameOver(gs, gd) && limit > 0)
+	{
+		limit --;
+
+		var player = lookupPlayer(gs.turnPlayer, gs);
+		var randomAction = pickRandomLegalAction(gs.turnPlayer, gs);
+		applyAction(randomAction, player, gs);
+
+
+		pickRandomLegalAction(gs.turnPlayer, gs);
+		runAI_random (gs.turnPlayer, gs, gd, limit)
+	}
+	if (isGameOver(gs, gd))
+	{
+		//*** Get win/loss
+		return;
+	}
+	else
+	{
+		//*** Evaluate state
+		return evaluate(curPlayerName, altPlayerName, gs, gd);
+		
+	}
 }
+
+
+//TODO: Change evaluate() to return between 0 and 1 (?)
