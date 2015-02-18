@@ -14,10 +14,10 @@ function pokerSetup()
 	//var gamestate;
 	var gamestate = arguments[arguments.length - 1];
 
-	var deckZone = lookupZone("deck", gamestate).cards;
+	var deckCards = lookupZone("Deck", gamestate).cards;
 
 	/*Fisher-Yates Shuffle*/
-	var currentIndex = pile.length;
+	var currentIndex = deckCards.length;
 	var tempVal;
 	var randomIndex;
 	while(0 != currentIndex)
@@ -25,18 +25,13 @@ function pokerSetup()
 		randomIndex = Math.floor(Math.random() * currentIndex);
 		currentIndex -= 1;
 
-		tempVal = pile[currentIndex];
-		pile[currentIndex] = pile[randomIndex];
-		pile[randomIndex] = tempVal;
+		tempVal = deckCards[currentIndex];
+		deckCards[currentIndex] = deckCards[randomIndex];
+		deckCards[randomIndex] = tempVal;
 	}
 
-	/*now make the zone "deck"'s cards into pile*/
-	/*
-		is it ok by reference?
-	*/
-
-	/*Deal 7 cards to each player*/
-	for(var i = 0; i < 7; i += 1)
+	/*Deal 5 cards to each player*/
+	for(var i = 0; i < 5; i += 1)
 	{
 		for(var j = 0; j < gamestate.players.length; j += 1)
 		{
@@ -52,10 +47,6 @@ function pokerSetup()
 		}
 	}
 	//Sort both hands and move quads to piles
-	sortCardsInZone(lookupZone("P1 Hand", gamestate));
-	moveQuadsFromZoneAtoZoneB("P1 Hand", "P1 Pile", gamestate);
-	sortCardsInZone(lookupZone("P2 Hand", gamestate));
-	moveQuadsFromZoneAtoZoneB("P2 Hand", "P2 Pile", gamestate);
 }
 
 function compareCards (a, b) {
@@ -111,10 +102,11 @@ function discardResult()
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
-	var p1Hand = lookupZone("P1 Hand", gamestate);
-	var p2Hand = lookupZone("P2 Hand", gamestate);
+	//var p1Hand = lookupZone("P1 Hand", gamestate);
+	//var p2Hand = lookupZone("P2 Hand", gamestate);
 
-	Event.moveCardToZone(action.card, "Discard", gamestate);
+	//Move to player's corresponding discard pile
+	Event.moveCardToZone(action.card, player.name + " Discard", gamestate);
 
 
 }
@@ -151,9 +143,11 @@ function doneCheckLegality()
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
-	if (action.card)
-
-	return true;
+	if (lookupCard(action.card, gamestate).attributes.done == false)
+	{
+		return true;
+	}
+	return false;
 }
 
 function pokerWinCondition()
@@ -205,7 +199,8 @@ function pokerStateScore()
 		altPlayerHand = lookupZone("P1 Hand", gamestate);
 	}
 
-	return curPlayerPile.cards.length - altPlayerPile.cards.length + (curPlayerHand.cards.length / 4) - (altPlayerHand.cards.length / 4);
+	return 0.5;
+	//return curPlayerPile.cards.length - altPlayerPile.cards.length + (curPlayerHand.cards.length / 4) - (altPlayerHand.cards.length / 4);
 }
 
 function discardPhaseInit()
