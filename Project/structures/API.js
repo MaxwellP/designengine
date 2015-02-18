@@ -184,16 +184,59 @@ function MoveAllCardsThatMeetRequirement(fromZone, toZone, requirementFunc, gs)
 		}
 	}
 }
+/*Deck Shuffling and Card Dealing Functions*/
+function shuffle(zoneName, gs)
+{
+	/*Fisher-Yates Shuffle*/
+	var deck = lookupZone(zoneName, gs).cards;
+	var currentIndex = deck.length;
+	var tempVal;
+	var randomIndex;
+	while(0 != currentIndex)
+	{
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		tempVal = deck[currentIndex];
+		deck[currentIndex] = deck[randomIndex];
+		deck[randomIndex] = tempVal;
+	}
+}
+function dealCards(fromZone, toZoneArray, numCards, gs)
+{
+	for(var i = 0; i < numCards; i += 1)
+	{
+		for(var j = 0; j < toZoneArray.length; j +=1)
+		{
+			Event.moveCardToZone(deckZone.cards[0], toZoneArray[j], gs);
+		}
+	}
+}
+function cut(zoneName, gs)
+{
+	var deck = lookupZone(zoneName, gs).cards;
+	randomIndex = Math.floor(Math.random() * deck.length); 
+	return deck[randomIndex];
+}
+/*Zone-Card Sorting Functions*/
+//sortZoneByCardType(zoneName)
+//sortZoneByCardAttributeValue(zoneName, attributeName, attributeValue)
+
+/*Player Sorting Functions*/
+//sortPlayerByAttributeValue
+//sortPlayerByCardsInZone
+//sortPlayerBy
+
 /*TODO*/
 /*
-	shuffle(zoneName, gs)
-	dealCards(zoneName, playerZoneArray, numCards)
-	sortCardType(zoneName)
-	sortAttributeValue(zoneName, attributeName, attributeValue)
+	getIndexOfCardInZone()
+	moveCardFromZoneToZone()
+	moveCardFromIndexOfZoneToZone()
+
 	TakeAnotherTurn(gs)
 	RepeatPhase(phaseName, gs)
 	WinGame(playerName)
 	LoseGame(playerName, gs)
 	EliminatePlayer(playerName, gs)
 	Declare Vocabulary (lambda)
+		Pattern recognition for poker?
 */
