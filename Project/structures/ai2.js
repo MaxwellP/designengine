@@ -349,3 +349,5 @@ function ISMCTS_Simulation (gs, gd, curPlayerName, altPlayerName) {
 		
 	}
 }
+
+//test
