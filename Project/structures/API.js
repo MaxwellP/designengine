@@ -240,3 +240,24 @@ function cut(zoneName, gs)
 	Declare Vocabulary (lambda)
 		Pattern recognition for poker?
 */
+
+
+
+
+//Lambda function creators
+
+function IsAttributeOverValueLambda (attributeName, upperLimit) {
+	return function (obj) {
+		if(obj.attributes[attributeName] > upperLimit)
+		{
+			return true;
+		}
+		return false;
+	}
+}
+
+//Example of use
+// var isDollarsOver666 = IsAttributeOverValueLambda("Dollars", 666)
+// isDollarsOver666({attributes: {Dollars: 333}}); >>> false
+// isDollarsOver666({attributes: {Dollars: 999}}); >>> true
+
