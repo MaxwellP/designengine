@@ -43,6 +43,8 @@ var dragGUIInfo;
 var prevX;
 var prevY;
 
+var emptyClick = false;
+
 // The game player that is using the GUI (defaults to the first player in the player list)
 var guiPlayer;
 
@@ -61,6 +63,9 @@ function Init () {
 	requestAnimFrame(Update);
 	canvas = document.getElementById("Canvas2D");
 	ctx = canvas.getContext('2d');
+
+	canvas.addEventListener('mousedown', DoMouseDown, true);
+	canvas.addEventListener('mouseup', DoMouseUp, true);
 
 	canvas.width = window.innerWidth - 20;
 	canvas.height = window.innerHeight - 20;
@@ -234,11 +239,6 @@ function drawAllCards (gs) {
 	for (var i = 0; i < cardsGUIInfo.length; i++) {
 		drawCard(lookupCard(cardsGUIInfo[i].id, gs));
 	};
-	/*
-	for (var i = 0; i < gs.cards.length; i++) {
-		drawCard(gs.cards[i]);
-	};
-	*/
 }
 
 function cardCompare(a, b) {
@@ -552,6 +552,8 @@ function MousePos (e) {
 
 		prevX = mouseX;
 		prevY = mouseY;
+
+		positionZoneInfo(mouseX, mouseY);
 	}
 }
 
@@ -563,9 +565,6 @@ function hoverOff (e) {
 	
 }
 
-window.addEventListener('mousedown', DoMouseDown, true);
-window.addEventListener('mouseup', DoMouseUp, true);
-
 // Mouse down event
 function DoMouseDown (e) {
 	var mouseX = e.pageX - 8;
@@ -576,12 +575,41 @@ function DoMouseDown (e) {
 		var clickedZone = findZone(mouseX, mouseY);
 		if (clickedZone) 
 		{
-			hideAllInfo();
-			fillZoneInfo(clickedZone);
 			dragging = true;
 			dragGUIInfo = lookupZoneGUI(clickedZone);
 			prevX = mouseX;
 			prevY = mouseY;
+		}
+		else
+		{
+			emptyClick = true;
+		}
+	}
+}
+
+function DoMouseUp (e) {
+	var mouseX = e.pageX - 8;
+	var mouseY = e.pageY - 8;
+
+	if (designing)
+	{
+		var clickedZone = findZone(mouseX, mouseY);
+		if (clickedZone) 
+		{
+			hideAllInfo();
+			fillZoneInfo(clickedZone, mouseX, mouseY);
+			
+		}
+		else if (emptyClick)
+		{
+			hideAllInfo();
+			emptyClick = false;
+		}
+
+		if (dragging)
+		{
+			dragging = false;
+			updatePercents(dragGUIInfo);
 		}
 	}
 	else
@@ -624,17 +652,6 @@ function DoMouseDown (e) {
 					popUpMenus = [];
 				}
 			}
-		}
-	}
-}
-
-function DoMouseUp () {
-	if (designing)
-	{
-		if (dragging)
-		{
-			dragging = false;
-			updatePercents(dragGUIInfo);
 		}
 	}
 }
