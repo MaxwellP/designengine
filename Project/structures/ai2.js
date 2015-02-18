@@ -8,7 +8,7 @@ function pickRandomLegalAction (player, gs) {
 	var legalActions = getLegalActions(player, gs);
 	if (legalActions.length == 0)
 	{
-		console.log("NO LEGAL ACTIONS");
+		//console.log("NO LEGAL ACTIONS");
 		return false;
 	}
 	return legalActions[Math.floor(Math.random() * legalActions.length)];
@@ -136,8 +136,6 @@ function evaluate (curPlayerName, altPlayerName, gs, gd)
 	var altPlayer = lookupPlayer (altPlayerName, gs);
 
 
-	//This whole thing needs to be fixed
-
 	var winner = window[gd.winCondition].apply(this, [gs]).name;
 
 	if (winner == curPlayer.name)
@@ -152,6 +150,33 @@ function evaluate (curPlayerName, altPlayerName, gs, gd)
 	{
 		var score = window[gd.stateScore].apply(this, [curPlayerName, gs]);
 		return score;
+	}
+}
+
+//Second version of evaluate that only returns between 0 and 1
+function evaluate_B (curPlayerName, altPlayerName, gs, gd)
+{
+	var curPlayer = lookupPlayer (curPlayerName, gs);
+	var altPlayer = lookupPlayer (altPlayerName, gs);
+
+
+	var winner = window[gd.winCondition].apply(this, [gs]).name;
+
+	if (winner == curPlayer.name)
+	{
+		return 1;
+	}
+	else if (winner == altPlayer.name)
+	{
+		return 0;
+	}
+	else
+	{
+		var score = window[gd.stateScore].apply(this, [curPlayerName, gs]);
+
+		//*** Change this to return score once stateScore returns between 0 and 1
+		return 0.5;
+		//return score;
 	}
 }
 
@@ -225,12 +250,14 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 	for (var i = 0; i < root.children.length; i++)
 	{
 		var child = root.children[i];
+		//console.log(child.numVisits);
 		if (child.numVisits > mostVisits)
 		{
 			bestAction = child.action;
 			mostVisits = child.numVisits;
 		}
 	}
+	return bestAction;
 }
 
 //If there are any untried actions, do one of those
@@ -245,16 +272,29 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 		//Pick random untried action
 		var randUntriedAction = node.untriedLegalActions[Math.floor(Math.random() * node.untriedLegalActions.length)];
 
-		var newGS = node.gs.clone();
-		//Apply the action to the new gamestate
-		applyAction(randUntriedAction, curPlayerObj, newGS);
+		//Remove it from the list
+		node.untriedLegalActions.splice(node.untriedLegalActions.indexOf(randUntriedAction), 1);
 
-		var newNode = GSNode(newGS, randUntriedAction)
+		//*** Needs to be changed to cloneAndRandomize()
+		var newGS = node.gs.clone();
+
+		//Apply the action to the new gamestate
+		applyAction(randUntriedAction, lookupPlayer(newGS.turnPlayer, newGS), newGS);
+
+		var newNode = new GSNode(newGS, randUntriedAction)
+
+		newNode.numVisits = 1; //Start node with 1 visit
+
+		//Add node to parent node's children array
+		node.children.push(newNode);
 
 		//Simulate outcome randomly (do random moves until the game ends)
-		ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
+		var simResult = ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
 
-		//Update 
+		newNode.totalReward += simResult;
+
+		//Update all parent nodes
+		return simResult;
 	}
 	else
 	{
@@ -269,40 +309,43 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 				chosenChild = child;
 			}
 		};
-		ISMCTS_Traverse(chosenChild, gd, curPlayerName, altPlayerName);
+		var simResult = ISMCTS_Traverse(chosenChild, gd, curPlayerName, altPlayerName);
+		chosenChild.totalReward += simResult;
+		//Keep passing reward up through parent nodes
+		return simResult;
 	}
 }
 
 //From a state, apply random moves until the game is ended (or limit reached)
 //Returns terminal results (win/loss)
 function ISMCTS_Simulation (gs, gd, curPlayerName, altPlayerName) {
-
-	//Game lasting longer than 50 turns - just evaluate at that point
-	var limit = 50;
-	while (!isGameOver(gs, gd) && limit > 0)
+	//console.log("* Randomly simulating rest of game");
+	var simGS = gs.clone()
+	//Game lasting longer than 100 turns - just evaluate at that point
+	var limit = 100;
+	while (!isGameOver(simGS, gd) && limit > 0)
 	{
 		limit --;
 
-		var player = lookupPlayer(gs.turnPlayer, gs);
-		var randomAction = pickRandomLegalAction(gs.turnPlayer, gs);
-		applyAction(randomAction, player, gs);
-
-
-		pickRandomLegalAction(gs.turnPlayer, gs);
-		runAI_random (gs.turnPlayer, gs, gd, limit)
+		var player = lookupPlayer(simGS.turnPlayer, simGS);
+		var randomAction = pickRandomLegalAction(player, simGS);
+		if (randomAction)
+		{
+			applyAction(randomAction, player, simGS);
+		}
 	}
-	if (isGameOver(gs, gd))
+	if (isGameOver(simGS, gd))
 	{
+		var result = evaluate_B(curPlayerName, altPlayerName, simGS, gd);
+		//console.log("* Game simulated - reward of " + result);
 		//*** Get win/loss
-		return;
+		return result;
 	}
 	else
 	{
+		//console.log("* Game unfinished - reward of 0.5")
 		//*** Evaluate state
-		return evaluate(curPlayerName, altPlayerName, gs, gd);
+		return evaluate_B(curPlayerName, altPlayerName, simGS, gd);
 		
 	}
 }
-
-
-//TODO: Change evaluate() to return between 0 and 1 (?)

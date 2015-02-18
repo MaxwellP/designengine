@@ -155,23 +155,33 @@ function generateActionsWithoutInputs(card, gs)
 
 function applyAction (action, player, gs)
 {
-	var actionInputs = action.inputs.slice();
+	//Create a new action in case the source action refers to a card from a different game state
+	var newAction = new Action(
+		action.name,
+		action.template,
+		lookupCard(action.card.id, gs),
+		action.inputs,
+		action.checkLegality,
+		action.result);
+
+	var actionInputs = newAction.inputs.slice();
 	actionInputs.push(player);
-	actionInputs.push(action);
+	actionInputs.push(newAction);
 	actionInputs.push(gs);
 
-	if (window[action.checkLegality].apply(this, actionInputs))
+	if (window[newAction.checkLegality].apply(this, actionInputs))
 	{
-		if (player.controlsZone(action.card.zone))
+		if (player.controlsZone(newAction.card.zone))
 		{
-			gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
-			window[action.result].apply(this, actionInputs);
+			gameLog("Player " + player.name + " performed the action \"" + newAction.name + "\".")
+			window[newAction.result].apply(this, actionInputs);
 			//printGameState(gs);
 			return true;
 		}
 		else
 		{
-			console.log("Player does not have access to card.")
+			throw new Error("Player Doesn't Have Access Error");
+			console.log("Player does not have access to card.");
 			return false;
 		}
 	}
