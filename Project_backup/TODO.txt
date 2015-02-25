@@ -1,0 +1,6 @@
+getNewCardID()
+{
+	/*generates an id for a newly created card, 1 + previously used id*/
+}
+
+getNewPlayerID()

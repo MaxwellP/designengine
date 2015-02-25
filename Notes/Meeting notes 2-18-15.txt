@@ -1,0 +1,28 @@
+Reactions
+
+Engine fixes
+
+Designing on-the-fly
+-Zone identifiers
+-Everything was through lookups, causing problems now?
+
+No name changing : set a name at the start. Delete old one and make new one if the name must change
+
+Be able to make the JSON in design gui
+
+API
+-API functions should have NO side effects on the gamestate
+-Anything that does should go in Event
+-Should have a naming structure for functions that are expected to be used as arguments for a higher order function
+-Gamestate should be first argument for functions
+-Finish what you have
+-Make a tutorial - explain concepts, give examples
+
+Other
+-Find instances of object passing instead of ID passing
+-Non-card actions
+-"Universe" system: assign a universe to a card for more intelligent sampling
+-Card Types: a string that places a card in a group
+ -Multiple types
+ -Permanent property
+  -Declare beforehand
