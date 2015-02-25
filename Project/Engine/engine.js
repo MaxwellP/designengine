@@ -8,7 +8,7 @@ var designing = false;
 function readJSON(file)
 {
 	var request = new XMLHttpRequest();
-	request.open("GET", "./" + file + ".json", true);
+	request.open("GET", "Games/" + file + ".json", true);
 	request.onload = function(response)
 	{
 		var read = JSON.parse(request.responseText);
@@ -40,7 +40,7 @@ function initialize(gd)
 {
 	//debugger;
 	var imported = document.createElement("script");
-	imported.src = gd.functionFile;
+	imported.src = "Games/" + gd.functionFile;
 	document.head.appendChild(imported);
 	
 	imported.onload = function(response)
@@ -254,5 +254,5 @@ function gameLog (string) {
 }
 
 
-//Start the AI Test game
+//load the game
 readJSON("poker");
