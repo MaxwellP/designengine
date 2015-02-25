@@ -275,8 +275,8 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 		//Remove it from the list
 		node.untriedLegalActions.splice(node.untriedLegalActions.indexOf(randUntriedAction), 1);
 
-		//*** Needs to be changed to cloneAndRandomize()
-		var newGS = node.gs.clone();
+		//Determinization
+		var newGS = node.gs.cloneAndRandomize(curPlayerName);
 
 		//Apply the action to the new gamestate
 		applyAction(randUntriedAction, lookupPlayer(newGS.turnPlayer, newGS), newGS);
@@ -301,18 +301,28 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 		//Select the child with the highest (exploitation + c * exploration) result
 		var chosenChild = undefined;
 		var highestResult = -1;
-		for (var i = 0; i < node.children.length; i++) {
+		for (var i = 0; i < node.children.length; i++)
+		{
 			var child = node.children[i]
 			var banditResult = (child.totalReward / child.numVisits) + 0.7 * Math.sqrt(Math.log(node.numVisits) / child.numVisits);
 			if (banditResult > highestResult)
 			{
 				chosenChild = child;
 			}
-		};
-		var simResult = ISMCTS_Traverse(chosenChild, gd, curPlayerName, altPlayerName);
-		chosenChild.totalReward += simResult;
-		//Keep passing reward up through parent nodes
-		return simResult;
+		}
+		if (chosenChild != undefined)
+		{
+			var simResult = ISMCTS_Traverse(chosenChild, gd, curPlayerName, altPlayerName);
+			chosenChild.totalReward += simResult;
+			//Keep passing reward up through parent nodes
+			return simResult;
+		}
+		else
+		{
+			//No children available and no untried actions
+			console.log("REACHED BOTTOM OF TREE");
+			var simResult = ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
+		}
 	}
 }
 

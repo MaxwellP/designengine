@@ -13,8 +13,8 @@ function pokerSetup()
 {
 	//var gamestate;
 	var gamestate = arguments[arguments.length - 1];
-
-	var deckCards = lookupZone("Deck", gamestate).cards;
+	var deckZone = lookupZone("Deck", gamestate);
+	var deckCards = deckZone.cards;
 
 	/*Fisher-Yates Shuffle*/
 	var currentIndex = deckCards.length;
@@ -35,7 +35,7 @@ function pokerSetup()
 	{
 		for(var j = 0; j < gamestate.players.length; j += 1)
 		{
-			var deckZone = lookupZone("deck", gamestate);
+			
 			if(gamestate.players[j].name == "P1")
 			{
 				Event.moveCardToZone(deckZone.cards[0], "P1 Hand", gamestate);
@@ -106,7 +106,7 @@ function discardResult()
 	//var p2Hand = lookupZone("P2 Hand", gamestate);
 
 	//Move to player's corresponding discard pile
-	Event.moveCardToZone(action.card, player.name + " Discard", gamestate);
+	Event.moveCardToZone(action.card.id, player.name + " Discard", gamestate);
 
 
 }
@@ -116,6 +116,12 @@ function discardCheckLegality()
 	var player = arguments[arguments.length - 3];
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
+	
+	var doneZone = lookupZone(player.name + " Done", gamestate);
+	if (lookupCard(doneZone.cards[0], gamestate).attributes.done == true)
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -126,13 +132,35 @@ function doneResult()
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
-	var p1Hand = lookupZone("P1 Hand", gamestate);
-	var p2Hand = lookupZone("P2 Hand", gamestate);
 
-	//Event.moveCardToZone(action.card, "Discard", gamestate);
+	//Done! (Set done attribute to true)
+	action.card.attributes.done = true;
 
-	lookupCard(action.card, gamestate).attributes.done = true;
+	var deckZone = lookupZone("Deck", gamestate);
 
+	//Draw back up to 5 cards
+	if(player.name == "P1")
+	{
+		var p1Hand = lookupZone("P1 Hand", gamestate);
+		for (var i = 0; i < 5; i++)
+		{
+			if (p1Hand.cards.length < 5)
+			{
+				Event.moveCardToZone(deckZone.cards[0], "P1 Hand", gamestate);
+			}
+		}
+	}
+	else
+	{
+		var p2Hand = lookupZone("P2 Hand", gamestate);
+		for (var i = 0; i < 5; i++)
+		{
+			if (p2Hand.cards.length < 5)
+			{
+				Event.moveCardToZone(deckZone.cards[0], "P2 Hand", gamestate);
+			}
+		}
+	}
 	Event.endPhase(gamestate);
 
 }
@@ -143,7 +171,7 @@ function doneCheckLegality()
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
-	if (lookupCard(action.card, gamestate).attributes.done == false)
+	if (action.card.attributes.done == false)
 	{
 		return true;
 	}
@@ -155,7 +183,7 @@ function pokerWinCondition()
 	var gamestate = arguments[arguments.length - 1];
 	if(
 		(lookupCard(lookupZone("P1 Done", gamestate).cards, gamestate).attributes.done == true) && 
-		(lookupCard(lookupZone("P2 Done", gamestate).cards, gamestate).attributes.done == true)
+		(lookupCard(lookupZone("P2 Done", gamestate).cards, gamestate).attributes.done == true))
 	{
 		if(false)
 		{

@@ -7,7 +7,7 @@
 		{"name": "P1 Discard", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]},
 		{"name": "P2 Discard", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]},
 		{"name": "P1 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]},
-		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]}
+		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]}
 	],
 	"zoneGUI":
 	[
@@ -87,8 +87,8 @@
 	],
 	"players":
 	[
-		{"name": "P1", "zones": ["P1 Hand", "Done"], "attributes": {"score": 0}, "isAI": false},
-		{"name": "P2", "zones": ["P2 Hand", "Done"], "attributes": {"score": 0}, "isAI": true}
+		{"name": "P1", "zones": ["P1 Hand", "P1 Done"], "attributes": {"score": 0}, "isAI": false},
+		{"name": "P2", "zones": ["P2 Hand", "P2 Done"], "attributes": {"score": 0}, "isAI": true}
 	],
 	"init":
 	[
