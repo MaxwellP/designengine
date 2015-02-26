@@ -1,0 +1,1304 @@
+{
+    "project": {},
+    "files": {
+        "Engine\\API.js": {
+            "name": "Engine\\API.js",
+            "modules": {},
+            "classes": {
+                "API": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\action.js": {
+            "name": "Engine\\action.js",
+            "modules": {},
+            "classes": {
+                "Action": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\card.js": {
+            "name": "Engine\\card.js",
+            "modules": {},
+            "classes": {
+                "Card": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\event.js": {
+            "name": "Engine\\event.js",
+            "modules": {},
+            "classes": {
+                "Event": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\gameDescription.js": {
+            "name": "Engine\\gameDescription.js",
+            "modules": {},
+            "classes": {
+                "GameDescription": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\gamestate.js": {
+            "name": "Engine\\gamestate.js",
+            "modules": {},
+            "classes": {
+                "Gamestate": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\helpers.js": {
+            "name": "Engine\\helpers.js",
+            "modules": {},
+            "classes": {
+                "Helpers": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\phase.js": {
+            "name": "Engine\\phase.js",
+            "modules": {},
+            "classes": {
+                "Phase": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\player.js": {
+            "name": "Engine\\player.js",
+            "modules": {},
+            "classes": {
+                "Player": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine\\zone.js": {
+            "name": "Engine\\zone.js",
+            "modules": {},
+            "classes": {
+                "Zone": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "API": {
+            "name": "API",
+            "shortname": "API",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\API.js",
+            "line": 28,
+            "description": "A namespace for second order functions"
+        },
+        "Action": {
+            "name": "Action",
+            "shortname": "Action",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\action.js",
+            "line": 1,
+            "description": "A logic based sequence of events",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- a unique identifier for the action",
+                    "type": "String"
+                },
+                {
+                    "name": "template",
+                    "description": "- the template from which this event is created",
+                    "type": "ActionTemplate"
+                },
+                {
+                    "name": "card",
+                    "description": "- an optional field containing the id of the card the action came from",
+                    "type": "Card"
+                },
+                {
+                    "name": "inputs",
+                    "description": "- an array of types over which the action takes place",
+                    "type": "Array"
+                },
+                {
+                    "name": "checkLegality",
+                    "description": "- the function returns whether or not the action is legal in a given game state",
+                    "type": "Function"
+                },
+                {
+                    "name": "result",
+                    "description": "- the function produces a new game state having preformed the action",
+                    "type": "Function"
+                }
+            ]
+        },
+        "Card": {
+            "name": "Card",
+            "shortname": "Card",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\card.js",
+            "line": 1,
+            "description": "An instance of a card type",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- a unique ID for this card",
+                    "type": "Int"
+                },
+                {
+                    "name": "zone",
+                    "description": "- the name of the zone that the card currently resides in",
+                    "type": "Zone"
+                },
+                {
+                    "name": "name",
+                    "description": "- the name of the card type that this card is an instance of",
+                    "type": "String"
+                },
+                {
+                    "name": "attributes",
+                    "description": "- an object containing all attributes for this card",
+                    "type": "Object"
+                },
+                {
+                    "name": "actions",
+                    "description": "- an array of all actions the card has",
+                    "type": "Array"
+                }
+            ]
+        },
+        "Event": {
+            "name": "Event",
+            "shortname": "Event",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\event.js",
+            "line": 1,
+            "description": "A namespace for fundamental gamestate manipulations"
+        },
+        "GameDescription": {
+            "name": "GameDescription",
+            "shortname": "GameDescription",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\gameDescription.js",
+            "line": 1,
+            "description": "Initial conditions for the game structure",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "zones",
+                    "description": "- an array of zones defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "cardTypes",
+                    "description": "- an array of card types defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "actionTemplates",
+                    "description": "- an array of action templates defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "players",
+                    "description": "- an array of players defined in the designer's json file",
+                    "type": "Array"
+                },
+                {
+                    "name": "init",
+                    "description": "-",
+                    "type": "Function"
+                },
+                {
+                    "name": "winCondition",
+                    "description": "- a designer defined function that returns when a game state is considered a termination state and who the victor is in that state",
+                    "type": "Function"
+                },
+                {
+                    "name": "functionFile",
+                    "description": "- the name of the file containing all designer defined functions",
+                    "type": "String"
+                },
+                {
+                    "name": "setupFunction",
+                    "description": "- a designer defined function that is run at the start of a game",
+                    "type": "Function"
+                },
+                {
+                    "name": "stateScore",
+                    "description": "- a designer defined function run at the start of a game",
+                    "type": "Function"
+                },
+                {
+                    "name": "phases",
+                    "description": "- an array of zones defined in the designer's json file",
+                    "type": "Array"
+                }
+            ]
+        },
+        "Gamestate": {
+            "name": "Gamestate",
+            "shortname": "Gamestate",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\gamestate.js",
+            "line": 1,
+            "description": "The state of the dynamic elements of the game",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "players",
+                    "description": "- an array of all players in the game",
+                    "type": "Array"
+                },
+                {
+                    "name": "zones",
+                    "description": "- an array of all zones in the game",
+                    "type": "Array"
+                },
+                {
+                    "name": "cards",
+                    "description": "- an array of all cards in the game",
+                    "type": "Array"
+                },
+                {
+                    "name": "currentPhase",
+                    "description": "- the current phase of the turn",
+                    "type": "Phase"
+                },
+                {
+                    "name": "turnPlayer",
+                    "description": "- the player whose turn it is",
+                    "type": "Player"
+                }
+            ]
+        },
+        "Helpers": {
+            "name": "Helpers",
+            "shortname": "Helpers",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\helpers.js",
+            "line": 1,
+            "description": "Helper functions"
+        },
+        "Phase": {
+            "name": "Phase",
+            "shortname": "Phase",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\phase.js",
+            "line": 1,
+            "description": "The pieces of a player's turn",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the phase - must be unique",
+                    "type": "String"
+                },
+                {
+                    "name": "init",
+                    "description": "- a function executed at the beginning of the phase",
+                    "type": "Function"
+                },
+                {
+                    "name": "endConditions",
+                    "description": "- a function that is checked after each action is taken in a given phase, if true is returned the phase has met its end condition and the endPhase event is called",
+                    "type": "Function"
+                }
+            ]
+        },
+        "Player": {
+            "name": "Player",
+            "shortname": "Player",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\player.js",
+            "line": 1,
+            "description": "A player who can take actions on the game",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the player",
+                    "type": "String"
+                },
+                {
+                    "name": "attributes",
+                    "description": "- all designer defined attributes for the player",
+                    "type": "Object"
+                },
+                {
+                    "name": "zones",
+                    "description": "- all zones the player can take actions on",
+                    "type": "Array"
+                },
+                {
+                    "name": "isAI",
+                    "description": "- an indicator for the AI to tell whether or not the AI should be taking moves or allowing the player to do so",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "isAClone",
+                    "description": "- a boolean used to determine if a player needs a new ID",
+                    "type": "Boolean"
+                }
+            ]
+        },
+        "Zone": {
+            "name": "Zone",
+            "shortname": "Zone",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine\\zone.js",
+            "line": 1,
+            "description": "A place that contains cards",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the zone, must be unique",
+                    "type": "String"
+                },
+                {
+                    "name": "attributes",
+                    "description": "- all designer defined attributes for the zone",
+                    "type": "Object"
+                },
+                {
+                    "name": "type",
+                    "description": "- determines how the cards in the zone are displayed",
+                    "type": "String"
+                },
+                {
+                    "name": "visibleTo",
+                    "description": "- an array of all players the cards in the zone are visible to",
+                    "type": "Array"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "Engine\\API.js",
+            "line": 35,
+            "description": "Returns the number of cards in a given zone",
+            "itemtype": "method",
+            "name": "API.CardCounting.inZone",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose cards are being counted",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 46,
+            "description": "Returns the number of cards of the named type in a given zone",
+            "itemtype": "method",
+            "name": "API.CardCounting.ofTypeInZone",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose cards are being counted",
+                    "type": "String"
+                },
+                {
+                    "name": "cardType",
+                    "description": "- the name of the card type being counted in a given zone",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 66,
+            "description": "Returns the number of cards hat meet requirement function's condition in a given zone",
+            "itemtype": "method",
+            "name": "API.CardCounting.ofTypeInZone",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose cards are being counted",
+                    "type": "String"
+                },
+                {
+                    "name": "isValid",
+                    "description": "- a function that takes a card and returns either true or false, if true is returned, the card is counted",
+                    "type": "Function"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\card.js",
+            "line": 23,
+            "description": "A function to determine whether a card is visible to a given player",
+            "itemtype": "method",
+            "name": "Card.prototype.isVisibleTo",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the player who's ability to view the card is being questioned",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate over which the query is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "return": {
+                "description": "Returns true if the given player can view the card",
+                "type": "Boolean"
+            },
+            "class": "Card"
+        },
+        {
+            "file": "Engine\\card.js",
+            "line": 35,
+            "description": "A function that creates a new card that is a clone of this card",
+            "itemtype": "method",
+            "name": "Card.prototype.clone",
+            "return": {
+                "description": "Returns a new card that is a clone of this card",
+                "type": "Card"
+            },
+            "class": "Card"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 9,
+            "description": "Moves the given card to the given zone",
+            "itemtype": "method",
+            "name": "Event.Move.Individual.toZone",
+            "params": [
+                {
+                    "name": "cardID",
+                    "description": "- the unique identification number of the card being moved",
+                    "type": "Int"
+                },
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone to which the card is being moved to",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 38,
+            "description": "Move all cards from the given zone to the other given zone",
+            "itemtype": "method",
+            "name": "Event.Move.Group.moveAll",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the name of the zone from which the card(s) are being moved from",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toZone",
+                    "description": "- the name of the zone to which the card(s) are being moved to",
+                    "type": "Zone"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 54,
+            "description": "Move all cards with the given card type name from the given zone to the other given zone",
+            "itemtype": "method",
+            "name": "Event.Move.Group.moveAllOfType",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the name of the zone from which the card(s) are being moved from",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toZone",
+                    "description": "- the name of the zone to which the card(s) are being moved to",
+                    "type": "Zone"
+                },
+                {
+                    "name": "cardType",
+                    "description": "- the name of the card type to be moved",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 86,
+            "description": "Move all cards with the given attribute value from the given zone to the other given zone",
+            "itemtype": "method",
+            "name": "Event.Move.Group.moveAllWithAttributeValue",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the name of the zone from which the card(s) are being moved from",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toZone",
+                    "description": "- the name of the zone to which the card(s) are being moved to",
+                    "type": "Zone"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the value of the attribute to be checked against",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 119,
+            "description": "Move all cards that meet the requirement function's condition for movement from the given zone to the other given zone",
+            "itemtype": "method",
+            "name": "Event.Move.Group.moveAllValid",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the name of the zone from which the card(s) are being moved from",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toZone",
+                    "description": "- the name of the zone to which the card(s) are being moved to",
+                    "type": "Zone"
+                },
+                {
+                    "name": "isValid",
+                    "description": "- a function that takes a card and returns either true or false, if true is returned, the card is moved",
+                    "type": "Function"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 154,
+            "description": "Moves the top card from one zone to another",
+            "itemtype": "method",
+            "name": "Event.Draw.drawCard",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the zone from which a card is being drawn",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toZone",
+                    "description": "- the zone from which a card is being drawn",
+                    "type": "Zone"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 165,
+            "description": "Moves the top n cards from one zone to another",
+            "itemtype": "method",
+            "name": "Event.Draw.drawCards",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the zone from which a card is being drawn",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toZone",
+                    "description": "- the zone from which a card is being drawn",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toDraw",
+                    "description": "- the number of cards to be drawn",
+                    "type": "Int"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 182,
+            "description": "Changes the value of the given object's attribute",
+            "itemtype": "method",
+            "name": "Event.Modify.setAttribute",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "- the object whose attribute value is being changed",
+                    "type": "Object"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "newValue",
+                    "description": "- the new value being given to the object's attribute",
+                    "type": "Object"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 195,
+            "description": "Increases the given attribute's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.increaseAttributeBy",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "- the object whose attribute value is being changed",
+                    "type": "Object"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "newValue",
+                    "description": "- the value by which to increase the attribute",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 207,
+            "description": "Decreases the given attribute's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.decreaseAttributeBy",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "- the object whose attribute value is being changed",
+                    "type": "Object"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "newValue",
+                    "description": "- the value by which to decrease the attribute",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 219,
+            "description": "Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called",
+            "itemtype": "method",
+            "name": "Event.Modify.endPhase",
+            "params": [
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 243,
+            "description": "Ends the current turn and allows the next player in the turn structure to begin their turn.",
+            "itemtype": "method",
+            "name": "Event.Modify.endTurn",
+            "params": [
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\gameDescription.js",
+            "line": 44,
+            "description": "Creates a clean game state",
+            "itemtype": "method",
+            "name": "GameDescription.prototype.initializeGameState",
+            "return": {
+                "description": "Returns the starting game state based on this game structure",
+                "type": "GameState"
+            },
+            "class": "GameDescription"
+        },
+        {
+            "file": "Engine\\gameDescription.js",
+            "line": 59,
+            "description": "Creates and places the cards into the zones",
+            "itemtype": "method",
+            "name": "GameDescription.prototype.initializeCards",
+            "class": "GameDescription"
+        },
+        {
+            "file": "Engine\\gameDescription.js",
+            "line": 90,
+            "description": "Creates a new card of the given card type and places it in the given zone",
+            "itemtype": "method",
+            "name": "initCard",
+            "params": [
+                {
+                    "name": "cardType",
+                    "description": "- he name of the card type to create a new card based on",
+                    "type": "String"
+                },
+                {
+                    "name": "zone",
+                    "description": "- the zone into which the new car should be placed in",
+                    "type": "Zone"
+                }
+            ],
+            "return": {
+                "description": "Returns the newly created card",
+                "type": "Card"
+            },
+            "class": "GameDescription"
+        },
+        {
+            "file": "Engine\\gamestate.js",
+            "line": 19,
+            "description": "Creates a new gamestate that is a copy of this gamestate",
+            "itemtype": "method",
+            "name": "GameState.prototype.clone",
+            "return": {
+                "description": "Returns the newly created gamestate",
+                "type": "GameState"
+            },
+            "class": "Gamestate"
+        },
+        {
+            "file": "Engine\\gamestate.js",
+            "line": 47,
+            "description": "Creates a new gamestate that is a copy of this gamestate, with randomly determinized hidden information from a given observer's point of view",
+            "itemtype": "method",
+            "name": "GameState.prototype.cloneAndRandomize",
+            "params": [
+                {
+                    "name": "observer",
+                    "description": "- The name of the player to use as the observer (Randomize based on what information is hidden from observer)",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Returns the newly created randomized gamestate",
+                "type": "GameState"
+            },
+            "class": "Gamestate"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 7,
+            "description": "Creates a new unique id for cards",
+            "itemtype": "method",
+            "name": "getNewCardID",
+            "return": {
+                "description": "Returns the newly created id",
+                "type": "Int"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 15,
+            "description": "Determines the next ID number for players",
+            "itemtype": "method",
+            "name": "getNewPlayerID",
+            "return": {
+                "description": "Returns the newly created id",
+                "type": "Int"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 24,
+            "description": "Search for a specific by given search parameters",
+            "itemtype": "method",
+            "name": "getNewPlayerID",
+            "params": [
+                {
+                    "name": "parameterArray",
+                    "description": "-",
+                    "type": "Array"
+                },
+                {
+                    "name": "valueArray",
+                    "description": "-",
+                    "type": "Array"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the zone if found",
+                "type": "Zone"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 49,
+            "description": "Search for a specific zone by name",
+            "itemtype": "method",
+            "name": "lookupZone",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the zone being searched for",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the zone if found",
+                "type": "Zone"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 67,
+            "description": "Search for a specific card type by name",
+            "itemtype": "method",
+            "name": "lookupCardType",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the card type being searched for",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the card type if found",
+                "type": "CardType"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 86,
+            "description": "Search for a specific action template type by name",
+            "itemtype": "method",
+            "name": "lookupActionTemplate",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the action template being searched for",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the action template type if found",
+                "type": "ActionTemplate"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 105,
+            "description": "Search for a specific phase type by name",
+            "itemtype": "method",
+            "name": "lookupActionTemplate",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the phase being searched for",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the phase type if found",
+                "type": "Phase"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 125,
+            "description": "Get the array of all zone names",
+            "itemtype": "method",
+            "name": "getZoneNameArray",
+            "params": [
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns a list of all zone names",
+                "type": "Array"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 140,
+            "description": "Get the array of all player names",
+            "itemtype": "method",
+            "name": "getPlayerNameArray",
+            "params": [
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns a list of all player names",
+                "type": "Array"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 155,
+            "description": "Get the array of all card id's",
+            "itemtype": "method",
+            "name": "getCardIDArray",
+            "params": [
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns a list of all card id's",
+                "type": "Array"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 170,
+            "description": "Get the card with the given id",
+            "itemtype": "method",
+            "name": "getCardIDArray",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- the id of the card being searched for",
+                    "type": "Int"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the card with the given id",
+                "type": "Array"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 193,
+            "description": "Search for a player by name",
+            "itemtype": "method",
+            "name": "lookupPlayer",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- the name of the player being searched for",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the player if found",
+                "type": "Player"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 211,
+            "description": "A Cartesian Product function that acts on all given arrays.\nFound here: http://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript",
+            "itemtype": "method",
+            "name": "cartProd",
+            "return": {
+                "description": "Returns all possible combinations of elements taking a single element from each array",
+                "type": "Array"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 248,
+            "description": "Create a clone of a given Javascript object",
+            "itemtype": "method",
+            "name": "lookupPlayer",
+            "params": [
+                {
+                    "name": "oldObject",
+                    "description": "- the object to be cloned",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Returns the cloned object",
+                "type": "Object"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\helpers.js",
+            "line": 258,
+            "description": "Gets the first player with a name other than the given name",
+            "itemtype": "method",
+            "name": "getAltPlayer",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player not being searched for",
+                    "type": "String"
+                },
+                {
+                    "name": "gs",
+                    "description": "- the gamestate which is being searched",
+                    "type": "Gamestate"
+                }
+            ],
+            "return": {
+                "description": "Returns the first player with a name not equal to the given one",
+                "type": "Object"
+            },
+            "class": "Helpers"
+        },
+        {
+            "file": "Engine\\player.js",
+            "line": 24,
+            "description": "Determines whether the player controls the given zone",
+            "itemtype": "method",
+            "name": "Player.prototype.controlsZone",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone being checked",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Returns whether or not the given zone can be acted upon by the player",
+                "type": "Boolean"
+            },
+            "class": "Player"
+        },
+        {
+            "file": "Engine\\player.js",
+            "line": 40,
+            "description": "Creates a clone of the player",
+            "itemtype": "method",
+            "name": "Player.prototype.clone",
+            "return": {
+                "description": "Returns a copy of the player",
+                "type": "Player"
+            },
+            "class": "Player"
+        },
+        {
+            "file": "Engine\\zone.js",
+            "line": 19,
+            "description": "Determines whether the given player can view the zone",
+            "itemtype": "method",
+            "name": "Zone.prototype.isVisibleTo",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player being checked",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Returns whether or not the cards in the zone are visible to the given player",
+                "type": "Boolean"
+            },
+            "class": "Zone"
+        },
+        {
+            "file": "Engine\\zone.js",
+            "line": 35,
+            "description": "Creates a clone of the zone",
+            "itemtype": "method",
+            "name": "Zone.prototype.clone",
+            "return": {
+                "description": "Returns a copy of the zone",
+                "type": "Zone"
+            },
+            "class": "Zone"
+        }
+    ],
+    "warnings": []
+}

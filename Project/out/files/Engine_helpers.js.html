@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Engine\helpers.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Action.html">Action</a></li>
+                                <li><a href="../classes/API.html">API</a></li>
+                                <li><a href="../classes/Card.html">Card</a></li>
+                                <li><a href="../classes/Event.html">Event</a></li>
+                                <li><a href="../classes/GameDescription.html">GameDescription</a></li>
+                                <li><a href="../classes/Gamestate.html">Gamestate</a></li>
+                                <li><a href="../classes/Helpers.html">Helpers</a></li>
+                                <li><a href="../classes/Phase.html">Phase</a></li>
+                                <li><a href="../classes/Player.html">Player</a></li>
+                                <li><a href="../classes/Zone.html">Zone</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: Engine\helpers.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+* Helper functions
+* @Class Helpers
+*/
+//Determines the next ID number
+var cardIDCounter = 0;
+/**
+* Creates a new unique id for cards
+* @method getNewCardID
+* @return {Int} Returns the newly created id
+*/
+function getNewCardID () {
+	return cardIDCounter ++;
+}
+/**
+* Determines the next ID number for players
+* @method getNewPlayerID
+* @return {Int} Returns the newly created id
+*/
+var playerIDCounter = 0;
+function getNewPlayerID () {
+	return playerIDCounter ++;
+}
+/**
+* Search for a specific by given search parameters
+* @method getNewPlayerID
+* @param {Array} parameterArray - 
+* @param {Array} valueArray - 
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Zone} Returns the zone if found
+*/
+function lookupZoneByParam(parameterArray, valueArray, gs)
+{
+	for (var i = 0; i &lt; gs.zones.length; i++) {
+		var correctZone = true;
+		for (var j = 0; j &lt; parameterArray.length; j++) {
+			if (gs.zones[i][parameterArray[j]] != valueArray[j])
+			{
+				correctZone = false;
+			}
+		};
+		if (correctZone)
+		{
+			return gs.zones[i];
+		}
+	};
+	return false;
+};
+/**
+* Search for a specific zone by name
+* @method lookupZone
+* @param {String} name - the name of the zone being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Zone} Returns the zone if found
+*/
+function lookupZone (name, gs) {
+	for (var i = 0; i &lt; gs.zones.length; i++) {
+		if (gs.zones[i].name == name)
+		{
+			return gs.zones[i];
+		}
+	}
+	console.log(&quot;Could not find zone with name \&quot;&quot; + name + &quot;\&quot;.&quot;);
+	throw new Error(&quot;Zone Lookup Error&quot;);
+	return false;
+}
+/**
+* Search for a specific card type by name
+* @method lookupCardType
+* @param {String} name - the name of the card type being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {CardType} Returns the card type if found
+*/
+function lookupCardType(name, gd)
+{
+	for(var i = 0; i &lt; gd.cardTypes.length; i += 1)
+	{
+		if (gd.cardTypes[i].name == name)
+		{
+			return gd.cardTypes[i];
+		}
+	}
+	console.log(&quot;Could not find cardType with name \&quot;&quot; + name + &quot;\&quot;.&quot;);
+	return false;
+};
+/**
+* Search for a specific action template type by name
+* @method lookupActionTemplate
+* @param {String} name - the name of the action template being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {ActionTemplate} Returns the action template type if found
+*/
+function lookupActionTemplate (name, gd)
+{
+	for (var i = 0; i &lt; gd.actionTemplates.length; i++)
+	{
+		if (gd.actionTemplates[i].name == name)
+		{
+			return gd.actionTemplates[i];
+		}
+	}
+	console.log(&quot;No template named \&quot;&quot; + name + &quot;\&quot; exists&quot;);
+	return false;
+}
+/**
+* Search for a specific phase type by name
+* @method lookupActionTemplate
+* @param {String} name - the name of the phase being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Phase} Returns the phase type if found
+*/
+function lookupPhase (name, gd)
+{
+	for (var i = 0; i &lt; gd.phases.length; i++)
+	{
+		if (gd.phases[i].name == name)
+		{
+			return gd.phases[i];
+		}
+	}
+	console.log(&quot;No phase named \&quot;&quot; + name + &quot;\&quot; exists&quot;);
+	throw new Error(&quot;Phase Lookup Error&quot;);
+	return false;
+}
+/**
+* Get the array of all zone names
+* @method getZoneNameArray
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns a list of all zone names
+*/
+function getZoneNameArray (gs)
+{
+	var zoneNames = [];
+	for (var i = 0; i &lt; gs.zones.length; i++)
+	{
+		zoneNames.push(gs.zones[i].name);
+	}
+	return zoneNames;
+}
+/**
+* Get the array of all player names
+* @method getPlayerNameArray
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns a list of all player names
+*/
+function getPlayerNameArray (gs)
+{
+	var playerNames = [];
+	for (var i = 0; i &lt; gs.players.length; i++)
+	{
+		playerNames.push(gs.players[i].name);
+	}
+	return playerNames;
+}
+/**
+* Get the array of all card id&#x27;s
+* @method getCardIDArray
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns a list of all card id&#x27;s
+*/
+function getCardIDArray (gs)
+{
+	var cardIDs = [];
+	for (var i = 0; i &lt; gs.cards.length; i++)
+	{
+		cardIDs.push(gs.cards[i].id);
+	}
+	return cardIDs;
+}
+/**
+* Get the card with the given id
+* @method getCardIDArray
+* @param {Int} id - the id of the card being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Array} Returns the card with the given id
+*/
+function lookupCard(id, gs) {
+	//Experimental version: doesn&#x27;t work if cards are ever removed
+	//return gs.cards[id];
+
+	//Reliable version
+	for(var i = 0; i &lt; gs.cards.length; i += 1)
+	{
+		if (gs.cards[i].id == id)
+		{
+			return gs.cards[i];
+		}
+	}
+	console.log(&quot;Could not find card with id \&quot;&quot; + id + &quot;\&quot;.&quot;);
+	throw new Error(&quot;Card Lookup Error&quot;);
+	return false;
+}
+/**
+* Search for a player by name
+* @method lookupPlayer
+* @param {String} name - the name of the player being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Player} Returns the player if found
+*/
+function lookupPlayer (name, gs) {
+	for (var i = 0; i &lt; gs.players.length; i++) {
+		if (gs.players[i].name == name)
+		{
+			return gs.players[i];
+		}
+	};
+	console.log(&quot;No player named \&quot;&quot; + name + &quot;\&quot; exists&quot;);
+	throw new Error(&quot;Player Lookup Error&quot;);
+	return false;
+}
+/**
+* A Cartesian Product function that acts on all given arrays.
+* Found here: http://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript
+* @method cartProd
+* @return {Array} Returns all possible combinations of elements taking a single element from each array
+*/
+function cartProd() {
+	var args = [].slice.call(arguments);
+
+	var end  = args.length - 1;
+	var result = []
+	function addTo(curr, start) {
+		var first = args[start];
+		var last = (start === end);
+		for (var i = 0; i &lt; first.length; ++i) {
+			var copy = curr.slice();
+			copy.push(first[i]);
+			if (last)
+			{
+				result.push(copy);
+			}
+			else
+			{
+				addTo(copy, start + 1);
+			}
+		}
+	}
+	if (args.length)
+	{
+		addTo([], 0);
+	}
+	else
+	{
+		result.push([]);
+	}
+	return result;
+}
+/**
+* Create a clone of a given Javascript object
+* @method lookupPlayer
+* @param {Object} oldObject - the object to be cloned
+* @return {Object} Returns the cloned object
+*/
+function objectClone (oldObject) 
+{
+	return JSON.parse(JSON.stringify(oldObject));
+}
+/**
+* Gets the first player with a name other than the given name
+* @method getAltPlayer
+* @param {String} playerName - the name of the player not being searched for
+* @param {Gamestate} gs - the gamestate which is being searched
+* @return {Object} Returns the first player with a name not equal to the given one
+*/
+function getAltPlayer (playerName, gs)
+{
+	for (var i = 0; i &lt; gs.players.length; i++)
+	{
+		if (gs.players[i].name != playerName)
+		{
+			return gs.players[i];
+		}
+	}
+
+	console.log(&quot;No player NOT named \&quot;&quot; + name + &quot;\&quot; exists&quot;);
+	throw new Error(&quot;Alternate Player Lookup Error&quot;);
+	return false;
+}
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
