@@ -81,7 +81,7 @@ function generateActionsFromCard (card, gs, gd)
 			var action = new Action (
 				actionTemp.name,
 				actionTemp,
-				card,
+				card.id,
 				[],
 				actionTemp.name + "CheckLegality",
 				actionTemp.name + "Result");
@@ -121,7 +121,7 @@ function generateActionsFromCard (card, gs, gd)
 				var action = new Action (
 					actionTemp.name,
 					actionTemp,
-					card,
+					card.id,
 					possibleArgCombs[k],
 					actionTemp.name + "CheckLegality",
 					actionTemp.name + "Result");
@@ -142,7 +142,7 @@ function generateActionsWithoutInputs(card, gs)
 		var action = new Action (
 			actionTemp.name,
 			actionTemp,
-			card,
+			card.id,
 			[],
 			actionTemp.name + "CheckLegality",
 			actionTemp.name + "Result");
@@ -155,26 +155,17 @@ function generateActionsWithoutInputs(card, gs)
 
 function applyAction (action, player, gs)
 {
-	//Create a new action in case the source action refers to a card from a different game state
-	var newAction = new Action(
-		action.name,
-		action.template,
-		lookupCard(action.card.id, gs),
-		action.inputs,
-		action.checkLegality,
-		action.result);
-
-	var actionInputs = newAction.inputs.slice();
+	var actionInputs = action.inputs.slice();
 	actionInputs.push(player);
-	actionInputs.push(newAction);
+	actionInputs.push(action);
 	actionInputs.push(gs);
 
-	if (window[newAction.checkLegality].apply(this, actionInputs))
+	if (window[action.checkLegality].apply(this, actionInputs))
 	{
-		if (player.controlsZone(newAction.card.zone))
+		if (player.controlsZone(lookupCard(action.cardID, gs).zone))
 		{
-			gameLog("Player " + player.name + " performed the action \"" + newAction.name + "\".")
-			window[newAction.result].apply(this, actionInputs);
+			gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
+			window[action.result].apply(this, actionInputs);
 			//printGameState(gs);
 			return true;
 		}

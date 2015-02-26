@@ -148,6 +148,8 @@ function gotAnyResult()
 	var player = arguments[arguments.length - 3];
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
+	var card = lookupCard(action.cardID, gamestate);
+
 	var cardWasMoved = false;
 
 	var p1Hand = lookupZone("P1 Hand", gamestate);
@@ -157,7 +159,7 @@ function gotAnyResult()
 	{
 		for (var i = p2Hand.cards.length - 1; i >= 0; i--)
 		{
-			if(lookupCard(p2Hand.cards[i], gamestate).attributes.value == action.card.attributes.value)
+			if(lookupCard(p2Hand.cards[i], gamestate).attributes.value == card.attributes.value)
 			{
 				Event.moveCardToZone(p2Hand.cards[i], "P1 Hand", gamestate);
 				cardWasMoved = true;
@@ -181,7 +183,7 @@ function gotAnyResult()
 	{
 		for (var i = p1Hand.cards.length - 1; i >= 0; i--)
 		{
-			if(lookupCard(p1Hand.cards[i], gamestate).attributes.value == action.card.attributes.value)
+			if(lookupCard(p1Hand.cards[i], gamestate).attributes.value == card.attributes.value)
 			{
 				Event.moveCardToZone(p1Hand.cards[i], "P2 Hand", gamestate);
 				cardWasMoved = true;

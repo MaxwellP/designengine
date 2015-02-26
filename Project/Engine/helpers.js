@@ -212,9 +212,10 @@ function lookupPlayer (name, gs) {
 * A Cartesian Product function that acts on all given arrays.
 * Found here: http://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript
 * @method cartProd
+* @param {Arrays} input - any number of arrays to use as input. Separate by commas.
 * @return {Array} Returns all possible combinations of elements taking a single element from each array
 */
-function cartProd() {
+function cartProd(input) {
 	var args = [].slice.call(arguments);
 
 	var end  = args.length - 1;

@@ -20,7 +20,7 @@ function playCardResult()
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
-	Event.moveCardToZone(action.card.id, "P2 Pile", gamestate);
+	Event.moveCardToZone(action.cardID, "P2 Pile", gamestate);
 	
 	Event.endPhase(gamestate);
 }

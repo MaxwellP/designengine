@@ -30,7 +30,7 @@ Event: a namespace for fundamental gamestate manipulations
 Action: a logic based sequence of events
 	Action.name
 	Action.template
-	Action.card
+	Action.cardID
 		optional field if action is based on card
 	Action.inputs
 	Action.result (function)

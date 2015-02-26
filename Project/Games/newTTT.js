@@ -17,7 +17,7 @@ function putInZoneResult()
 	var zone = arguments[0];
 
 	//Move card to new zone
-	Event.moveCardToZone(action.card.id, zone, gamestate);
+	Event.moveCardToZone(action.cardID, zone, gamestate);
 	Event.endPhase(gamestate);
 };
 

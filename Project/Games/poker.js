@@ -106,7 +106,7 @@ function discardResult()
 	//var p2Hand = lookupZone("P2 Hand", gamestate);
 
 	//Move to player's corresponding discard pile
-	Event.moveCardToZone(action.card.id, player.name + " Discard", gamestate);
+	Event.moveCardToZone(action.cardID, player.name + " Discard", gamestate);
 
 
 }
@@ -134,7 +134,7 @@ function doneResult()
 
 
 	//Done! (Set done attribute to true)
-	action.card.attributes.done = true;
+	lookupCard(action.cardID, gamestate).attributes.done = true;
 
 	var deckZone = lookupZone("Deck", gamestate);
 
@@ -171,7 +171,7 @@ function doneCheckLegality()
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
-	if (action.card.attributes.done == false)
+	if (lookupCard(action.cardID, gamestate).attributes.done == false)
 	{
 		return true;
 	}
@@ -182,8 +182,8 @@ function pokerWinCondition()
 {
 	var gamestate = arguments[arguments.length - 1];
 	if(
-		(lookupCard(lookupZone("P1 Done", gamestate).cards, gamestate).attributes.done == true) && 
-		(lookupCard(lookupZone("P2 Done", gamestate).cards, gamestate).attributes.done == true))
+		(lookupCard(lookupZone("P1 Done", gamestate).cards[0], gamestate).attributes.done == true) && 
+		(lookupCard(lookupZone("P2 Done", gamestate).cards[0], gamestate).attributes.done == true))
 	{
 		if(false)
 		{
