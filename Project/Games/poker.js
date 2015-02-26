@@ -38,15 +38,14 @@ function pokerSetup()
 			
 			if(gamestate.players[j].name == "P1")
 			{
-				Event.moveCardToZone(deckZone.cards[0], "P1 Hand", gamestate);
+				Event.Move.Individual.toZone(deckZone.cards[0], "P1 Hand", gamestate);
 			}
 			else
 			{
-				Event.moveCardToZone(deckZone.cards[0], "P2 Hand", gamestate);
+				Event.Move.Individual.toZone(deckZone.cards[0], "P2 Hand", gamestate);
 			}
 		}
 	}
-	//Sort both hands and move quads to piles
 }
 
 function compareCards (a, b) {
@@ -106,7 +105,7 @@ function discardResult()
 	//var p2Hand = lookupZone("P2 Hand", gamestate);
 
 	//Move to player's corresponding discard pile
-	Event.moveCardToZone(action.cardID, player.name + " Discard", gamestate);
+	Event.Move.Individual.toZone(action.cardID, player.name + " Discard", gamestate);
 
 
 }
@@ -146,7 +145,7 @@ function doneResult()
 		{
 			if (p1Hand.cards.length < 5)
 			{
-				Event.moveCardToZone(deckZone.cards[0], "P1 Hand", gamestate);
+				Event.Move.Individual.toZone(deckZone.cards[0], "P1 Hand", gamestate);
 			}
 		}
 	}
@@ -157,11 +156,11 @@ function doneResult()
 		{
 			if (p2Hand.cards.length < 5)
 			{
-				Event.moveCardToZone(deckZone.cards[0], "P2 Hand", gamestate);
+				Event.Move.Individual.toZone(deckZone.cards[0], "P2 Hand", gamestate);
 			}
 		}
 	}
-	Event.endPhase(gamestate);
+	Event.Modify.endPhase(gamestate);
 
 }
 

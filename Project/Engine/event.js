@@ -276,7 +276,7 @@ var Event = {
 			if (index >= gameDescription.phases.length)
 			{
 				index = 0;
-				Event.endTurn(gamestate);
+				Event.Modify.endTurn(gamestate);
 				gamestate.currentPhase = gameDescription.phases[0].name;
 			}
 			else
