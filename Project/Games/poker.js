@@ -92,6 +92,49 @@ function compareCards (a, b) {
 	return aNum - bNum;
 }
 
+function compareAttrs (a, b) {
+	var aNum = parseInt(a.value);
+	var bNum = parseInt(b.value);
+
+	if (!aNum)
+	{
+		switch (lookupCard(a, currentGS).attributes.value) {
+			case "Jack":
+				aNum = 11;
+				break;
+			case "Queen":
+				aNum = 12;
+				break;
+			case "King":
+				aNum = 13;
+				break;
+			case "Ace":
+				aNum = 14;
+				break;
+		}
+	}
+
+	if (!bNum)
+	{
+		switch (lookupCard(b, currentGS).attributes.value) {
+			case "Jack":
+				bNum = 11;
+				break;
+			case "Queen":
+				bNum = 12;
+				break;
+			case "King":
+				bNum = 13;
+				break;
+			case "Ace":
+				bNum = 14;
+				break;
+		}
+	}
+
+	return aNum - bNum;
+}
+
 function sortCardsInZone (zone) {
 	zone.cards.sort(compareCards);
 }
@@ -176,6 +219,91 @@ function doneCheckLegality()
 		return true;
 	}
 	return false;
+}
+
+//Score one player's hand
+//(Score from 0 to 0.5)
+function scoreHand(zone, gs) {
+	var cardAttr = [];
+	for (var i = 0; i < zone.cards.length; i++)
+	{
+		var card = lookupCard(zone.cards[i], gs);
+		cardAttr.push(card.attributes);
+	}
+	cardAttr.sort(compareAttrs);
+
+	var valueOrder = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
+
+	var isFlush = true;
+	var firstSuit = cardAttr[0].suit;
+	for (var i = 1; i < cardAttr.length; i++)
+	{
+		if (cardAttr.suit[i] != firstSuit)
+		{
+			isFlush = false;
+		}
+	}
+
+	var isStraight = true;
+	var firstValue = cardAttr[0].value;
+	for (var i = 1; i < cardAttr.length; i++)
+	{
+		var firstIndex = valueOrder.indexOf(firstValue);
+		var curIndex =  valueOrder.indexOf(cardAttr[i].value);
+		if (Math.abs(firstIndex - curIndex) != i)
+		{
+			isStraight = false;
+		}
+	}
+
+	var scoreNum = 0;
+
+	if (isStraight && isFlush)
+	{
+		//Straight flush
+		scoreNum = 8;
+	}
+	else if (false)
+	{
+		//Four of a kind
+		scoreNum = 7;
+	}
+	else if (false)
+	{
+		//Full house
+		scoreNum = 6;
+	}
+	else if (false)
+	{
+		//Flush
+		scoreNum = 5;
+	}
+	else if (false)
+	{
+		//Straight
+		scoreNum = 4;
+	}
+	else if (false)
+	{
+		//Three of a kind
+		scoreNum = 3;
+	}
+	else if (false)
+	{
+		//Two pair
+		scoreNum = 2;
+	}
+	else if (false)
+	{
+		//One pair
+		scoreNum = 1;
+	}
+	else if (false)
+	{
+		//High card
+		scoreNum = 0;
+	}
+
 }
 
 function pokerWinCondition()
