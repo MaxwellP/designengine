@@ -88,32 +88,6 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-/*TODO*/
-/*
-	.Sorting
-		.Player_Sorting:
-			.sortPlayerByAttributeValue
-			.sortPlayerByFunc(function)
-			.sortPlayerByCardsInZone?
-		.Zone_Sorting:
-		.Card_Sorting:
-			.byCardType(zoneName)
-			.byCardAttributeValue(zoneName, attributeName, attributeValue)
-			.byCardValid
-	.CardLookup
-		.getIndexOfCardInZone()
-	.CardMovement.Individual
-		.moveCardFromZoneToZone()
-		.moveCardFromIndexOfZoneToZone()
-	Should be an event?
-	-TakeAnotherTurn(gs)
-	-RepeatPhase(phaseName, gs)
-		is phaseName even necessary?
-	-WinGame(playerName)
-	-LoseGame(playerName, gs)
-	-EliminatePlayer(playerName, gs)
-*/
-
 /*API Naming Convention and Structure*/
 /**
 * A namespace for second order functions
@@ -154,7 +128,7 @@ var API = {
 			return count;
 		},
 		/**
-		* Returns the number of cards hat meet requirement function&#x27;s condition in a given zone
+		* Returns the number of cards that meet requirement function&#x27;s condition in a given zone
 		* @method API.CardCounting.ofTypeInZone
 		* @param {String} zoneName - the name of the zone whose cards are being counted
 		* @param {Function} isValid - a function that takes a card and returns either true or false, if true is returned, the card is counted
@@ -175,9 +149,20 @@ var API = {
 		}
 	},
 	CardLookup: {
-
+		cardIndexInZone: function()
+		{
+			console.log(&quot;TO CODE: API.CardLookup.cardIndexInZone&quot;);
+		}
 	},
 	ValueComparison: {
+		/**
+		* Returns if the given object&#x27;s named attribute&#x27;s value is greater than the given value
+		* @method API.ValueComparison.isAttributeGreaterThan
+		* @param {Object} obj - the object whose attribute&#x27;s value is being checked
+		* @param {String} attributeName - the name of the attribute whose value is being checked
+		* @param {number} value - the value to compare the object&#x27;s value to
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
 		isAttributeGreaterThan: function(obj, attributeName, value)
 		{
 			if(obj.attributes[attributeName] &gt; value)
@@ -186,6 +171,14 @@ var API = {
 			}
 			return false;
 		},
+		/**
+		* Returns if the given object&#x27;s named attribute&#x27;s value is less than the given value
+		* @method API.ValueComparison.isAttributeLessThan
+		* @param {Object} obj - the object whose attribute&#x27;s value is being checked
+		* @param {String} attributeName - the name of the attribute whose value is being checked
+		* @param {number} value - the value to compare the object&#x27;s value to
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
 		isAttributeLessThan: function(obj, attributeName, value)
 		{
 			if(obj.attributes[attributeName] &lt; value)
@@ -194,6 +187,14 @@ var API = {
 			}
 			return false;
 		},
+		/**
+		* Returns if the given object&#x27;s named attribute&#x27;s value is equal to the given value
+		* @method API.ValueComparison.isAttributeEqualTo
+		* @param {Object} obj - the object whose attribute&#x27;s value is being checked
+		* @param {String} attributeName - the name of the attribute whose value is being checked
+		* @param {number} value - the value to compare the object&#x27;s value to
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
 		isAttributeEqualTo: function(obj, attributeName, value)
 		{
 			if(obj.attributes[attributeName] === value)
@@ -204,10 +205,21 @@ var API = {
 		}
 	},
 	DieRolling: {
+		/**
+		* Rolls a die with the given number of sides and returns the outcome
+		* @method API.DieRolling.rollDie
+		* @param {int} numSides - the number of sides the virtual die has
+		*/
 		rollDie: function(numSides)
 		{
 			return Math.floor(Math.random() * numSides) + 1;
 		},
+		/**
+		* Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes
+		* @method API.DieRolling.rollNDie
+		* @param {int} numSides - the number of sides the virtual die has
+		* @param {int} toRoll - the number of die to roll
+		*/
 		rollNDie: function(numSides, toRoll)
 		{
 			var results = [];
@@ -217,7 +229,13 @@ var API = {
 			}
 			return results;
 		},
-		rollDieSum: function(numSides, toRoll)
+		/**
+		* Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls
+		* @method API.DieRolling.rollNDieSum
+		* @param {int} numSides - the number of sides the virtual die has
+		* @param {int} toRoll - the number of die to roll
+		*/
+		rollNDieSum: function(numSides, toRoll)
 		{
 			var results = 0;
 			for(var i = 0; i &lt; toRoll; i += 1)
@@ -226,10 +244,21 @@ var API = {
 			}
 			return results;
 		},
+		/**
+		* Rolls a die with the given array&#x27;s values as sides of the die, and returns the outcome
+		* @method API.DieRolling.rollSpecialDie
+		* @param {Array of Object} values - an array of objects (the sides of the die)
+		*/
 		rollSpecialDie: function(values)
 		{
 			return values[Math.floor(Math.random() * values.length - 1) + 1];
 		},
+		/**
+		* Rolls a number of die equal to given number, each with the given array&#x27;s values as sides of the die, and returns the outcome as an array
+		* @method API.DieRolling.rollNSpecialDie
+		* @param {Array of Object} values - an array of objects (the sides of the die)
+		* @param {int} toRoll - the number of die to roll
+		*/
 		rollNSpecialDie: function (values, toRoll)
 		{
 			var results = [];
@@ -241,34 +270,12 @@ var API = {
 		}
 	},
 	Manipulations: {
-		shuffle: function(zoneName, gamestate)
-		{
-			/*Fisher-Yates Shuffle*/
-			var deck = lookupZone(zoneName, gamestate).cards;
-			var currentIndex = deck.length;
-			var tempVal;
-			var randomIndex;
-			while(0 != currentIndex)
-			{
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex -= 1;
-				tempVal = deck[currentIndex];
-				deck[currentIndex] = deck[randomIndex];
-				deck[randomIndex] = tempVal;
-			}
-		},
-		dealCards: function (fromZone, toZoneNameArray, numCards, gamestate)
-		{
-			var from = lookupZone(fromZone, gamestate);
-			for(var i = 0; i &lt; numCards; i += 1)
-			{
-				for(var j = 0; j &lt; toZoneArray.length; j +=1)
-				{
-					var toZone = lookupZone(toZoneNameArray[i], gamestate);
-					Event.moveCardToZone(from.cards[0], toZone, gamestate);
-				}
-			}
-		},
+		/**
+		* &quot;Cuts&quot; the named zone&#x27;s cards and returns the revealed card
+		* @method API.Manipulations.cut
+		* @param {Zone} zoneName - the zone whose deck is to be cut
+		* @param {GameState} gamestate - the game state in which this action is taking place
+		*/
 		cut: function (zoneName, gamestate)
 		{
 			var deck = lookupZone(zoneName, gamestate).cards;
@@ -277,12 +284,28 @@ var API = {
 	},
 	Sorting: {
 		Player_Sorting: {
-		},
-		Zone_Sorting: {
-
+			sortPlayerByAttributeValue: function(attributeName)
+			{
+				console.log(&quot;TO CODE: API.Sorting.Player_Sorting.sortPlayerByAttributeValue&quot;);
+			},
+			sortPlayerByFunc: function(func)
+			{
+				console.log(&quot;TO CODE: API.Sorting.Player_Sorting.cardIndexInZone&quot;);
+			}
 		},
 		Card_Sorting: {
-
+			byCardType: function (zoneName, gamestate)
+			{
+				console.log(&quot;TO CODE: API.Sorting.Card_Sorting.byCardType&quot;);
+			},
+			byCardAttributeValue: function (zoneName, attributeName, attributeValue, gamestate)
+			{
+				console.log(&quot;TO CODE: API.Sorting.Card_Sorting.byCardAttributeValue&quot;);
+			},
+			byCardValid: function(zoneName, isValid, gamestate)
+			{
+				console.log(&quot;TO CODE: API.Sorting.Card_Sorting.byCardValid&quot;);
+			}
 		}
 	}
 };

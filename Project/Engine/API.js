@@ -66,10 +66,11 @@ var API = {
 	},
 	ValueComparison: {
 		/**
-		* Returns if the given object's named attribute's value is greater than a given value
+		* Returns if the given object's named attribute's value is greater than the given value
 		* @method API.ValueComparison.isAttributeGreaterThan
 		* @param {Object} obj - the object whose attribute's value is being checked
-		* @param {String} attributeName - the name of the 
+		* @param {String} attributeName - the name of the attribute whose value is being checked
+		* @param {number} value - the value to compare the object's value to
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
 		isAttributeGreaterThan: function(obj, attributeName, value)
@@ -80,6 +81,14 @@ var API = {
 			}
 			return false;
 		},
+		/**
+		* Returns if the given object's named attribute's value is less than the given value
+		* @method API.ValueComparison.isAttributeLessThan
+		* @param {Object} obj - the object whose attribute's value is being checked
+		* @param {String} attributeName - the name of the attribute whose value is being checked
+		* @param {number} value - the value to compare the object's value to
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
 		isAttributeLessThan: function(obj, attributeName, value)
 		{
 			if(obj.attributes[attributeName] < value)
@@ -88,6 +97,14 @@ var API = {
 			}
 			return false;
 		},
+		/**
+		* Returns if the given object's named attribute's value is equal to the given value
+		* @method API.ValueComparison.isAttributeEqualTo
+		* @param {Object} obj - the object whose attribute's value is being checked
+		* @param {String} attributeName - the name of the attribute whose value is being checked
+		* @param {number} value - the value to compare the object's value to
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
 		isAttributeEqualTo: function(obj, attributeName, value)
 		{
 			if(obj.attributes[attributeName] === value)
@@ -98,10 +115,21 @@ var API = {
 		}
 	},
 	DieRolling: {
+		/**
+		* Rolls a die with the given number of sides and returns the outcome
+		* @method API.DieRolling.rollDie
+		* @param {int} numSides - the number of sides the virtual die has
+		*/
 		rollDie: function(numSides)
 		{
 			return Math.floor(Math.random() * numSides) + 1;
 		},
+		/**
+		* Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes
+		* @method API.DieRolling.rollNDie
+		* @param {int} numSides - the number of sides the virtual die has
+		* @param {int} toRoll - the number of die to roll
+		*/
 		rollNDie: function(numSides, toRoll)
 		{
 			var results = [];
@@ -111,7 +139,13 @@ var API = {
 			}
 			return results;
 		},
-		rollDieSum: function(numSides, toRoll)
+		/**
+		* Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls
+		* @method API.DieRolling.rollNDieSum
+		* @param {int} numSides - the number of sides the virtual die has
+		* @param {int} toRoll - the number of die to roll
+		*/
+		rollNDieSum: function(numSides, toRoll)
 		{
 			var results = 0;
 			for(var i = 0; i < toRoll; i += 1)
@@ -120,10 +154,21 @@ var API = {
 			}
 			return results;
 		},
+		/**
+		* Rolls a die with the given array's values as sides of the die, and returns the outcome
+		* @method API.DieRolling.rollSpecialDie
+		* @param {Array of Object} values - an array of objects (the sides of the die)
+		*/
 		rollSpecialDie: function(values)
 		{
 			return values[Math.floor(Math.random() * values.length - 1) + 1];
 		},
+		/**
+		* Rolls a number of die equal to given number, each with the given array's values as sides of the die, and returns the outcome as an array
+		* @method API.DieRolling.rollNSpecialDie
+		* @param {Array of Object} values - an array of objects (the sides of the die)
+		* @param {int} toRoll - the number of die to roll
+		*/
 		rollNSpecialDie: function (values, toRoll)
 		{
 			var results = [];
@@ -135,34 +180,12 @@ var API = {
 		}
 	},
 	Manipulations: {
-		shuffle: function(zoneName, gamestate)
-		{
-			/*Fisher-Yates Shuffle*/
-			var deck = lookupZone(zoneName, gamestate).cards;
-			var currentIndex = deck.length;
-			var tempVal;
-			var randomIndex;
-			while(0 != currentIndex)
-			{
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex -= 1;
-				tempVal = deck[currentIndex];
-				deck[currentIndex] = deck[randomIndex];
-				deck[randomIndex] = tempVal;
-			}
-		},
-		dealCards: function (fromZone, toZoneNameArray, numCards, gamestate)
-		{
-			var from = lookupZone(fromZone, gamestate);
-			for(var i = 0; i < numCards; i += 1)
-			{
-				for(var j = 0; j < toZoneArray.length; j +=1)
-				{
-					var toZone = lookupZone(toZoneNameArray[i], gamestate);
-					Event.moveCardToZone(from.cards[0], toZone, gamestate);
-				}
-			}
-		},
+		/**
+		* "Cuts" the named zone's cards and returns the revealed card
+		* @method API.Manipulations.cut
+		* @param {Zone} zoneName - the zone whose deck is to be cut
+		* @param {GameState} gamestate - the game state in which this action is taking place
+		*/
 		cut: function (zoneName, gamestate)
 		{
 			var deck = lookupZone(zoneName, gamestate).cards;

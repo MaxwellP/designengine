@@ -89,7 +89,7 @@
 
 
         <div class="foundat">
-            Defined in: <a href="../files/Engine_API.js.html#l28"><code>Engine\API.js:28</code></a>
+            Defined in: <a href="../files/Engine_API.js.html#l2"><code>Engine\API.js:2</code></a>
         </div>
 
 
@@ -129,6 +129,42 @@
                                 <a href="#method_API.CardCounting.ofTypeInZone">API.CardCounting.ofTypeInZone</a>
 
                             </li>
+                            <li class="index-item method">
+                                <a href="#method_API.DieRolling.rollDie">API.DieRolling.rollDie</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.DieRolling.rollNDie">API.DieRolling.rollNDie</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.DieRolling.rollNDieSum">API.DieRolling.rollNDieSum</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.DieRolling.rollNSpecialDie">API.DieRolling.rollNSpecialDie</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.DieRolling.rollSpecialDie">API.DieRolling.rollSpecialDie</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.Manipulations.cut">API.Manipulations.cut</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.isAttributeEqualTo">API.ValueComparison.isAttributeEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.isAttributeGreaterThan">API.ValueComparison.isAttributeGreaterThan</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.isAttributeLessThan">API.ValueComparison.isAttributeLessThan</a>
+
+                            </li>
                     </ul>
                 </div>
 
@@ -163,7 +199,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l35"><code>Engine\API.js:35</code></a>
+        <a href="../files/Engine_API.js.html#l9"><code>Engine\API.js:9</code></a>
         </p>
 
 
@@ -220,6 +256,94 @@
                         <code>zoneName</code>
                 </li>
                 <li class="arg">
+                        <code>isValid</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l40"><code>Engine\API.js:40</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the number of cards that meet requirement function&#39;s condition in a given zone</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose cards are being counted</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">isValid</code>
+                        <span class="type">Function</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>a function that takes a card and returns either true or false, if true is returned, the card is counted</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.CardCounting.ofTypeInZone" class="method item">
+    <h3 class="name"><code>API.CardCounting.ofTypeInZone</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
                         <code>cardType</code>
                 </li>
                 <li class="arg">
@@ -238,7 +362,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l46"><code>Engine\API.js:46</code></a>
+        <a href="../files/Engine_API.js.html#l20"><code>Engine\API.js:20</code></a>
         </p>
 
 
@@ -299,16 +423,341 @@
 
 
 </div>
-<div id="method_API.CardCounting.ofTypeInZone" class="method item">
-    <h3 class="name"><code>API.CardCounting.ofTypeInZone</code></h3>
+<div id="method_API.DieRolling.rollDie" class="method item">
+    <h3 class="name"><code>API.DieRolling.rollDie</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>numSides</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l118"><code>Engine\API.js:118</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Rolls a die with the given number of sides and returns the outcome</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">numSides</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of sides the virtual die has</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.DieRolling.rollNDie" class="method item">
+    <h3 class="name"><code>API.DieRolling.rollNDie</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>numSides</code>
+                </li>
+                <li class="arg">
+                        <code>toRoll</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l127"><code>Engine\API.js:127</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">numSides</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of sides the virtual die has</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toRoll</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of die to roll</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.DieRolling.rollNDieSum" class="method item">
+    <h3 class="name"><code>API.DieRolling.rollNDieSum</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>numSides</code>
+                </li>
+                <li class="arg">
+                        <code>toRoll</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l142"><code>Engine\API.js:142</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">numSides</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of sides the virtual die has</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toRoll</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of die to roll</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.DieRolling.rollNSpecialDie" class="method item">
+    <h3 class="name"><code>API.DieRolling.rollNSpecialDie</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>values</code>
+                </li>
+                <li class="arg">
+                        <code>toRoll</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l166"><code>Engine\API.js:166</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Rolls a number of die equal to given number, each with the given array&#39;s values as sides of the die, and returns the outcome as an array</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">values</code>
+                        <span class="type">Array of Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>an array of objects (the sides of the die)</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toRoll</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of die to roll</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.DieRolling.rollSpecialDie" class="method item">
+    <h3 class="name"><code>API.DieRolling.rollSpecialDie</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>values</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l157"><code>Engine\API.js:157</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Rolls a die with the given array&#39;s values as sides of the die, and returns the outcome</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">values</code>
+                        <span class="type">Array of Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>an array of objects (the sides of the die)</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.Manipulations.cut" class="method item">
+    <h3 class="name"><code>API.Manipulations.cut</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
                         <code>zoneName</code>
-                </li>
-                <li class="arg">
-                        <code>isValid</code>
                 </li>
                 <li class="arg">
                         <code>gamestate</code>
@@ -326,7 +775,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l66"><code>Engine\API.js:66</code></a>
+        <a href="../files/Engine_API.js.html#l183"><code>Engine\API.js:183</code></a>
         </p>
 
 
@@ -334,7 +783,7 @@
     </div>
 
     <div class="description">
-        <p>Returns the number of cards hat meet requirement function&#39;s condition in a given zone</p>
+        <p>&quot;Cuts&quot; the named zone&#39;s cards and returns the revealed card</p>
 
     </div>
 
@@ -344,25 +793,324 @@
             <ul class="params-list">
                 <li class="param">
                         <code class="param-name">zoneName</code>
-                        <span class="type">String</span>
+                        <span class="type"><a href="../classes/Zone.html" class="crosslink">Zone</a></span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the name of the zone whose cards are being counted</li>
+<li>the zone whose deck is to be cut</li>
 </ul>
 
                     </div>
 
                 </li>
                 <li class="param">
-                        <code class="param-name">isValid</code>
-                        <span class="type">Function</span>
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>a function that takes a card and returns either true or false, if true is returned, the card is counted</li>
+<li>the game state in which this action is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.isAttributeEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.isAttributeEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>obj</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l100"><code>Engine\API.js:100</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given object&#39;s named attribute&#39;s value is equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">obj</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the object whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the object&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.isAttributeGreaterThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.isAttributeGreaterThan</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>obj</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l68"><code>Engine\API.js:68</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given object&#39;s named attribute&#39;s value is greater than the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">obj</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the object whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the object&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.isAttributeLessThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.isAttributeLessThan</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>obj</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l84"><code>Engine\API.js:84</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given object&#39;s named attribute&#39;s value is less than the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">obj</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the object whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the object&#39;s value to</li>
 </ul>
 
                     </div>

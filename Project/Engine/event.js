@@ -179,6 +179,52 @@ var Event = {
 			}
 		}
 	},
+	Shuffle: {
+		/**
+		* Shuffles the cards in the named zone
+		* @method Event.Shuffle.shuffle
+		* @param {String} zoneName - the name of the zone to be shuffled 
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		shuffle: function(zoneName, gamestate)
+		{
+			/*Fisher-Yates Shuffle*/
+			var deck = lookupZone(zoneName, gamestate).cards;
+			var currentIndex = deck.length;
+			var tempVal;
+			var randomIndex;
+			while(0 != currentIndex)
+			{
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+				tempVal = deck[currentIndex];
+				deck[currentIndex] = deck[randomIndex];
+				deck[randomIndex] = tempVal;
+			}
+		}
+	},
+	Deal: {
+		/**
+		* Deals the specified number of cards from the given zone to each specified zone
+		* @method Event.Deal.dealCards
+		* @param {Zone} fromZone - the zone from which cards are being dealt
+		* @param {Array of String} toZoneNameArray - an array of zone names to which cards are being dealt
+		* @param {int} numCards - the number of cards to be dealt to each player
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		dealCards: function (fromZone, toZoneNameArray, numCards, gamestate)
+		{
+			var from = lookupZone(fromZone, gamestate);
+			for(var i = 0; i < numCards; i += 1)
+			{
+				for(var j = 0; j < toZoneArray.length; j +=1)
+				{
+					var toZone = lookupZone(toZoneNameArray[i], gamestate);
+					Event.moveCardToZone(from.cards[0], toZone, gamestate);
+				}
+			}
+		}
+	},
 	Modify: {
 		/**
 		* Changes the value of the given object's attribute
