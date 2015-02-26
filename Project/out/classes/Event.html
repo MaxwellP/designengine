@@ -118,6 +118,10 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
+                                <a href="#method_Event.Deal.dealCards">Event.Deal.dealCards</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_Event.Draw.drawCard">Event.Draw.drawCard</a>
 
                             </li>
@@ -165,6 +169,10 @@
                                 <a href="#method_Event.Move.Individual.toZone">Event.Move.Individual.toZone</a>
 
                             </li>
+                            <li class="index-item method">
+                                <a href="#method_Event.Shuffle.shuffle">Event.Shuffle.shuffle</a>
+
+                            </li>
                     </ul>
                 </div>
 
@@ -175,6 +183,110 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
+<div id="method_Event.Deal.dealCards" class="method item">
+    <h3 class="name"><code>Event.Deal.dealCards</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZoneNameArray</code>
+                </li>
+                <li class="arg">
+                        <code>numCards</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l207"><code>Engine\event.js:207</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Deals the specified number of cards from the given zone to each specified zone</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">fromZone</code>
+                        <span class="type"><a href="../classes/Zone.html" class="crosslink">Zone</a></span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the zone from which cards are being dealt</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZoneNameArray</code>
+                        <span class="type">Array of String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>an array of zone names to which cards are being dealt</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">numCards</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of cards to be dealt to each player</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
 <div id="method_Event.Draw.drawCard" class="method item">
     <h3 class="name"><code>Event.Draw.drawCard</code></h3>
 
@@ -202,7 +314,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l154"><code>Engine\event.js:154</code></a>
+        <a href="../files/Engine_event.js.html#l155"><code>Engine\event.js:155</code></a>
         </p>
 
 
@@ -293,7 +405,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l165"><code>Engine\event.js:165</code></a>
+        <a href="../files/Engine_event.js.html#l166"><code>Engine\event.js:166</code></a>
         </p>
 
 
@@ -397,7 +509,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l207"><code>Engine\event.js:207</code></a>
+        <a href="../files/Engine_event.js.html#l254"><code>Engine\event.js:254</code></a>
         </p>
 
 
@@ -492,7 +604,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l219"><code>Engine\event.js:219</code></a>
+        <a href="../files/Engine_event.js.html#l266"><code>Engine\event.js:266</code></a>
         </p>
 
 
@@ -548,7 +660,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l243"><code>Engine\event.js:243</code></a>
+        <a href="../files/Engine_event.js.html#l290"><code>Engine\event.js:290</code></a>
         </p>
 
 
@@ -613,7 +725,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l195"><code>Engine\event.js:195</code></a>
+        <a href="../files/Engine_event.js.html#l242"><code>Engine\event.js:242</code></a>
         </p>
 
 
@@ -717,7 +829,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l182"><code>Engine\event.js:182</code></a>
+        <a href="../files/Engine_event.js.html#l229"><code>Engine\event.js:229</code></a>
         </p>
 
 
@@ -818,7 +930,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l38"><code>Engine\event.js:38</code></a>
+        <a href="../files/Engine_event.js.html#l39"><code>Engine\event.js:39</code></a>
         </p>
 
 
@@ -909,7 +1021,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l54"><code>Engine\event.js:54</code></a>
+        <a href="../files/Engine_event.js.html#l55"><code>Engine\event.js:55</code></a>
         </p>
 
 
@@ -1013,7 +1125,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l119"><code>Engine\event.js:119</code></a>
+        <a href="../files/Engine_event.js.html#l120"><code>Engine\event.js:120</code></a>
         </p>
 
 
@@ -1120,7 +1232,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l86"><code>Engine\event.js:86</code></a>
+        <a href="../files/Engine_event.js.html#l87"><code>Engine\event.js:87</code></a>
         </p>
 
 
@@ -1271,6 +1383,78 @@
                     <div class="param-description">
                         <ul>
 <li>the name of the zone to which the card is being moved to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Shuffle.shuffle" class="method item">
+    <h3 class="name"><code>Event.Shuffle.shuffle</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l183"><code>Engine\event.js:183</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Shuffles the cards in the named zone</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone to be shuffled</li>
 </ul>
 
                     </div>

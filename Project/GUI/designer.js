@@ -46,12 +46,21 @@ function addNewCard() {
 function hideAllInfo() {
 	var zoneInfo = document.getElementById("zone_info")
 	zoneInfo.style.display = "none";
-	document.getElementById("player_checkboxes").innerHTML = "";
+	document.getElementById("zone_player_checkboxes").innerHTML = "";
 	document.getElementById("zoneAttrSelect").innerHTML = "";
-	document.getElementById("edit_attributes").style.visibility = "hidden";
+	document.getElementById("edit_zone_attributes").style.visibility = "hidden";
+	document.getElementById("zoneAttrName").value = "";
+
+	var cardInfo = document.getElementById("card_info")
+	cardInfo.style.display = "none";
+	document.getElementById("cardAttrSelect").innerHTML = "";
+	document.getElementById("edit_card_attributes").style.visibility = "hidden";
+	document.getElementById("cardAttrName").value = "";
 }
 
 function fillZoneInfo (zone, x, y) {
+	hideAllInfo();
+
 	var zoneInfo = document.getElementById("zone_info");
 	zoneInfo.style.display = "inline";
 
@@ -89,7 +98,7 @@ function fillZoneInfo (zone, x, y) {
     		}
     	};
 
-    	var checkboxDiv = document.getElementById("player_checkboxes");
+    	var checkboxDiv = document.getElementById("zone_player_checkboxes");
     	checkboxDiv.appendChild(newCheckbox);
     	checkboxDiv.appendChild(text);
 	};
@@ -118,14 +127,47 @@ function positionZoneInfo (x, y) {
 
 function fillZoneAttributeInfo () {
 	var attrSelect = document.getElementById("zoneAttrSelect");
-	var attrName = document.getElementById("attrName");
-	var attrValue = document.getElementById("attrValue");
+	var attrValue = document.getElementById("zoneAttrValue");
 
-	document.getElementById("edit_attributes").style.visibility = "visible";
+	document.getElementById("edit_zone_attributes").style.visibility = "visible";
 
-	attrName.value = attrSelect.value;
 	attrValue.value = currentSelection.attributes[attrSelect.value];
 	
+}
+
+function addNewZoneAttribute() {
+	var zone = currentSelection;
+	var attrName = document.getElementById("zoneAttrName");
+	
+	zone.attributes[attrName.value] = "";
+
+	var newOption = document.createElement("OPTION");
+	newOption.value = attrName.value;
+	var text = document.createTextNode(attrName.value);
+
+	var attrSelect = document.getElementById("zoneAttrSelect");
+	newOption.appendChild(text);
+	attrSelect.appendChild(newOption);
+}
+
+function removeZoneAttribute() {
+	var zone = currentSelection;
+	var attrSelect = document.getElementById("zoneAttrSelect");
+
+	delete zone.attributes[attrSelect.value];
+
+	attrSelect.innerHTML = "";
+
+	for (var index in zone.attributes) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = index;
+		var text = document.createTextNode(index);
+
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
+
+	document.getElementById("edit_zone_attributes").style.visibility = "hidden";
 }
 
 function applyZoneChanges() {
@@ -143,15 +185,14 @@ function applyZoneChanges() {
 	zone.name = zoneForm.zoneName.value;
 
 	var attrSelect = document.getElementById("zoneAttrSelect");
-	var attrName = document.getElementById("attrName");
-	var attrValue = document.getElementById("attrValue");
+	var attrValue = document.getElementById("zoneAttrValue");
 
-	zone.attributes[attrName.value] = attrValue.value;
+	zone.attributes[attrSelect.value] = attrValue.value;
 
 	zone.type = zoneForm.zoneType.value;
 
 	var visibleArr = [];
-	var playerBoxes = document.getElementById("player_checkboxes");
+	var playerBoxes = document.getElementById("zone_player_checkboxes");
 	for (var i = 0; i < (playerBoxes.childNodes.length / 2); i++) {
 		if (playerBoxes.childNodes[i * 2].checked)
 		{
@@ -159,6 +200,89 @@ function applyZoneChanges() {
 		}
 	};
 	zone.visibleTo = visibleArr;
+	return false;
+}
+
+function fillCardInfo (card, x, y) {
+	hideAllInfo();
+
+	var cardInfo = document.getElementById("card_info");
+	cardInfo.style.display = "inline";
+
+	var cardForm = document.getElementById("card_form");
+	cardForm.cardName.value = card.name;
+
+	for (var index in card.attributes) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = index;
+		var text = document.createTextNode(index);
+
+		var attrSelect = document.getElementById("cardAttrSelect");
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
+
+	positionCardInfo(x, y);
+	currentSelection = card;
+}
+
+function positionCardInfo (x, y) {
+	var cardInfo = document.getElementById("card_info");
+
+	var editWindowX = x + 9;
+	var editWindowY = y + 9;
+
+	cardInfo.style.position = "absolute";
+	cardInfo.style.left = "" + editWindowX + "px";
+	cardInfo.style.top = "" + editWindowY + "px";
+}
+
+function fillCardAttributeInfo () {
+	var attrSelect = document.getElementById("cardAttrSelect");
+	var attrValue = document.getElementById("cardAttrValue");
+
+	document.getElementById("edit_card_attributes").style.visibility = "visible";
+
+	attrValue.value = currentSelection.attributes[attrSelect.value];
+	
+}
+
+function addNewCardAttribute() {
+	var card = currentSelection;
+	var attrName = document.getElementById("cardAttrName");
+	
+	card.attributes[attrName.value] = "";
+
+	var newOption = document.createElement("OPTION");
+	newOption.value = attrName.value;
+	var text = document.createTextNode(attrName.value);
+
+	var attrSelect = document.getElementById("cardAttrSelect");
+	newOption.appendChild(text);
+	attrSelect.appendChild(newOption);
+}
+
+function removeCardAttribute() {
+	var card = currentSelection;
+	var attrSelect = document.getElementById("cardAttrSelect");
+
+	delete card.attributes[attrSelect.value];
+
+	attrSelect.innerHTML = "";
+
+	for (var index in card.attributes) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = index;
+		var text = document.createTextNode(index);
+
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
+
+	document.getElementById("edit_card_attributes").style.visibility = "hidden";
+}
+
+function applyCardChanges() {
 	return false;
 }
 

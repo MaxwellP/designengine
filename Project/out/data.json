@@ -103,7 +103,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "Engine\\API.js",
-            "line": 28,
+            "line": 2,
             "description": "A namespace for second order functions"
         },
         "Action": {
@@ -130,9 +130,9 @@
                     "type": "ActionTemplate"
                 },
                 {
-                    "name": "card",
+                    "name": "cardID",
                     "description": "- an optional field containing the id of the card the action came from",
-                    "type": "Card"
+                    "type": "Number"
                 },
                 {
                     "name": "inputs",
@@ -429,7 +429,7 @@
     "classitems": [
         {
             "file": "Engine\\API.js",
-            "line": 35,
+            "line": 9,
             "description": "Returns the number of cards in a given zone",
             "itemtype": "method",
             "name": "API.CardCounting.inZone",
@@ -449,7 +449,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 46,
+            "line": 20,
             "description": "Returns the number of cards of the named type in a given zone",
             "itemtype": "method",
             "name": "API.CardCounting.ofTypeInZone",
@@ -474,8 +474,8 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 66,
-            "description": "Returns the number of cards hat meet requirement function's condition in a given zone",
+            "line": 40,
+            "description": "Returns the number of cards that meet requirement function's condition in a given zone",
             "itemtype": "method",
             "name": "API.CardCounting.ofTypeInZone",
             "params": [
@@ -492,6 +492,206 @@
                 {
                     "name": "gamestate",
                     "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 68,
+            "description": "Returns if the given object's named attribute's value is greater than the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.isAttributeGreaterThan",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "- the object whose attribute's value is being checked",
+                    "type": "Object"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the object's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 84,
+            "description": "Returns if the given object's named attribute's value is less than the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.isAttributeLessThan",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "- the object whose attribute's value is being checked",
+                    "type": "Object"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the object's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 100,
+            "description": "Returns if the given object's named attribute's value is equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.isAttributeEqualTo",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "- the object whose attribute's value is being checked",
+                    "type": "Object"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the object's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 118,
+            "description": "Rolls a die with the given number of sides and returns the outcome",
+            "itemtype": "method",
+            "name": "API.DieRolling.rollDie",
+            "params": [
+                {
+                    "name": "numSides",
+                    "description": "- the number of sides the virtual die has",
+                    "type": "Int"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 127,
+            "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes",
+            "itemtype": "method",
+            "name": "API.DieRolling.rollNDie",
+            "params": [
+                {
+                    "name": "numSides",
+                    "description": "- the number of sides the virtual die has",
+                    "type": "Int"
+                },
+                {
+                    "name": "toRoll",
+                    "description": "- the number of die to roll",
+                    "type": "Int"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 142,
+            "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls",
+            "itemtype": "method",
+            "name": "API.DieRolling.rollNDieSum",
+            "params": [
+                {
+                    "name": "numSides",
+                    "description": "- the number of sides the virtual die has",
+                    "type": "Int"
+                },
+                {
+                    "name": "toRoll",
+                    "description": "- the number of die to roll",
+                    "type": "Int"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 157,
+            "description": "Rolls a die with the given array's values as sides of the die, and returns the outcome",
+            "itemtype": "method",
+            "name": "API.DieRolling.rollSpecialDie",
+            "params": [
+                {
+                    "name": "values",
+                    "description": "- an array of objects (the sides of the die)",
+                    "type": "Array of Object"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 166,
+            "description": "Rolls a number of die equal to given number, each with the given array's values as sides of the die, and returns the outcome as an array",
+            "itemtype": "method",
+            "name": "API.DieRolling.rollNSpecialDie",
+            "params": [
+                {
+                    "name": "values",
+                    "description": "- an array of objects (the sides of the die)",
+                    "type": "Array of Object"
+                },
+                {
+                    "name": "toRoll",
+                    "description": "- the number of die to roll",
+                    "type": "Int"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 183,
+            "description": "\"Cuts\" the named zone's cards and returns the revealed card",
+            "itemtype": "method",
+            "name": "API.Manipulations.cut",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the zone whose deck is to be cut",
+                    "type": "Zone"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the game state in which this action is taking place",
                     "type": "GameState"
                 }
             ],
@@ -560,7 +760,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 38,
+            "line": 39,
             "description": "Move all cards from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAll",
@@ -585,7 +785,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 54,
+            "line": 55,
             "description": "Move all cards with the given card type name from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAllOfType",
@@ -615,7 +815,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 86,
+            "line": 87,
             "description": "Move all cards with the given attribute value from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAllWithAttributeValue",
@@ -650,7 +850,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 119,
+            "line": 120,
             "description": "Move all cards that meet the requirement function's condition for movement from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAllValid",
@@ -680,7 +880,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 154,
+            "line": 155,
             "description": "Moves the top card from one zone to another",
             "itemtype": "method",
             "name": "Event.Draw.drawCard",
@@ -705,7 +905,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 165,
+            "line": 166,
             "description": "Moves the top n cards from one zone to another",
             "itemtype": "method",
             "name": "Event.Draw.drawCards",
@@ -735,7 +935,57 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 182,
+            "line": 183,
+            "description": "Shuffles the cards in the named zone",
+            "itemtype": "method",
+            "name": "Event.Shuffle.shuffle",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone to be shuffled",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 207,
+            "description": "Deals the specified number of cards from the given zone to each specified zone",
+            "itemtype": "method",
+            "name": "Event.Deal.dealCards",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the zone from which cards are being dealt",
+                    "type": "Zone"
+                },
+                {
+                    "name": "toZoneNameArray",
+                    "description": "- an array of zone names to which cards are being dealt",
+                    "type": "Array of String"
+                },
+                {
+                    "name": "numCards",
+                    "description": "- the number of cards to be dealt to each player",
+                    "type": "Int"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 229,
             "description": "Changes the value of the given object's attribute",
             "itemtype": "method",
             "name": "Event.Modify.setAttribute",
@@ -765,7 +1015,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 195,
+            "line": 242,
             "description": "Increases the given attribute's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.increaseAttributeBy",
@@ -795,7 +1045,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 207,
+            "line": 254,
             "description": "Decreases the given attribute's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.decreaseAttributeBy",
@@ -825,7 +1075,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 219,
+            "line": 266,
             "description": "Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called",
             "itemtype": "method",
             "name": "Event.Modify.endPhase",
@@ -840,7 +1090,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 243,
+            "line": 290,
             "description": "Ends the current turn and allows the next player in the turn structure to begin their turn.",
             "itemtype": "method",
             "name": "Event.Modify.endTurn",
@@ -1188,6 +1438,13 @@
             "description": "A Cartesian Product function that acts on all given arrays.\nFound here: http://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript",
             "itemtype": "method",
             "name": "cartProd",
+            "params": [
+                {
+                    "name": "input",
+                    "description": "- any number of arrays to use as input. Separate by commas.",
+                    "type": "Arrays"
+                }
+            ],
             "return": {
                 "description": "Returns all possible combinations of elements taking a single element from each array",
                 "type": "Array"
@@ -1196,7 +1453,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 248,
+            "line": 249,
             "description": "Create a clone of a given Javascript object",
             "itemtype": "method",
             "name": "lookupPlayer",
@@ -1215,7 +1472,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 258,
+            "line": 259,
             "description": "Gets the first player with a name other than the given name",
             "itemtype": "method",
             "name": "getAltPlayer",

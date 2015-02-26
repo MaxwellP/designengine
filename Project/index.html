@@ -41,8 +41,9 @@
 	<button type="button" onclick="addNewCard()" style="width:100%; display:inline-block">New Card</button>
 	<button type="button" onclick="exportJSON()" style="width:100%; display:inline-block">Save</button>
 </div>
+
 <div id="zone_info" style="display:none; background-color: #C0C0C0;" onmousemove="MousePos(event)">
-	<form id="zone_form" onsubmit="return applyZoneChanges();">
+	<form id="zone_form" onsubmit="event.preventDefault(); return applyZoneChanges();">
 	<fieldset>
 	<legend>Zone Info:</legend>
 	Name:<br>
@@ -50,14 +51,17 @@
 	<br>
 	Attributes:<br>
 	<div id="zone_attributes">
-		<select id="zoneAttrSelect" size=2 style="width:25%; display:inline-block" onchange="fillZoneAttributeInfo()">
+		<select id="zoneAttrSelect" size=3 style="width:25%; display:inline-block" onchange="fillZoneAttributeInfo()">
 		</select>
-		<div id="edit_attributes" style="width:70%; display:inline-block; visibility:hidden">
-			<span style="width:25%">Name:</span>
-			<input type="text" id="attrName" style="width:70%">
-			<br>
+		<div id="edit_zone_attributes" style="width:70%; display:inline-block; vertical-align:top; visibility:hidden">
 			<span style="width:25%">Value:</span>
-			<input type="text" id="attrValue" style="width:70%">
+			<input type="text" id="zoneAttrValue" style="width:70%">
+			<br>
+			<button type="button" onclick="removeZoneAttribute()" style="width:50%">Remove</button>
+		</div>
+		<div id="add_zone_attribute">
+			<input type="text" id="zoneAttrName" style="width:70%">
+			<button type="button" onclick="addNewZoneAttribute()" style="width:20%; display:inline-block">Add</button>
 		</div>
 	</div>
 	Display Type:<br>
@@ -67,9 +71,37 @@
 	</select>
 	<br>
 	Visible To:<br>
-	<div id="player_checkboxes"></div>
+	<div id="zone_player_checkboxes"></div>
 	<br>
-	<input type="submit" value="Apply">
+	<button type="submit">Apply</button>
+
+	</fieldset>
+	</form>
+
+</div>
+
+<div id="card_info" style="display:none; background-color: #C0C0C0;" onmousemove="MousePos(event)">
+	<form id="card_form" onsubmit="event.preventDefault(); return applyCardChanges();">
+	<fieldset>
+	<legend>Card Info:</legend>
+	Name:<br>
+	<input type="text" name="cardName">
+	<br>
+	Attributes:<br>
+	<div id="card_attributes">
+		<select id="cardAttrSelect" size=3 style="width:25%; display:inline-block" onchange="fillCardAttributeInfo()">
+		</select>
+		<div id="edit_card_attributes" style="width:70%; display:inline-block; vertical-align:top; visibility:hidden">
+			<span style="width:25%">Value:</span>
+			<input type="text" id="cardAttrValue" style="width:70%">
+			<br>
+			<button type="button" onclick="removeCardAttribute()" style="width:50%">Remove</button>
+		</div>
+		<div id="add_card_attribute">
+			<input type="text" id="cardAttrName" style="width:70%">
+			<button type="button" onclick="addNewCardAttribute()" style="width:20%; display:inline-block">Add</button>
+		</div>
+	</div>
 
 	</fieldset>
 	</form>

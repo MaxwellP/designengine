@@ -38,8 +38,10 @@ var queuedAction;
 var inputTypes = [];
 var currentInput = 0;
 
-var dragging = false;
-var dragGUIInfo;
+var draggingZone = false;
+var dragZoneGUIInfo;
+var draggingCard = false;
+var dragCardGUIInfo;
 var prevX;
 var prevY;
 
@@ -116,6 +118,7 @@ function CardGUIInfo (card)
 	this.width = CARD_WIDTH;
 	this.height = CARD_HEIGHT;
 	this.fontSize = CARD_DEFAULT_FONT_SIZE;
+	this.dragging = false;
 }
 
 function ZoneGUIInfo (zone, xPct, yPct)
@@ -228,7 +231,7 @@ function drawCard (card) {
 	//ctx.fillText(card.value, cardTextX, cardTextY, cardGUI.width);
 	if (card.isVisibleTo(guiPlayer.name, currentGS))
 	{
-		ctx.fillText(card.attributes.value, cardTextX, cardTextY, cardGUI.width);
+		ctx.fillText(card.name, cardTextX, cardTextY, cardGUI.width);
 	}
 	ctx.restore();
 
@@ -271,7 +274,7 @@ function updateZone (zone) {
 	var zoneHeight = getZoneHeight(zone);
 	var zoneGUI = lookupZoneGUI(zone);
 
-	if (!dragging)
+	if (!draggingZone)
 	{
 		zoneGUI.x = canvas.width * zoneGUI.xPct;
 		zoneGUI.y = canvas.height * zoneGUI.yPct;
@@ -307,17 +310,21 @@ function updateCardsInZones (gs) {
 			var currentY = y + ZONE_MARGIN;
 			for (var i = 0; i < zone.cards.length; i++) {
 				var currentCard = lookupCard(zone.cards[i], gs);
-				if (i == 0)
+				var cardGUI = lookupCardGUI(currentCard);
+				if (!cardGUI.dragging)
 				{
-					updateCard(currentCard, currentX, currentY, zone.cards.length);
-				}
-				else if (i == 1)
-				{
-					updateCard(currentCard, currentX - DECK_OFFSET, currentY - DECK_OFFSET, zone.cards.length - 1);
-				}
-				else
-				{
-					updateCard(currentCard, currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2), zone.cards.length - i);
+					if (i == 0)
+					{
+						updateCard(currentCard, currentX, currentY, zone.cards.length);
+					}
+					else if (i == 1)
+					{
+						updateCard(currentCard, currentX - DECK_OFFSET, currentY - DECK_OFFSET, zone.cards.length - 1);
+					}
+					else
+					{
+						updateCard(currentCard, currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2), zone.cards.length - i);
+					}
 				}
 			};
 
@@ -346,10 +353,14 @@ function updateCardsInZones (gs) {
 			var currentY = y + ZONE_MARGIN;
 			for (var i = 0; i < zone.cards.length; i++) {
 				var currentCard = lookupCard(zone.cards[i], gs);
-				updateCard(currentCard, currentX, currentY, i);
-				//currentX += CARD_WIDTH;
+				var cardGUI = lookupCardGUI(currentCard);
+				if (!cardGUI.dragging)
+				{
+					updateCard(currentCard, currentX, currentY, i);
+					//currentX += CARD_WIDTH;
+					//currentX += ZONE_MARGIN;
+				}
 				currentX += cardOffset;
-				//currentX += ZONE_MARGIN;
 			};
 		}
 	};
@@ -545,15 +556,26 @@ function MousePos (e) {
 	var mouseX = e.pageX - 8;
 	var mouseY = e.pageY - 8;
 
-	if (dragging)
+	if (draggingZone)
 	{
-		dragGUIInfo.x += (mouseX - prevX);
-		dragGUIInfo.y += (mouseY - prevY);
+		dragZoneGUIInfo.x += (mouseX - prevX);
+		dragZoneGUIInfo.y += (mouseY - prevY);
 
 		prevX = mouseX;
 		prevY = mouseY;
 
 		positionZoneInfo(mouseX, mouseY);
+	}
+
+	if (draggingCard)
+	{
+		dragCardGUIInfo.x += (mouseX - prevX);
+		dragCardGUIInfo.y += (mouseY - prevY);
+
+		prevX = mouseX;
+		prevY = mouseY;
+
+		positionCardInfo(mouseX, mouseY);
 	}
 }
 
@@ -572,17 +594,33 @@ function DoMouseDown (e) {
 
 	if (designing)
 	{
-		var clickedZone = findZone(mouseX, mouseY);
-		if (clickedZone) 
+		var clickedCard = findCard(mouseX, mouseY);
+		if (clickedCard)
 		{
-			dragging = true;
-			dragGUIInfo = lookupZoneGUI(clickedZone);
+			var cardGUI = lookupCardGUI(clickedCard);
+			cardGUI.dragging = true;
+			cardGUI.z = 10000000;
+			draggingCard = true;
+			dragCardGUIInfo = cardGUI;
 			prevX = mouseX;
 			prevY = mouseY;
+
+			fillCardInfo(lookupCard(dragCardGUIInfo.id, currentGS), mouseX, mouseY);
 		}
 		else
 		{
-			emptyClick = true;
+			var clickedZone = findZone(mouseX, mouseY);
+			if (clickedZone) 
+			{
+				draggingZone = true;
+				dragZoneGUIInfo = lookupZoneGUI(clickedZone);
+				prevX = mouseX;
+				prevY = mouseY;
+			}
+			else
+			{
+				emptyClick = true;
+			}
 		}
 	}
 }
@@ -596,8 +634,18 @@ function DoMouseUp (e) {
 		var clickedZone = findZone(mouseX, mouseY);
 		if (clickedZone) 
 		{
-			hideAllInfo();
-			fillZoneInfo(clickedZone, mouseX, mouseY);
+			if (draggingCard)
+			{
+				if (clickedZone.name != lookupCard(dragCardGUIInfo.id, currentGS).zone)
+				{
+					Event.Move.Individual.toZone(dragCardGUIInfo.id, clickedZone.name, currentGS);
+				}
+			}
+			else
+			{
+				hideAllInfo();
+				fillZoneInfo(clickedZone, mouseX, mouseY);
+			}
 			
 		}
 		else if (emptyClick)
@@ -606,10 +654,16 @@ function DoMouseUp (e) {
 			emptyClick = false;
 		}
 
-		if (dragging)
+		if (draggingZone)
 		{
-			dragging = false;
-			updatePercents(dragGUIInfo);
+			draggingZone = false;
+			updatePercents(dragZoneGUIInfo);
+		}
+
+		if (draggingCard)
+		{
+			draggingCard = false;
+			dragCardGUIInfo.dragging = false;
 		}
 	}
 	else

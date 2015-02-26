@@ -4,8 +4,8 @@
 		{"name": "P1 Done", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
 		{"name": "P2 Done", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
 		{"name": "Deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
-		{"name": "P1 Discard", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]},
-		{"name": "P2 Discard", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]},
+		{"name": "P1 Discard", "attributes": {}, "cards": [], "type": "deck", "visibleTo": ["P1"]},
+		{"name": "P2 Discard", "attributes": {}, "cards": [], "type": "deck", "visibleTo": ["P2"]},
 		{"name": "P1 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1"]},
 		{"name": "P2 Hand", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P2"]}
 	],

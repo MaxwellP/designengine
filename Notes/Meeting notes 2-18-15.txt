@@ -16,6 +16,7 @@ API
 -Should have a naming structure for functions that are expected to be used as arguments for a higher order function
 -Gamestate should be first argument for functions
 -Finish what you have
+-put helper functions in API
 -Make a tutorial - explain concepts, give examples
 
 Other
