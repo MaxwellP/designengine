@@ -97,7 +97,7 @@ function compareAttrs (a, b) {
 
 	if (!aNum)
 	{
-		switch (lookupCard(a, currentGS).attributes.value) {
+		switch (a.value) {
 			case "Jack":
 				aNum = 11;
 				break;
@@ -115,7 +115,7 @@ function compareAttrs (a, b) {
 
 	if (!bNum)
 	{
-		switch (lookupCard(b, currentGS).attributes.value) {
+		switch (b.value) {
 			case "Jack":
 				bNum = 11;
 				break;
@@ -178,6 +178,7 @@ function doneResult()
 	//Done! (Set done attribute to true)
 	lookupCard(action.cardID, gamestate).attributes.done = true;
 
+
 	var deckZone = lookupZone("Deck", gamestate);
 
 	//Draw back up to 5 cards
@@ -231,13 +232,18 @@ function scoreHand(zone, gs) {
 	}
 	cardAttr.sort(compareAttrs);
 
+	while (cardAttr.length < 5)
+	{
+		cardAttr.push({value: -10 + cardAttr.length * 2, suit: "nocard" + cardAttr.length})
+	}
+
 	var valueOrder = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
 
 	var isFlush = true;
 	var firstSuit = cardAttr[0].suit;
-	for (var i = 1; i < cardAttr.length; i++)
+	for (var i = 0; i < cardAttr.length; i++)
 	{
-		if (cardAttr.suit[i] != firstSuit)
+		if (cardAttr[i].suit != firstSuit)
 		{
 			isFlush = false;
 		}
@@ -245,10 +251,10 @@ function scoreHand(zone, gs) {
 
 	var isStraight = true;
 	var firstValue = cardAttr[0].value;
-	for (var i = 1; i < cardAttr.length; i++)
+	for (var i = 0; i < cardAttr.length; i++)
 	{
 		var firstIndex = valueOrder.indexOf(firstValue);
-		var curIndex =  valueOrder.indexOf(cardAttr[i].value);
+		var curIndex = valueOrder.indexOf(cardAttr[i].value);
 		if (Math.abs(firstIndex - curIndex) != i)
 		{
 			isStraight = false;
@@ -257,52 +263,59 @@ function scoreHand(zone, gs) {
 
 	var scoreNum = 0;
 
+	var val0 = cardAttr[0].value;
+	var val1 = cardAttr[1].value;
+	var val2 = cardAttr[2].value;
+	var val3 = cardAttr[3].value;
+	var val4 = cardAttr[4].value;
+
 	if (isStraight && isFlush)
 	{
 		//Straight flush
 		scoreNum = 8;
 	}
-	else if (false)
+	else if (val0 == val3 || val1 == val4)
 	{
 		//Four of a kind
 		scoreNum = 7;
 	}
-	else if (false)
+	else if ((val0 == val1 && val2 == val4) ||
+			 (val0 == val2 && val3 == val4))
 	{
 		//Full house
 		scoreNum = 6;
 	}
-	else if (false)
+	else if (isFlush)
 	{
 		//Flush
 		scoreNum = 5;
 	}
-	else if (false)
+	else if (isStraight)
 	{
 		//Straight
 		scoreNum = 4;
 	}
-	else if (false)
+	else if (val0 == val2 || val1 == val3 || val2 == val4)
 	{
 		//Three of a kind
 		scoreNum = 3;
 	}
-	else if (false)
+	else if ((val0 == val1 && val2 == val3) || (val0 == val1 && val3 == val4) || (val1 == val2 && val3 == val4))
 	{
 		//Two pair
 		scoreNum = 2;
 	}
-	else if (false)
+	else if ((val0 == val1) || (val1 == val2) || (val2 == val3) || (val3 == val4))
 	{
 		//One pair
 		scoreNum = 1;
 	}
-	else if (false)
+	else
 	{
 		//High card
 		scoreNum = 0;
 	}
-
+	return scoreNum / 16;
 }
 
 function pokerWinCondition()
@@ -312,12 +325,14 @@ function pokerWinCondition()
 		(lookupCard(lookupZone("P1 Done", gamestate).cards[0], gamestate).attributes.done == true) && 
 		(lookupCard(lookupZone("P2 Done", gamestate).cards[0], gamestate).attributes.done == true))
 	{
-		if(false)
+		var p1Score = scoreHand(lookupZone("P1 Hand", gamestate), gamestate);
+		var p2Score = scoreHand(lookupZone("P2 Hand", gamestate), gamestate);
+		if(p1Score > p2Score)
 		{
 			//gameLog("Player 1 Wins");
 			return lookupPlayer("P1", gamestate);
 		}
-		else if(false)
+		else if(p2Score > p1Score)
 		{
 			//gameLog("Player 2 Wins");
 			return lookupPlayer("P2", gamestate);
@@ -340,18 +355,16 @@ function pokerStateScore()
 	var gamestate = arguments[arguments.length - 1];
 	var playerName = arguments[arguments.length - 2];
 
-	var curPlayerHand;
-	var altPlayerHand;
+	var p1Score = scoreHand(lookupZone("P1 Hand", gamestate), gamestate);
+	var p2Score = scoreHand(lookupZone("P2 Hand", gamestate), gamestate);
 
 	if (playerName == "P1")
 	{
-		curPlayerHand = lookupZone("P1 Hand", gamestate);
-		altPlayerHand = lookupZone("P2 Hand", gamestate);
+		return p1Score - p2Score + 0.5;
 	}
 	else
 	{
-		curPlayerHand = lookupZone("P2 Hand", gamestate);
-		altPlayerHand = lookupZone("P1 Hand", gamestate);
+		return p2Score - p1Score + 0.5;
 	}
 
 	return 0.5;

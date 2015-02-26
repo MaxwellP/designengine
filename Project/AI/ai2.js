@@ -1,3 +1,8 @@
+function run_current_ai (playerName, gs, gd, limit) {
+	run_ISMCTS(playerName, gs, gd, limit);
+}
+
+
 var currentlySimulating = false;
 
 var DEPTH = 3;
