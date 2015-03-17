@@ -228,7 +228,7 @@ function run_ISMCTS (playerName, gs, gd, limit) {
 
 	if (gs.turnPlayer == playerName)
 	{
-		console.log("looping on runAI_ISMCTS");
+		console.log("Still AI's turn: doing runAI_ISMCTS() again");
 		run_ISMCTS(playerName, gs, gd, limit - 1);
 	}
 
@@ -255,11 +255,13 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 	for (var i = 0; i < root.children.length; i++)
 	{
 		var child = root.children[i];
+		console.log("Action " + i + " was traversed " + child.numVisits + " times");
 		//console.log(child.numVisits);
 		if (child.numVisits > mostVisits)
 		{
 			bestAction = child.action;
 			mostVisits = child.numVisits;
+			console.log("(Action " + i + " is current highest)");
 		}
 	}
 	return bestAction;
@@ -325,7 +327,7 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 		else
 		{
 			//No children available and no untried actions
-			console.log("REACHED BOTTOM OF TREE");
+			//console.log("REACHED BOTTOM OF TREE");
 			var simResult = ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
 		}
 	}

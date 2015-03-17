@@ -1,0 +1,25 @@
+Notes from 3-17-15 meeting
+
+Website
+-Login
+-Jump into existing game or begin a new one
+-Gallery of games
+ -Tic Tac Toe, Go Fish, Poker
+-All Open Source
+-Games
+ -Feedback
+ -Rating
+-About
+ -Tutorial
+ -Documentation
+-Multiplayer
+ -Rooms
+
+Name
+"Discard" and variations
+"Cardifact"
+"AggroCombo"
+"WomboCombo"
+-A name that would resonate with this culture
+
+** Moriarty has a Node server set up

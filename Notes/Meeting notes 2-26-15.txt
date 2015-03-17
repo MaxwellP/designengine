@@ -1,0 +1,35 @@
+Notes from 2/26/15 meeting
+
+AI Stuff
+-AI Logging system
+-For testing - Cards greyed out when invisible
+
+GUI
+-Player Icons
+-Drag + Drop new Things
+-Phase visual representation
+-Codemirror
+-Proper JSON export
+-Do a polish pass before focusing too much on design interaction and coding-through-demonstration
+-Code mirror documentation pop-up
+
+Website
+-Start after first weeking of D-term
+
+Engine
+-Non-card-based actions
+-*Reactions*
+-Poker bertting - fixed bet amount actions
+-(Poker is a good example)
+
+API
+-EXAMPLE! And tutorial
+-Talk to Moriarty about javascript security
+-(Jexl for security?)
+
+Shadertoy
+Twine
+Puzzlescript
+Wonderfl
+
+Web Design Document & mockups, etc

@@ -1,0 +1,11 @@
+Possible name "Machina Carta"
+
+Website - We have many examples but is there a template we can use? 
+
+Design Interface - Get it usable this week if possible
+
+AI - logging system
+
+Engine additions - If we have more time this week we can add non-card-actions and reactions
+
+API - Make a tutorial - not this week perhaps
