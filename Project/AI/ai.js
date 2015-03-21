@@ -9,14 +9,22 @@ var DEPTH = 3;
 
 var MAX_CONSEC_TURNS = 10;
 
-function LogTree (node, depth)
-{
+var loggingAI = true;
+
+function aiLog (string) {
+	if (loggingAI)
+	{
+		console.log(string);
+	}
+}
+
+function LogTree (node, depth) {
 	var indent = "";
 	for(var i = 0; i < depth; i += 1)
 	{
 		indent += " ";
 	}
-	console.log(indent + "Reward: " + node.totalReward + ", Visits: " + node.numVisits);
+	aiLog(indent + "Reward: " + node.totalReward + ", Visits: " + node.numVisits);
 	for(var i = 0; i < node.children.length; i += 1)
 	{
 		LogTree(node.children[i], depth + 1);
@@ -27,7 +35,7 @@ function pickRandomLegalAction (player, gs) {
 	var legalActions = getLegalActions(player, gs);
 	if (legalActions.length == 0)
 	{
-		//console.log("NO LEGAL ACTIONS");
+		//aiLog("NO LEGAL ACTIONS");
 		return false;
 	}
 	return legalActions[Math.floor(Math.random() * legalActions.length)];
@@ -36,7 +44,7 @@ function pickRandomLegalAction (player, gs) {
 function runAI_random (player, gs, gd, limit) {
 	if (limit < 0)
 	{
-		console.log("Reached loop limit");
+		aiLog("Reached loop limit");
 		return;
 	}
 
@@ -56,7 +64,7 @@ function TestAI () {
 function runAI_abnm (playerName, gs, gd, limit) {
 	if (limit < 0)
 	{
-		console.log("Reached loop limit");
+		aiLog("Reached loop limit");
 		return;
 	}
 	var altPlayerObj = getAltPlayer(playerName, gs);
@@ -68,14 +76,14 @@ function runAI_abnm (playerName, gs, gd, limit) {
 	//Apply action here
 	if (!action)
 	{
-		console.log("No action found. (Game ended)");
+		aiLog("No action found. (Game ended)");
 		return;
 	}
 	applyAction(action, lookupPlayer(playerName, gs), gs);
 
 	if (gs.turnPlayer == playerName)
 	{
-		console.log("looping on runAI_abnm");
+		aiLog("looping on runAI_abnm");
 		runAI_abnm(playerName, gs, gd, limit - 1);
 	}
 
@@ -98,7 +106,7 @@ function ScoreAction (score, action) {
 function abNegamax (gs, gd, maxDepth, currentDepth, alpha, beta, curPlayerName, altPlayerName) {
 	if (curPlayerName != gs.turnPlayer)
 	{
-		//console.log("Loop negamax because same turn player");
+		//aiLog("Loop negamax because same turn player");
 		return abNegamax(gs, gd, maxDepth, currentDepth, - beta, - alpha, altPlayerName, curPlayerName);
 	}
 
@@ -223,7 +231,7 @@ function Test_ISMCTS () {
 function run_ISMCTS (playerName, gs, gd, limit) {
 	if (limit < 0)
 	{
-		console.log("Reached loop limit");
+		aiLog("Reached loop limit");
 		return;
 	}
 	var altPlayerObj = getAltPlayer(playerName, gs);
@@ -235,14 +243,14 @@ function run_ISMCTS (playerName, gs, gd, limit) {
 	//Apply action here
 	if (!action)
 	{
-		console.log("No action found. (Game ended)");
+		aiLog("No action found. (Game ended)");
 		return;
 	}
 	applyAction(action, lookupPlayer(playerName, gs), gs);
 
 	if (gs.turnPlayer == playerName)
 	{
-		console.log("Still AI's turn: doing runAI_ISMCTS() again");
+		aiLog("Still AI's turn: doing runAI_ISMCTS() again");
 		run_ISMCTS(playerName, gs, gd, limit - 1);
 	}
 
@@ -259,6 +267,10 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 	//do many iterations
 	for (var i = 0; i < 1000; i++)
 	{
+		if (i === 500)
+		{
+			//debugger;
+		}
 		ISMCTS_Traverse(root, gd, curPlayerName, altPlayerName)
 	}
 
@@ -269,17 +281,21 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 	for (var i = 0; i < root.children.length; i++)
 	{
 		var child = root.children[i];
-		console.log("Action " + i + " was traversed " + child.numVisits + " times");
-		//console.log(child.numVisits);
+		aiLog("Action " + i + " was traversed " + child.numVisits + " times");
+		//aiLog(child.numVisits);
 		if (child.numVisits > mostVisits)
 		{
 			bestAction = child.action;
 			mostVisits = child.numVisits;
-			console.log("(Action " + i + " is current highest)");
+			aiLog("(Action " + i + " is current highest)");
 		}
 	}
 	LogTree(root, 0);
 	return bestAction;
+}
+
+function Bandit_UCB1 (reward, visits, parentVisits) {
+	return (reward / visits) + 0.7 * Math.sqrt(Math.log(parentVisits) / visits);
 }
 
 //If there are any untried actions, do one of those
@@ -326,9 +342,11 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 		for (var i = 0; i < node.children.length; i++)
 		{
 			var child = node.children[i]
-			var banditResult = (child.totalReward / child.numVisits) + 0.7 * Math.sqrt(Math.log(node.numVisits) / child.numVisits);
+			var banditResult = Bandit_UCB1(child.totalReward, child.numVisits, node.numVisits);
+			//var banditResult = (child.totalReward / child.numVisits) + 0.7 * Math.sqrt(Math.log(node.numVisits) / child.numVisits);
 			if (banditResult > highestResult)
 			{
+				highestResult = banditResult;
 				chosenChild = child;
 			}
 		}
@@ -342,7 +360,7 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 		else
 		{
 			//No children available and no untried actions
-			//console.log("REACHED BOTTOM OF TREE");
+			//aiLog("REACHED BOTTOM OF TREE");
 			var simResult = ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
 			return simResult;
 		}
@@ -352,7 +370,7 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 //From a state, apply random moves until the game is ended (or limit reached)
 //Returns terminal results (win/loss)
 function ISMCTS_Simulation (gs, gd, curPlayerName, altPlayerName) {
-	//console.log("* Randomly simulating rest of game");
+	//aiLog("* Randomly simulating rest of game");
 	var simGS = gs.clone()
 	//Game lasting longer than 100 turns - just evaluate at that point
 	var limit = 100;
@@ -370,13 +388,13 @@ function ISMCTS_Simulation (gs, gd, curPlayerName, altPlayerName) {
 	if (isGameOver(simGS, gd))
 	{
 		var result = evaluate_B(curPlayerName, altPlayerName, simGS, gd);
-		//console.log("* Game simulated - reward of " + result);
+		//aiLog("* Game simulated - reward of " + result);
 		//*** Get win/loss
 		return result;
 	}
 	else
 	{
-		//console.log("* Game unfinished - reward of 0.5")
+		//aiLog("* Game unfinished - reward of 0.5")
 		//*** Evaluate state
 		return evaluate_B(curPlayerName, altPlayerName, simGS, gd);
 	}
