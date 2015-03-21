@@ -14,6 +14,7 @@ function readJSON(file)
 		var read = JSON.parse(request.responseText);
 		var newGameDescription = new GameDescription(
 			read.zones,
+			read.universes,
 			read.cardTypes,
 			read.actionTemplates,
 			read.players,
@@ -28,13 +29,9 @@ function readJSON(file)
 		gameDescription = newGameDescription;
 		currentGS = gameState;
 		initialize(newGameDescription);
-		
 	};
 	request.send();
-
-
 };
-
 
 function initialize(gd)
 {
@@ -53,13 +50,6 @@ function initialize(gd)
 		gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
 		gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
 	}
-	
-	//TODO: Change this for gui
-	/*
-	initializeZoneGUI(zones);
-	updateTrees();
-	zebra.ready();
-	*/
 };
 
 function gameSetup (gs)
@@ -67,7 +57,6 @@ function gameSetup (gs)
 	gameLog("Running game setup function.");
 	window[gameDescription.setupFunction].apply(this, [currentGS]);
 }
-
 
 function generateActionsFromCard (card, gs, gd)
 {
@@ -167,6 +156,7 @@ function applyAction (action, player, gs)
 			gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
 			window[action.result].apply(this, actionInputs);
 			//printGameState(gs);
+			checkWin(gs, gameDescription);
 			return true;
 		}
 		else

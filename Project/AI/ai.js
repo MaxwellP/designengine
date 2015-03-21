@@ -9,6 +9,20 @@ var DEPTH = 3;
 
 var MAX_CONSEC_TURNS = 10;
 
+function LogTree (node, depth)
+{
+	var indent = "";
+	for(var i = 0; i < depth; i += 1)
+	{
+		indent += " ";
+	}
+	console.log(indent + "Reward: " + node.totalReward + ", Visits: " + node.numVisits);
+	for(var i = 0; i < node.children.length; i += 1)
+	{
+		LogTree(node.children[i], depth + 1);
+	}
+}
+
 function pickRandomLegalAction (player, gs) {
 	var legalActions = getLegalActions(player, gs);
 	if (legalActions.length == 0)
@@ -243,7 +257,7 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 	var root = new GSNode(gs, undefined);
 
 	//do many iterations
-	for (var i = 0; i < 100; i++)
+	for (var i = 0; i < 1000; i++)
 	{
 		ISMCTS_Traverse(root, gd, curPlayerName, altPlayerName)
 	}
@@ -264,6 +278,7 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 			console.log("(Action " + i + " is current highest)");
 		}
 	}
+	LogTree(root, 0);
 	return bestAction;
 }
 
@@ -329,6 +344,7 @@ function ISMCTS_Traverse (node, gd, curPlayerName, altPlayerName) {
 			//No children available and no untried actions
 			//console.log("REACHED BOTTOM OF TREE");
 			var simResult = ISMCTS_Simulation(node.gs, gd, curPlayerName, altPlayerName);
+			return simResult;
 		}
 	}
 }
@@ -363,7 +379,6 @@ function ISMCTS_Simulation (gs, gd, curPlayerName, altPlayerName) {
 		//console.log("* Game unfinished - reward of 0.5")
 		//*** Evaluate state
 		return evaluate_B(curPlayerName, altPlayerName, simGS, gd);
-		
 	}
 }
 
