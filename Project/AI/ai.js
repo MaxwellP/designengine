@@ -235,20 +235,6 @@ function run_ISMCTS (playerName, gs, gd, limit) {
 	return;
 }
 
-function LogTree (node, depth)
-{
-	var indent = "";
-	for(var i = 0; i < depth; i += 1)
-	{
-		indent += " ";
-	}
-	console.log(indent + "Reward: " + node.totalReward + ", Visits: " + node.numVisits);
-	for(var i = 0; i < node.children.length; i += 1)
-	{
-		LogTree(node.children[i], depth + 1);
-	}
-}
-
 //Information Set Monte Carlo Tree Search
 //Returns the action that was most selected from the root
 function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
@@ -278,7 +264,6 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 			console.log("(Action " + i + " is current highest)");
 		}
 	}
-	LogTree(root, 0);
 	return bestAction;
 }
 
