@@ -5,10 +5,16 @@
 </head>
 
 <head>
+	<!--<link rel="stylesheet" href="../lib/reset.css">
 	<!-- CODE MIRROR -->
 	<script src="lib/codemirror.js"></script>
 	<link rel="stylesheet" href="../lib/codemirror.css">
 	<script src="lib/javascript/javascript.js"></script>
+	<!-- JQUERY UI -->
+	<link rel="stylesheet" href="../lib/jquery-ui.min.css">
+	<script src="lib/jquery.js"></script>
+	<script src="lib/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="GUI/jqueryFunctions.js"></script>
 	<!-- ENGINE -->
 	<script type="text/javascript" src="Engine/action.js"></script>
 	<script type="text/javascript" src="AI/ai.js"></script>
@@ -24,6 +30,8 @@
 	<script type="text/javascript" src="Engine/player.js"></script>
 	<script type="text/javascript" src="Engine/zone.js"></script>
 	<script type="text/javascript" src="Engine/API.js"></script>
+
+	<link rel="stylesheet" href="../GUI/style.css">
 </head>
 
 <div id="game_canvas" style="display:inline-block; vertical-align:top">
@@ -33,40 +41,22 @@
 		</canvas>
 	</body>
 </div>
-	
-<div id="design_area" style="vertical-align:top; display:none; position = absolute;	left = 0px; top = 0px; border:1px solid; background-color: #C0C0C0; 
-	-webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;" onmousemove="MousePos(event)">
-	<button type="button" onclick="addNewZone()" style="width:100%; display:inline-block">New Zone</button>
-	<button type="button" onclick="addNewPlayer()" style="width:100%; display:inline-block">New Player</button>
-	<button type="button" onclick="addNewCard()" style="width:100%; display:inline-block">New Card</button>
-	<button type="button" onclick="exportJSON()" style="width:100%; display:inline-block">Save</button>
-</div>
 
-<div id="zone_info" style="display:none; background-color: #C0C0C0;" onmousemove="MousePos(event)">
+<div id="zone_editor" class="editor" title="Editing Zone: ">
 	<form id="zone_form" onsubmit="event.preventDefault(); return applyZoneChanges();">
-	<fieldset>
-	<legend>Zone Info:</legend>
-	Name:<br>
-	<input type="text" name="zoneName">
-	<br>
 	Attributes:<br>
-	<div id="zone_attributes">
-		<select id="zoneAttrSelect" size=3 style="width:25%; display:inline-block" onchange="fillZoneAttributeInfo()">
+	<div id="attributes">
+		<select id="zoneAttrSelect" size=3 onchange="fillZoneAttributeInfo()">
 		</select>
-		<div id="edit_zone_attributes" style="width:70%; display:inline-block; vertical-align:top; visibility:hidden">
-			<span style="width:25%">Value:</span>
-			<input type="text" id="zoneAttrValue" style="width:70%">
+		<div id="edit_zone_attributes">
+			<span>Value:</span>
+			<input type="text" id="zoneAttrValue">
 			<br>
-			<button type="button" onclick="removeZoneAttribute()" style="width:50%">Remove</button>
+			<button type="button" onclick="removeZoneAttribute()">Remove</button>
 		</div>
 		<div id="add_zone_attribute">
-			<input type="text" id="zoneAttrName" style="width:70%">
-			<button type="button" onclick="addNewZoneAttribute()" style="width:20%; display:inline-block">Add</button>
+			<input type="text" id="zoneAttrName">
+			<button type="button" onclick="addNewZoneAttribute()">Add</button>
 		</div>
 	</div>
 	Display Type:<br>
@@ -79,42 +69,19 @@
 	<div id="zone_player_checkboxes"></div>
 	<br>
 	<button type="submit">Apply</button>
-
-	</fieldset>
 	</form>
-
 </div>
 
-<div id="card_info" style="display:none; background-color: #C0C0C0;" onmousemove="MousePos(event)">
-	<form id="card_form" onsubmit="event.preventDefault(); return applyCardChanges();">
-	<fieldset>
-	<legend>Card Info:</legend>
-	Name:<br>
-	<input type="text" name="cardName">
-	<br>
-	Attributes:<br>
-	<div id="card_attributes">
-		<select id="cardAttrSelect" size=3 style="width:25%; display:inline-block" onchange="fillCardAttributeInfo()">
-		</select>
-		<div id="edit_card_attributes" style="width:70%; display:inline-block; vertical-align:top; visibility:hidden">
-			<span style="width:25%">Value:</span>
-			<input type="text" id="cardAttrValue" style="width:70%">
-			<br>
-			<button type="button" onclick="removeCardAttribute()" style="width:50%">Remove</button>
-		</div>
-		<div id="add_card_attribute">
-			<input type="text" id="cardAttrName" style="width:70%">
-			<button type="button" onclick="addNewCardAttribute()" style="width:20%; display:inline-block">Add</button>
-		</div>
-	</div>
-
-	</fieldset>
-	</form>
-
+<div id="card_editor" class="editor" title="Editing Card: ">
+	<p>Card</p>
 </div>
 
-<script type="text/javascript">
-	var myCodeMirror = CodeMirror(document.body);
-</script>
+<div id="player_editor" class="editor" title="Editing Player: ">
+	<p>Player</p>
+</div>
+
+<div id="phase_editor" class="editor" title="Editing Phase: ">
+	<p>Phase</p>
+</div>
 
 </html>
