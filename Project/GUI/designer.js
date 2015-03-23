@@ -10,11 +10,11 @@ function initDesign() {
 
 	//canvas.width = (window.innerWidth - 20) * 0.75;
 
-	designArea = document.getElementById("design_area");
+	/*designArea = document.getElementById("design_area");
 	designArea.style.display = "inline-block";
 	designArea.style.position = "absolute";
 	designArea.style.left = "0px";
-	designArea.style.top = "0px";
+	designArea.style.top = "0px";*/
 
 	designing = true;
 }
@@ -59,13 +59,15 @@ function hideAllInfo() {
 }
 
 function fillZoneInfo (zone, x, y) {
-	hideAllInfo();
+	//hideAllInfo();
 
-	var zoneInfo = document.getElementById("zone_info");
-	zoneInfo.style.display = "inline";
+	var editor = $("#zone_editor");
+	editor.dialog({
+		title: "Editing Zone: " + zone.name
+	});
+	editor.dialog("open");
 
 	var zoneForm = document.getElementById("zone_form");
-	zoneForm.zoneName.value = zone.name;
 
 	for (var i = 0; i < zoneForm.zoneType.options.length; i++) {
 		if (zoneForm.zoneType.options[i].value == zone.type)
@@ -108,7 +110,7 @@ function fillZoneInfo (zone, x, y) {
 }
 
 function positionZoneInfo (x, y) {
-	var zoneInfo = document.getElementById("zone_info");
+	var zoneInfo = $("#zone_editor");
 
 	/*
 	var zoneGUI = lookupZoneGUI(zone);

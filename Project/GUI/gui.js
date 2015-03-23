@@ -643,7 +643,7 @@ function DoMouseUp (e) {
 			}
 			else
 			{
-				hideAllInfo();
+				//hideAllInfo();
 				fillZoneInfo(clickedZone, mouseX, mouseY);
 			}
 			
