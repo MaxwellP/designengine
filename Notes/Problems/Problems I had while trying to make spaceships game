@@ -1,0 +1,33 @@
+Problems I had while trying to make spaceships game
+3/22/15
+
+-IncreaseAttributeBy and DecreaseAttributeBy don't work
+ -"attributeBy" vs "attributeName"
+ -Event.changeAttribute doesn't exist
+ -They assume they are being passed an object, but should use name/id
+   -Split into different functions for player, card, zone
+
+-Value comparisons don't use gamestate
+ -Should use gamestate and get passed name/id instead of object reference
+
+-Cannot get attribute value from card
+
+-Some sort of system to get a player's associated zone. Perhaps in JSON?
+(In this game each player has a Ships zone: "P1 Ships" and "P2 Ships")
+ -Also, getting the other player's associated zone
+
+-Get what zone a card is in
+
+-Check what phase the game is in. (Maybe have an isInPhaseX() function?)
+
+-Do something to the first/last card in a zone
+
+-Do something to each card in a zone
+
+-Do something to each card in a zone...
+  -Of a type
+  -Meeting certain requirements
+
+-Winning / losing
+
+-Get the current player

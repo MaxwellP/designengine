@@ -112,7 +112,7 @@ function attackResult()
 	var damage = 3; //?? Lookup attribute of a card
 	Event.Modify.decreaseAttributeBy(targetShip, "HP", damage, gamestate);
 
-	//?? Should there be a LessThanOrEqual
+	//?? Should there be a LessThanOrEqual ?
 	if (isAttributeLessThan(targetShip, "HP", 1))
 	{
 		Event.Move.Individual.toZone(targetShip, "Scrap Pile", gamestate);
@@ -468,6 +468,8 @@ function spaceshipsStateScore()
 	var gamestate = arguments[arguments.length - 1];
 	var playerName = arguments[arguments.length - 2];
 
+	//State score should be based on how many cards are in each player's Ships zone
+
 	if (playerName == "P1")
 	{
 		return 0.5;
@@ -478,7 +480,6 @@ function spaceshipsStateScore()
 	}
 
 	return 0.5;
-	//return curPlayerPile.cards.length - altPlayerPile.cards.length + (curPlayerHand.cards.length / 4) - (altPlayerHand.cards.length / 4);
 }
 
 function buyPhaseInit()
