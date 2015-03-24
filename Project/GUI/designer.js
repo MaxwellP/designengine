@@ -2,19 +2,12 @@
 DESIGN-TIME GUI
 */
 
-var currentSelection;
+var currentZone;
+var currentCard;
 
 function initDesign() {
 	var canvas = document.getElementById("Canvas2D");
 	var ctx = canvas.getContext('2d');
-
-	//canvas.width = (window.innerWidth - 20) * 0.75;
-
-	/*designArea = document.getElementById("design_area");
-	designArea.style.display = "inline-block";
-	designArea.style.position = "absolute";
-	designArea.style.left = "0px";
-	designArea.style.top = "0px";*/
 
 	designing = true;
 }
@@ -22,8 +15,6 @@ function initDesign() {
 function endDesign() {
 	var canvas = document.getElementById("Canvas2D");
 	var ctx = canvas.getContext('2d');
-
-	//canvas.width = window.innerWidth - 20;
 
 	designArea = document.getElementById("design_area");
 	designArea.style.display = "none";
@@ -44,22 +35,37 @@ function addNewCard() {
 }
 
 function hideAllInfo() {
-	var zoneInfo = document.getElementById("zone_info")
-	zoneInfo.style.display = "none";
+	//var zoneInfo = document.getElementById("zone_info")
+	//zoneInfo.style.display = "none";
 	document.getElementById("zone_player_checkboxes").innerHTML = "";
 	document.getElementById("zoneAttrSelect").innerHTML = "";
 	document.getElementById("edit_zone_attributes").style.visibility = "hidden";
 	document.getElementById("zoneAttrName").value = "";
 
+	/*
 	var cardInfo = document.getElementById("card_info")
 	cardInfo.style.display = "none";
+	*/
+	document.getElementById("cardAttrSelect").innerHTML = "";
+	document.getElementById("edit_card_attributes").style.visibility = "hidden";
+	document.getElementById("cardAttrName").value = "";
+}
+
+function clearZoneInfo() {
+	document.getElementById("zone_player_checkboxes").innerHTML = "";
+	document.getElementById("zoneAttrSelect").innerHTML = "";
+	document.getElementById("edit_zone_attributes").style.visibility = "hidden";
+	document.getElementById("zoneAttrName").value = "";
+}
+
+function clearCardInfo() {
 	document.getElementById("cardAttrSelect").innerHTML = "";
 	document.getElementById("edit_card_attributes").style.visibility = "hidden";
 	document.getElementById("cardAttrName").value = "";
 }
 
 function fillZoneInfo (zone, x, y) {
-	//hideAllInfo();
+	clearZoneInfo();
 
 	var editor = $("#zone_editor");
 	editor.dialog({
@@ -106,7 +112,7 @@ function fillZoneInfo (zone, x, y) {
 	};
 
 	positionZoneInfo(x, y);
-	currentSelection = zone;
+	currentZone = zone;
 }
 
 function positionZoneInfo (x, y) {
@@ -121,9 +127,9 @@ function positionZoneInfo (x, y) {
 	var editWindowX = x + 9;
 	var editWindowY = y + 9;
 
-	zoneInfo.style.position = "absolute";
-	zoneInfo.style.left = "" + editWindowX + "px";
-	zoneInfo.style.top = "" + editWindowY + "px";
+	//zoneInfo.style.position = "absolute";
+	//zoneInfo.style.left = "" + editWindowX + "px";
+	//zoneInfo.style.top = "" + editWindowY + "px";
 	//zIndex?
 }
 
@@ -133,12 +139,12 @@ function fillZoneAttributeInfo () {
 
 	document.getElementById("edit_zone_attributes").style.visibility = "visible";
 
-	attrValue.value = currentSelection.attributes[attrSelect.value];
+	attrValue.value = currentZone.attributes[attrSelect.value];
 	
 }
 
 function addNewZoneAttribute() {
-	var zone = currentSelection;
+	var zone = currentZone;
 	var attrName = document.getElementById("zoneAttrName");
 	
 	zone.attributes[attrName.value] = "";
@@ -153,7 +159,7 @@ function addNewZoneAttribute() {
 }
 
 function removeZoneAttribute() {
-	var zone = currentSelection;
+	var zone = currentZone;
 	var attrSelect = document.getElementById("zoneAttrSelect");
 
 	delete zone.attributes[attrSelect.value];
@@ -174,22 +180,16 @@ function removeZoneAttribute() {
 
 function applyZoneChanges() {
 	var zoneForm = document.getElementById("zone_form");
-	var zone = currentSelection;
+	var zone = currentZone;
 	var zoneGUI = lookupZoneGUI(zone);
-
-	for (var i = 0; i < currentGS.cards.length; i++) {
-		if (currentGS.cards[i].zone == zone.name)
-		{
-			currentGS.cards[i].zone = zoneForm.zoneName.value;
-		}
-	};
-	zoneGUI.name = zoneForm.zoneName.value;
-	zone.name = zoneForm.zoneName.value;
 
 	var attrSelect = document.getElementById("zoneAttrSelect");
 	var attrValue = document.getElementById("zoneAttrValue");
-
-	zone.attributes[attrSelect.value] = attrValue.value;
+	
+	if (attrSelect.value !== "")
+	{
+		zone.attributes[attrSelect.value] = attrValue.value;
+	}
 
 	zone.type = zoneForm.zoneType.value;
 
@@ -206,13 +206,15 @@ function applyZoneChanges() {
 }
 
 function fillCardInfo (card, x, y) {
-	hideAllInfo();
+	clearCardInfo();
 
-	var cardInfo = document.getElementById("card_info");
-	cardInfo.style.display = "inline";
+	var editor = $("#card_editor");
+	editor.dialog({
+		title: "Editing Card: " + card.name
+	});
+	editor.dialog("open");
 
 	var cardForm = document.getElementById("card_form");
-	cardForm.cardName.value = card.name;
 
 	for (var index in card.attributes) {
 		var newOption = document.createElement("OPTION");
@@ -225,18 +227,18 @@ function fillCardInfo (card, x, y) {
 	}
 
 	positionCardInfo(x, y);
-	currentSelection = card;
+	currentCard = card;
 }
 
 function positionCardInfo (x, y) {
-	var cardInfo = document.getElementById("card_info");
+	//var cardInfo = document.getElementById("card_info");
 
 	var editWindowX = x + 9;
 	var editWindowY = y + 9;
 
-	cardInfo.style.position = "absolute";
-	cardInfo.style.left = "" + editWindowX + "px";
-	cardInfo.style.top = "" + editWindowY + "px";
+	//cardInfo.style.position = "absolute";
+	//cardInfo.style.left = "" + editWindowX + "px";
+	//cardInfo.style.top = "" + editWindowY + "px";
 }
 
 function fillCardAttributeInfo () {
@@ -245,12 +247,12 @@ function fillCardAttributeInfo () {
 
 	document.getElementById("edit_card_attributes").style.visibility = "visible";
 
-	attrValue.value = currentSelection.attributes[attrSelect.value];
+	attrValue.value = currentCard.attributes[attrSelect.value];
 	
 }
 
 function addNewCardAttribute() {
-	var card = currentSelection;
+	var card = currentCard;
 	var attrName = document.getElementById("cardAttrName");
 	
 	card.attributes[attrName.value] = "";
@@ -265,7 +267,7 @@ function addNewCardAttribute() {
 }
 
 function removeCardAttribute() {
-	var card = currentSelection;
+	var card = currentCard;
 	var attrSelect = document.getElementById("cardAttrSelect");
 
 	delete card.attributes[attrSelect.value];
@@ -285,6 +287,18 @@ function removeCardAttribute() {
 }
 
 function applyCardChanges() {
+	var cardForm = document.getElementById("card_form");
+	var card = currentCard;
+	var cardGUI = lookupCardGUI(card);
+
+	var attrSelect = document.getElementById("cardAttrSelect");
+	var attrValue = document.getElementById("cardAttrValue");
+	
+	if (attrSelect.value !== "")
+	{
+		card.attributes[attrSelect.value] = attrValue.value;
+	}
+
 	return false;
 }
 
@@ -308,7 +322,7 @@ function exportJSON() {
 		var curGUIInfo = zonesGUIInfo[i];
 		var tempGUI = {};
 		tempGUI.name = curGUIInfo.name;
-		tempGUI.xPct = curGUIInfo.xPct;	
+		tempGUI.xPct = curGUIInfo.xPct;
 		tempGUI.yPct = curGUIInfo.yPct;
 
 		jsonRoot.zoneGUI.push(tempGUI);

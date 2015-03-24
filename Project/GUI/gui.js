@@ -650,7 +650,7 @@ function DoMouseUp (e) {
 		}
 		else if (emptyClick)
 		{
-			hideAllInfo();
+			//hideAllInfo();
 			emptyClick = false;
 		}
 

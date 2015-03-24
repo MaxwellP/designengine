@@ -46,16 +46,16 @@
 	<form id="zone_form" onsubmit="event.preventDefault(); return applyZoneChanges();">
 	Attributes:<br>
 	<div id="attributes">
-		<select id="zoneAttrSelect" size=3 onchange="fillZoneAttributeInfo()">
+		<select id="zoneAttrSelect" size=4 class="attrSelect" onchange="fillZoneAttributeInfo()">
 		</select>
-		<div id="edit_zone_attributes">
+		<div id="edit_zone_attributes" class="attrEditor">
 			<span>Value:</span>
-			<input type="text" id="zoneAttrValue">
+			<input type="text" id="zoneAttrValue" class="attrValue">
 			<br>
 			<button type="button" onclick="removeZoneAttribute()">Remove</button>
 		</div>
 		<div id="add_zone_attribute">
-			<input type="text" id="zoneAttrName">
+			<input type="text" id="zoneAttrName" class="attrName">
 			<button type="button" onclick="addNewZoneAttribute()">Add</button>
 		</div>
 	</div>
@@ -72,8 +72,26 @@
 	</form>
 </div>
 
-<div id="card_editor" class="editor" title="Editing Card: ">
-	<p>Card</p>
+<div id="card_editor" class="editor" title="Editing Card: " onmousemove="MousePos(event)">
+	<form id="card_form" onsubmit="event.preventDefault(); return applyCardChanges();">
+	Attributes:<br>
+	<div id="card_attributes">
+		<select id="cardAttrSelect" size=4 class="attrSelect" onchange="fillCardAttributeInfo()">
+		</select>
+		<div id="edit_card_attributes" class="attrEditor">
+			<span>Value:</span>
+			<input type="text" id="cardAttrValue" class="attrValue">
+			<br>
+			<button type="button" onclick="removeCardAttribute()">Remove</button>
+		</div>
+		<div id="add_card_attribute">
+			<input type="text" id="cardAttrName" class="attrName">
+			<button type="button" onclick="addNewCardAttribute()">Add</button>
+		</div>
+	</div>
+	<br>
+	<button type="submit">Apply</button>
+	</form>
 </div>
 
 <div id="player_editor" class="editor" title="Editing Player: ">
@@ -82,6 +100,21 @@
 
 <div id="phase_editor" class="editor" title="Editing Phase: ">
 	<p>Phase</p>
+</div>
+
+<div id="action_editor" class="editor" title="Editing Action: ">
+	Description:<br>
+	<input type="text" id="actionDesc">
+	<br>
+	Result:<br>
+	<div id="resultCode" class="codemirrorBox">
+	</div>
+	<br>
+	Legality Checker:<br>
+	<div id="checkLegalityCode" class="codemirrorBox">
+	</div>
+	
+
 </div>
 
 </html>
