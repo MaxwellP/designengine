@@ -75,6 +75,7 @@ var API = {
 		*/
 		isAttributeGreaterThan: function(obj, attributeName, value)
 		{
+			/*DETERMINE TYPE OF BJECT, THEN DO PROPER LOOKUP, THEN DO IF?*/
 			if(obj.attributes[attributeName] > value)
 			{
 				return true;
@@ -91,6 +92,7 @@ var API = {
 		*/
 		isAttributeLessThan: function(obj, attributeName, value)
 		{
+			/*DETERMINE TYPE OF BJECT, THEN DO PROPER LOOKUP, THEN DO IF?*/
 			if(obj.attributes[attributeName] < value)
 			{
 				return true;
@@ -107,12 +109,18 @@ var API = {
 		*/
 		isAttributeEqualTo: function(obj, attributeName, value)
 		{
+			/*DETERMINE TYPE OF BJECT, THEN DO PROPER LOOKUP, THEN DO IF?*/
 			if(obj.attributes[attributeName] === value)
 			{
 				return true;
 			}
 			return false;
 		}
+		/*
+			ADD LESS THAN OR EQUAL
+			ADD GREATER THAN OR EQUAL
+			ADD NOT EQUAL
+		*/
 	},
 	DieRolling: {
 		/**

@@ -39,8 +39,8 @@ var Event = {
 			/**
 			* Move all cards from the given zone to the other given zone
 			* @method Event.Move.Group.moveAll
-			* @param {Zone} fromZone - the name of the zone from which the card(s) are being moved from
-			* @param {Zone} toZone - the name of the zone to which the card(s) are being moved to
+			* @param {String} fromZone - the name of the zone from which the card(s) are being moved from
+			* @param {String} toZone - the name of the zone to which the card(s) are being moved to
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
 			moveAll: function(fromZone, toZone, gamestate)
@@ -55,8 +55,8 @@ var Event = {
 			/**
 			* Move all cards with the given card type name from the given zone to the other given zone
 			* @method Event.Move.Group.moveAllOfType
-			* @param {Zone} fromZone - the name of the zone from which the card(s) are being moved from
-			* @param {Zone} toZone - the name of the zone to which the card(s) are being moved to
+			* @param {String} fromZone - the name of the zone from which the card(s) are being moved from
+			* @param {String} toZone - the name of the zone to which the card(s) are being moved to
 			* @param {String} cardType - the name of the card type to be moved
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
@@ -87,8 +87,8 @@ var Event = {
 			/**
 			* Move all cards with the given attribute value from the given zone to the other given zone
 			* @method Event.Move.Group.moveAllWithAttributeValue
-			* @param {Zone} fromZone - the name of the zone from which the card(s) are being moved from
-			* @param {Zone} toZone - the name of the zone to which the card(s) are being moved to
+			* @param {String} fromZone - the name of the zone from which the card(s) are being moved from
+			* @param {String} toZone - the name of the zone to which the card(s) are being moved to
 			* @param {String} attributeName - the name of the attribute whose value is being checked
 			* @param {String} attributeName - the value of the attribute to be checked against
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
@@ -120,8 +120,8 @@ var Event = {
 			/**
 			* Move all cards that meet the requirement function's condition for movement from the given zone to the other given zone
 			* @method Event.Move.Group.moveAllValid
-			* @param {Zone} fromZone - the name of the zone from which the card(s) are being moved from
-			* @param {Zone} toZone - the name of the zone to which the card(s) are being moved to
+			* @param {String} fromZone - the name of the zone from which the card(s) are being moved from
+			* @param {String} toZone - the name of the zone to which the card(s) are being moved to
 			* @param {Function} isValid - a function that takes a card and returns either true or false, if true is returned, the card is moved
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
@@ -155,8 +155,8 @@ var Event = {
 		/**
 		* Moves the top card from one zone to another
 		* @method Event.Draw.drawCard
-		* @param {Zone} fromZone - the zone from which a card is being drawn
-		* @param {Zone} toZone - the zone from which a card is being drawn
+		* @param {String} fromZone - the zone from which a card is being drawn
+		* @param {String} toZone - the zone from which a card is being drawn
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
 		drawCard: function(fromZone, toZone, gamestate)
@@ -166,8 +166,8 @@ var Event = {
 		/**
 		* Moves the top n cards from one zone to another
 		* @method Event.Draw.drawCards
-		* @param {Zone} fromZone - the zone from which a card is being drawn
-		* @param {Zone} toZone - the zone from which a card is being drawn
+		* @param {String} fromZone - the zone from which a card is being drawn
+		* @param {String} toZone - the zone from which a card is being drawn
 		* @param {int} toDraw - the number of cards to be drawn
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
@@ -207,7 +207,7 @@ var Event = {
 		/**
 		* Deals the specified number of cards from the given zone to each specified zone
 		* @method Event.Deal.dealCards
-		* @param {Zone} fromZone - the zone from which cards are being dealt
+		* @param {String} fromZone - the zone from which cards are being dealt
 		* @param {Array of String} toZoneNameArray - an array of zone names to which cards are being dealt
 		* @param {int} numCards - the number of cards to be dealt to each player
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
@@ -234,6 +234,18 @@ var Event = {
 		* @param {Object} newValue - the new value being given to the object's attribute
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
+
+
+
+		/*CREATE TYPE SPECIFIC SETTERS*/
+		/*CREATE SETTERS FOR MULTIPLE OBJECTS OF A TYPE
+			all cards in zone
+			subset of cards in a zone
+			iterate through zone
+
+		*/
+
+
 		setAttribute: function (obj, attributeName, newValue, gamestate)
 		{
 			/*do lookup*/
@@ -247,9 +259,9 @@ var Event = {
 		* @param {number} newValue - the value by which to increase the attribute
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
-		increaseAttributeBy: function(obj, attributeBy, value, gamestate)
+		increaseAttributeBy: function(obj, attributeName, value, gamestate)
 		{
-			Event.changeAttribute(obj, attributeName, obj.attributes[attributeName] + value, gamestate);
+			Event.setAttribute(obj, attributeName, obj.attributes[attributeName] + value, gamestate);
 		},
 		/**
 		* Decreases the given attribute's named attribute by the given value
@@ -259,9 +271,9 @@ var Event = {
 		* @param {number} newValue - the value by which to decrease the attribute
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
-		decreaseAttributeBy: function(obj, attributeBy, value, gamestate)
+		decreaseAttributeBy: function(obj, attributeName, value, gamestate)
 		{
-			Event.changeAttribute(obj, attributeName, obj.attributes[attributeName] - value, gamestate);
+			Event.setAttribute(obj, attributeName, obj.attributes[attributeName] - value, gamestate);
 		},
 		/**
 		* Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called

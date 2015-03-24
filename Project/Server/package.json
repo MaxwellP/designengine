@@ -1,0 +1,30 @@
+{
+  "name": "wipCardsServer",
+  "version": "1.0.0",
+  "description": "Server for wipCards.com - website and networking",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaxwellP/designengine"
+  },
+  "keywords": [
+    "game",
+    "javascript",
+    "card",
+    "card",
+    "game",
+    "engine"
+  ],
+  "author": "kramff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxwellP/designengine/issues"
+  },
+  "homepage": "https://github.com/MaxwellP/designengine",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
