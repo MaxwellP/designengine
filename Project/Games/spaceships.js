@@ -31,8 +31,8 @@ function buyResult()
 	//1. Subtract the card's Cost from the player's Money
 	//2. Move card to that player's Ships zone
 
-	var cost = 5; //?? How to get attribute from card
-	Event.Modify.decreaseAttributeBy(player, "Money", cost, gamestate); //?? player is player's name, need to get object?
+	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
+	Event.Modify.decreaseAttributeBy(player, "Money", cost, gamestate);
 
 	var playerShipZone = "P1 Ships" //?? How to get specific zone from player, ELEGANTLY
 	Event.Move.Individual.toZone(action.cardID, playerShipZone, gamestate);
@@ -49,13 +49,11 @@ function buyCheckLegality()
 	//3. The game must be in the buy phase
 
 	//?? How to check what zone a card is in
-	var inShipQueue = true;
+	var inShipQueue = API.CardLookup.isCardInZone(action.cardID, "Ship Queue", gamestate);
+	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
+	var enoughMoney = API.ValueComparison.Card.isAttributeGreaterThan(player, "Money", cost);
 
-	var cost = 5; //?? Get attribute from card
-	var enoughMoney = API.ValueComparison.isAttributeGreaterThan(player, "Money", cost); //?? How to get player object from player name ('player' variable is the player's name (I think))
-
-	//?? How to check what phase the game is in
-	var buyPhase = true;
+	var buyPhase = API.Phase.checkPhase("buyPhase", gamestate);
 	return (inShipQueue && enoughMoney && buyPhase);
 }
 
@@ -68,9 +66,8 @@ function rejectResult()
 	//1. Add the card's Cost to the player's Money
 	//2. Move card to Scrap Pile
 
-	var cost = 5; //?? Get attribute from card
-	Event.Modify.increaseAttributeBy(player, "Money", cost, gamestate); //?? player is playername etc etc
-
+	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
+	Event.Modify.Player.increaseAttributeBy(player, "Money", cost, gamestate);
 	Event.Move.Individual(action.cardID, "Scrap Pile", gamestate);
 }
 
@@ -83,14 +80,18 @@ function rejectCheckLegality()
 	//1. Card must be in Ship Queue
 	//2. The game must be in the buy phase
 
-	//?? get card's zone
-	var inShipQueue = true;
+	var inShipQueue = API.CardLookup.isCardInZone(action.cardID, "Ship Queue", gamestate);
 
-	//?? get current phase
-	var buyPhase = true;
+	var buyPhase = API.Phase.checkPhase("buyPhase", gamestate);
 
 	return (inShipQueue && buyPhase);
 }
+
+
+//Continue from here.....
+
+
+
 
 function attackResult()
 {

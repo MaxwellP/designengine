@@ -82,9 +82,36 @@ var API = {
 			console.log("The card you searched for does not exist in any zone");
 			return false;
 		},
+		/**
+		* Returns the zone the card is currently in
+		* @method API.CardLookup.cardInZone
+		* @param {Int} cardID - the name of the card whose attribute's value is being checked
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		isCardInZone: function(cardID, zoneName gamestate)
+		{
+			var gotZone = API.CardLookup.cardInZone(cardID, gamestate);
+			return (gotZone === zoneName);
+		},
 		cardIndexInZone: function()
 		{
 			console.log("TO CODE: API.CardLookup.cardIndexInZone");
+		}
+	},
+	ValueLookup: {
+		Card: {
+			/**
+			* Returns the given card's value for the given named attribute
+			* @method API.ValueLookup.Card.getAttribute
+			* @param {Int} cardID - the id of the card whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute to get the value of
+			* @param {GameState}
+			*/
+			getAttribute: function (cardID, attributeName, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				return card.attributes[attributeName];
+			}
 		}
 	},
 	ValueComparison: {
@@ -457,6 +484,27 @@ var API = {
 			{
 				console.log("TO CODE: API.Sorting.Card_Sorting.byCardValid");
 			}
+		}
+	},
+	Phase: {
+		/**
+		* Returns the name of the current phase
+		* @method API.Phase.getPhase
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		getPhase: function(gamestate)
+		{
+			return gamestate.currentPhase;
+		},
+		/**
+		* Returns if the current phase is the given phase
+		* @method API.Phase.checkPhase
+		* @param {GameState} phaseName - the name of the phase to check against
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		checkPhase: function(phaseName, gamestate)
+		{
+			return (gamestate.currentPhase === phaseName);
 		}
 	}
 };

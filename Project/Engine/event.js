@@ -248,7 +248,7 @@ var Event = {
 			* @param {number} value - the value by which to increase the attribute
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
-			increaseAttributeBy: function(cardID, attributeBy, value, gamestate)
+			increaseAttributeBy: function(cardID, attributeName, value, gamestate)
 			{
 				var card = lookupCard(cardID, gamestate);
 				Event.Modify.Card.setAttribute(cardID, attributeName, card.attributes[attributeName] + value, gamestate);
@@ -261,7 +261,7 @@ var Event = {
 			* @param {number} value - the value by which to decrease the attribute
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
-			decreaseAttributeBy: function(cardID, attributeBy, value, gamestate)
+			decreaseAttributeBy: function(cardID, attributeName, value, gamestate)
 			{
 				var card = lookupCard(cardID, gamestate);
 				Event.Modify.Card.setAttribute(cardID, attributeName, card.attributes[attributeName] - value, gamestate);
@@ -321,7 +321,7 @@ var Event = {
 			* @param {number} value - the value by which to increase the attribute
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
-			increaseAttributeBy: function(playerName, attributeBy, value, gamestate)
+			increaseAttributeBy: function(playerName, attributeName, value, gamestate)
 			{
 				Event.Modify.Player.setAttribute(playerName, attributeName, playerName.attributes[attributeName] + value, gamestate);
 			},
@@ -333,7 +333,7 @@ var Event = {
 			* @param {number} value - the value by which to decrease the attribute
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
-			decreaseAttributeBy: function(playerName, attributeBy, value, gamestate)
+			decreaseAttributeBy: function(playerName, attributeName, value, gamestate)
 			{
 				Event.Modify.Player.setAttribute(playerName, attributeName, playerName.attributes[attributeName] - value, gamestate);
 			}
@@ -360,7 +360,7 @@ var Event = {
 			* @param {number} value - the value by which to increase the attribute
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
-			increaseAttributeBy: function(zoneName, attributeBy, value, gamestate)
+			increaseAttributeBy: function(zoneName, attributeName, value, gamestate)
 			{
 				Event.Modify.zone.setAttribute(zoneName, attributeName, zoneName.attributes[attributeName] + value, gamestate);
 			},
@@ -372,7 +372,7 @@ var Event = {
 			* @param {number} value - the value by which to decrease the attribute
 			* @param {GameState} gamestate - the gamestate in which this event is taking place
 			*/
-			decreaseAttributeBy: function(zoneName, attributeBy, value, gamestate)
+			decreaseAttributeBy: function(zoneName, attributeName, value, gamestate)
 			{
 				Event.Modify.Player.setAttribute(zoneName, attributeName, zoneName.attributes[attributeName] - value, gamestate);
 			}
