@@ -1,6 +1,5 @@
 body {
-	background-color: #000000;
-	/*background-color: #C0C0C0;*/
+	background-color: #C0C0C0;
 }
 
 .editor {
@@ -18,6 +17,12 @@ body {
 	visibility: hidden;
 }
 
+.inputEditor {
+	width: 60%;
+	display: inline-block;
+	vertical-align: top;
+}
+
 .attrValue {
 	width: 100%;
 }
@@ -26,6 +31,11 @@ body {
 	width: 70%;
 }
 
-.objName {
+.fullWidth {
 	width: 100%;
+}
+
+.halfWidth {
+	width: 48%;
+	display: inline-block;
 }

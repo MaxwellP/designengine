@@ -89,6 +89,23 @@
 			<button type="button" onclick="addNewCardAttribute()">Add</button>
 		</div>
 	</div>
+
+	Actions:<br>
+	<div id="card_actions">
+		<select id="cardActionSelect" size=4 class="attrSelect">
+		</select>
+		<div id="edit_card_attributes" class="inputEditor">
+			<button type="button" onclick="removeCardAttribute()">Remove</button>
+			<button type="button" onclick="editAction()">Edit</button>
+		</div>
+		<div id="add_card_action">
+			<select id="templateSelect" class="attrSelect">
+			</select>
+			<input type="text" id="cardAttrName" class="attrName">
+			<button type="button" onclick="addNewCardAttribute()">Add New</button>
+		</div>
+	</div>
+
 	<br>
 	<button type="submit">Apply</button>
 	</form>
@@ -106,15 +123,29 @@
 	Description:<br>
 	<input type="text" id="actionDesc">
 	<br>
+	Inputs:<br>
+	<div id="action_inputs">
+		<select id="inputSelect" size=4 class="attrSelect">
+		</select>
+		<div id="input_editor" class="inputEditor">
+			<select id="inputTypes" class="halfWidth">
+				<option value="zone">Zone</option>
+				<option value="card">Card</option>
+				<option value="player">Player</option>
+			</select>
+			<button type="button" onclick="addInput()" class="halfWidth">Add</button>
+			<button type="button" onclick="removeInput()" class="fullWidth">Remove</button>
+		</div>
+	</div>
 	Result:<br>
-	<div id="resultCode" class="codemirrorBox">
+	<div id="result_code" class="codemirrorBox">
+	</div>
+	Legality Checker:<br>
+	<div id="check_legality_code" class="codemirrorBox">
 	</div>
 	<br>
-	Legality Checker:<br>
-	<div id="checkLegalityCode" class="codemirrorBox">
-	</div>
+	<button type="button" onclick="applyActionChanges()">Apply</button>
 	
-
 </div>
 
 </html>

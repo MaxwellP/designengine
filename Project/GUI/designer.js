@@ -5,6 +5,9 @@ DESIGN-TIME GUI
 var currentZone;
 var currentCard;
 
+var actionResultCode;
+var actionCheckLegalityCode;
+
 function initDesign() {
 	var canvas = document.getElementById("Canvas2D");
 	var ctx = canvas.getContext('2d');
@@ -35,20 +38,8 @@ function addNewCard() {
 }
 
 function hideAllInfo() {
-	//var zoneInfo = document.getElementById("zone_info")
-	//zoneInfo.style.display = "none";
-	document.getElementById("zone_player_checkboxes").innerHTML = "";
-	document.getElementById("zoneAttrSelect").innerHTML = "";
-	document.getElementById("edit_zone_attributes").style.visibility = "hidden";
-	document.getElementById("zoneAttrName").value = "";
-
-	/*
-	var cardInfo = document.getElementById("card_info")
-	cardInfo.style.display = "none";
-	*/
-	document.getElementById("cardAttrSelect").innerHTML = "";
-	document.getElementById("edit_card_attributes").style.visibility = "hidden";
-	document.getElementById("cardAttrName").value = "";
+	clearZoneInfo();
+	clearCardInfo();
 }
 
 function clearZoneInfo() {
@@ -224,6 +215,26 @@ function fillCardInfo (card, x, y) {
 		var attrSelect = document.getElementById("cardAttrSelect");
 		newOption.appendChild(text);
 		attrSelect.appendChild(newOption);
+	}
+
+	for (var actionObj of card.actions) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = actionObj.templateName;
+		var text = document.createTextNode(actionObj.templateName);
+
+		var actionSelect = document.getElementById("cardActionSelect");
+		newOption.appendChild(text);
+		actionSelect.appendChild(newOption);
+	}
+
+	for (var actionObj of card.actions) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = actionObj.templateName;
+		var text = document.createTextNode(actionObj.templateName);
+
+		var actionSelect = document.getElementById("cardActionSelect");
+		newOption.appendChild(text);
+		actionSelect.appendChild(newOption);
 	}
 
 	positionCardInfo(x, y);
