@@ -226,56 +226,6 @@ var Event = {
 		}
 	},
 	Modify: {
-<<<<<<< HEAD
-		/**
-		* Changes the value of the given object's attribute
-		* @method Event.Modify.setAttribute
-		* @param {Object} obj - the object whose attribute value is being changed
-		* @param {String} attributeName - the name of the attribute to be changed
-		* @param {Object} newValue - the new value being given to the object's attribute
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-
-
-
-		/*CREATE TYPE SPECIFIC SETTERS*/
-		/*CREATE SETTERS FOR MULTIPLE OBJECTS OF A TYPE
-			all cards in zone
-			subset of cards in a zone
-			iterate through zone
-
-		*/
-
-
-		setAttribute: function (obj, attributeName, newValue, gamestate)
-		{
-			/*do lookup*/
-			obj.attributes[attributeName] = newValue;
-		},
-		/**
-		* Increases the given attribute's named attribute by the given value
-		* @method Event.Modify.increaseAttributeBy
-		* @param {Object} obj - the object whose attribute value is being changed
-		* @param {String} attributeName - the name of the attribute to be changed
-		* @param {number} newValue - the value by which to increase the attribute
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		increaseAttributeBy: function(obj, attributeName, value, gamestate)
-		{
-			Event.setAttribute(obj, attributeName, obj.attributes[attributeName] + value, gamestate);
-		},
-		/**
-		* Decreases the given attribute's named attribute by the given value
-		* @method Event.Modify.decreaseAttributeBy
-		* @param {Object} obj - the object whose attribute value is being changed
-		* @param {String} attributeName - the name of the attribute to be changed
-		* @param {number} newValue - the value by which to decrease the attribute
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		decreaseAttributeBy: function(obj, attributeName, value, gamestate)
-		{
-			Event.setAttribute(obj, attributeName, obj.attributes[attributeName] - value, gamestate);
-=======
 		Card:{
 			/**
 			* Sets the named card's named attribute by the given value
@@ -426,7 +376,6 @@ var Event = {
 			{
 				Event.Modify.Player.setAttribute(zoneName, attributeName, zoneName.attributes[attributeName] - value, gamestate);
 			}
->>>>>>> adf7dfa7a9a077e42744999f843d6da4e5f22150
 		},
 		/**
 		* Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called
