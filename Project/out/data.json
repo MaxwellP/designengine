@@ -976,7 +976,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 354,
+            "line": 359,
             "description": "Rolls a die with the given number of sides and returns the outcome",
             "itemtype": "method",
             "name": "API.DieRolling.rollDie",
@@ -991,7 +991,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 363,
+            "line": 368,
             "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes",
             "itemtype": "method",
             "name": "API.DieRolling.rollNDie",
@@ -1011,7 +1011,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 378,
+            "line": 383,
             "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls",
             "itemtype": "method",
             "name": "API.DieRolling.rollNDieSum",
@@ -1031,7 +1031,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 393,
+            "line": 398,
             "description": "Rolls a die with the given array's values as sides of the die, and returns the outcome",
             "itemtype": "method",
             "name": "API.DieRolling.rollSpecialDie",
@@ -1046,7 +1046,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 402,
+            "line": 407,
             "description": "Rolls a number of die equal to given number, each with the given array's values as sides of the die, and returns the outcome as an array",
             "itemtype": "method",
             "name": "API.DieRolling.rollNSpecialDie",
@@ -1066,7 +1066,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 419,
+            "line": 424,
             "description": "\"Cuts\" the named zone's cards and returns the revealed card",
             "itemtype": "method",
             "name": "API.Manipulations.cut",
@@ -1155,12 +1155,12 @@
                 {
                     "name": "fromZone",
                     "description": "- the name of the zone from which the card(s) are being moved from",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toZone",
                     "description": "- the name of the zone to which the card(s) are being moved to",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "gamestate",
@@ -1180,12 +1180,12 @@
                 {
                     "name": "fromZone",
                     "description": "- the name of the zone from which the card(s) are being moved from",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toZone",
                     "description": "- the name of the zone to which the card(s) are being moved to",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "cardType",
@@ -1210,12 +1210,12 @@
                 {
                     "name": "fromZone",
                     "description": "- the name of the zone from which the card(s) are being moved from",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toZone",
                     "description": "- the name of the zone to which the card(s) are being moved to",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "attributeName",
@@ -1245,12 +1245,12 @@
                 {
                     "name": "fromZone",
                     "description": "- the name of the zone from which the card(s) are being moved from",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toZone",
                     "description": "- the name of the zone to which the card(s) are being moved to",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "isValid",
@@ -1275,12 +1275,12 @@
                 {
                     "name": "fromZone",
                     "description": "- the zone from which a card is being drawn",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toZone",
                     "description": "- the zone from which a card is being drawn",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "gamestate",
@@ -1300,12 +1300,12 @@
                 {
                     "name": "fromZone",
                     "description": "- the zone from which a card is being drawn",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toZone",
                     "description": "- the zone from which a card is being drawn",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toDraw",
@@ -1350,7 +1350,7 @@
                 {
                     "name": "fromZone",
                     "description": "- the zone from which cards are being dealt",
-                    "type": "Zone"
+                    "type": "String"
                 },
                 {
                     "name": "toZoneNameArray",

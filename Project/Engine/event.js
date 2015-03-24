@@ -33,7 +33,10 @@ var Event = {
 				card.zone = zone.name;
 				gameLog("	Moved card: " + card.name + " (Id: " + card.id + ") from zone: " + prevOwner.name + " to zone: " + zone.name + ".");
 			},
-			fromIndexOfZoneToZone: function(index, fromZone, toZone){}
+			fromIndexOfZoneToZone: function(index, fromZone, toZone)
+			{
+				console.log("WRITE THIS FUNCTION - fromIndexOfZoneToZone");
+			}
 		},
 		Group: {
 			/**
@@ -283,9 +286,15 @@ var Event = {
 			{
 
 			},
-			applyModificationToAllCardsOfType: function()
+			applyModificationToAllCardsOfType: function(cardTypeName, modificationFunction, gamestate)
 			{
-
+				for(var i = 0; i < gamestate.cards.length; i += 1)
+				{
+					if(cardTypeName === gamestate.cards[i].name)
+					{
+						modificationFunction(gamestate.cards[i]);
+					}
+				}
 			},
 			applyModificationToAllValidZoneCards: function(zoneName, modificationFunction, isValidFunction, gamestate)
 			{
