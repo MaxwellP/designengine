@@ -59,62 +59,295 @@ var API = {
 		}
 	},
 	CardLookup: {
+		/**
+		* Returns the zone the card is currently in
+		* @method API.CardLookup.cardInZone
+		* @param {Int} cardID - the name of the card whose attribute's value is being checked
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		cardInZone: function(cardID, gamestate)
+		{
+			var zones = gamestate.zones;
+			for(var i = 0; i < zones.length; i += 1)
+			{
+				var zCards = zones[i].cards;
+				for(var j = 0; j < zCards.length; j += 1)
+				{
+					if(zCards[i] === cardID)
+					{
+						return zones[i];
+					}
+				}
+			}
+			console.log("The card you searched for does not exist in any zone");
+			return false;
+		},
 		cardIndexInZone: function()
 		{
 			console.log("TO CODE: API.CardLookup.cardIndexInZone");
 		}
 	},
 	ValueComparison: {
-		/**
-		* Returns if the given object's named attribute's value is greater than the given value
-		* @method API.ValueComparison.isAttributeGreaterThan
-		* @param {Object} obj - the object whose attribute's value is being checked
-		* @param {String} attributeName - the name of the attribute whose value is being checked
-		* @param {number} value - the value to compare the object's value to
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		isAttributeGreaterThan: function(obj, attributeName, value)
-		{
-			/*DETERMINE TYPE OF BJECT, THEN DO PROPER LOOKUP, THEN DO IF?*/
-			if(obj.attributes[attributeName] > value)
+		Card: {
+			/**
+			* Returns if the given card's named attribute's value is greater than the given value
+			* @method API.ValueComparison.Card.isAttributeGreaterThan
+			* @param {Int} cardID - the name of the card whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the card's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeGreaterThan: function(cardID, attributeName, value, gamestate)
 			{
-				return true;
+				var card = lookupCard(cardID, gamestate);
+				if(card.attributes[attributeName] > value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given card's named attribute's value is less than the given value
+			* @method API.ValueComparison.Card.isAttributeLessThan
+			* @param {Int} cardID - the name of the card whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the card's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeLessThan: function(cardID, attributeName, value, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				if(card.attributes[attributeName] < value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given card's named attribute's value is equal to the given value
+			* @method API.ValueComparison.Card.isAttributeEqualTo
+			* @param {Int} cardID - the name of the card whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the card's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeEqualTo: function(cardID, attributeName, value, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				if(card.attributes[attributeName] === value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given card's named attribute's value is less than or equal to the given value
+			* @method API.ValueComparison.Card.isAttributeLessThanOrEqualTo
+			* @param {Int} cardID - the name of the card whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the card's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeLessThanOrEqualTo: function(cardID, attributeName, value, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				if(card.attributes[attributeName] <= value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given card's named attribute's value is greater than or equal to the given value
+			* @method API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo
+			* @param {Int} cardID - the name of the card whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the card's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeGreaterThanOrEqualTo: function(cardID, attributeName, value, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				if(card.attributes[attributeName] >= value)
+				{
+					return true;
+				}
+				return false;
 			}
-			return false;
 		},
-		/**
-		* Returns if the given object's named attribute's value is less than the given value
-		* @method API.ValueComparison.isAttributeLessThan
-		* @param {Object} obj - the object whose attribute's value is being checked
-		* @param {String} attributeName - the name of the attribute whose value is being checked
-		* @param {number} value - the value to compare the object's value to
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		isAttributeLessThan: function(obj, attributeName, value)
-		{
-			/*DETERMINE TYPE OF BJECT, THEN DO PROPER LOOKUP, THEN DO IF?*/
-			if(obj.attributes[attributeName] < value)
+		Player: {
+			/**
+			* Returns if the given player's named attribute's value is greater than the given value
+			* @method API.ValueComparison.Player.isAttributeGreaterThan
+			* @param {String} playerName - the name of the player whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the player's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeGreaterThan: function(playerName, attributeName, value, gamestate)
 			{
-				return true;
+				var player = lookupPlayer(playerName, gamestate);
+				if(player.attributes[attributeName] > value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given player's named attribute's value is less than the given value
+			* @method API.ValueComparison.Player.isAttributeLessThan
+			* @param {String} playerName - the name of the player whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the player's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeLessThan: function(playerName, attributeName, value, gamestate)
+			{
+				var player = lookupPlayer(playerName, gamestate);
+				if(player.attributes[attributeName] < value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given player's named attribute's value is equal to the given value
+			* @method API.ValueComparison.Player.isAttributeEqualTo
+			* @param {String} playerName - the name of the player whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the player's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeEqualTo: function(playerName, attributeName, value, gamestate)
+			{
+				var player = lookupPlayer(playerName, gamestate);
+				if(player.attributes[attributeName] === value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given player's named attribute's value is less than or equal to the given value
+			* @method API.ValueComparison.Player.isAttributeLessThanOrEqualTo
+			* @param {String} playerName - the name of the player whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the player's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeLessThanOrEqualTo: function(playerName, attributeName, value, gamestate)
+			{
+				var player = lookupPlayer(playerName, gamestate);
+				if(player.attributes[attributeName] <= value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given player's named attribute's value is greater than or equal to the given value
+			* @method API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo
+			* @param {String} playerName - the name of the player whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the player's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeGreaterThanOrEqualTo: function(playerName, attributeName, value, gamestate)
+			{
+				var player = lookupPlayer(playerName, gamestate);
+				if(player.attributes[attributeName] >= value)
+				{
+					return true;
+				}
+				return false;
 			}
-			return false;
 		},
-		/**
-		* Returns if the given object's named attribute's value is equal to the given value
-		* @method API.ValueComparison.isAttributeEqualTo
-		* @param {Object} obj - the object whose attribute's value is being checked
-		* @param {String} attributeName - the name of the attribute whose value is being checked
-		* @param {number} value - the value to compare the object's value to
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		isAttributeEqualTo: function(obj, attributeName, value)
-		{
-			/*DETERMINE TYPE OF BJECT, THEN DO PROPER LOOKUP, THEN DO IF?*/
-			if(obj.attributes[attributeName] === value)
+		Zone: {
+			/**
+			* Returns if the given zone's named attribute's value is greater than the given value
+			* @method API.ValueComparison.Zone.isAttributeGreaterThan
+			* @param {String} zoneName - the name of the zone whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the zone's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeGreaterThan: function(zoneName, attributeName, value, gamestate)
 			{
-				return true;
+				var zone = lookupZone(zoneName, gamestate);
+				if(zone.attributes[attributeName] > value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given zone's named attribute's value is less than the given value
+			* @method API.ValueComparison.Zone.isAttributeLessThan
+			* @param {String} zoneName - the name of the zone whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the zone's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeLessThan: function(zoneName, attributeName, value, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				if(zone.attributes[attributeName] < value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given zone's named attribute's value is equal to the given value
+			* @method API.ValueComparison.Zone.isAttributeEqualTo
+			* @param {String} zoneName - the name of the zone whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the zone's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeEqualTo: function(zoneName, attributeName, value, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				if(zone.attributes[attributeName] === value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given zone's named attribute's value is less than or equal to the given value
+			* @method API.ValueComparison.Zone.isAttributeLessThanOrEqualTo
+			* @param {String} zoneName - the name of the zone whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the zone's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeLessThanOrEqualTo: function(zoneName, attributeName, value, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				if(zone.attributes[attributeName] <= value)
+				{
+					return true;
+				}
+				return false;
+			},
+			/**
+			* Returns if the given zone's named attribute's value is greater than or equal to the given value
+			* @method API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo
+			* @param {String} zoneName - the name of the zone whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute whose value is being checked
+			* @param {number} value - the value to compare the zone's value to
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			isAttributeGreaterThanOrEqualTo: function(zoneName, attributeName, value, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				if(zone.attributes[attributeName] >= value)
+				{
+					return true;
+				}
+				return false;
 			}
-			return false;
 		}
 		/*
 			ADD LESS THAN OR EQUAL

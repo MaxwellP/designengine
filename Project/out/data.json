@@ -90,6 +90,13 @@
             },
             "fors": {},
             "namespaces": {}
+        },
+        "lib\\jquery.js": {
+            "name": "lib\\jquery.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {},
@@ -499,15 +506,35 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 68,
-            "description": "Returns if the given object's named attribute's value is greater than the given value",
+            "line": 62,
+            "description": "Returns the zone the card is currently in",
             "itemtype": "method",
-            "name": "API.ValueComparison.isAttributeGreaterThan",
+            "name": "API.CardLookup.cardInZone",
             "params": [
                 {
-                    "name": "obj",
-                    "description": "- the object whose attribute's value is being checked",
-                    "type": "Object"
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute's value is being checked",
+                    "type": "Int"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 92,
+            "description": "Returns if the given card's named attribute's value is greater than the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Card.isAttributeGreaterThan",
+            "params": [
+                {
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute's value is being checked",
+                    "type": "Int"
                 },
                 {
                     "name": "attributeName",
@@ -516,7 +543,7 @@
                 },
                 {
                     "name": "value",
-                    "description": "- the value to compare the object's value to",
+                    "description": "- the value to compare the card's value to",
                     "type": "Number"
                 },
                 {
@@ -529,15 +556,15 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 84,
-            "description": "Returns if the given object's named attribute's value is less than the given value",
+            "line": 109,
+            "description": "Returns if the given card's named attribute's value is less than the given value",
             "itemtype": "method",
-            "name": "API.ValueComparison.isAttributeLessThan",
+            "name": "API.ValueComparison.Card.isAttributeLessThan",
             "params": [
                 {
-                    "name": "obj",
-                    "description": "- the object whose attribute's value is being checked",
-                    "type": "Object"
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute's value is being checked",
+                    "type": "Int"
                 },
                 {
                     "name": "attributeName",
@@ -546,7 +573,7 @@
                 },
                 {
                     "name": "value",
-                    "description": "- the value to compare the object's value to",
+                    "description": "- the value to compare the card's value to",
                     "type": "Number"
                 },
                 {
@@ -559,15 +586,15 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 100,
-            "description": "Returns if the given object's named attribute's value is equal to the given value",
+            "line": 126,
+            "description": "Returns if the given card's named attribute's value is equal to the given value",
             "itemtype": "method",
-            "name": "API.ValueComparison.isAttributeEqualTo",
+            "name": "API.ValueComparison.Card.isAttributeEqualTo",
             "params": [
                 {
-                    "name": "obj",
-                    "description": "- the object whose attribute's value is being checked",
-                    "type": "Object"
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute's value is being checked",
+                    "type": "Int"
                 },
                 {
                     "name": "attributeName",
@@ -576,7 +603,7 @@
                 },
                 {
                     "name": "value",
-                    "description": "- the value to compare the object's value to",
+                    "description": "- the value to compare the card's value to",
                     "type": "Number"
                 },
                 {
@@ -589,7 +616,367 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 118,
+            "line": 143,
+            "description": "Returns if the given card's named attribute's value is less than or equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Card.isAttributeLessThanOrEqualTo",
+            "params": [
+                {
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute's value is being checked",
+                    "type": "Int"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the card's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 160,
+            "description": "Returns if the given card's named attribute's value is greater than or equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo",
+            "params": [
+                {
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute's value is being checked",
+                    "type": "Int"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the card's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 179,
+            "description": "Returns if the given player's named attribute's value is greater than the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Player.isAttributeGreaterThan",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the player's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 196,
+            "description": "Returns if the given player's named attribute's value is less than the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Player.isAttributeLessThan",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the player's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 213,
+            "description": "Returns if the given player's named attribute's value is equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Player.isAttributeEqualTo",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the player's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 230,
+            "description": "Returns if the given player's named attribute's value is less than or equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Player.isAttributeLessThanOrEqualTo",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the player's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 247,
+            "description": "Returns if the given player's named attribute's value is greater than or equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the player's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 266,
+            "description": "Returns if the given zone's named attribute's value is greater than the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Zone.isAttributeGreaterThan",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the zone's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 283,
+            "description": "Returns if the given zone's named attribute's value is less than the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Zone.isAttributeLessThan",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the zone's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 300,
+            "description": "Returns if the given zone's named attribute's value is equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Zone.isAttributeEqualTo",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the zone's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 317,
+            "description": "Returns if the given zone's named attribute's value is less than or equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Zone.isAttributeLessThanOrEqualTo",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the zone's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 334,
+            "description": "Returns if the given zone's named attribute's value is greater than or equal to the given value",
+            "itemtype": "method",
+            "name": "API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute whose value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value to compare the zone's value to",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 354,
             "description": "Rolls a die with the given number of sides and returns the outcome",
             "itemtype": "method",
             "name": "API.DieRolling.rollDie",
@@ -604,7 +991,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 127,
+            "line": 363,
             "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes",
             "itemtype": "method",
             "name": "API.DieRolling.rollNDie",
@@ -624,7 +1011,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 142,
+            "line": 378,
             "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls",
             "itemtype": "method",
             "name": "API.DieRolling.rollNDieSum",
@@ -644,7 +1031,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 157,
+            "line": 393,
             "description": "Rolls a die with the given array's values as sides of the die, and returns the outcome",
             "itemtype": "method",
             "name": "API.DieRolling.rollSpecialDie",
@@ -659,7 +1046,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 166,
+            "line": 402,
             "description": "Rolls a number of die equal to given number, each with the given array's values as sides of the die, and returns the outcome as an array",
             "itemtype": "method",
             "name": "API.DieRolling.rollNSpecialDie",
@@ -679,7 +1066,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 183,
+            "line": 419,
             "description": "\"Cuts\" the named zone's cards and returns the revealed card",
             "itemtype": "method",
             "name": "API.Manipulations.cut",
@@ -985,15 +1372,15 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 229,
-            "description": "Changes the value of the given object's attribute",
+            "line": 230,
+            "description": "Sets the named card's named attribute by the given value",
             "itemtype": "method",
-            "name": "Event.Modify.setAttribute",
+            "name": "Event.Modify.Card.setAttribute",
             "params": [
                 {
-                    "name": "obj",
-                    "description": "- the object whose attribute value is being changed",
-                    "type": "Object"
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute value is being changed",
+                    "type": "Int"
                 },
                 {
                     "name": "attributeName",
@@ -1015,15 +1402,15 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 242,
-            "description": "Increases the given attribute's named attribute by the given value",
+            "line": 243,
+            "description": "Increases the named card's named attribute by the given value",
             "itemtype": "method",
-            "name": "Event.Modify.increaseAttributeBy",
+            "name": "Event.Modify.Card.increaseAttributeBy",
             "params": [
                 {
-                    "name": "obj",
-                    "description": "- the object whose attribute value is being changed",
-                    "type": "Object"
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute value is being changed",
+                    "type": "Int"
                 },
                 {
                     "name": "attributeName",
@@ -1031,7 +1418,7 @@
                     "type": "String"
                 },
                 {
-                    "name": "newValue",
+                    "name": "value",
                     "description": "- the value by which to increase the attribute",
                     "type": "Number"
                 },
@@ -1045,15 +1432,15 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 254,
-            "description": "Decreases the given attribute's named attribute by the given value",
+            "line": 256,
+            "description": "Decreases the named card's named attribute by the given value",
             "itemtype": "method",
-            "name": "Event.Modify.decreaseAttributeBy",
+            "name": "Event.Modify.Card.decreaseAttributeBy",
             "params": [
                 {
-                    "name": "obj",
-                    "description": "- the object whose attribute value is being changed",
-                    "type": "Object"
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute value is being changed",
+                    "type": "Int"
                 },
                 {
                     "name": "attributeName",
@@ -1061,7 +1448,7 @@
                     "type": "String"
                 },
                 {
-                    "name": "newValue",
+                    "name": "value",
                     "description": "- the value by which to decrease the attribute",
                     "type": "Number"
                 },
@@ -1075,7 +1462,187 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 266,
+            "line": 303,
+            "description": "Sets the named player's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.Card.setAttribute",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute value is being changed",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "newValue",
+                    "description": "- the new value being given to the object's attribute",
+                    "type": "Object"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 316,
+            "description": "Increases the named player's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.Player.increaseAttributeBy",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute value is being changed",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value by which to increase the attribute",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 328,
+            "description": "Decreases the named player's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.Player.decreaseAttributeBy",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute value is being changed",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value by which to decrease the attribute",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 342,
+            "description": "Sets the named zone's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.Zone.setAttribute",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute value is being changed",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "newValue",
+                    "description": "- the new value being given to the object's attribute",
+                    "type": "Object"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 355,
+            "description": "Increases the named zone's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.Zone.increaseAttributeBy",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute value is being changed",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value by which to increase the attribute",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 367,
+            "description": "Decreases the named zone's named attribute by the given value",
+            "itemtype": "method",
+            "name": "Event.Modify.Zone.decreaseAttributeBy",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute value is being changed",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to be changed",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- the value by which to decrease the attribute",
+                    "type": "Number"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 380,
             "description": "Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called",
             "itemtype": "method",
             "name": "Event.Modify.endPhase",
@@ -1090,7 +1657,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 290,
+            "line": 404,
             "description": "Ends the current turn and allows the next player in the turn structure to begin their turn.",
             "itemtype": "method",
             "name": "Event.Modify.endTurn",
@@ -1105,7 +1672,7 @@
         },
         {
             "file": "Engine\\gameDescription.js",
-            "line": 44,
+            "line": 45,
             "description": "Creates a clean game state",
             "itemtype": "method",
             "name": "GameDescription.prototype.initializeGameState",
@@ -1117,7 +1684,7 @@
         },
         {
             "file": "Engine\\gameDescription.js",
-            "line": 59,
+            "line": 60,
             "description": "Creates and places the cards into the zones",
             "itemtype": "method",
             "name": "GameDescription.prototype.initializeCards",
@@ -1125,7 +1692,7 @@
         },
         {
             "file": "Engine\\gameDescription.js",
-            "line": 90,
+            "line": 91,
             "description": "Creates a new card of the given card type and places it in the given zone",
             "itemtype": "method",
             "name": "initCard",
@@ -1496,7 +2063,7 @@
         },
         {
             "file": "Engine\\player.js",
-            "line": 24,
+            "line": 25,
             "description": "Determines whether the player controls the given zone",
             "itemtype": "method",
             "name": "Player.prototype.controlsZone",
@@ -1515,7 +2082,7 @@
         },
         {
             "file": "Engine\\player.js",
-            "line": 40,
+            "line": 41,
             "description": "Creates a clone of the player",
             "itemtype": "method",
             "name": "Player.prototype.clone",
@@ -1555,7 +2122,240 @@
                 "type": "Zone"
             },
             "class": "Zone"
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1292,
+            "description": "Create key-value caches of limited size",
+            "return": {
+                "description": "Returns the Object data after storing it on itself with\n\tproperty name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)\n\tdeleting the oldest entry",
+                "type": "Function(string, Object)"
+            },
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1312,
+            "description": "Mark a function for special use by Sizzle",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function to mark",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1321,
+            "description": "Support testing using an element",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "Passed the created div and expects a boolean result",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1342,
+            "description": "Adds the same handler for all of the specified attrs",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "Pipe-separated list of attributes",
+                    "type": "String"
+                },
+                {
+                    "name": "handler",
+                    "description": "The method that will be applied",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1356,
+            "description": "Checks document order of two siblings",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "",
+                    "type": "Element"
+                },
+                {
+                    "name": "b",
+                    "description": "",
+                    "type": "Element"
+                }
+            ],
+            "return": {
+                "description": "Returns less than 0 if a precedes b, greater than 0 if a follows b",
+                "type": "Number"
+            },
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1385,
+            "description": "Returns a function to use in pseudos for input types",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1396,
+            "description": "Returns a function to use in pseudos for buttons",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1407,
+            "description": "Returns a function to use in pseudos for positionals",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1429,
+            "description": "Detect xml",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "An element or a document",
+                    "type": "Element|Object"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1443,
+            "description": "Sets document-related variables once based on the current document",
+            "params": [
+                {
+                    "name": "doc",
+                    "description": "An element or document object to use to set the document",
+                    "type": "Element|Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Returns the current document",
+                "type": "Object"
+            },
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1853,
+            "description": "Document sorting and removing duplicates",
+            "params": [
+                {
+                    "name": "results",
+                    "description": "",
+                    "type": "ArrayLike"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "lib\\jquery.js",
+            "line": 1882,
+            "description": "Utility function for retrieving the text value of an array of DOM nodes",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "",
+                    "type": "Array|Element"
+                }
+            ],
+            "class": ""
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\jquery.js:1292"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\jquery.js:1356"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\jquery.js:1443"
+        },
+        {
+            "message": "Missing item type\nCreate key-value caches of limited size",
+            "line": " lib\\jquery.js:1292"
+        },
+        {
+            "message": "Missing item type\nMark a function for special use by Sizzle",
+            "line": " lib\\jquery.js:1312"
+        },
+        {
+            "message": "Missing item type\nSupport testing using an element",
+            "line": " lib\\jquery.js:1321"
+        },
+        {
+            "message": "Missing item type\nAdds the same handler for all of the specified attrs",
+            "line": " lib\\jquery.js:1342"
+        },
+        {
+            "message": "Missing item type\nChecks document order of two siblings",
+            "line": " lib\\jquery.js:1356"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for input types",
+            "line": " lib\\jquery.js:1385"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for buttons",
+            "line": " lib\\jquery.js:1396"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for positionals",
+            "line": " lib\\jquery.js:1407"
+        },
+        {
+            "message": "Missing item type\nDetect xml",
+            "line": " lib\\jquery.js:1429"
+        },
+        {
+            "message": "Missing item type\nSets document-related variables once based on the current document",
+            "line": " lib\\jquery.js:1443"
+        },
+        {
+            "message": "Missing item type\nDocument sorting and removing duplicates",
+            "line": " lib\\jquery.js:1853"
+        },
+        {
+            "message": "Missing item type\nUtility function for retrieving the text value of an array of DOM nodes",
+            "line": " lib\\jquery.js:1882"
+        }
+    ]
 }

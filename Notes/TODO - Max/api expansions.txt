@@ -1,0 +1,16 @@
+TODO:
+-Some sort of system to get a player's associated zone. Perhaps in JSON?
+(In this game each player has a Ships zone: "P1 Ships" and "P2 Ships")
+ -Also, getting the other player's associated zone
+
+-Do something to the first/last card in a zone
+
+applyModificationToAllCardsInUniverse: function()
+applyModificationToAllCardsOfType: function()
+
+RepeatPhase(gamestate)
+TakeAnotherTurn(gamestate)
+SkipTurn(playerName, gamestate)
+WinGame(playerName)
+LoseGame(playerName, gamestate)
+EliminatePlayer(playerName, gamestate)
