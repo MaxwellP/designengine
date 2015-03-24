@@ -130,7 +130,19 @@
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_Event.Modify.decreaseAttributeBy">Event.Modify.decreaseAttributeBy</a>
+                                <a href="#method_Event.Modify.Card.decreaseAttributeBy">Event.Modify.Card.decreaseAttributeBy</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_Event.Modify.Card.increaseAttributeBy">Event.Modify.Card.increaseAttributeBy</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_Event.Modify.Card.setAttribute">Event.Modify.Card.setAttribute</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_Event.Modify.Card.setAttribute">Event.Modify.Card.setAttribute</a>
 
                             </li>
                             <li class="index-item method">
@@ -142,11 +154,23 @@
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_Event.Modify.increaseAttributeBy">Event.Modify.increaseAttributeBy</a>
+                                <a href="#method_Event.Modify.Player.decreaseAttributeBy">Event.Modify.Player.decreaseAttributeBy</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_Event.Modify.setAttribute">Event.Modify.setAttribute</a>
+                                <a href="#method_Event.Modify.Player.increaseAttributeBy">Event.Modify.Player.increaseAttributeBy</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_Event.Modify.Zone.decreaseAttributeBy">Event.Modify.Zone.decreaseAttributeBy</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_Event.Modify.Zone.increaseAttributeBy">Event.Modify.Zone.increaseAttributeBy</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_Event.Modify.Zone.setAttribute">Event.Modify.Zone.setAttribute</a>
 
                             </li>
                             <li class="index-item method">
@@ -479,13 +503,221 @@
 
 
 </div>
-<div id="method_Event.Modify.decreaseAttributeBy" class="method item">
-    <h3 class="name"><code>Event.Modify.decreaseAttributeBy</code></h3>
+<div id="method_Event.Modify.Card.decreaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.decreaseAttributeBy</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>obj</code>
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l256"><code>Engine\event.js:256</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Decreases the named card&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to decrease the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Card.increaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.increaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l243"><code>Engine\event.js:243</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Increases the named card&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to increase the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Card.setAttribute" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.setAttribute</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
                 </li>
                 <li class="arg">
                         <code>attributeName</code>
@@ -509,7 +741,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l254"><code>Engine\event.js:254</code></a>
+        <a href="../files/Engine_event.js.html#l303"><code>Engine\event.js:303</code></a>
         </p>
 
 
@@ -517,7 +749,7 @@
     </div>
 
     <div class="description">
-        <p>Decreases the given attribute&#39;s named attribute by the given value</p>
+        <p>Sets the named player&#39;s named attribute by the given value</p>
 
     </div>
 
@@ -526,13 +758,13 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">obj</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the object whose attribute value is being changed</li>
+<li>the name of the player whose attribute value is being changed</li>
 </ul>
 
                     </div>
@@ -553,12 +785,116 @@
                 </li>
                 <li class="param">
                         <code class="param-name">newValue</code>
-                        <span class="type">Number</span>
+                        <span class="type">Object</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the value by which to decrease the attribute</li>
+<li>the new value being given to the object&#39;s attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Card.setAttribute" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.setAttribute</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>newValue</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l230"><code>Engine\event.js:230</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Sets the named card&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">newValue</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the new value being given to the object&#39;s attribute</li>
 </ul>
 
                     </div>
@@ -604,7 +940,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l266"><code>Engine\event.js:266</code></a>
+        <a href="../files/Engine_event.js.html#l380"><code>Engine\event.js:380</code></a>
         </p>
 
 
@@ -660,7 +996,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l290"><code>Engine\event.js:290</code></a>
+        <a href="../files/Engine_event.js.html#l404"><code>Engine\event.js:404</code></a>
         </p>
 
 
@@ -695,19 +1031,19 @@
 
 
 </div>
-<div id="method_Event.Modify.increaseAttributeBy" class="method item">
-    <h3 class="name"><code>Event.Modify.increaseAttributeBy</code></h3>
+<div id="method_Event.Modify.Player.decreaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Player.decreaseAttributeBy</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>obj</code>
+                        <code>playerName</code>
                 </li>
                 <li class="arg">
                         <code>attributeName</code>
                 </li>
                 <li class="arg">
-                        <code>newValue</code>
+                        <code>value</code>
                 </li>
                 <li class="arg">
                         <code>gamestate</code>
@@ -725,7 +1061,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l242"><code>Engine\event.js:242</code></a>
+        <a href="../files/Engine_event.js.html#l328"><code>Engine\event.js:328</code></a>
         </p>
 
 
@@ -733,7 +1069,7 @@
     </div>
 
     <div class="description">
-        <p>Increases the given attribute&#39;s named attribute by the given value</p>
+        <p>Decreases the named player&#39;s named attribute by the given value</p>
 
     </div>
 
@@ -742,13 +1078,13 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">obj</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the object whose attribute value is being changed</li>
+<li>the name of the player whose attribute value is being changed</li>
 </ul>
 
                     </div>
@@ -768,7 +1104,111 @@
 
                 </li>
                 <li class="param">
-                        <code class="param-name">newValue</code>
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to decrease the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Player.increaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Player.increaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l316"><code>Engine\event.js:316</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Increases the named player&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
                         <span class="type">Number</span>
 
 
@@ -799,13 +1239,221 @@
 
 
 </div>
-<div id="method_Event.Modify.setAttribute" class="method item">
-    <h3 class="name"><code>Event.Modify.setAttribute</code></h3>
+<div id="method_Event.Modify.Zone.decreaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Zone.decreaseAttributeBy</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>obj</code>
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l367"><code>Engine\event.js:367</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Decreases the named zone&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to decrease the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Zone.increaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Zone.increaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l355"><code>Engine\event.js:355</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Increases the named zone&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to increase the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Zone.setAttribute" class="method item">
+    <h3 class="name"><code>Event.Modify.Zone.setAttribute</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
                 </li>
                 <li class="arg">
                         <code>attributeName</code>
@@ -829,7 +1477,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_event.js.html#l229"><code>Engine\event.js:229</code></a>
+        <a href="../files/Engine_event.js.html#l342"><code>Engine\event.js:342</code></a>
         </p>
 
 
@@ -837,7 +1485,7 @@
     </div>
 
     <div class="description">
-        <p>Changes the value of the given object&#39;s attribute</p>
+        <p>Sets the named zone&#39;s named attribute by the given value</p>
 
     </div>
 
@@ -846,13 +1494,13 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">obj</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the object whose attribute value is being changed</li>
+<li>the name of the zone whose attribute value is being changed</li>
 </ul>
 
                     </div>

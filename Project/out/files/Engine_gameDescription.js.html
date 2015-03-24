@@ -104,11 +104,11 @@
 * @param {Function} stateScore - a designer defined function run at the start of a game
 * @param {Array} phases - an array of zones defined in the designer&#x27;s json file
 */
-function GameDescription (zones, cardTypes, actionTemplates, players, init, winCondition, functionFile, setupFunction, stateScore, phases) {
+function GameDescription (zones, universes, cardTypes, actionTemplates, players, init, winCondition, functionFile, setupFunction, stateScore, phases) {
 	var playerArr = [];
 	for (var i = 0; i &lt; players.length; i++) {
 		var curPlayer = players[i];
-		var newPlayer = new Player (curPlayer.name, curPlayer.attributes, curPlayer.zones, curPlayer.isAI);
+		var newPlayer = new Player (curPlayer.name, curPlayer.attributes, curPlayer.zones, curPlayer.isAI, false, curPlayer.actions);
 		playerArr.push(newPlayer);
 	};
 
@@ -120,6 +120,7 @@ function GameDescription (zones, cardTypes, actionTemplates, players, init, winC
 	};
 
 	this.zones = zoneArr;
+	this.universes = universes;
 	this.cardTypes = cardTypes;
 	this.actionTemplates = actionTemplates;
 	this.players = playerArr;
@@ -185,7 +186,7 @@ GameDescription.prototype.initializeCards = function(gs) {
 * @return {Card} Returns the newly created card
 */
 function initCard (cardType, zone) {
-	var card = new Card(cardType.name, zone.name, cardType.attributes, cardType.actions)
+	var card = new Card(cardType.name, zone.name, cardType.attributes, cardType.actions, false, cardType.universe)
 	return card;
 }
     </pre>

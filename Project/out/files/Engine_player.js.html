@@ -99,7 +99,7 @@
 * @param {Boolean} isAI - an indicator for the AI to tell whether or not the AI should be taking moves or allowing the player to do so
 * @param {Boolean} isAClone - a boolean used to determine if a player needs a new ID
 */
-function Player(name, attributes, zones, isAI, isAClone)
+function Player(name, attributes, zones, isAI, isAClone, actions)
 {
 	//Only get new ID if not cloning the card
 	if (isAClone !== true)
@@ -110,6 +110,7 @@ function Player(name, attributes, zones, isAI, isAClone)
 	this.attributes = attributes;
 	this.zones = zones;
 	this.isAI = isAI;
+	this.actions = actions;
 }
 /**
 * Determines whether the player controls the given zone
@@ -133,7 +134,13 @@ Player.prototype.controlsZone = function(zoneName) {
 * @return {Player} Returns a copy of the player
 */
 Player.prototype.clone = function() {
-	var playerClone = new Player(this.name, objectClone(this.attributes), objectClone(this.zones), this.isAI, true); 
+	var playerClone = new Player(
+		this.name,
+		objectClone(this.attributes),
+		objectClone(this.zones),
+		this.isAI,
+		true,
+		objectClone(this.actions)); 
 	playerClone.id = this.id;
 	return playerClone;
 };

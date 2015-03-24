@@ -226,42 +226,156 @@ var Event = {
 		}
 	},
 	Modify: {
-		/**
-		* Changes the value of the given object's attribute
-		* @method Event.Modify.setAttribute
-		* @param {Object} obj - the object whose attribute value is being changed
-		* @param {String} attributeName - the name of the attribute to be changed
-		* @param {Object} newValue - the new value being given to the object's attribute
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		setAttribute: function (obj, attributeName, newValue, gamestate)
-		{
-			/*do lookup*/
-			obj.attributes[attributeName] = newValue;
+		Card:{
+			/**
+			* Sets the named card's named attribute by the given value
+			* @method Event.Modify.Card.setAttribute
+			* @param {Int} cardID - the name of the card whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {Object} newValue - the new value being given to the object's attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			setAttribute: function (cardID, attributeName, newValue, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				card.attributes[attributeName] = newValue;
+			},
+			/**
+			* Increases the named card's named attribute by the given value
+			* @method Event.Modify.Card.increaseAttributeBy
+			* @param {Int} cardID - the name of the card whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {number} value - the value by which to increase the attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			increaseAttributeBy: function(cardID, attributeBy, value, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				Event.Modify.Card.setAttribute(cardID, attributeName, card.attributes[attributeName] + value, gamestate);
+			},
+			/**
+			* Decreases the named card's named attribute by the given value
+			* @method Event.Modify.Card.decreaseAttributeBy
+			* @param {Int} cardID - the name of the card whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {number} value - the value by which to decrease the attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			decreaseAttributeBy: function(cardID, attributeBy, value, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				Event.Modify.Card.setAttribute(cardID, attributeName, card.attributes[attributeName] - value, gamestate);
+			},
+			applyModification: function(cardID, modificationFunction, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				modificationFunction(card);
+			},
+			applyModificationToZoneCards: function(zoneName, modificationFunction, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				for(var i = 0; i < zone.cards.length; i += 1)
+				{
+					modificationFunction(zone.cards[i]);
+				}
+			},
+			applyModificationToAllCardsInUniverse: function()
+			{
+
+			},
+			applyModificationToAllCardsOfType: function()
+			{
+
+			},
+			applyModificationToAllValidZoneCards: function(zoneName, modificationFunction, isValidFunction, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				for(var i = 0; i < zone.cards.length; i += 1)
+				{
+					if(isValid(zone.cards[i]))
+					{
+						modificationFunction(zone.cards[i]);
+					}
+				}
+			}
 		},
-		/**
-		* Increases the given attribute's named attribute by the given value
-		* @method Event.Modify.increaseAttributeBy
-		* @param {Object} obj - the object whose attribute value is being changed
-		* @param {String} attributeName - the name of the attribute to be changed
-		* @param {number} newValue - the value by which to increase the attribute
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		increaseAttributeBy: function(obj, attributeBy, value, gamestate)
-		{
-			Event.changeAttribute(obj, attributeName, obj.attributes[attributeName] + value, gamestate);
+		Player: {
+			/**
+			* Sets the named player's named attribute by the given value
+			* @method Event.Modify.Card.setAttribute
+			* @param {String} playerName - the name of the player whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {Object} newValue - the new value being given to the object's attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			setAttribute: function (playerName, attributeName, newValue, gamestate)
+			{
+				var player = lookupPlayer(playerName, gamestate);
+				player.attributes[attributeName] = newValue;
+			},
+			/**
+			* Increases the named player's named attribute by the given value
+			* @method Event.Modify.Player.increaseAttributeBy
+			* @param {String} playerName - the name of the player whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {number} value - the value by which to increase the attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			increaseAttributeBy: function(playerName, attributeBy, value, gamestate)
+			{
+				Event.Modify.Player.setAttribute(playerName, attributeName, playerName.attributes[attributeName] + value, gamestate);
+			},
+			/**
+			* Decreases the named player's named attribute by the given value
+			* @method Event.Modify.Player.decreaseAttributeBy
+			* @param {String} playerName - the name of the player whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {number} value - the value by which to decrease the attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			decreaseAttributeBy: function(playerName, attributeBy, value, gamestate)
+			{
+				Event.Modify.Player.setAttribute(playerName, attributeName, playerName.attributes[attributeName] - value, gamestate);
+			}
 		},
-		/**
-		* Decreases the given attribute's named attribute by the given value
-		* @method Event.Modify.decreaseAttributeBy
-		* @param {Object} obj - the object whose attribute value is being changed
-		* @param {String} attributeName - the name of the attribute to be changed
-		* @param {number} newValue - the value by which to decrease the attribute
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
-		*/
-		decreaseAttributeBy: function(obj, attributeBy, value, gamestate)
-		{
-			Event.changeAttribute(obj, attributeName, obj.attributes[attributeName] - value, gamestate);
+		Zone: {
+			/**
+			* Sets the named zone's named attribute by the given value
+			* @method Event.Modify.Zone.setAttribute
+			* @param {String} zoneName - the name of the zone whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {Object} newValue - the new value being given to the object's attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			setAttribute: function (zoneName, attributeName, newValue, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				zone.attributes[attributeName] = newValue;
+			},
+			/**
+			* Increases the named zone's named attribute by the given value
+			* @method Event.Modify.Zone.increaseAttributeBy
+			* @param {String} zoneName - the name of the zone whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {number} value - the value by which to increase the attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			increaseAttributeBy: function(zoneName, attributeBy, value, gamestate)
+			{
+				Event.Modify.zone.setAttribute(zoneName, attributeName, zoneName.attributes[attributeName] + value, gamestate);
+			},
+			/**
+			* Decreases the named zone's named attribute by the given value
+			* @method Event.Modify.Zone.decreaseAttributeBy
+			* @param {String} zoneName - the name of the zone whose attribute value is being changed
+			* @param {String} attributeName - the name of the attribute to be changed
+			* @param {number} value - the value by which to decrease the attribute
+			* @param {GameState} gamestate - the gamestate in which this event is taking place
+			*/
+			decreaseAttributeBy: function(zoneName, attributeBy, value, gamestate)
+			{
+				Event.Modify.Player.setAttribute(zoneName, attributeName, zoneName.attributes[attributeName] - value, gamestate);
+			}
 		},
 		/**
 		* Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called
@@ -315,11 +429,3 @@ var Event = {
 		}
 	}
 };
-/*
-TO ADD
-	RepeatPhase(gamestate)
-	TakeAnotherTurn(gamestate)
-	WinGame(playerName)
-	LoseGame(playerName, gamestate)
-	EliminatePlayer(playerName, gamestate)
-*/

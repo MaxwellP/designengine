@@ -130,6 +130,10 @@
 
                             </li>
                             <li class="index-item method">
+                                <a href="#method_API.CardLookup.cardInZone">API.CardLookup.cardInZone</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_API.DieRolling.rollDie">API.DieRolling.rollDie</a>
 
                             </li>
@@ -154,15 +158,63 @@
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.isAttributeEqualTo">API.ValueComparison.isAttributeEqualTo</a>
+                                <a href="#method_API.ValueComparison.Card.isAttributeEqualTo">API.ValueComparison.Card.isAttributeEqualTo</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.isAttributeGreaterThan">API.ValueComparison.isAttributeGreaterThan</a>
+                                <a href="#method_API.ValueComparison.Card.isAttributeGreaterThan">API.ValueComparison.Card.isAttributeGreaterThan</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.isAttributeLessThan">API.ValueComparison.isAttributeLessThan</a>
+                                <a href="#method_API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo">API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Card.isAttributeLessThan">API.ValueComparison.Card.isAttributeLessThan</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Card.isAttributeLessThanOrEqualTo">API.ValueComparison.Card.isAttributeLessThanOrEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Player.isAttributeEqualTo">API.ValueComparison.Player.isAttributeEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Player.isAttributeGreaterThan">API.ValueComparison.Player.isAttributeGreaterThan</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo">API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Player.isAttributeLessThan">API.ValueComparison.Player.isAttributeLessThan</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Player.isAttributeLessThanOrEqualTo">API.ValueComparison.Player.isAttributeLessThanOrEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Zone.isAttributeEqualTo">API.ValueComparison.Zone.isAttributeEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Zone.isAttributeGreaterThan">API.ValueComparison.Zone.isAttributeGreaterThan</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo">API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Zone.isAttributeLessThan">API.ValueComparison.Zone.isAttributeLessThan</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_API.ValueComparison.Zone.isAttributeLessThanOrEqualTo">API.ValueComparison.Zone.isAttributeLessThanOrEqualTo</a>
 
                             </li>
                     </ul>
@@ -423,6 +475,78 @@
 
 
 </div>
+<div id="method_API.CardLookup.cardInZone" class="method item">
+    <h3 class="name"><code>API.CardLookup.cardInZone</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l62"><code>Engine\API.js:62</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the zone the card is currently in</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
 <div id="method_API.DieRolling.rollDie" class="method item">
     <h3 class="name"><code>API.DieRolling.rollDie</code></h3>
 
@@ -444,7 +568,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l118"><code>Engine\API.js:118</code></a>
+        <a href="../files/Engine_API.js.html#l354"><code>Engine\API.js:354</code></a>
         </p>
 
 
@@ -503,7 +627,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l127"><code>Engine\API.js:127</code></a>
+        <a href="../files/Engine_API.js.html#l363"><code>Engine\API.js:363</code></a>
         </p>
 
 
@@ -575,7 +699,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l142"><code>Engine\API.js:142</code></a>
+        <a href="../files/Engine_API.js.html#l378"><code>Engine\API.js:378</code></a>
         </p>
 
 
@@ -647,7 +771,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l166"><code>Engine\API.js:166</code></a>
+        <a href="../files/Engine_API.js.html#l402"><code>Engine\API.js:402</code></a>
         </p>
 
 
@@ -716,7 +840,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l157"><code>Engine\API.js:157</code></a>
+        <a href="../files/Engine_API.js.html#l393"><code>Engine\API.js:393</code></a>
         </p>
 
 
@@ -775,7 +899,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l183"><code>Engine\API.js:183</code></a>
+        <a href="../files/Engine_API.js.html#l419"><code>Engine\API.js:419</code></a>
         </p>
 
 
@@ -823,13 +947,13 @@
 
 
 </div>
-<div id="method_API.ValueComparison.isAttributeEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.isAttributeEqualTo</code></h3>
+<div id="method_API.ValueComparison.Card.isAttributeEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Card.isAttributeEqualTo</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>obj</code>
+                        <code>cardID</code>
                 </li>
                 <li class="arg">
                         <code>attributeName</code>
@@ -853,7 +977,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l100"><code>Engine\API.js:100</code></a>
+        <a href="../files/Engine_API.js.html#l126"><code>Engine\API.js:126</code></a>
         </p>
 
 
@@ -861,7 +985,7 @@
     </div>
 
     <div class="description">
-        <p>Returns if the given object&#39;s named attribute&#39;s value is equal to the given value</p>
+        <p>Returns if the given card&#39;s named attribute&#39;s value is equal to the given value</p>
 
     </div>
 
@@ -870,13 +994,13 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">obj</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the object whose attribute&#39;s value is being checked</li>
+<li>the name of the card whose attribute&#39;s value is being checked</li>
 </ul>
 
                     </div>
@@ -902,7 +1026,7 @@
 
                     <div class="param-description">
                         <ul>
-<li>the value to compare the object&#39;s value to</li>
+<li>the value to compare the card&#39;s value to</li>
 </ul>
 
                     </div>
@@ -927,13 +1051,13 @@
 
 
 </div>
-<div id="method_API.ValueComparison.isAttributeGreaterThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.isAttributeGreaterThan</code></h3>
+<div id="method_API.ValueComparison.Card.isAttributeGreaterThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Card.isAttributeGreaterThan</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>obj</code>
+                        <code>cardID</code>
                 </li>
                 <li class="arg">
                         <code>attributeName</code>
@@ -957,7 +1081,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l68"><code>Engine\API.js:68</code></a>
+        <a href="../files/Engine_API.js.html#l92"><code>Engine\API.js:92</code></a>
         </p>
 
 
@@ -965,7 +1089,7 @@
     </div>
 
     <div class="description">
-        <p>Returns if the given object&#39;s named attribute&#39;s value is greater than the given value</p>
+        <p>Returns if the given card&#39;s named attribute&#39;s value is greater than the given value</p>
 
     </div>
 
@@ -974,13 +1098,13 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">obj</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the object whose attribute&#39;s value is being checked</li>
+<li>the name of the card whose attribute&#39;s value is being checked</li>
 </ul>
 
                     </div>
@@ -1006,7 +1130,7 @@
 
                     <div class="param-description">
                         <ul>
-<li>the value to compare the object&#39;s value to</li>
+<li>the value to compare the card&#39;s value to</li>
 </ul>
 
                     </div>
@@ -1031,13 +1155,13 @@
 
 
 </div>
-<div id="method_API.ValueComparison.isAttributeLessThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.isAttributeLessThan</code></h3>
+<div id="method_API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>obj</code>
+                        <code>cardID</code>
                 </li>
                 <li class="arg">
                         <code>attributeName</code>
@@ -1061,7 +1185,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l84"><code>Engine\API.js:84</code></a>
+        <a href="../files/Engine_API.js.html#l160"><code>Engine\API.js:160</code></a>
         </p>
 
 
@@ -1069,7 +1193,7 @@
     </div>
 
     <div class="description">
-        <p>Returns if the given object&#39;s named attribute&#39;s value is less than the given value</p>
+        <p>Returns if the given card&#39;s named attribute&#39;s value is greater than or equal to the given value</p>
 
     </div>
 
@@ -1078,13 +1202,13 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">obj</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the object whose attribute&#39;s value is being checked</li>
+<li>the name of the card whose attribute&#39;s value is being checked</li>
 </ul>
 
                     </div>
@@ -1110,7 +1234,1255 @@
 
                     <div class="param-description">
                         <ul>
-<li>the value to compare the object&#39;s value to</li>
+<li>the value to compare the card&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Card.isAttributeLessThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Card.isAttributeLessThan</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l109"><code>Engine\API.js:109</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given card&#39;s named attribute&#39;s value is less than the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the card&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Card.isAttributeLessThanOrEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Card.isAttributeLessThanOrEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l143"><code>Engine\API.js:143</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given card&#39;s named attribute&#39;s value is less than or equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the card&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Player.isAttributeEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Player.isAttributeEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l213"><code>Engine\API.js:213</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given player&#39;s named attribute&#39;s value is equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the player&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Player.isAttributeGreaterThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Player.isAttributeGreaterThan</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l179"><code>Engine\API.js:179</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given player&#39;s named attribute&#39;s value is greater than the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the player&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l247"><code>Engine\API.js:247</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given player&#39;s named attribute&#39;s value is greater than or equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the player&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Player.isAttributeLessThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Player.isAttributeLessThan</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l196"><code>Engine\API.js:196</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given player&#39;s named attribute&#39;s value is less than the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the player&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Player.isAttributeLessThanOrEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Player.isAttributeLessThanOrEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l230"><code>Engine\API.js:230</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given player&#39;s named attribute&#39;s value is less than or equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the player&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Zone.isAttributeEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l300"><code>Engine\API.js:300</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given zone&#39;s named attribute&#39;s value is equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the zone&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Zone.isAttributeGreaterThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeGreaterThan</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l266"><code>Engine\API.js:266</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given zone&#39;s named attribute&#39;s value is greater than the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the zone&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l334"><code>Engine\API.js:334</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given zone&#39;s named attribute&#39;s value is greater than or equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the zone&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Zone.isAttributeLessThan" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeLessThan</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l283"><code>Engine\API.js:283</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given zone&#39;s named attribute&#39;s value is less than the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the zone&#39;s value to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_API.ValueComparison.Zone.isAttributeLessThanOrEqualTo" class="method item">
+    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeLessThanOrEqualTo</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_API.js.html#l317"><code>Engine\API.js:317</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns if the given zone&#39;s named attribute&#39;s value is less than or equal to the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute&#39;s value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value to compare the zone&#39;s value to</li>
 </ul>
 
                     </div>
