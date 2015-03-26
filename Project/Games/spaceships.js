@@ -109,7 +109,7 @@ function attackResult()
 	{
 		Event.Move.Individual.toZone(targetShip, "Scrap Pile", gamestate);
 		var fullHP = API.ValueLookup.Card.getAttribute(targetShip, "FullHP", gamestate);
-		Event.Modify.setAttribute(targetShip, "HP", fullHP, gamestate)
+		Event.Modify.setAttribute(targetShip, "HP", fullHP, gamestate);
 	}
 
 
@@ -156,7 +156,7 @@ function spreadshotResult()
 		{
 			Event.Move.Individual.toZone(enemyShip, "Scrap Pile", gamestate);
 			var fullHP = API.ValueLookup.Card.getAttribute(enemyShip, "FullHP", gamestate);
-			Event.Modify.setAttribute(enemyShip, "HP", fullHP, gamestate)
+			Event.Modify.setAttribute(enemyShip, "HP", fullHP, gamestate);
 		}
 	}
 }

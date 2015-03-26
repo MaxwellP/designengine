@@ -240,4 +240,4 @@ function gameLog (string) {
 
 
 //load the game
-readJSON("poker");
+readJSON("spaceships");

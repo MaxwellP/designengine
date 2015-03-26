@@ -233,6 +233,17 @@ function drawCard (card) {
 	{
 		ctx.fillText(card.name, cardTextX, cardTextY, cardGUI.width);
 	}
+	var attrYSpace = cardTextY;
+	ctx.font = "" + CARD_DEFAULT_FONT_SIZE / 2 + "px Georgia";
+	for (var attribute in card.attributes)
+	{
+		attrYSpace += 10;
+		if (card.attributes.hasOwnProperty(attribute))
+		{
+			var attrText = "" + attribute + ": " + card.attributes[attribute];
+			ctx.fillText(attrText, cardTextX, attrYSpace, cardGUI.width);
+		}
+	}
 	ctx.restore();
 
 }

@@ -77,7 +77,7 @@ var API = {
 		* @param {String} zoneName - the name of the zone to check if the card is in
 		* @param {GameState} gamestate - the gamestate in which this call is taking place
 		*/
-		isCardInZone: function(cardID, zoneName gamestate)
+		isCardInZone: function(cardID, zoneName, gamestate)
 		{
 			var gotZone = API.CardLookup.cardInZone(cardID, gamestate);
 			return (gotZone === zoneName);
