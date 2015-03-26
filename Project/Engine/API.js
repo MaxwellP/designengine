@@ -144,9 +144,17 @@ var API = {
 			var zone = lookupZone(zoneName, gamestate);
 			return objectClone(zone.cards);
 		},
-		cardIndexInZone: function()
+		cardIndexInZone: function(cardID, zoneName, gamestate)
 		{
-			console.log("TO CODE: API.CardLookup.cardIndexInZone");
+			var zone = lookupZone(zoneName, gamestate);
+			for(var i = 0; i < zone.cards.length; i += 1)
+			{
+				if(cardID === zone.cards[i])
+				{
+					return i;
+				}
+			}
+			return false;
 		}
 	},
 	ValueLookup: {

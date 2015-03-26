@@ -1,15 +1,7 @@
 // Initialization
 $(function() {
 	$(".editor").dialog();
-});
-
-$(function() {
 	$(".editor").dialog("close");
-})
-
-$(function() {
-	var element = $(".codemirrorBox");
-	for (var i = 0; i < element.length; i++) {
-		CodeMirror(element[i]);
-	};
-})
+	actionResultCode = CodeMirror(document.getElementById("result_code"));
+	actionCheckLegalityCode = CodeMirror(document.getElementById("check_legality_code"));
+});
