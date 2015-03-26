@@ -60,32 +60,21 @@ var API = {
 	},
 	CardLookup: {
 		/**
-		* Returns the zone the card is currently in
+		* Returns the zone name the card is currently in
 		* @method API.CardLookup.cardInZone
 		* @param {Int} cardID - the name of the card whose attribute's value is being checked
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
 		cardInZone: function(cardID, gamestate)
 		{
-			var zones = gamestate.zones;
-			for(var i = 0; i < zones.length; i += 1)
-			{
-				var zCards = zones[i].cards;
-				for(var j = 0; j < zCards.length; j += 1)
-				{
-					if(zCards[i] === cardID)
-					{
-						return zones[i];
-					}
-				}
-			}
-			console.log("The card you searched for does not exist in any zone");
-			return false;
+			var card = lookupCard(cardID, gamestate);
+			return card.zone;
 		},
 		/**
-		* Returns the zone the card is currently in
+		* Returns if the card is currently in the given zone
 		* @method API.CardLookup.cardInZone
 		* @param {Int} cardID - the name of the card whose attribute's value is being checked
+		* @param {String} zoneName - the name of the zone to check if the card is in
 		* @param {GameState} gamestate - the gamestate in which this call is taking place
 		*/
 		isCardInZone: function(cardID, zoneName gamestate)
@@ -157,6 +146,32 @@ var API = {
 			return false;
 		}
 	},
+	ZoneLookup: {
+		/**
+		* Returns the name of a player's zone with the given tag 
+		* @method API.ZoneLookup.getZoneByTag
+		* @param {String} playerName - the name of the player to get the associated tagged zone from
+		* @param {String} zoneTag - the name of the tag to look up
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		getZoneByTag: function(playerName, zoneTag, gamestate)
+		{
+			var player = lookupPlayer(playerName, gamestate);
+			return player.zones[zoneTag];
+		},
+		/**
+		* Returns the name of the opponent player's zone with the given tag 
+		* @method API.ZoneLookup.getEnemyZoneByTag
+		* @param {String} playerName - the name of the player whose enemy to get the associated tagged zone from
+		* @param {String} zoneTag - the name of the tag to look up
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		getEnemyZoneByTag: function(playerName, zoneTag, gamestate)
+		{
+			var enemy = getAltPlayer(playerName, gamestate);
+			return enemy.zones[zoneTag];
+		}
+	},
 	ValueLookup: {
 		Card: {
 			/**
@@ -164,12 +179,32 @@ var API = {
 			* @method API.ValueLookup.Card.getAttribute
 			* @param {Int} cardID - the id of the card whose attribute's value is being checked
 			* @param {String} attributeName - the name of the attribute to get the value of
-			* @param {GameState}
+			* @param {GameState} gamestate - the gamestate to get data from
 			*/
 			getAttribute: function (cardID, attributeName, gamestate)
 			{
 				var card = lookupCard(cardID, gamestate);
 				return card.attributes[attributeName];
+			}
+		},
+		Player: {
+			/**
+			* Returns the current player
+			* @method API.ValueLookup.Player.currentPlayer
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			currentPlayer: function (gamestate)
+			{
+				return gamestate.turnPlayer;
+			},
+			/**
+			* Returns the enemy player
+			* @method API.ValueLookup.Player.enemyPlayer
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			enemyPlayer: function (gamestate)
+			{
+				return getAltPlayer(gamestate.turnPlayer, gamestate).name;
 			}
 		}
 	},

@@ -5,7 +5,7 @@
 * @constructor
 * @param {String} name - the name of the player
 * @param {Object} attributes - all designer defined attributes for the player
-* @param {Array} zones - all zones the player can take actions on
+* @param {Object} zones - object of associated zones referencing tags given in playerTemplate
 * @param {Boolean} isAI - an indicator for the AI to tell whether or not the AI should be taking moves or allowing the player to do so
 * @param {Boolean} isAClone - a boolean used to determine if a player needs a new ID
 */
@@ -29,13 +29,16 @@ function Player(name, attributes, zones, isAI, isAClone, actions)
 * @return {Boolean} Returns whether or not the given zone can be acted upon by the player
 */
 Player.prototype.controlsZone = function(zoneName) {
-	for (var i = 0; i < this.zones.length; i++) 
+	for (var zone in this.zones)
 	{
-		if (this.zones[i] == zoneName)
+		if (this.zones.hasOwnProperty(zone))
 		{
-			return true;
+			if (zone === zoneName)
+			{
+				return true;
+			}
 		}
-	};
+	}
 	return false;
 };
 /**

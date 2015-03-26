@@ -17,6 +17,7 @@ function readJSON(file)
 			read.universes,
 			read.cardTypes,
 			read.actionTemplates,
+			read.playerTemplate,
 			read.players,
 			read.init,
 			read.winCondition,
@@ -175,13 +176,16 @@ function applyAction (action, player, gs)
 
 function getLegalActions (playerObj, gs) {
 	var legalActions = [];
-	for (var i = 0; i < playerObj.zones.length; i++)
+	for (var zone in playerObj.zones)
 	{
-		var currentZone = lookupZone(playerObj.zones[i], gs);
-		for (var j = 0; j < currentZone.cards.length; j++)
+		if (playerObj.zones.hasOwnProperty(zone))
 		{
-			var card = lookupCard(currentZone.cards[j], gs);
-			legalActions = legalActions.concat(getLegalActionsFromCard(card, playerObj, gs));
+			var currentZone = lookupZone(zone, gs);
+			for (var j = 0; j < currentZone.cards.length; j++)
+			{
+				var card = lookupCard(currentZone.cards[j], gs);
+				legalActions = legalActions.concat(getLegalActionsFromCard(card, playerObj, gs));
+			}
 		}
 	}
 	return legalActions;

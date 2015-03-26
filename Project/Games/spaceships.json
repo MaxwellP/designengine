@@ -125,19 +125,23 @@
 			"inputTypes": []
 		}
 	],
+	"playerTemplate":
+	{
+		"zoneTags" : ["ships", "queue"],
+		"attributeNames" : ["Money", "Gems", "Energy"],
+		"actions" : []
+	},
 	"players":
 	[
 		{"name": "P1",
 			"zones": ["P1 Ships", "Ship Queue"],
-			"attributes": {"Money": 10, "Gems": 3, "Energy": 2},
-			"isAI": false,
-			"actions": []
+			"attributes": [10, 3, 2],
+			"isAI": false
 		},
 		{"name": "P2",
 			"zones": ["P2 Ships", "Ship Queue"],
-			"attributes": {"Money": 10, "Gems": 3, "Energy": 2},
-			"isAI": true,
-			"actions": []
+			"attributes": [10, 3, 2],
+			"isAI": true
 		}
 	],
 	"init":
