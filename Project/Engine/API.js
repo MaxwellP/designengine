@@ -86,12 +86,63 @@ var API = {
 		* Returns the zone the card is currently in
 		* @method API.CardLookup.cardInZone
 		* @param {Int} cardID - the name of the card whose attribute's value is being checked
-		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
 		*/
 		isCardInZone: function(cardID, zoneName gamestate)
 		{
 			var gotZone = API.CardLookup.cardInZone(cardID, gamestate);
 			return (gotZone === zoneName);
+		},
+		/**
+		* Returns the cardID of the first card in a zone
+		* @method API.CardLookup.firstCardInZone
+		* @param {String} zoneName - the name of the zone to get the first card from
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		firstCardInZone: function(zoneName, gamestate)
+		{
+			var zone = lookupZone(zoneName, gamestate);
+			if (zone.cards.length === 0)
+			{
+				//No cards in the zone
+				return false;
+			}
+			else
+			{
+				//First card in the zone
+				return zone.cards[0];
+			}
+		},
+		/**
+		* Returns the cardID of the last card in a zone
+		* @method API.CardLookup.firstCardInZone
+		* @param {String} zoneName - the name of the zone to get the last card from
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		lastCardInZone: function(zoneName, gamestate)
+		{
+			var zone = lookupZone(zoneName, gamestate);
+			if (zone.cards.length === 0)
+			{
+				//No cards in the zone
+				return false;
+			}
+			else
+			{
+				//Last card in the zone
+				return zone.cards[zone.cards.length - 1];
+			}
+		},
+		/**
+		* Returns an array containing all the cardIDs of the cards in a zone
+		* @method API.CardLookup.allCardsInZone
+		* @param {String} zoneName - the name of the zone to get the cards from
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		allCardsInZone: function(zoneName, gamestate)
+		{
+			var zone = lookupZone(zoneName, gamestate);
+			return objectClone(zone.cards);
 		},
 		cardIndexInZone: function()
 		{

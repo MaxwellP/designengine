@@ -1,0 +1,22 @@
+Meeting Agenda for 3-24-2015
+
+Website: we got WipCards.com
+
+Gui: using JQuery and CodeMirror
+
+Example game: "Spaceships"
+
+API: Improving with the things missing while creating the example game
+
+AI: Fixed one tiny thing that was preventing it from working
+
+Some small engine features
+
+
+To do for next week:
+
+-Get a basic server set up
+
+-Set up all systems for creating a game from scratch
+
+-Finish example game and prepare it as a tutorial
