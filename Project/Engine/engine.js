@@ -32,7 +32,7 @@ function readJSON(file)
 		initialize(newGameDescription);
 	};
 	request.send();
-};
+}
 
 function initialize(gd)
 {
@@ -51,7 +51,7 @@ function initialize(gd)
 		gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
 		gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
 	}
-};
+}
 
 function gameSetup (gs)
 {
@@ -66,7 +66,7 @@ function generateActionsFromCard (card, gs, gd)
 	{
 		var actionTemp = lookupActionTemplate(card.actions[i].templateName, gd);
 		var possibleInputs = [];
-		if(actionTemp.inputTypes.length == 0)
+		if(actionTemp.inputTypes.length === 0)
 		{
 			var action = new Action (
 				actionTemp.name,
@@ -163,8 +163,8 @@ function applyAction (action, player, gs)
 		else
 		{
 			throw new Error("Player Doesn't Have Access Error");
-			console.log("Player does not have access to card.");
-			return false;
+			//console.log("Player does not have access to card.");
+			//return false;
 		}
 	}
 	else

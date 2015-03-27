@@ -178,7 +178,7 @@ var Event = {
 		{
 			for(var i = 0; i < toDraw; i += 1)
 			{
-				Event.moveCardToZone(lookupZone(fromZone, gamestate).cards[0], toZone, gamestate);
+				Event.Move.Individual.toZone(lookupZone(fromZone, gamestate).cards[0], toZone, gamestate);
 			}
 		}
 	},

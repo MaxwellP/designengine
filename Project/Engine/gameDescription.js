@@ -24,7 +24,7 @@ function GameDescription (zones, universes, cardTypes, actionTemplates, playerTe
 			playerZones[playerTemplate.zoneTags[j]] = curPlayer.zones[j];
 		}
 		var playerAttributes = {};
-		for (var j = 0; j < playerTemplate.attributes.length; j++)
+		for (var j = 0; j < playerTemplate.attributeNames.length; j++)
 		{
 			playerAttributes[playerTemplate.attributeNames[j]] = curPlayer.attributes[j];
 		}

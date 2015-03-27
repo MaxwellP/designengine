@@ -2,18 +2,18 @@
 	"zones":
 	[
 		{"name": "Ship Deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
-		{"name": "Ship Queue", "attributes": {}, "cards": [], "type": "deck", "visibleTo": ["P1", "P2"]},
+		{"name": "Ship Queue", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
 		{"name": "Scrap Pile", "attributes": {}, "cards": [], "type": "deck", "visibleTo": ["P1", "P2"]},
-		{"name": "P2 Ships", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]}
-		{"name": "P1 Ships", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
+		{"name": "P2 Ships", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
+		{"name": "P1 Ships", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]}
 	],
 	"zoneGUI":
 	[
 		{"name": "Ship Deck", "xPct": 0.1, "yPct": 0.1},
-		{"name": "Ship Queue", "xPct": 0.1, "yPct": 0.5},
+		{"name": "Ship Queue", "xPct": 0.3, "yPct": 0.5},
 		{"name": "Scrap Pile", "xPct": 0.1, "yPct": 0.9},
 		{"name": "P2 Ships", "xPct": 0.5, "yPct": 0.2},
-		{"name": "P1 Ships", "xPct": 0.5, "yPct": 0.8},
+		{"name": "P1 Ships", "xPct": 0.5, "yPct": 0.8}
 	],
 	"universes":
 	[
@@ -146,7 +146,7 @@
 	],
 	"init":
 	[
-		{"zoneName": "Deck", "cardNames": ["Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator", "Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator"]},
+		{"zoneName": "Ship Deck", "cardNames": ["Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator", "Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator"]},
 		{"zoneName": "P1 Ships", "cardNames": ["Tiger"]},
 		{"zoneName": "P2 Ships", "cardNames": ["Tiger"]},
 		{"zonesPerLine": 1}	],

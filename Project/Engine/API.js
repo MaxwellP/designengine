@@ -220,6 +220,7 @@ var API = {
 			*/
 			isAttributeGreaterThan: function(cardID, attributeName, value, gamestate)
 			{
+				debugger;
 				var card = lookupCard(cardID, gamestate);
 				if(card.attributes[attributeName] > value)
 				{

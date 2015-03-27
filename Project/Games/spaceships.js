@@ -49,8 +49,9 @@ function buyCheckLegality()
 	//3. The game must be in the buy phase
 
 	var inShipQueue = API.CardLookup.isCardInZone(action.cardID, "Ship Queue", gamestate);
+
 	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
-	var enoughMoney = API.ValueComparison.Card.isAttributeGreaterThan(player, "Money", cost, gamestate);
+	var enoughMoney = API.ValueComparison.Player.isAttributeGreaterThan(player, "Money", cost, gamestate);
 
 	var buyPhase = API.Phase.checkPhase("buyPhase", gamestate);
 	return (inShipQueue && enoughMoney && buyPhase);
