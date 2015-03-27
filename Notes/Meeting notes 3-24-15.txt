@@ -1,0 +1,21 @@
+Notes from 3-24-15 meeting
+
+-Highlight card/zone editing
+
+-Visually clear what input for
+
+
+-Javascript in the editor:
+ -Action Result - side effect, error when saved as blank
+ -Action Legality - No side effects, default to return true
+
+Default description for actions
+
+-Design goal: Visual Representation of everything about the game available
+
+-Win condition defaults to return false
+
+State score: Simple system for score normalization
+
+"End the phase" action on player
+
