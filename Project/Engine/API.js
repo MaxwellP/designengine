@@ -30,7 +30,7 @@ var API = {
 			var count = 0;
 			for(var i = 0; i < cards.length; i += 1)
 			{
-				if(cards[i].name === cardTypeName)
+				if(lookupCard(cards[i], gamestate).name === cardTypeName)
 				{
 					count += 1;
 				}
@@ -50,7 +50,7 @@ var API = {
 			var count = 0;
 			for(var i = 0; i < cards.length; i += 1)
 			{
-				if(isValid(cards[i]) === true)
+				if(isValid(lookupCard(cards[i], gamestate)) === true)
 				{
 					count += 1;
 				}
@@ -471,11 +471,6 @@ var API = {
 				return false;
 			}
 		}
-		/*
-			ADD LESS THAN OR EQUAL
-			ADD GREATER THAN OR EQUAL
-			ADD NOT EQUAL
-		*/
 	},
 	DieRolling: {
 		/**
@@ -544,7 +539,7 @@ var API = {
 	},
 	Manipulations: {
 		/**
-		* "Cuts" the named zone's cards and returns the revealed card
+		* "Cuts" the named zone's cards and returns the revealed cards ID
 		* @method API.Manipulations.cut
 		* @param {Zone} zoneName - the zone whose deck is to be cut
 		* @param {GameState} gamestate - the game state in which this action is taking place
