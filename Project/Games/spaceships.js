@@ -20,19 +20,22 @@ function spaceshipsSetup()
 	Event.Draw.drawCards("Ship Deck", "Ship Queue", 5, gamestate);
 }
 
-
-
 function buyResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
+	console.log("Player " + player);
+	console.log("Action");
+	console.log(action);
+	console.log("Gamestate");
+	console.log(gamestate);
 
 	//1. Subtract the card's Cost from the player's Money
 	//2. Move card to that player's Ships zone
 
 	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
-	Event.Modify.decreaseAttributeBy(player, "Money", cost, gamestate);
+	Event.Modify.Player.decreaseAttributeBy(player, "Money", cost, gamestate);
 
 	var playerShipZone = API.ZoneLookup.getZoneByTag(player, "ships", gamestate);
 	Event.Move.Individual.toZone(action.cardID, playerShipZone, gamestate);
@@ -40,7 +43,7 @@ function buyResult()
 
 function buyCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -59,7 +62,7 @@ function buyCheckLegality()
 
 function rejectResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -73,7 +76,7 @@ function rejectResult()
 
 function rejectCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -89,7 +92,7 @@ function rejectCheckLegality()
 
 function attackResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -118,7 +121,7 @@ function attackResult()
 
 function attackCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -138,7 +141,7 @@ function attackCheckLegality()
 
 function spreadshotResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -164,7 +167,7 @@ function spreadshotResult()
 
 function spreadshotCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -184,7 +187,7 @@ function spreadshotCheckLegality()
 
 function reinforceResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -209,7 +212,7 @@ function reinforceResult()
 
 function reinforceCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -231,7 +234,7 @@ function reinforceCheckLegality()
 
 function salvageResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -252,7 +255,7 @@ function salvageResult()
 
 function salvageCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -278,7 +281,7 @@ function salvageCheckLegality()
 
 function railgunResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -310,7 +313,7 @@ function railgunResult()
 
 function railgunCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -333,7 +336,7 @@ function railgunCheckLegality()
 
 function mineResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -351,7 +354,7 @@ function mineResult()
 
 function mineCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -370,7 +373,7 @@ function mineCheckLegality()
 
 function snipeResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -401,7 +404,7 @@ function snipeResult()
 
 function snipeCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -423,7 +426,7 @@ function snipeCheckLegality()
 
 function generateResult()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -440,7 +443,7 @@ function generateResult()
 
 function generateCheckLegality()
 {
-	var player = arguments[arguments.length - 3];
+	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
 
@@ -498,7 +501,7 @@ function spaceshipsWinCondition()
 function spaceshipsStateScore()
 {
 	var gamestate = arguments[arguments.length - 1];
-	var player = arguments[arguments.length - 2];
+	var player = arguments[arguments.length - 2].name;
 
 	//State score should be based on how many cards are in each player's Ships zone
 
