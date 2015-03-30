@@ -180,7 +180,7 @@ function getLegalActions (playerObj, gs) {
 	{
 		if (playerObj.zones.hasOwnProperty(zone))
 		{
-			var currentZone = lookupZone(zone, gs);
+			var currentZone = lookupZone(playerObj.zones[zone], gs);
 			for (var j = 0; j < currentZone.cards.length; j++)
 			{
 				var card = lookupCard(currentZone.cards[j], gs);

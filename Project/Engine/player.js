@@ -33,7 +33,7 @@ Player.prototype.controlsZone = function(zoneName) {
 	{
 		if (this.zones.hasOwnProperty(zone))
 		{
-			if (zone === zoneName)
+			if (this.zones[zone] === zoneName)
 			{
 				return true;
 			}

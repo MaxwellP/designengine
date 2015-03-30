@@ -32,9 +32,9 @@ function buyResult()
 	//2. Move card to that player's Ships zone
 
 	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
-	Event.Modify.decreaseAttributeBy(player, "Money", cost, gamestate);
+	Event.Modify.Player.decreaseAttributeBy(player.name, "Money", cost, gamestate);
 
-	var playerShipZone = API.ZoneLookup.getZoneByTag(player, "ships", gamestate);
+	var playerShipZone = API.ZoneLookup.getZoneByTag(player.name, "ships", gamestate);
 	Event.Move.Individual.toZone(action.cardID, playerShipZone, gamestate);
 }
 
