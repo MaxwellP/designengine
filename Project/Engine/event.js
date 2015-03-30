@@ -254,7 +254,7 @@ var Event = {
 			increaseAttributeBy: function(cardID, attributeName, value, gamestate)
 			{
 				var card = lookupCard(cardID, gamestate);
-				Event.Modify.Card.setAttribute(cardID, attributeName, card.attributes[attributeName] + value, gamestate);
+				Event.Modify.Card.setAttribute(cardID, attributeName, lookupCard(cardID, gamestate).attributes[attributeName] + value, gamestate);
 			},
 			/**
 			* Decreases the named card's named attribute by the given value
@@ -267,7 +267,7 @@ var Event = {
 			decreaseAttributeBy: function(cardID, attributeName, value, gamestate)
 			{
 				var card = lookupCard(cardID, gamestate);
-				Event.Modify.Card.setAttribute(cardID, attributeName, card.attributes[attributeName] - value, gamestate);
+				Event.Modify.Card.setAttribute(cardID, attributeName, lookupCard(cardID, gamestate).attributes[attributeName] - value, gamestate);
 			},
 			applyModification: function(cardID, modificationFunction, gamestate)
 			{
@@ -332,7 +332,7 @@ var Event = {
 			*/
 			increaseAttributeBy: function(playerName, attributeName, value, gamestate)
 			{
-				Event.Modify.Player.setAttribute(playerName, attributeName, playerName.attributes[attributeName] + value, gamestate);
+				Event.Modify.Player.setAttribute(playerName, attributeName, lookupPlayer(playerName, gamestate).attributes[attributeName] + value, gamestate);
 			},
 			/**
 			* Decreases the named player's named attribute by the given value
@@ -344,7 +344,7 @@ var Event = {
 			*/
 			decreaseAttributeBy: function(playerName, attributeName, value, gamestate)
 			{
-				Event.Modify.Player.setAttribute(playerName, attributeName, playerName.attributes[attributeName] - value, gamestate);
+				Event.Modify.Player.setAttribute(playerName, attributeName, lookupPlayer(playerName, gamestate).attributes[attributeName] - value, gamestate);
 			}
 		},
 		Zone: {
@@ -371,7 +371,7 @@ var Event = {
 			*/
 			increaseAttributeBy: function(zoneName, attributeName, value, gamestate)
 			{
-				Event.Modify.zone.setAttribute(zoneName, attributeName, zoneName.attributes[attributeName] + value, gamestate);
+				Event.Modify.zone.setAttribute(zoneName, attributeName, lookupZone(zoneName, gamestate).attributes[attributeName] + value, gamestate);
 			},
 			/**
 			* Decreases the named zone's named attribute by the given value
@@ -383,7 +383,7 @@ var Event = {
 			*/
 			decreaseAttributeBy: function(zoneName, attributeName, value, gamestate)
 			{
-				Event.Modify.Player.setAttribute(zoneName, attributeName, zoneName.attributes[attributeName] - value, gamestate);
+				Event.Modify.Player.setAttribute(zoneName, attributeName, lookupZone(zoneName, gamestate).attributes[attributeName] - value, gamestate);
 			}
 		},
 		/**

@@ -28,15 +28,13 @@ function Player(name, attributes, zones, isAI, isAClone, actions)
 * @param {String} zoneName - the name of the zone being checked
 * @return {Boolean} Returns whether or not the given zone can be acted upon by the player
 */
-Player.prototype.controlsZone = function(zoneName) {
+Player.prototype.controlsZone = function(zoneName)
+{
 	for (var zone in this.zones)
 	{
-		if (this.zones.hasOwnProperty(zone))
+		if(this.zones[zone] === zoneName)
 		{
-			if (this.zones[zone] === zoneName)
-			{
-				return true;
-			}
+			return true;
 		}
 	}
 	return false;

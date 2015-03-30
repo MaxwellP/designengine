@@ -152,6 +152,7 @@ function applyAction (action, player, gs)
 
 	if (window[action.checkLegality].apply(this, actionInputs))
 	{
+		console.log("Player " + player.name + " attempted to preform the action \"" + action.name + "\".");
 		if (player.controlsZone(lookupCard(action.cardID, gs).zone))
 		{
 			gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
