@@ -4,4 +4,10 @@ Meeting Agenda for 3-31-2015
 
 -Design Gui and exporting
 
+-Website mockups
+
+-Poker updated (Still in progress)
+
+-Language changes
+
 -Focusing on getting to a usable state by next week
