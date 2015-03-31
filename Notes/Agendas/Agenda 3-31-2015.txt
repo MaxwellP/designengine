@@ -1,0 +1,7 @@
+Meeting Agenda for 3-31-2015
+
+-Spaceship game demo
+
+-Design Gui and exporting
+
+-Focusing on getting to a usable state by next week
