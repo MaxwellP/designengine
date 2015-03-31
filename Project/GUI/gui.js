@@ -103,6 +103,8 @@ function renderFrame () {
 	drawAllCards(currentGS);
 	drawAllPopUpMenus();
 
+	highlight();
+
 }
 
 function clearFrame () {

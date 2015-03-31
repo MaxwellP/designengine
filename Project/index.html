@@ -120,6 +120,25 @@
 	<p>Phase</p>
 </div>
 
+<div id="menu" class="editor" title="Menu">
+	Game Title:<br>
+	<input type="text" id="gameTitle" class="fullWidth">
+	<br>
+	New Zone:<br>
+	<input type="text" id="newZoneName" class="newName">
+	<button type="button" id="newZoneAdd" class="newAdd" onclick="addNewZone()">Add</button>
+	<br>
+	New Card:<br>
+	<input type="text" id="newCardName" class="newName">
+	<button type="button" id="newCardAdd" class="newAdd" onclick="addNewCard()">Add</button>
+	<br>
+	<button type="button" onclick="editSetupFunction()" class="menuButton">Edit Setup Function</button>
+	<button type="button" onclick="editWinCondition()" class="menuButton">Edit Win Condition</button>
+	<button type="button" onclick="editStateScoring()" class="menuButton">Edit State Scoring</button>
+	<br>
+	<button type="button" onclick="saveGame()" class="menuButton">Save Game</button>
+</div>
+
 <div id="action_editor" class="editor" title="Editing Action: ">
 	Description:<br>
 	<input type="text" id="actionDesc">

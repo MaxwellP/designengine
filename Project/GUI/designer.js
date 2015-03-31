@@ -10,15 +10,49 @@ var actionResultCode;
 var actionCheckLegalityCode;
 
 function initDesign() {
-	var canvas = document.getElementById("Canvas2D");
-	var ctx = canvas.getContext('2d');
+	canvas = document.getElementById("Canvas2D");
+	ctx = canvas.getContext('2d');
 
 	designing = true;
+
+	var menu = $("#menu");
+	menu.dialog("open");
 }
 
 function endDesign() {
 
 	designing = false;
+}
+
+function highlight() {
+	if (currentCard !== undefined)
+	{
+		var cardGUI = lookupCardGUI(currentCard, currentGS);
+
+		ctx.save();
+		ctx.beginPath();
+		ctx.lineWidth = CARD_OUTLINE_WEIGHT * 1.5;
+		ctx.strokeStyle = "blue";
+		ctx.rect(cardGUI.x - 5, cardGUI.y - 5, cardGUI.width + 10, cardGUI.height + 10);
+		ctx.stroke();
+		ctx.closePath();
+		ctx.restore();
+	}
+	if (currentZone !== undefined)
+	{
+		var zoneGUI = lookupZoneGUI(currentZone);
+		
+		ctx.save();
+		ctx.beginPath();
+		ctx.lineWidth = ZONE_OUTLINE_WEIGHT;
+		ctx.strokeStyle = "blue";
+		ctx.rect(zoneGUI.x - (zoneGUI.width / 2) - 10, zoneGUI.y - (zoneGUI.height / 2) - 10, zoneGUI.width + 20, zoneGUI.height + 20);
+		ctx.stroke();
+		ctx.restore();
+
+
+		//drawZoneBox(zoneGUI.x, zoneGUI.y, zoneGUI.width, zoneGUI.height, zone.name);
+	}
 }
 
 function addNewZone() {
@@ -43,6 +77,7 @@ function clearZoneInfo() {
 	document.getElementById("zoneAttrSelect").innerHTML = "";
 	document.getElementById("edit_zone_attributes").style.visibility = "hidden";
 	document.getElementById("zoneAttrName").value = "";
+	currentZone = undefined;
 }
 
 function clearCardInfo() {
@@ -51,6 +86,7 @@ function clearCardInfo() {
 	document.getElementById("cardAttrName").value = "";
 	document.getElementById("cardActionSelect").innerHTML = "";
 	document.getElementById("templateSelect").innerHTML = "";
+	currentCard = undefined;
 }
 
 function clearActionInfo() {
@@ -403,7 +439,28 @@ function fillActionInfo(actionName) {
 }
 
 function addInput() {
+	var actionTemp = currentActionTemp;
+	var inputDrop = document.getElementById("inputTypes");
+	
+	actionTemp.inputTypes.push(inputDrop.value);
 
+	var newOption = document.createElement("OPTION");
+	newOption.value = inputDrop.value;
+	var text = document.createTextNode(inputDrop.value);
+
+	var inputSelect = document.getElementById("inputSelect");
+	newOption.appendChild(text);
+	inputSelect.appendChild(newOption);
+}
+
+function removeInput() {
+	var actionTemp = currentActionTemp;
+
+	var inputSelect = document.getElementById("inputSelect");
+
+	actionTemp.inputTypes.splice(inputSelect.selectedIndex, 1);
+
+	inputSelect.removeChild(inputSelect.childNodes[inputSelect.selectedIndex]);
 }
 
 function applyActionChanges() {
