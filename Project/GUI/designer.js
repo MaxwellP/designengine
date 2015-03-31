@@ -489,14 +489,35 @@ function editOther(mode) {
 	var codeString;
 	if (mode === "Setup Function")
 	{
-		//codeString = "" + window[]
+		codeString = "" + window[gameDescription.gameName + "Setup"];
 	}
 	else if (mode === "Win Condition")
 	{
-
+		codeString = "" + window[gameDescription.gameName + "WinCondition"];
+	}
+	else if (mode === "State Score")
+	{
+		codeString = "" + window[gameDescription.gameName + "StateScore"];
 	}
 
 	otherCode.setValue(codeString);
+}
+
+function applyOtherChanges() {
+	var newCode;
+	newCode = eval("(" + otherCode.getValue() + ")");
+	if (currentOther === "Setup Function")
+	{
+		window[gameDescription.gameName + "Setup"] = newCode;
+	}
+	else if (currentOther === "Win Condition")
+	{
+		window[gameDescription.gameName + "WinCondition"] = newCode;
+	}
+	else if (currentOther === "State Score")
+	{
+		window[gameDescription.gameName + "StateScore"] = newCode;
+	}
 }
 
 function saveGame() {

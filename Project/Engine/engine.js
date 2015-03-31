@@ -20,6 +20,7 @@ function readJSON(file)
 			read.playerTemplate,
 			read.players,
 			read.init,
+			read.gameName,
 			read.winCondition,
 			read.functionFile,
 			read.setupFunction,

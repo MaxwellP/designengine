@@ -171,6 +171,7 @@
 		{"zoneName": "P2 Ships", "cardNames": ["Monkey", "Tiger"]},
 		{"zonesPerLine": 1}	],
 	"functionFile": "spaceships.js",
+	"gameName": "spaceships",
 	"setupFunction": "spaceshipsSetup",
 	"winCondition": "spaceshipsWinCondition",
 	"stateScore": "spaceshipsStateScore",
