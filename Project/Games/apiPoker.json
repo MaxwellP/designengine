@@ -426,7 +426,7 @@
 		{"name": "P2",
 			"zones": ["P2 Hand", "P2 Discard", "P2 Done"],
 			"attributes": [0],
-			"isAI": false
+			"isAI": true
 		}
 	],
 	"init":
