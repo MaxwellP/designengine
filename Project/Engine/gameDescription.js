@@ -43,6 +43,7 @@ function GameDescription (zones, universes, cardTypes, actionTemplates, playerTe
 	this.universes = universes;
 	this.cardTypes = cardTypes;
 	this.actionTemplates = actionTemplates;
+	this.playerTemplate = playerTemplate;
 	this.players = playerArr;
 	this.init = init;
 	this.winCondition = winCondition;

@@ -422,7 +422,8 @@ function applyActionChanges() {
 function exportJSON() {
 	var jsonRoot = {};
 	jsonRoot.zones = [];
-	for (var i = 0; i < currentGS.zones.length; i++) {
+	for (var i = 0; i < currentGS.zones.length; i++)
+	{
 		var curZone = currentGS.zones[i];
 		var tempZone = {};
 		tempZone.name = curZone.name;
@@ -432,10 +433,11 @@ function exportJSON() {
 		tempZone.visibleTo = curZone.visibleTo;
 
 		jsonRoot.zones.push(tempZone);
-	};
+	}
 
 	jsonRoot.zoneGUI = [];
-	for (var i = 0; i < zonesGUIInfo.length; i++) {
+	for (var i = 0; i < zonesGUIInfo.length; i++)
+	{
 		var curGUIInfo = zonesGUIInfo[i];
 		var tempGUI = {};
 		tempGUI.name = curGUIInfo.name;
@@ -443,7 +445,56 @@ function exportJSON() {
 		tempGUI.yPct = curGUIInfo.yPct;
 
 		jsonRoot.zoneGUI.push(tempGUI);
-	};
+	}
+
+	jsonRoot.universes = gameDescription.universes;
+
+	jsonRoot.cardTypes = gameDescription.cardTypes;
+
+	jsonRoot.actionTemplates = gameDescription.actionTemplates;
+
+	jsonRoot.playerTemplate = gameDescription.playerTemplate;
+
+	jsonRoot.players = [];
+	for (var player of currentGS.players)
+	{
+		var pZones = [];
+		for (var zone in player.zones)
+		{
+			//?? Correct order?
+			pZones.push(player.zones[zone]);
+		}
+
+		var pAttrs = [];
+		for (var attr in player.attributes)
+		{
+			//?? Does this work in the correct order?
+			pAttrs.push(player.attributes[attr]);
+		}
+
+		var jsonPlayer = {
+			name: player.name,
+			zones: pZones,
+			attributes: pAttrs,
+			isAI: player.isAI
+		};
+		jsonRoot.players.push(jsonPlayer);
+	}
+
+	jsonRoot.init = gameDescription.init;
+
+	jsonRoot.functionFile = gameDescription.functionFile;
+
+	jsonRoot.setupFunction = gameDescription.setupFunction;
+
+	jsonRoot.winCondition = gameDescription.winCondition;
+
+	jsonRoot.stateScore = gameDescription.stateScore;
+
+	jsonRoot.phases = gameDescription.phases;
+
+
+	debugger;
 	
 	console.log(JSON.stringify(jsonRoot));
 }
