@@ -132,9 +132,9 @@
 	<input type="text" id="newCardName" class="newName">
 	<button type="button" id="newCardAdd" class="newAdd" onclick="addNewCard()">Add</button>
 	<br>
-	<button type="button" onclick="editSetupFunction()" class="menuButton">Edit Setup Function</button>
-	<button type="button" onclick="editWinCondition()" class="menuButton">Edit Win Condition</button>
-	<button type="button" onclick="editStateScoring()" class="menuButton">Edit State Scoring</button>
+	<button type="button" onclick="editOther('Setup Function')" class="menuButton">Edit Setup Function</button>
+	<button type="button" onclick="editOther('Win Condition')" class="menuButton">Edit Win Condition</button>
+	<button type="button" onclick="editOther('State Score')" class="menuButton">Edit State Scoring</button>
 	<br>
 	<button type="button" onclick="saveGame()" class="menuButton">Save Game</button>
 </div>
@@ -166,6 +166,12 @@
 	<br>
 	<button type="button" onclick="applyActionChanges()">Apply</button>
 	
+</div>
+
+<div id="other_editor" class="editor" title="Editing ">
+	<div id="other_code" class="codemirrorBox">
+	</div>
+	<button type="button" onclick="applyOtherChanges()">Apply</button>
 </div>
 
 </html>

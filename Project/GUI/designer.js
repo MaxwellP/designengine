@@ -5,9 +5,11 @@ DESIGN-TIME GUI
 var currentZone;
 var currentCard;
 var currentActionTemp;
+var currentOther;
 
 var actionResultCode;
 var actionCheckLegalityCode;
+var otherCode;
 
 function initDesign() {
 	canvas = document.getElementById("Canvas2D");
@@ -476,6 +478,31 @@ function applyActionChanges() {
 	window[currentActionTemp.checkLegality] = newCheckLegality;
 }
 
+function editOther(mode) {
+	currentOther = mode;
+	var editor = $("#other_editor");
+	editor.dialog({
+		title: "Editing " + mode
+	});
+	editor.dialog("open");
+
+	var codeString;
+	if (mode === "Setup Function")
+	{
+		//codeString = "" + window[]
+	}
+	else if (mode === "Win Condition")
+	{
+
+	}
+
+	otherCode.setValue(codeString);
+}
+
+function saveGame() {
+	exportJSON();
+}
+
 function exportJSON() {
 	var jsonRoot = {};
 	jsonRoot.zones = [];
@@ -549,9 +576,6 @@ function exportJSON() {
 	jsonRoot.stateScore = gameDescription.stateScore;
 
 	jsonRoot.phases = gameDescription.phases;
-
-
-	debugger;
 	
 	console.log(JSON.stringify(jsonRoot));
 }
