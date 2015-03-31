@@ -15,7 +15,6 @@ var Event = {
 			*/
 			toZone: function(cardID, zoneName, gamestate)
 			{
-				/*should this be card or cardID????????????*/
 				var card = lookupCard(cardID, gamestate);
 				var zone = lookupZone(zoneName, gamestate);
 				var prevOwner = lookupZone(card.zone, gamestate);
@@ -220,10 +219,9 @@ var Event = {
 			var from = lookupZone(fromZone, gamestate);
 			for(var i = 0; i < numCards; i += 1)
 			{
-				for(var j = 0; j < toZoneArray.length; j +=1)
+				for(var j = 0; j < toZoneNameArray.length; j +=1)
 				{
-					var toZone = lookupZone(toZoneNameArray[i], gamestate);
-					Event.moveCardToZone(from.cards[0], toZone, gamestate);
+					Event.Move.Individual.toZone(from.cards[0], toZoneNameArray[j], gamestate);
 				}
 			}
 		}

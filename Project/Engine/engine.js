@@ -241,4 +241,4 @@ function gameLog (string) {
 
 
 //load the game
-readJSON("spaceships");
+readJSON("apiPoker");

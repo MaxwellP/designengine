@@ -1,11 +1,31 @@
 {
 	"zones":
 	[
-		{"name": "Ship Deck", "attributes": {}, "cards": [], "type": "deck", "visibleTo": []},
-		{"name": "Ship Queue", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
-		{"name": "Scrap Pile", "attributes": {}, "cards": [], "type": "deck", "visibleTo": ["P1", "P2"]},
-		{"name": "P2 Ships", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]},
-		{"name": "P1 Ships", "attributes": {}, "cards": [], "type": "showEachCard", "visibleTo": ["P1", "P2"]}
+		{"name": "Ship Deck",
+			"attributes": {},
+			"cards": [],
+			"type": "deck",
+			"visibleTo": []},
+		{"name": "Ship Queue",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1", "P2"]},
+		{"name": "Scrap Pile",
+			"attributes": {},
+			"cards": [],
+			"type": "deck",
+			"visibleTo": ["P1", "P2"]},
+		{"name": "P2 Ships",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1", "P2"]},
+		{"name": "P1 Ships",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1", "P2"]}
 	],
 	"zoneGUI":
 	[
