@@ -9,7 +9,7 @@ var DEPTH = 3;
 
 var MAX_CONSEC_TURNS = 10;
 
-var loggingAI = true;
+var loggingAI = false;
 
 function aiLog (string) {
 	if (loggingAI)

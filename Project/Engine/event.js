@@ -163,7 +163,28 @@ var Event = {
 		*/
 		drawCard: function(fromZone, toZone, gamestate)
 		{
-			Event.Move.Individual.toZone(lookupZone(fromZone, gamestate).cards[0], toZone, gamestate);
+			var zone = lookupZone(fromZone, gamestate);
+			var card = zone.cards[zone.cards.length - 1];
+
+			if (card !== undefined)
+			{
+				Event.Move.Individual.toZone(card, toZone, gamestate);
+			}
+		},
+		/**
+		* Moves the bottom card from one zone to another
+		* @method Event.Draw.drawBottomCard
+		* @param {String} fromZone - the zone from which a card is being drawn
+		* @param {String} toZone - the zone from which a card is being drawn
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		drawBottomCard: function(fromZone, toZone, gamestate)
+		{
+			var card = lookupZone(fromZone, gamestate).cards[0];
+			if (card !== undefined)
+			{
+				Event.Move.Individual.toZone(card, toZone, gamestate);
+			}
 		},
 		/**
 		* Moves the top n cards from one zone to another
@@ -177,7 +198,11 @@ var Event = {
 		{
 			for(var i = 0; i < toDraw; i += 1)
 			{
-				Event.Move.Individual.toZone(lookupZone(fromZone, gamestate).cards[0], toZone, gamestate);
+				var card = lookupZone(fromZone, gamestate).cards[0];
+				if (card !== undefined)
+				{
+					Event.Move.Individual.toZone(card, toZone, gamestate);
+				}
 			}
 		}
 	},
@@ -397,14 +422,15 @@ var Event = {
 			if (index >= gameDescription.phases.length)
 			{
 				index = 0;
-				Event.Modify.endTurn(gamestate);
 				gamestate.currentPhase = gameDescription.phases[0].name;
+				Event.Modify.endTurn(gamestate);
+				gameLog("Begin phase \"" + gamestate.currentPhase + "\".");
 			}
 			else
 			{
 				gamestate.currentPhase = gameDescription.phases[index].name;
+				gameLog("Begin phase \"" + gamestate.currentPhase + "\".");
 			}
-			gameLog("Begin phase \"" + gamestate.currentPhase + "\".");
 			//Run initial function for phase
 			window[lookupPhase(gamestate.currentPhase, gameDescription).init].apply(this, [gamestate]);
 		},

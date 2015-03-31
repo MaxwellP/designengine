@@ -25,11 +25,6 @@ function buyResult()
 	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	console.log("Player " + player);
-	console.log("Action");
-	console.log(action);
-	console.log("Gamestate");
-	console.log(gamestate);
 
 	//1. Subtract the card's Cost from the player's Money
 	//2. Move card to that player's Ships zone
@@ -55,7 +50,7 @@ function buyCheckLegality()
 
 	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
 	//?? change player to playerName
-	var enoughMoney = API.ValueComparison.Player.isAttributeGreaterThan(player, "Money", cost, gamestate);
+	var enoughMoney = API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo(player, "Money", cost, gamestate);
 
 	var buyPhase = API.Phase.checkPhase("buyPhase", gamestate);
 	return (inShipQueue && enoughMoney && buyPhase);
@@ -73,7 +68,7 @@ function rejectResult()
 	var cost = API.ValueLookup.Card.getAttribute(action.cardID, "Cost", gamestate);
 	//?? playername
 	Event.Modify.Player.increaseAttributeBy(player, "Money", cost, gamestate);
-	Event.Move.Individual(action.cardID, "Scrap Pile", gamestate);
+	Event.Move.Individual.toZone(action.cardID, "Scrap Pile", gamestate);
 }
 
 function rejectCheckLegality()
@@ -111,13 +106,13 @@ function attackResult()
 	var targetShip = API.CardLookup.firstCardInZone(enemyZone, gamestate);
 
 	var damage = API.ValueLookup.Card.getAttribute(action.cardID, "Attack", gamestate);
-	Event.Modify.decreaseAttributeBy(targetShip, "HP", damage, gamestate);
+	Event.Modify.Card.decreaseAttributeBy(targetShip, "HP", damage, gamestate);
 
 	if (API.ValueComparison.Card.isAttributeLessThanOrEqualTo(targetShip, "HP", 0, gamestate))
 	{
 		Event.Move.Individual.toZone(targetShip, "Scrap Pile", gamestate);
 		var fullHP = API.ValueLookup.Card.getAttribute(targetShip, "FullHP", gamestate);
-		Event.Modify.setAttribute(targetShip, "HP", fullHP, gamestate);
+		Event.Modify.Card.setAttribute(targetShip, "HP", fullHP, gamestate);
 	}
 
 
@@ -168,7 +163,7 @@ function spreadshotResult()
 		{
 			Event.Move.Individual.toZone(enemyShip, "Scrap Pile", gamestate);
 			var fullHP = API.ValueLookup.Card.getAttribute(enemyShip, "FullHP", gamestate);
-			Event.Modify.setAttribute(enemyShip, "HP", fullHP, gamestate);
+			Event.Modify.Card.setAttribute(enemyShip, "HP", fullHP, gamestate);
 		}
 	}
 }
@@ -208,14 +203,14 @@ function reinforceResult()
 	Event.Modify.Player.decreaseAttributeBy(player, "Energy", 1, gamestate);
 
 	Event.Modify.Player.decreaseAttributeBy(player, "Money", 1, gamestate);
+	
+	Event.Modify.Card.increaseAttributeBy(action.cardID, "HP", 3, gamestate);
 
-	Event.Modify.Card.increaseAttributeBy(action.card, "HP", 3, gamestate);
+	var fullHP = API.ValueLookup.Card.getAttribute(action.cardID, "FullHP", gamestate);
 
-	var fullHP = API.ValueLookup.Card.getAttribute(action.card, "FullHP", gamestate);
-
-	if (API.ValueComparison.Card.isAttributeGreaterThan(action.card, "HP", fullHP, gamestate))
+	if (API.ValueComparison.Card.isAttributeGreaterThan(action.cardID, "HP", fullHP, gamestate))
 	{
-		Event.Modify.Card.setAttribute(action.card, "HP", fullHP, gamestate);
+		Event.Modify.Card.setAttribute(action.cardID, "HP", fullHP, gamestate);
 	}
 }
 
@@ -234,7 +229,7 @@ function reinforceCheckLegality()
 
 	var enoughEnergy = API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo(player, "Energy", 1, gamestate);
 
-	var enoughEnergy = API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo(player, "Money", 1, gamestate);
+	var enoughMoney = API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo(player, "Money", 1, gamestate);
 
 	var shipPhase = API.Phase.checkPhase("shipPhase", gamestate);
 
@@ -273,6 +268,7 @@ function salvageCheckLegality()
 	//3. The player must have 1 or more Gems left
 	//4. The player must have 5 or more Money left
 	//5. The game must be in the ship phase
+	//6. There must be at least one Ship in the Scrap Pile
 
 	var shipZone = API.ZoneLookup.getZoneByTag(player, "ships", gamestate);
 	var inShipZone = API.CardLookup.isCardInZone(action.cardID, shipZone, gamestate);
@@ -285,7 +281,9 @@ function salvageCheckLegality()
 
 	var shipPhase = API.Phase.checkPhase("shipPhase", gamestate);
 
-	return (inShipZone && enoughEnergy && enoughGems && enoughMoney && shipPhase);
+	var scrapAvailable = (API.CardCounting.inZone("Scrap Pile", gamestate) >= 1);
+
+	return (inShipZone && enoughEnergy && enoughGems && enoughMoney && shipPhase && scrapAvailable);
 }
 
 function railgunResult()
@@ -309,13 +307,13 @@ function railgunResult()
 	var targetShip = API.CardLookup.firstCardInZone(enemyZone, gamestate);
 
 	var damage = 6;
-	Event.Modify.decreaseAttributeBy(targetShip, "HP", damage, gamestate);
+	Event.Modify.Card.decreaseAttributeBy(targetShip, "HP", damage, gamestate);
 
 	if (API.ValueComparison.Card.isAttributeLessThanOrEqualTo(targetShip, "HP", 0, gamestate))
 	{
 		Event.Move.Individual.toZone(targetShip, "Scrap Pile", gamestate);
 		var fullHP = API.ValueLookup.Card.getAttribute(targetShip, "FullHP", gamestate);
-		Event.Modify.setAttribute(targetShip, "HP", fullHP, gamestate)
+		Event.Modify.Card.setAttribute(targetShip, "HP", fullHP, gamestate)
 	}
 
 }
@@ -401,13 +399,13 @@ function snipeResult()
 	var targetShip = API.CardLookup.lastCardInZone(enemyZone, gamestate);
 
 	var damage = 3;
-	Event.Modify.decreaseAttributeBy(targetShip, "HP", damage, gamestate);
+	Event.Modify.Card.decreaseAttributeBy(targetShip, "HP", damage, gamestate);
 
-	if (API.ValueComparison.Card.isAttributeLessThanOrEqualTo(targetShip, "HP", 0))
+	if (API.ValueComparison.Card.isAttributeLessThanOrEqualTo(targetShip, "HP", 0, gamestate))
 	{
 		Event.Move.Individual.toZone(targetShip, "Scrap Pile", gamestate);
 		var fullHP = API.ValueLookup.Card.getAttribute(targetShip, "FullHP", gamestate);
-		Event.Modify.setAttribute(targetShip, "HP", fullHP, gamestate)
+		Event.Modify.Card.setAttribute(targetShip, "HP", fullHP, gamestate)
 	}
 }
 
@@ -510,7 +508,8 @@ function spaceshipsWinCondition()
 function spaceshipsStateScore()
 {
 	var gamestate = arguments[arguments.length - 1];
-	var player = arguments[arguments.length - 2].name;
+	var player = arguments[arguments.length - 2];
+	//HEY soo there are some issues with how we're passing things. In this ONE CASE, it is actually being correctly passed the proper thing (the name) because Mark wrote this code
 
 	//State score should be based on how many cards are in each player's Ships zone
 
@@ -544,27 +543,25 @@ function buyPhaseEnd()
 	return true;
 }
 
-function shipsPhaseInit()
+function shipPhaseInit()
 {
 	var gamestate = arguments[arguments.length - 1];
 
 	//1. Set the current player's Energy to 2
-
 	var currentPlayer = API.ValueLookup.Player.currentPlayer(gamestate);
-	Event.Modify.setAttribute(currentPlayer, "Energy", 2, gamestate);
+	Event.Modify.Player.setAttribute(currentPlayer, "Energy", 2, gamestate);
 	
 	return false;
 }
 
-function shipsPhaseEnd()
+function shipPhaseEnd()
 {
 	var gamestate = arguments[arguments.length - 1];
 
 	//1. End the Ships Phase when the player runs out of energy
+	var currentPlayer = API.ValueLookup.Player.currentPlayer(gamestate);
 
-	var currentPlayer = API.ValueLookup.Player.currentPlayer(gamestate);;
+	var enoughEnergy = API.ValueComparison.Player.isAttributeLessThanOrEqualTo(currentPlayer, "Energy", 0, gamestate);
 
-	var enoughEnergy = API.ValueComparison.Player.isAttributeLessThanOrEqualTo(currentPlayer, "Energy", 0);
-
-	return false;
+	return enoughEnergy;
 }

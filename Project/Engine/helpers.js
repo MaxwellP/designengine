@@ -100,6 +100,7 @@ function lookupActionTemplate (name, gd)
 		}
 	}
 	console.log("No template named \"" + name + "\" exists");
+	throw new Error("Template Lookup Error");
 	return false;
 }
 /**

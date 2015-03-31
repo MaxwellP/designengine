@@ -4,6 +4,7 @@ DESIGN-TIME GUI
 
 var currentZone;
 var currentCard;
+var currentActionTemp;
 
 var actionResultCode;
 var actionCheckLegalityCode;
@@ -16,11 +17,6 @@ function initDesign() {
 }
 
 function endDesign() {
-	var canvas = document.getElementById("Canvas2D");
-	var ctx = canvas.getContext('2d');
-
-	designArea = document.getElementById("design_area");
-	designArea.style.display = "none";
 
 	designing = false;
 }
@@ -53,6 +49,12 @@ function clearCardInfo() {
 	document.getElementById("cardAttrSelect").innerHTML = "";
 	document.getElementById("edit_card_attributes").style.visibility = "hidden";
 	document.getElementById("cardAttrName").value = "";
+	document.getElementById("cardActionSelect").innerHTML = "";
+	document.getElementById("templateSelect").innerHTML = "";
+}
+
+function clearActionInfo() {
+	document.getElementById("inputSelect").innerHTML = "";
 }
 
 function fillZoneInfo (zone, x, y) {
@@ -227,14 +229,14 @@ function fillCardInfo (card, x, y) {
 		actionSelect.appendChild(newOption);
 	}
 
-	for (var actionObj of card.actions) {
+	for (var actionTemp of gameDescription.actionTemplates) {
 		var newOption = document.createElement("OPTION");
-		newOption.value = actionObj.templateName;
-		var text = document.createTextNode(actionObj.templateName);
+		newOption.value = actionTemp.name;
+		var text = document.createTextNode(actionTemp.name);
 
-		var actionSelect = document.getElementById("cardActionSelect");
+		var actionDropDown = document.getElementById("templateSelect");
 		newOption.appendChild(text);
-		actionSelect.appendChild(newOption);
+		actionDropDown.appendChild(newOption);
 	}
 
 	positionCardInfo(x, y);
@@ -297,6 +299,58 @@ function removeCardAttribute() {
 	document.getElementById("edit_card_attributes").style.visibility = "hidden";
 }
 
+function addExistingActionTemplate() {
+	var card = currentCard;
+
+	var actionSel = document.getElementById("cardActionSelect");
+	var actionDrop = document.getElementById("templateSelect");
+
+	var newActionObj = {};
+	newActionObj.templateName = actionDrop.value;
+
+	card.actions.push(newActionObj);
+
+	var newOption = document.createElement("OPTION");
+	newOption.value = actionDrop.value;
+	var text = document.createTextNode(actionDrop.value);
+
+	newOption.appendChild(text);
+	actionSel.appendChild(newOption);
+}
+
+function removeAction() {
+	var card = currentCard;
+
+	var actionSel = document.getElementById("cardActionSelect");
+
+	card.actions.splice(actionSel.selectedIndex, 1);
+
+	actionSel.removeChild(actionSel.childNodes[actionSel.selectedIndex]);
+}
+
+function addNewAction() {
+	var newActionText = document.getElementById("newActionName");
+
+	var newActionTemp = {
+		"name": newActionText.value,
+		"description": "",
+		"result": newActionText.value + "Result",
+		"checkLegality": newActionText.value + "CheckLegailty",
+		"inputTypes": []
+	};
+
+	gameDescription.actionTemplates.push(newActionTemp);
+
+	var actionSel = document.getElementById("cardActionSelect");
+	var newOption = document.createElement("OPTION");
+	newOption.value = newActionText.value;
+	var text = document.createTextNode(newActionText.value);
+
+	newOption.appendChild(text);
+	actionSel.appendChild(newOption);
+
+}
+
 function applyCardChanges() {
 	var cardForm = document.getElementById("card_form");
 	var card = currentCard;
@@ -311,6 +365,58 @@ function applyCardChanges() {
 	}
 
 	return false;
+}
+
+function editAction() {
+	fillActionInfo(document.getElementById("cardActionSelect").value);
+}
+
+function fillActionInfo(actionName) {
+	clearActionInfo();
+
+	var editor = $("#action_editor");
+	editor.dialog({
+		title: "Editing Action: " + actionName
+	});
+	editor.dialog("open");
+
+	var actionTemplate = lookupActionTemplate(actionName, gameDescription);
+	currentActionTemp = actionTemplate;
+
+	document.getElementById("actionDesc").value = actionTemplate.description;
+
+	for (var input of actionTemplate.inputTypes) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = input;
+		var text = document.createTextNode(input);
+
+		var inputSelect = document.getElementById("inputSelect");
+		newOption.appendChild(text);
+		inputSelect.appendChild(newOption);
+	}
+
+	var resultString = "" + window[actionTemplate.result];
+	actionResultCode.setValue(resultString);
+
+	var checkLegalityString = "" + window[actionTemplate.checkLegality];
+	actionCheckLegalityCode.setValue(checkLegalityString);
+}
+
+function addInput() {
+
+}
+
+function applyActionChanges() {
+	currentActionTemp.description = document.getElementById("actionDesc").value;
+
+	//var newResult = new Function(actionResultCode.getValue());
+	//Uggh I don't like this, but using "new Function" wraps it in an anonymous function, which makes the window unable to access it
+	var newResult = eval("(" + actionResultCode.getValue() + ")");
+	window[currentActionTemp.result] = newResult;
+
+	//var newCheckLegality = new Function(actionCheckLegalityCode.getValue());
+	var newCheckLegality = eval("(" + actionCheckLegalityCode.getValue() + ")");
+	window[currentActionTemp.checkLegality] = newCheckLegality;
 }
 
 function exportJSON() {

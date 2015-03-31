@@ -39,3 +39,7 @@ body {
 	width: 48%;
 	display: inline-block;
 }
+
+#addExistingTemplate {
+	display: inline-block;
+}

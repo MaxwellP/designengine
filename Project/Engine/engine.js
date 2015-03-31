@@ -124,23 +124,33 @@ function generateActionsFromCard (card, gs, gd)
 
 function generateActionsWithoutInputs(card, gs)
 {
-	var actionList = [];
-	for (var i = 0; i < card.actions.length; i++)
-	{
-		var actionTemp = lookupActionTemplate(card.actions[i].templateName, gameDescription);
+	var allLegalActions = getLegalActionsFromCard(card, lookupPlayer(currentGS.turnPlayer, gs), gs);
 
-		var action = new Action (
-			actionTemp.name,
-			actionTemp,
-			card.id,
-			[],
-			actionTemp.name + "CheckLegality",
-			actionTemp.name + "Result");
-		
-		actionList.push(action);
+	var uniqueActionNames = [];
+
+	var blankActions = [];
+
+	for (var action of allLegalActions)
+	{
+		if (uniqueActionNames.indexOf(action.name) === -1)
+		{
+			uniqueActionNames.push(action.name);
+
+			var actionTemp = lookupActionTemplate(action.template.name, gameDescription);
+
+			var newAction = new Action (
+				actionTemp.name,
+				actionTemp,
+				card.id,
+				[],
+				actionTemp.name + "CheckLegality",
+				actionTemp.name + "Result");
+
+			blankActions.push(newAction);
+		}
 	}
 
-	return actionList;
+	return blankActions;
 }
 
 function applyAction (action, player, gs)
@@ -152,13 +162,18 @@ function applyAction (action, player, gs)
 
 	if (window[action.checkLegality].apply(this, actionInputs))
 	{
-		console.log("Player " + player.name + " attempted to preform the action \"" + action.name + "\".");
+		//console.log("Player " + player.name + " attempted to preform the action \"" + action.name + "\".");
 		if (player.controlsZone(lookupCard(action.cardID, gs).zone))
 		{
 			gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
 			window[action.result].apply(this, actionInputs);
 			//printGameState(gs);
+			//Check constantly checked things
 			checkWin(gs, gameDescription);
+			if (window[lookupPhase(gs.currentPhase, gameDescription).endCondition].apply(this, [gs]))
+			{
+				Event.Modify.endPhase(gs);
+			}
 			return true;
 		}
 		else

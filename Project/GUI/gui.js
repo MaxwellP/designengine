@@ -235,13 +235,16 @@ function drawCard (card) {
 	}
 	var attrYSpace = cardTextY;
 	ctx.font = "" + CARD_DEFAULT_FONT_SIZE / 2 + "px Georgia";
-	for (var attribute in card.attributes)
+	if (card.isVisibleTo(guiPlayer.name, currentGS))
 	{
-		attrYSpace += 10;
-		if (card.attributes.hasOwnProperty(attribute))
+		for (var attribute in card.attributes)
 		{
-			var attrText = "" + attribute + ": " + card.attributes[attribute];
-			ctx.fillText(attrText, cardTextX, attrYSpace, cardGUI.width);
+			attrYSpace += 10;
+			if (card.attributes.hasOwnProperty(attribute))
+			{
+				var attrText = "" + attribute + ": " + card.attributes[attribute];
+				ctx.fillText(attrText, cardTextX, attrYSpace, cardGUI.width);
+			}
 		}
 	}
 	ctx.restore();
@@ -326,15 +329,18 @@ function updateCardsInZones (gs) {
 				{
 					if (i == 0)
 					{
-						updateCard(currentCard, currentX, currentY, zone.cards.length);
+						//updateCard(currentCard, currentX, currentY, zone.cards.length);
+						updateCard(currentCard, currentX, currentY, i);
 					}
 					else if (i == 1)
 					{
-						updateCard(currentCard, currentX - DECK_OFFSET, currentY - DECK_OFFSET, zone.cards.length - 1);
+						//updateCard(currentCard, currentX - DECK_OFFSET, currentY - DECK_OFFSET, zone.cards.length - 1);
+						updateCard(currentCard, currentX - DECK_OFFSET, currentY - DECK_OFFSET, i);
 					}
 					else
 					{
-						updateCard(currentCard, currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2), zone.cards.length - i);
+						//updateCard(currentCard, currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2), zone.cards.length - i);
+						updateCard(currentCard, currentX - (DECK_OFFSET * 2), currentY - (DECK_OFFSET * 2), i);
 					}
 				}
 			};

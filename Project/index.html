@@ -95,14 +95,15 @@
 		<select id="cardActionSelect" size=4 class="attrSelect">
 		</select>
 		<div id="edit_card_attributes" class="inputEditor">
-			<button type="button" onclick="removeCardAttribute()">Remove</button>
+			<button type="button" onclick="removeAction()">Remove</button>
 			<button type="button" onclick="editAction()">Edit</button>
 		</div>
 		<div id="add_card_action">
 			<select id="templateSelect" class="attrSelect">
 			</select>
-			<input type="text" id="cardAttrName" class="attrName">
-			<button type="button" onclick="addNewCardAttribute()">Add New</button>
+			<button type="button" id="addExistingTemplate" onclick="addExistingActionTemplate()">Add</button>
+			<input type="text" id="newActionName" class="attrName">
+			<button type="button" onclick="addNewAction()">Add New</button>
 		</div>
 	</div>
 
