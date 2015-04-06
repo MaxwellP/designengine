@@ -394,7 +394,7 @@ var Event = {
 			*/
 			increaseAttributeBy: function(zoneName, attributeName, value, gamestate)
 			{
-				Event.Modify.zone.setAttribute(zoneName, attributeName, lookupZone(zoneName, gamestate).attributes[attributeName] + value, gamestate);
+				Event.Modify.Zone.setAttribute(zoneName, attributeName, lookupZone(zoneName, gamestate).attributes[attributeName] + value, gamestate);
 			},
 			/**
 			* Decreases the named zone's named attribute by the given value
@@ -406,7 +406,7 @@ var Event = {
 			*/
 			decreaseAttributeBy: function(zoneName, attributeName, value, gamestate)
 			{
-				Event.Modify.Player.setAttribute(zoneName, attributeName, lookupZone(zoneName, gamestate).attributes[attributeName] - value, gamestate);
+				Event.Modify.Zone.setAttribute(zoneName, attributeName, lookupZone(zoneName, gamestate).attributes[attributeName] - value, gamestate);
 			}
 		},
 		/**
@@ -424,15 +424,15 @@ var Event = {
 				index = 0;
 				gamestate.currentPhase = gameDescription.phases[0].name;
 				Event.Modify.endTurn(gamestate);
-				gameLog("Begin phase \"" + gamestate.currentPhase + "\".");
 			}
 			else
 			{
 				gamestate.currentPhase = gameDescription.phases[index].name;
 				gameLog("Begin phase \"" + gamestate.currentPhase + "\".");
+
+				//Run initial function for phase
+				window[lookupPhase(gamestate.currentPhase, gameDescription).init].apply(this, [gamestate]);
 			}
-			//Run initial function for phase
-			window[lookupPhase(gamestate.currentPhase, gameDescription).init].apply(this, [gamestate]);
 		},
 		/**
 		* Ends the current turn and allows the next player in the turn structure to begin their turn.
@@ -452,6 +452,9 @@ var Event = {
 			gamestate.turnPlayer = gamestate.players[index].name;
 
 			gameLog("Begin " + gamestate.turnPlayer + "'s turn.");
+
+			gameLog("Begin phase \"" + gamestate.currentPhase + "\".");
+			window[lookupPhase(gamestate.currentPhase, gameDescription).init].apply(this, [gamestate]);
 
 			player = lookupPlayer(gamestate.turnPlayer, gamestate)
 			//Run AI if it is AI's turn

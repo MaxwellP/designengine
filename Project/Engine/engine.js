@@ -27,7 +27,7 @@ function readJSON(file)
 			read.stateScore,
 			read.phases);
 		var gameState = newGameDescription.initializeGameState();
-		initZoneGUI = read.zoneGUI;
+		initializePercents(read.zoneGUI, read.playerGUI);
 		gameDescription = newGameDescription;
 		currentGS = gameState;
 		initialize(newGameDescription);
@@ -123,6 +123,73 @@ function generateActionsFromCard (card, gs, gd)
 	return actionList;
 }
 
+//Merge with the above function????????????????
+
+function generateActionsFromPlayer (player, gs, gd)
+{
+	var actionList = [];
+
+	for (var pAction of player.actions)
+	{
+		var actionTemp = lookupActionTemplate(pAction.templateName, gd);
+		var possibleInputs = [];
+		if(actionTemp.inputTypes.length === 0)
+		{
+			var action = new Action (
+				actionTemp.name,
+				actionTemp,
+				player.name, ////////////////////////////////////////////////////////////////////////////////////////////////////// <<<<---------error?
+				[],
+				actionTemp.name + "CheckLegality",
+				actionTemp.name + "Result");
+			actionList.push(action);
+		}
+		//If the length is 0, this for loop is skipped
+		for(var j = 0; j < actionTemp.inputTypes.length; j += 1)
+		{
+			switch(actionTemp.inputTypes[j])
+			{
+				case "zone":
+					possibleInputs.push(getZoneNameArray(gs));
+					break;
+				case "player":
+					possibleInputs.push(getPlayerNameArray(gs));
+					break;
+				case "card":
+					possibleInputs.push(getCardIDArray(gs));
+					break;
+				case "given":
+					/*var argToPush = [];
+					argToPush[0] = card.actions[i].givenArgs[j];
+					possibleInputs.push(argToPush);
+					*/
+					console.log("The code for this is not ready");
+					break;
+				default:
+					console.log("The argument type " + actionTemp.inputTypes[j] + " is invalid.");
+					break;
+			}
+		}
+		for (var j = 0; j < possibleInputs.length; j++)
+		{
+			var possibleArgCombs = cartProd.apply(this, possibleInputs);
+			for (var k = 0; k < possibleArgCombs.length; k++)
+			{
+				var action = new Action (
+					actionTemp.name,
+					actionTemp,
+					card.id,
+					possibleArgCombs[k],
+					actionTemp.name + "CheckLegality",
+					actionTemp.name + "Result");
+				actionList.push(action);
+			}
+		}
+	}
+
+	return actionList;
+}
+
 function generateActionsWithoutInputs(card, gs)
 {
 	var allLegalActions = getLegalActionsFromCard(card, lookupPlayer(currentGS.turnPlayer, gs), gs);
@@ -154,6 +221,41 @@ function generateActionsWithoutInputs(card, gs)
 	return blankActions;
 }
 
+function generateActionsWithoutInputsPlayer(player, gs)
+{
+	if (player.name !== gs.turnPlayer)
+	{
+		return [];
+	}
+	var allLegalActions = getLegalActionsFromPlayer(player, gs);
+
+	var uniqueActionNames = [];
+
+	var blankActions = [];
+
+	for (var action of allLegalActions)
+	{
+		if (uniqueActionNames.indexOf(action.name) === -1)
+		{
+			uniqueActionNames.push(action.name);
+
+			var actionTemp = lookupActionTemplate(action.template.name, gameDescription);
+
+			var newAction = new Action (
+				actionTemp.name,
+				actionTemp,
+				player.name,
+				[],
+				actionTemp.name + "CheckLegality",
+				actionTemp.name + "Result");
+
+			blankActions.push(newAction);
+		}
+	}
+
+	return blankActions;
+}
+
 function applyAction (action, player, gs)
 {
 	var actionInputs = action.inputs.slice();
@@ -164,7 +266,9 @@ function applyAction (action, player, gs)
 	if (window[action.checkLegality].apply(this, actionInputs))
 	{
 		//console.log("Player " + player.name + " attempted to preform the action \"" + action.name + "\".");
-		if (player.controlsZone(lookupCard(action.cardID, gs).zone))
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////// create a real system instead of looking at the typeof the action.cardID
+		if (typeof(action.cardID) === "string" || player.controlsZone(lookupCard(action.cardID, gs).zone))
 		{
 			gameLog("Player " + player.name + " performed the action \"" + action.name + "\".")
 			window[action.result].apply(this, actionInputs);
@@ -205,10 +309,31 @@ function getLegalActions (playerObj, gs) {
 			}
 		}
 	}
+	legalActions = legalActions.concat(getLegalActionsFromPlayer(playerObj, gs));
+	return legalActions;
+
+}
+
+function getLegalActionsFromPlayer (playerObj, gs) {
+	var legalActions = [];
+	var currentActions = generateActionsFromPlayer(playerObj, gs, gameDescription);
+
+	for (var k = 0; k < currentActions.length; k++)
+	{
+		var action = currentActions[k]
+		var actionInputs = action.inputs.slice();
+		actionInputs.push(playerObj);
+		actionInputs.push(action);
+		actionInputs.push(gs);
+		if (window[action.checkLegality].apply(this, actionInputs))
+		{
+			legalActions.push(action);
+		}
+	}
 	return legalActions;
 }
 
-function getLegalActionsFromCard (card, player, gs) {
+function getLegalActionsFromCard (card, playerObj, gs) {
 	var legalActions = [];
 	var currentActions = generateActionsFromCard(card, gs, gameDescription);
 
@@ -216,7 +341,7 @@ function getLegalActionsFromCard (card, player, gs) {
 	{
 		var action = currentActions[k]
 		var actionInputs = action.inputs.slice();
-		actionInputs.push(player);
+		actionInputs.push(playerObj);
 		actionInputs.push(action);
 		actionInputs.push(gs);
 		if (window[action.checkLegality].apply(this, actionInputs))
