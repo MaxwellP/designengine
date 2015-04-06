@@ -11,6 +11,11 @@ var CARD_HEIGHT = 100;
 var CARD_OUTLINE_WEIGHT = "3";
 var CARD_DEFAULT_FONT_SIZE = 20;
 
+var PLAYER_WIDTH = 100;
+var PLAYER_HEIGHT = 70;
+var PLAYER_OUTLINE_WEIGHT = "3";
+var PLAYER_DEFAULT_FONT_SIZE = 20;
+
 var ZONE_OUTLINE_WEIGHT = "3";
 var ZONE_MARGIN = 10;
 
@@ -29,9 +34,11 @@ var ctx;
 //var mouseY;
 
 var initZoneGUI;
+var initPlayerGUI;
 
 var cardsGUIInfo = [];
 var zonesGUIInfo = [];
+var playersGUIInfo = [];
 
 var waitingForPlayerInput = false;
 var queuedAction;
@@ -42,6 +49,8 @@ var draggingZone = false;
 var dragZoneGUIInfo;
 var draggingCard = false;
 var dragCardGUIInfo;
+var draggingPlayer = false;
+var dragPlayerGUIInfo;
 var prevX;
 var prevY;
 
@@ -74,6 +83,7 @@ function Init () {
 
 	initCardGUIInfo(currentGS);
 	initZoneGUIInfo(currentGS);
+	initPlayerGUIInfo(currentGS);
 
 	//zoneGridLayout(currentGS.zones)
 
@@ -101,6 +111,7 @@ function renderFrame () {
 
 	drawAllZones(currentGS);
 	drawAllCards(currentGS);
+	drawAllPlayers(currentGS);
 	drawAllPopUpMenus();
 
 	highlight();
@@ -109,6 +120,11 @@ function renderFrame () {
 
 function clearFrame () {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function initializePercents (zoneGUI, playerGUI) {
+	initZoneGUI = zoneGUI;
+	initPlayerGUI = playerGUI;
 }
 
 function CardGUIInfo (card)
@@ -134,6 +150,18 @@ function ZoneGUIInfo (zone, xPct, yPct)
 	this.height = getZoneHeight(zone);
 }
 
+function PlayerGUIInfo (player, xPct, yPct)
+{
+	this.name = player.name;
+	this.x = 0;
+	this.y = 0;
+	this.xPct = xPct;
+	this.yPct = yPct;
+	this.width = PLAYER_WIDTH;
+	this.height = PLAYER_HEIGHT;
+	this.fontSize = PLAYER_DEFAULT_FONT_SIZE;
+}
+
 function initCardGUIInfo (gs) {
 	for (var i = 0; i < gs.cards.length; i++) {
 		var newCardInfo = new CardGUIInfo(gs.cards[i]);
@@ -146,6 +174,14 @@ function initZoneGUIInfo (gs) {
 		var guiObj = lookupInitZoneGUI(gs.zones[i].name);
 		var newZoneInfo = new ZoneGUIInfo(gs.zones[i], guiObj.xPct, guiObj.yPct);
 		zonesGUIInfo.push(newZoneInfo);
+	};
+}
+
+function initPlayerGUIInfo (gs) {
+	for (var i = 0; i < gs.players.length; i++) {
+		var playerObj = lookupInitPlayerGUI(gs.players[i].name);
+		var newPlayerInfo = new PlayerGUIInfo(gs.players[i], playerObj.xPct, playerObj.yPct);
+		playersGUIInfo.push(newPlayerInfo);
 	};
 }
 
@@ -177,6 +213,20 @@ function lookupZoneGUI(zone)
 	return false;
 };
 
+function lookupPlayerGUI(player)
+{
+	for(var i = 0; i < playersGUIInfo.length; i += 1)
+	{
+		if (playersGUIInfo[i].name == player.name)
+		{
+			return playersGUIInfo[i];
+		}
+	}
+	console.log("Could not find playerGUIInfo with name \"" + player.name + "\".");
+	throw new Error("PlayerGUIInfo Lookup Error");
+	return false;
+};
+
 function lookupInitZoneGUI(zoneName)
 {
 	for(var i = 0; i < initZoneGUI.length; i += 1)
@@ -186,14 +236,32 @@ function lookupInitZoneGUI(zoneName)
 			return initZoneGUI[i];
 		}
 	}
-	console.log("Could not find zoneGUIInfo with name \"" + zone.name + "\".");
+	console.log("Could not find zoneGUIInfo with name \"" + zoneName + "\".");
 	throw new Error("ZoneGUIInfo Lookup Error");
+	return false;
+}; 
+
+function lookupInitPlayerGUI(playerName)
+{
+	for(var i = 0; i < initPlayerGUI.length; i += 1)
+	{
+		if (initPlayerGUI[i].name == playerName)
+		{
+			return initPlayerGUI[i];
+		}
+	}
+	console.log("Could not find playerGUIInfo with name \"" + playerName + "\".");
+	throw new Error("PlayerGUIInfo Lookup Error");
 	return false;
 }; 
 
 function updateGUI (gs) {
 	for (var i = 0; i < gs.zones.length; i++) {
 		updateZone(gs.zones[i]);
+	};
+
+	for (var i = 0; i < gs.players.length; i++) {
+		updatePlayer(gs.players[i]);
 	};
 
 	updateCardsInZones(gs);
@@ -282,6 +350,18 @@ function drawZoneBox (x, y, width, height, name) {
 		ctx.fillText(name, x - (width / 2), y - (height / 2) - ZONE_OUTLINE_WEIGHT, width);
 		ctx.restore();
 	}
+
+	var zone = lookupZone(name, currentGS);
+	var attrYSpace = y + height / 2;
+	for (var attribute in zone.attributes)
+	{
+		attrYSpace += 10;
+		if (zone.attributes.hasOwnProperty(attribute))
+		{
+			var attrText = "" + attribute + ": " + zone.attributes[attribute];
+			ctx.fillText(attrText, x, attrYSpace, width);
+		}
+	}
 }
 
 // ADD TYPE TO ZONE DEFINITION
@@ -300,9 +380,9 @@ function updateZone (zone) {
 	zoneGUI.height = zoneHeight;
 }
 
-function updatePercents (zoneGUI) {
-	zoneGUI.xPct = (zoneGUI.x / canvas.width);
-	zoneGUI.yPct = (zoneGUI.y / canvas.height);
+function updatePercents (guiInfo) {
+	guiInfo.xPct = (guiInfo.x / canvas.width);
+	guiInfo.yPct = (guiInfo.y / canvas.height);
 }
 
 function drawZone (zone) {
@@ -420,6 +500,59 @@ function drawAllZones (gs) {
 	};
 }
 
+function updatePlayer (player) {
+	var playerGUI = lookupPlayerGUI(player);
+
+	if (!draggingPlayer)
+	{
+		playerGUI.x = canvas.width * playerGUI.xPct;
+		playerGUI.y = canvas.height * playerGUI.yPct;
+	}
+}
+
+function drawPlayer (player) {
+	var playerGUI = lookupPlayerGUI(player);
+
+	ctx.save();
+	ctx.beginPath();
+	ctx.lineWidth = PLAYER_OUTLINE_WEIGHT;
+	ctx.strokeStyle = "black";
+	ctx.rect(playerGUI.x, playerGUI.y, playerGUI.width, playerGUI.height);
+	ctx.stroke();
+	ctx.fillStyle = "white";
+	ctx.fill();
+	ctx.restore();
+
+	ctx.save();
+	ctx.font = "" + PLAYER_DEFAULT_FONT_SIZE + "px Georgia";
+	ctx.fillStyle = "black";
+	ctx.textAlign = "left";
+	
+	var playerTextX = playerGUI.x;
+	var playerTextY = playerGUI.y + (playerGUI.fontSize / 2) + 5;
+	
+	ctx.fillText(player.name, playerTextX, playerTextY, playerGUI.width);
+
+	var attrYSpace = playerTextY;
+	ctx.font = "" + PLAYER_DEFAULT_FONT_SIZE / 2 + "px Georgia";
+	for (var attribute in player.attributes)
+	{
+		attrYSpace += 10;
+		if (player.attributes.hasOwnProperty(attribute))
+		{
+			var attrText = "" + attribute + ": " + player.attributes[attribute];
+			ctx.fillText(attrText, playerTextX, attrYSpace, playerGUI.width);
+		}
+	}
+	ctx.restore();
+}
+
+function drawAllPlayers (gs) {
+	for (var i = 0; i < gs.players.length; i++) {
+		drawPlayer(gs.players[i]);
+	};
+}
+
 function findCard (x, y) {
 	for (var i = cardsGUIInfo.length - 1; i >= 0; i--) {
 		var cardGUI = cardsGUIInfo[i];
@@ -428,6 +561,19 @@ function findCard (x, y) {
 		{
 			//console.log(card);
 			return card;
+		}
+	};
+	return false;
+}
+
+function findPlayer (x, y) {
+	for (var i = playersGUIInfo.length - 1; i >= 0; i--) {
+		var playerGUI = playersGUIInfo[i];
+		var player = lookupPlayer(playerGUI.name, currentGS);
+		if (x >= playerGUI.x && x <= (playerGUI.x + playerGUI.width) && y >= playerGUI.y && y <= (playerGUI.y + playerGUI.height))
+		{
+			//console.log(card);
+			return player;
 		}
 	};
 	return false;
@@ -550,8 +696,20 @@ function drawAllPopUpMenus () {
 	};
 }
 
-function addActionMenu (card, x, y) {
+function addActionMenuCard (card, x, y) {
 	var actionList = generateActionsWithoutInputs(card, currentGS);
+
+	var menuOptions = [];
+	for (var i = 0; i < actionList.length; i++) {
+		menuOptions.push(actionList[i]);
+	};
+
+	var moveMenu = new PopUpMenu(x, y, menuOptions);
+	popUpMenus.push(moveMenu);
+}
+
+function addActionMenuPlayer (player, x, y) {
+	var actionList = generateActionsWithoutInputsPlayer(player, currentGS);
 
 	var menuOptions = [];
 	for (var i = 0; i < actionList.length; i++) {
@@ -704,27 +862,71 @@ function DoMouseUp (e) {
 					}
 				}
 			}
-		}
-		else
-		{
-			var clickedMenu = findPopUpMenu(mouseX, mouseY);
-			if (clickedMenu)
-			{
-				clickedMenu.getOption(mouseX, mouseY);
-			}
-			else
+			if (inputType == "card")
 			{
 				var clickedCard = findCard(mouseX, mouseY);
 				if (clickedCard)
 				{
-					popUpMenus = [];
-					addActionMenu(clickedCard, mouseX, mouseY);
-				}
-				else
-				{
-					popUpMenus = [];
+					queuedAction.inputs.push(clickedCard.id);
+					currentInput += 1;
+					if (currentInput >= queuedAction.template.inputTypes.length)
+					{
+						applyAction(queuedAction, guiPlayer, currentGS);
+						waitingForPlayerInput = false;
+					}
 				}
 			}
 		}
+		else
+		{
+			var clickedMenu = findPopUpMenu(mouseX, mouseY);
+			var clickedCard = findCard(mouseX, mouseY);
+			var clickedPlayer = findPlayer(mouseX, mouseY);
+			if (clickedMenu)
+			{
+				clickedMenu.getOption(mouseX, mouseY);
+			}
+			else if (clickedCard)
+			{
+				popUpMenus = [];
+				addActionMenuCard(clickedCard, mouseX, mouseY);
+			}
+			else if (clickedPlayer)
+			{
+				popUpMenus = [];
+				addActionMenuPlayer(clickedPlayer, mouseX, mouseY);
+			}
+			else
+			{
+				popUpMenus = [];
+			}
+		}
+	}
+}
+
+//Special thanks to Juan Mendes
+function roundRect(x, y, width, height, radius, fill, stroke) {
+	if (typeof stroke == "undefined" ) {
+		stroke = true;
+	}
+	if (typeof radius === "undefined") {
+		radius = 5;
+	}
+	ctx.beginPath();
+	ctx.moveTo(x + radius, y);
+	ctx.lineTo(x + width - radius, y);
+	ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+	ctx.lineTo(x + width, y + height - radius);
+	ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+	ctx.lineTo(x + radius, y + height);
+	ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+	ctx.lineTo(x, y + radius);
+	ctx.quadraticCurveTo(x, y, x + radius, y);
+	ctx.closePath();
+	if (stroke) {
+		ctx.stroke();
+	}
+	if (fill) {
+		ctx.fill();
 	}
 }

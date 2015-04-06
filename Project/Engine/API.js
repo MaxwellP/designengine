@@ -72,7 +72,7 @@ var API = {
 		},
 		/**
 		* Returns if the card is currently in the given zone
-		* @method API.CardLookup.cardInZone
+		* @method API.CardLookup.isCardInZone
 		* @param {Int} cardID - the name of the card whose attribute's value is being checked
 		* @param {String} zoneName - the name of the zone to check if the card is in
 		* @param {GameState} gamestate - the gamestate in which this call is taking place
@@ -185,6 +185,20 @@ var API = {
 			{
 				var card = lookupCard(cardID, gamestate);
 				return card.attributes[attributeName];
+			}
+		},
+		Zone: {
+			/**
+			* Returns the given zone's value for the given named attribute
+			* @method API.ValueLookup.Zone.getAttribute
+			* @param {String} zoneName - the name of the zone whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute to get the value of
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			getAttribute: function (zoneName, attributeName, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				return zone.attributes[attributeName];
 			}
 		},
 		Player: {

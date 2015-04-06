@@ -17,12 +17,12 @@
 			"type": "deck",
 			"visibleTo": ["P1", "P2"]},
 		{"name": "P2 Ships",
-			"attributes": {},
+			"attributes": {"Barrier": 0},
 			"cards": [],
 			"type": "showEachCard",
 			"visibleTo": ["P1", "P2"]},
 		{"name": "P1 Ships",
-			"attributes": {},
+			"attributes": {"Barrier": 0},
 			"cards": [],
 			"type": "showEachCard",
 			"visibleTo": ["P1", "P2"]}
@@ -34,6 +34,11 @@
 		{"name": "Scrap Pile", "xPct": 0.1, "yPct": 0.9},
 		{"name": "P2 Ships", "xPct": 0.5, "yPct": 0.2},
 		{"name": "P1 Ships", "xPct": 0.5, "yPct": 0.8}
+	],
+	"playerGUI":
+	[
+		{"name": "P1", "xPct": 0.7, "yPct": 0.9},
+		{"name": "P2", "xPct": 0.7, "yPct": 0.1}
 	],
 	"universes":
 	[
@@ -50,7 +55,7 @@
 			"actions": [{"templateName": "buy"}, {"templateName": "reject"}, {"templateName": "attack"}],
 			"universe": "ship"},
 		{"name": "Dragon",
-			"attributes": {"Cost": 11, "HP": 9, "FullHP": 9, "Attack": 6},
+			"attributes": {"Cost": 11, "HP": 9, "FullHP": 9, "Attack": 5},
 			"actions": [{"templateName": "buy"}, {"templateName": "reject"}, {"templateName": "attack"}],
 			"universe": "ship"},
 		{"name": "Spreadshot",
@@ -66,7 +71,7 @@
 			"actions": [{"templateName": "buy"}, {"templateName": "reject"}, {"templateName": "attack"}, {"templateName": "salvage"}],
 			"universe": "ship"},
 		{"name": "Railgun",
-			"attributes": {"Cost": 5, "HP": 5, "FullHP": 5, "Attack": 3},
+			"attributes": {"Cost": 5, "HP": 6, "FullHP": 6, "Attack": 3},
 			"actions": [{"templateName": "buy"}, {"templateName": "reject"}, {"templateName": "attack"}, {"templateName": "railgun"}],
 			"universe": "ship"},
 		{"name": "Miner",
@@ -74,7 +79,7 @@
 			"actions": [{"templateName": "buy"}, {"templateName": "reject"}, {"templateName": "attack"}, {"templateName": "mine"}],
 			"universe": "ship"},
 		{"name": "Sniper",
-			"attributes": {"Cost": 6, "HP": 5, "FullHP": 5, "Attack": 3},
+			"attributes": {"Cost": 6, "HP": 6, "FullHP": 6, "Attack": 3},
 			"actions": [{"templateName": "buy"}, {"templateName": "reject"}, {"templateName": "attack"}, {"templateName": "snipe"}],
 			"universe": "ship"},
 		{"name": "Generator",
@@ -91,19 +96,19 @@
 			"inputTypes": []
 		},
 		{"name": "reject",
-			"description": "Reject this ship and gain money.",
+			"description": "Reject this ship and gain 5 Money.",
 			"result": "rejectResult",
 			"checkLegality": "rejectCheckLegality",
 			"inputTypes": []
 		},
 		{"name": "attack",
-			"description": "Attack the oldest enemy ship.",
+			"description": "Attack the leftmost enemy ship.",
 			"result": "attackResult",
 			"checkLegality": "attackCheckLegality",
 			"inputTypes": []
 		},
 		{"name": "spreadshot",
-			"description": "Deal 1 damage to each enemy.",
+			"description": "Deal 2 damage to each enemy.",
 			"result": "spreadshotResult",
 			"checkLegality": "spreadshotCheckLegality",
 			"inputTypes": []
@@ -115,13 +120,13 @@
 			"inputTypes": []
 		},
 		{"name": "salvage",
-			"description": "(-1 Gem, -$5) Gain the most recently scrapped ship.",
+			"description": "(-1 Gem -$5) Gain the most recently scrapped ship.",
 			"result": "salvageResult",
 			"checkLegality": "salvageCheckLegality",
 			"inputTypes": []
 		},
 		{"name": "railgun",
-			"description": "(-1 Gem) Attack for 6 Damage",
+			"description": "(-1 Gem) Attack for 6 Damage.",
 			"result": "railgunResult",
 			"checkLegality": "railgunCheckLegality",
 			"inputTypes": []
@@ -133,42 +138,47 @@
 			"inputTypes": []
 		},
 		{"name": "snipe",
-			"description": "(-$3) Deal 3 damage to the newest enemy ship.",
+			"description": "(-$3) Deal 5 damage to a chosen enemy ship.",
 			"result": "snipeResult",
 			"checkLegality": "snipeCheckLegality",
-			"inputTypes": []
+			"inputTypes": ["card"]
 		},
 		{"name": "generate",
-			"description": "(-1 Gem) Gain $6 and attack for 4 Damage",
+			"description": "(-1 Gem) Gain $8. Does not cost Energy.",
 			"result": "generateResult",
 			"checkLegality": "generateCheckLegality",
 			"inputTypes": []
-		}
+		},
+		{"name": "upgrade",
+			"description": "(-$8) Upgrade your barrier to reduce incoming attack damage.",
+			"result": "upgradeResult",
+			"checkLegality": "upgradeCheckLegality",
+			"inputTypes": []}
 	],
 	"playerTemplate":
 	{
 		"zoneTags" : ["ships", "queue"],
 		"attributeNames" : ["Money", "Gems", "Energy"],
-		"actions" : []
+		"actions" : [{"templateName": "upgrade"}]
 	},
 	"players":
 	[
 		{"name": "P1",
 			"zones": ["P1 Ships", "Ship Queue"],
-			"attributes": [10, 3, 2],
+			"attributes": [10, 1, 2],
 			"isAI": false
 		},
 		{"name": "P2",
 			"zones": ["P2 Ships", "Ship Queue"],
-			"attributes": [10, 3, 2],
+			"attributes": [10, 1, 2],
 			"isAI": true
 		}
 	],
 	"init":
 	[
 		{"zoneName": "Ship Deck", "cardNames": ["Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator", "Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator"]},
-		{"zoneName": "P1 Ships", "cardNames": ["Monkey", "Tiger"]},
-		{"zoneName": "P2 Ships", "cardNames": ["Monkey", "Tiger"]},
+		{"zoneName": "P1 Ships", "cardNames": ["Monkey", "Tiger", "Miner"]},
+		{"zoneName": "P2 Ships", "cardNames": ["Monkey", "Tiger", "Miner"]},
 		{"zonesPerLine": 1}	],
 	"functionFile": "spaceships.js",
 	"gameName": "spaceships",
