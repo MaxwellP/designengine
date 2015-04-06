@@ -590,6 +590,8 @@ function exportJSON() {
 
 	jsonRoot.functionFile = gameDescription.functionFile;
 
+	jsonRoot.gameName = gameDescription.gameName;
+
 	jsonRoot.setupFunction = gameDescription.setupFunction;
 
 	jsonRoot.winCondition = gameDescription.winCondition;
@@ -599,4 +601,44 @@ function exportJSON() {
 	jsonRoot.phases = gameDescription.phases;
 	
 	console.log(JSON.stringify(jsonRoot));
+}
+
+function exportJavaScript () {
+	var gName = gameDescription.gameName;
+	var jsFile = "//" + gName + "\n\n";
+
+	//-Setup
+	var setupFunc = window[gameDescription.setupFunction];
+	jsFile += setupFunc + "\n\n";
+
+	//Actions:
+	// -Result
+	// -CheckLegality
+	for (var aTemplate of gameDescription.actionTemplates)
+	{
+		var checkLegal = window[aTemplate.checkLegality]
+		var result = window[aTemplate.result];
+		jsFile += result + "\n\n" + checkLegal + "\n\n";
+	}
+
+	//-Win Condition
+	var winCond = window[gameDescription.winCondition];
+	jsFile += winCond + "\n\n";
+
+	//-State Score
+	var stateScore = window[gameDescription.stateScore];
+	jsFile += stateScore + "\n\n";
+
+	//Phases:
+	//-Init
+	//-End
+	for (var phase of gameDescription.phases)
+	{
+		var phaseInit = window[phase.init];
+		var phaseEndCond = window[phase.endCondition];
+		jsFile += phaseInit + "\n\n" + phaseEndCond + "\n\n";
+	}
+
+	console.log(jsFile);
+	return jsFile;
 }
