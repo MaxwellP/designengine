@@ -1,0 +1,20 @@
+Meeting Notes 3-31-2015
+
+Tutorial - work in Input Types
+(Slight balancing)
+
+
+**Remove Gamestate variable
+
+button for init design
+
+check for duplicate names, actions, etc on cards
+
+codemirror line numbers on side
+
+animation for gameplay
+
+JSON formatter "prettifyer"
+
+FIGs - September 13 - goal for presenting
+
