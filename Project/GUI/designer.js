@@ -520,12 +520,12 @@ function applyOtherChanges() {
 	}
 }
 
-function saveGame() {
-	SaveJSON();
-	SaveJavaScript();
+function saveGame(gameName) {
+	SaveJSON(gameName);
+	SaveJavaScript(gameName);
 }
 
-function exportJSON() {
+function exportJSON(newGameName) {
 	var jsonRoot = {};
 	jsonRoot.zones = [];
 	for (var i = 0; i < currentGS.zones.length; i++)
@@ -551,6 +551,18 @@ function exportJSON() {
 		tempGUI.yPct = curGUIInfo.yPct;
 
 		jsonRoot.zoneGUI.push(tempGUI);
+	}
+
+	jsonRoot.playerGUI = [];
+	for (var i = 0; i < playersGUIInfo.length; i++)
+	{
+		var curGUIInfo = playersGUIInfo[i];
+		var tempGUI = {};
+		tempGUI.name = curGUIInfo.name;
+		tempGUI.xPct = curGUIInfo.xPct;
+		tempGUI.yPct = curGUIInfo.yPct;
+
+		jsonRoot.playerGUI.push(tempGUI);
 	}
 
 	jsonRoot.universes = gameDescription.universes;
@@ -589,7 +601,7 @@ function exportJSON() {
 
 	jsonRoot.init = gameDescription.init;
 
-	jsonRoot.functionFile = gameDescription.functionFile;
+	jsonRoot.functionFile = newGameName + ".js";//gameDescription.functionFile;
 
 	jsonRoot.gameName = gameDescription.gameName;
 
@@ -602,11 +614,11 @@ function exportJSON() {
 	jsonRoot.phases = gameDescription.phases;
 	
 	//console.log(JSON.stringify(jsonRoot));
-	return JSON.stringify(jsonRoot);
+	return JSON.stringify(jsonRoot, null, "\t");
 }
 
-function exportJavaScript () {
-	var gName = gameDescription.gameName;
+function exportJavaScript (newGameName) {
+	var gName = newGameName;//gameDescription.gameName;
 	var jsFile = "//" + gName + "\n\n";
 
 	//-Setup
@@ -672,10 +684,10 @@ function FileSave (data, filename, filetype) {
 	a.dispatchEvent(e)
 }
 
-function SaveJavaScript () {
-	FileSave(exportJavaScript(), gameDescription.gameName + ".js", "text/javascript");
+function SaveJavaScript (newGameName) {
+	FileSave(exportJavaScript(newGameName), newGameName + ".js", "text/javascript");
 }
 
-function SaveJSON () {
-	FileSave(exportJSON(), gameDescription.gameName + ".json", "text/json");
+function SaveJSON (newGameName) {
+	FileSave(exportJSON(newGameName), newGameName + ".json", "text/json");
 }

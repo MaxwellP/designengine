@@ -81,6 +81,11 @@ function Init () {
 	canvas.width = window.innerWidth - 20;
 	canvas.height = window.innerHeight - 20;
 
+	InitGameGuiInfo();
+}
+
+function InitGameGuiInfo () {
+
 	initCardGUIInfo(currentGS);
 	initZoneGUIInfo(currentGS);
 	initPlayerGUIInfo(currentGS);
@@ -94,6 +99,10 @@ function Init () {
 
 function Update () {
 	requestAnimFrame(Update);
+	if (loading)
+	{
+		return;
+	}
 	renderFrame();
 }
 
@@ -868,6 +877,20 @@ function DoMouseUp (e) {
 				if (clickedCard)
 				{
 					queuedAction.inputs.push(clickedCard.id);
+					currentInput += 1;
+					if (currentInput >= queuedAction.template.inputTypes.length)
+					{
+						applyAction(queuedAction, guiPlayer, currentGS);
+						waitingForPlayerInput = false;
+					}
+				}
+			}
+			if (inputType == "player")
+			{
+				var clickedPlayer = findPlayer(mouseX, mouseY);
+				if (clickedPlayer)
+				{
+					queuedAction.inputs.push(clickedPlayer.name);
 					currentInput += 1;
 					if (currentInput >= queuedAction.template.inputTypes.length)
 					{

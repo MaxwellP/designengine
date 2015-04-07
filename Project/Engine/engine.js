@@ -5,8 +5,20 @@ var printLog = true;
 
 var designing = false;
 
+var loading = true;
+var didFirstTimeGuiSetup = false;
+
 function readJSON(file)
 {
+	loading = true;
+	cardIDCounter = 0;
+	playerIDCounter = 0;
+
+	cardsGUIInfo = [];
+	playersGUIInfo = [];
+	zonesGUIInfo = [];
+
+
 	var request = new XMLHttpRequest();
 	request.open("GET", "Games/" + file + ".json", true);
 	request.onload = function(response)
@@ -31,20 +43,26 @@ function readJSON(file)
 		gameDescription = newGameDescription;
 		currentGS = gameState;
 		initialize(newGameDescription);
+		loading = false;
+
+		InitGameGuiInfo();
+		didFirstTimeGuiSetup = true;
 	};
 	request.send();
 }
 
 function initialize(gd)
 {
-	//debugger;
 	var imported = document.createElement("script");
 	imported.src = "Games/" + gd.functionFile;
 	document.head.appendChild(imported);
 	
 	imported.onload = function(response)
 	{
-		Init();
+		if (!didFirstTimeGuiSetup)
+		{
+			Init();
+		}
 		gameLog("Initialized game state.");
 		
 		gameSetup(currentGS);
@@ -178,7 +196,7 @@ function generateActionsFromPlayer (player, gs, gd)
 				var action = new Action (
 					actionTemp.name,
 					actionTemp,
-					card.id,
+					player.name,
 					possibleArgCombs[k],
 					actionTemp.name + "CheckLegality",
 					actionTemp.name + "Result");

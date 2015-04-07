@@ -59,11 +59,12 @@ function toggleZoneBoolResult()
 	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var targetZone = lookupZone(arguments[0], gamestate);
+	var targetZone = arguments[0];
+	
 	Event.Modify.Zone.setAttribute(
 		targetZone,
 		"boolean",
-		!targetZone.attributes["boolean"],
+		!API.ValueLookup.Zone.getAttribute(targetZone, "boolean", gamestate),
 		gamestate);
 }
 function toggleZoneBoolCheckLegality()
@@ -80,7 +81,7 @@ function newPlayerStringResult()
 	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var targetPlayer = lookupPlayer(arguments[0], gamestate);
+	var targetPlayer = arguments[0];
 
 	var text = "";
 	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -99,7 +100,7 @@ function newPlayerStringCheckLegality()
 	var player = arguments[arguments.length - 3].name;
 	var action = arguments[arguments.length - 2];
 	var gamestate = arguments[arguments.length - 1];
-	var targetPlayer = lookupPlayer(arguments[0], gamestate);
+	var targetPlayer = arguments[0];
 	return true;
 }
 
