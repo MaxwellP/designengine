@@ -11,6 +11,10 @@ $(function() {
 		{
 			currentZone = undefined;
 		}
+		else if (editorID === "player_editor")
+		{
+			currentPlayer = undefined;
+		}
 
 	}});
 	$(".editor").dialog("close");

@@ -6,6 +6,7 @@ var currentZone;
 var currentCard;
 var currentActionTemp;
 var currentOther;
+var currentPlayer;
 
 var actionResultCode;
 var actionCheckLegalityCode;
@@ -48,19 +49,27 @@ function highlight() {
 		
 		ctx.save();
 		ctx.beginPath();
-		ctx.lineWidth = ZONE_OUTLINE_WEIGHT;
+		ctx.lineWidth = ZONE_OUTLINE_WEIGHT * 1.5;
 		ctx.strokeStyle = "blue";
 		ctx.rect(zoneGUI.x - (zoneGUI.width / 2) - 10, zoneGUI.y - (zoneGUI.height / 2) - 10, zoneGUI.width + 20, zoneGUI.height + 20);
 		ctx.stroke();
 		ctx.restore();
-
-
-		//drawZoneBox(zoneGUI.x, zoneGUI.y, zoneGUI.width, zoneGUI.height, zone.name);
+	}
+	if (currentPlayer !== undefined)
+	{
+		var playerGUI = lookupPlayerGUI(currentPlayer);
+		
+		ctx.save();
+		ctx.beginPath();
+		ctx.lineWidth = CARD_OUTLINE_WEIGHT * 1.5;
+		ctx.strokeStyle = "blue";
+		ctx.rect(playerGUI.x - (playerGUI.width / 2) - 10, playerGUI.y - (playerGUI.height / 2) - 10, playerGUI.width + 20, playerGUI.height + 20);
+		ctx.stroke();
+		ctx.restore();
 	}
 }
 
 function addNewZone() {
-	console.log("addnewzone");
 	var newZoneName = document.getElementById("newZoneName").value;
 
 	var playerNames = [];
@@ -82,7 +91,17 @@ function addNewPlayer() {
 }
 
 function addNewCard() {
-	console.log("Adding new Card");
+	var newCardName = document.getElementById("newCardName").value;
+
+	var newCardType = {"name": newCardName, "attributes": {}, "actions": []};
+
+	var newCard = initCard(newCardType, currentGS.zones[0]);
+	var newCardGUI = new CardGUIInfo (newCard);
+	currentGS.cards.push(newCard);
+	currentGS.zones[0].cards.push(newCard.id);
+	
+
+	gameDescription.cardTypes.push(newCardType);
 }
 
 function hideAllInfo() {
@@ -112,7 +131,11 @@ function clearActionInfo() {
 }
 
 function clearPlayerInfo() {
-
+	document.getElementById("playerTagSelect").innerHTML = "";
+	document.getElementById("playerZoneSelect").innerHTML = "";
+	document.getElementById("playerZoneSelect").style.visibility = "hidden";
+	document.getElementById("playerAttrSelect").innerHTML = "";
+	document.getElementById("edit_player_attributes").style.visibility = "hidden";
 }
 
 function fillZoneInfo (zone, x, y) {
@@ -253,6 +276,9 @@ function applyZoneChanges() {
 		}
 	};
 	zone.visibleTo = visibleArr;
+
+	gameDescription.zones = currentGS.zones;
+
 	return false;
 }
 
@@ -423,6 +449,10 @@ function applyCardChanges() {
 	}
 
 	return false;
+
+	var cardType = lookupCardType(card.name, gameDescription);
+	cardType.attributes = objectClone(card.attributes);
+	cardType.actions = card.actions;
 }
 
 function editAction() {
@@ -553,37 +583,113 @@ function fillPlayerInfo (player, x, y) {
 
 	var playerForm = document.getElementById("player_form");
 
-	for (var index in playerTemp.zoneTags) {
+	for (var i = 0; i < playerTemp.zoneTags.length; i++) {
 		var newOption = document.createElement("OPTION");
-		newOption.value = index;
-		var text = document.createTextNode(index);
+		newOption.value = playerTemp.zoneTags[i];
+		var text = document.createTextNode(playerTemp.zoneTags[i]);
 
-		var attrSelect = document.getElementById("zoneAttrSelect");
+		var attrSelect = document.getElementById("playerTagSelect");
 		newOption.appendChild(text);
 		attrSelect.appendChild(newOption);
 	}
 
-	for (var i = 0; i < gameDescription.players.length; i++) {
-		var newCheckbox = document.createElement("INPUT");
-		newCheckbox.type = "checkbox";
-		newCheckbox.name = gameDescription.players[i].name;
-		var text = document.createTextNode(gameDescription.players[i].name);
-		//newCheckbox.appendChild(text);
+	for (var i = 0; i < playerTemp.attributeNames.length; i++) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = playerTemp.attributeNames[i];
+		var text = document.createTextNode(playerTemp.attributeNames[i]);
 
-		for (var j = 0; j < zone.visibleTo.length; j++) {
-			if (zone.visibleTo[j] == gameDescription.players[i].name)
-			{
-				newCheckbox.checked = true;
-			}
-		};
+		var attrSelect = document.getElementById("playerAttrSelect");
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
 
-		var checkboxDiv = document.getElementById("zone_player_checkboxes");
-		checkboxDiv.appendChild(newCheckbox);
-		checkboxDiv.appendChild(text);
+	currentPlayer = player;
+}
+
+function fillPlayerTagInfo () {
+	var zoneDropdown = document.getElementById("playerZoneSelect");
+	var tagSelect = document.getElementById("playerTagSelect");
+
+	zoneDropdown.innerHTML = "";
+	zoneDropdown.style.visibility = "visible";
+
+	var selectID = 0;
+
+	for (var i = 0; i < currentGS.zones.length; i++) {
+		if (currentGS.zones[i].name === currentPlayer.zones[tagSelect.value])
+		{
+			selectID = i;
+		}
+
+		var newOption = document.createElement("OPTION");
+		newOption.value = currentGS.zones[i].name;
+		var text = document.createTextNode(currentGS.zones[i].name);
+
+		var attrSelect = document.getElementById("playerZoneSelect");
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
 	};
 
-	positionZoneInfo(x, y);
-	currentZone = zone;
+	zoneDropdown.selectedIndex = selectID;
+}
+
+function fillPlayerAttributeInfo () {
+	var attrSelect = document.getElementById("playerAttrSelect");
+	var attrValue = document.getElementById("playerAttrValue");
+
+	document.getElementById("edit_player_attributes").style.visibility = "visible";
+
+	attrValue.value = currentPlayer.attributes[attrSelect.value];
+}
+
+function editPlayerTemplate () {
+	$("#playertemp_editor").dialog("open");
+
+	fillPlayerTemplateInfo();
+}
+
+function fillPlayerTemplateInfo() {
+	var pTemp = gameDescription.playerTemplate;
+
+	for (var i = 0; i < pTemp.zoneTags.length; i++) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = pTemp.zoneTags[i];
+		var text = document.createTextNode(pTemp.zoneTags[i]);
+
+		var attrSelect = document.getElementById("playerTempTagSelect");
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
+
+	for (var i = 0; i < pTemp.attributeNames.length; i++) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = pTemp.attributeNames[i];
+		var text = document.createTextNode(pTemp.attributeNames[i]);
+
+		var attrSelect = document.getElementById("playerTempAttrSelect");
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
+
+	for (var actionObj of pTemp.actions) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = actionObj.templateName;
+		var text = document.createTextNode(actionObj.templateName);
+
+		var actionSelect = document.getElementById("playerActionSelect");
+		newOption.appendChild(text);
+		actionSelect.appendChild(newOption);
+	}
+
+	for (var actionTemp of gameDescription.actionTemplates) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = actionTemp.name;
+		var text = document.createTextNode(actionTemp.name);
+
+		var actionDropDown = document.getElementById("templatePlayerSelect");
+		newOption.appendChild(text);
+		actionDropDown.appendChild(newOption);
+	}
 }
 
 function saveGame(gameName) {
