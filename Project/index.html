@@ -142,7 +142,10 @@
 	<button type="button" onclick="editOther('Win Condition')" class="menuButton">Edit Win Condition</button>
 	<button type="button" onclick="editOther('State Score')" class="menuButton">Edit State Scoring</button>
 	<br>
-	<button type="button" onclick="loadGame()" class="menuButton">Load Game</button>
+	<!-- <button type="button" onclick="loadGame()" class="menuButton">Load Game</button> -->
+	<input type="file" id="files" name="files[]" multiple />
+	<script type="text/javascript">
+		document.getElementById('files').addEventListener('change', handleFileSelect, false);</script>
 	<button type="button" onclick="saveGame()" class="menuButton">Save Game</button>
 </div>
 

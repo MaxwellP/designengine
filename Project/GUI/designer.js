@@ -587,6 +587,10 @@ function fillPlayerInfo (player, x, y) {
 }
 
 function saveGame(gameName) {
+	if (gameName === undefined)
+	{
+		gameName = gameDescription.gameName;
+	}
 	SaveJSON(gameName);
 	SaveJavaScript(gameName);
 }
@@ -756,4 +760,135 @@ function SaveJavaScript (newGameName) {
 
 function SaveJSON (newGameName) {
 	FileSave(exportJSON(newGameName), newGameName + ".json", "text/json");
+}
+
+function FileLoad () {
+
+
+}
+
+var jsIsLoaded = false;
+var jsonIsLoaded = false;
+var loadedJS = undefined;
+var loadedJSON = undefined;
+
+//Based on code from:
+//http://www.html5rocks.com/en/tutorials/file/dndfiles/
+function handleFileSelect (event) {
+	var files = event.target.files;
+
+	if (files.length !== 2)
+	{
+		console.log("Provide exactly 1 .js file and 1 .json file!");
+		return;
+	}
+	var haveJS = false;
+	var haveJSON = false;
+	var jsFile = undefined;
+	var jsonFile = undefined;
+	
+	for (var i = 0, f; f = files[i]; i++)
+	{
+		var fileExt = f.name.split(".").pop();
+		if (fileExt === "js")
+		{
+			haveJS = true;
+			jsFile = f;
+		}
+		if (fileExt === "json")
+		{
+			haveJSON = true;
+			jsonFile = f;
+		}
+	}
+	if (!haveJS || !haveJSON)
+	{
+		console.log("Provide exactly 1 .js file and 1 .json file!");
+		return;
+	}
+
+	var jsFileReader = new FileReader();
+	var jsonFileReader = new FileReader();
+
+	jsFileReader.onload = function (e) {
+		console.log("js file loaded!");
+		loadedJS = e.target.result;
+		jsIsLoaded = true;
+
+		if (jsIsLoaded && jsonIsLoaded)
+		{
+			bothFilesLoaded();
+		}
+	}
+	jsonFileReader.onload = function (e) {
+		console.log("json file loaded!");
+		loadedJSON = e.target.result;
+		jsonIsLoaded = true;
+
+		if (jsIsLoaded && jsonIsLoaded)
+		{
+			bothFilesLoaded();
+		}
+	}
+
+	jsFileReader.readAsText(jsFile);
+	jsonFileReader.readAsText(jsonFile);
+
+}
+
+function bothFilesLoaded () {
+	jsonIsLoaded = false;
+	jsIsLoaded = false;
+
+	cardIDCounter = 0;
+	playerIDCounter = 0;
+
+	cardsGUIInfo = [];
+	playersGUIInfo = [];
+	zonesGUIInfo = [];
+
+
+	var read = JSON.parse(loadedJSON);
+	var newGameDescription = new GameDescription(
+		read.zones,
+		read.universes,
+		read.cardTypes,
+		read.actionTemplates,
+		read.playerTemplate,
+		read.players,
+		read.init,
+		read.gameName,
+		read.winCondition,
+		read.functionFile,
+		read.setupFunction,
+		read.stateScore,
+		read.phases);
+	var gameState = newGameDescription.initializeGameState();
+	initializePercents(read.zoneGUI, read.playerGUI);
+	gameDescription = newGameDescription;
+	currentGS = gameState;
+	initializeWithFile(newGameDescription, loadedJS);
+
+	InitGameGuiInfo();
+	didFirstTimeGuiSetup = true;
+
+
+}
+
+function initializeWithFile(gd, jsFile)
+{
+	var loadedScript = document.createElement("script");
+	loadedScript.innerHTML = jsFile;
+	document.head.appendChild(loadedScript);
+
+	if (!didFirstTimeGuiSetup)
+	{
+		Init();
+	}
+	gameLog("Initialized game state.");
+	
+	gameSetup(currentGS);
+
+	gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
+	gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
 }
