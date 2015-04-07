@@ -172,6 +172,7 @@ function PlayerGUIInfo (player, xPct, yPct)
 }
 
 function initCardGUIInfo (gs) {
+	cardsGUIInfo = [];
 	for (var i = 0; i < gs.cards.length; i++) {
 		var newCardInfo = new CardGUIInfo(gs.cards[i]);
 		cardsGUIInfo.push(newCardInfo);
@@ -179,6 +180,7 @@ function initCardGUIInfo (gs) {
 }
 
 function initZoneGUIInfo (gs) {
+	zonesGUIInfo = [];
 	for (var i = 0; i < gs.zones.length; i++) {
 		var guiObj = lookupInitZoneGUI(gs.zones[i].name);
 		var newZoneInfo = new ZoneGUIInfo(gs.zones[i], guiObj.xPct, guiObj.yPct);
@@ -187,6 +189,7 @@ function initZoneGUIInfo (gs) {
 }
 
 function initPlayerGUIInfo (gs) {
+	playersGUIInfo = [];
 	for (var i = 0; i < gs.players.length; i++) {
 		var playerObj = lookupInitPlayerGUI(gs.players[i].name);
 		var newPlayerInfo = new PlayerGUIInfo(gs.players[i], playerObj.xPct, playerObj.yPct);
@@ -368,7 +371,7 @@ function drawZoneBox (x, y, width, height, name) {
 		if (zone.attributes.hasOwnProperty(attribute))
 		{
 			var attrText = "" + attribute + ": " + zone.attributes[attribute];
-			ctx.fillText(attrText, x, attrYSpace, width);
+			ctx.fillText(attrText, x - (width / 2), attrYSpace, width);
 		}
 	}
 }
@@ -526,7 +529,7 @@ function drawPlayer (player) {
 	ctx.beginPath();
 	ctx.lineWidth = PLAYER_OUTLINE_WEIGHT;
 	ctx.strokeStyle = "black";
-	ctx.rect(playerGUI.x, playerGUI.y, playerGUI.width, playerGUI.height);
+	ctx.rect(playerGUI.x - (playerGUI.width / 2), playerGUI.y - (playerGUI.height / 2), playerGUI.width, playerGUI.height);
 	ctx.stroke();
 	ctx.fillStyle = "white";
 	ctx.fill();
@@ -537,8 +540,8 @@ function drawPlayer (player) {
 	ctx.fillStyle = "black";
 	ctx.textAlign = "left";
 	
-	var playerTextX = playerGUI.x;
-	var playerTextY = playerGUI.y + (playerGUI.fontSize / 2) + 5;
+	var playerTextX = playerGUI.x - (playerGUI.width / 2);
+	var playerTextY = (playerGUI.y - (playerGUI.height / 2)) + (playerGUI.fontSize / 2) + 5;
 	
 	ctx.fillText(player.name, playerTextX, playerTextY, playerGUI.width);
 
@@ -579,7 +582,7 @@ function findPlayer (x, y) {
 	for (var i = playersGUIInfo.length - 1; i >= 0; i--) {
 		var playerGUI = playersGUIInfo[i];
 		var player = lookupPlayer(playerGUI.name, currentGS);
-		if (x >= playerGUI.x && x <= (playerGUI.x + playerGUI.width) && y >= playerGUI.y && y <= (playerGUI.y + playerGUI.height))
+		if (x >= (playerGUI.x - (playerGUI.width / 2)) && x <= (playerGUI.x + (playerGUI.width / 2)) && y >= (playerGUI.y - (playerGUI.height / 2)) && y <= (playerGUI.y + (playerGUI.height / 2)))
 		{
 			//console.log(card);
 			return player;
@@ -818,6 +821,7 @@ function DoMouseUp (e) {
 	if (designing)
 	{
 		var clickedZone = findZone(mouseX, mouseY);
+		var clickedPlayer = findPlayer(mouseX, mouseY);
 		if (clickedZone) 
 		{
 			if (draggingCard)
@@ -833,6 +837,10 @@ function DoMouseUp (e) {
 				fillZoneInfo(clickedZone, mouseX, mouseY);
 			}
 			
+		}
+		else if (clickedPlayer)
+		{
+			fillPlayerInfo(clickedPlayer, mouseX, mouseY);
 		}
 		else if (emptyClick)
 		{
@@ -924,6 +932,39 @@ function DoMouseUp (e) {
 				popUpMenus = [];
 			}
 		}
+	}
+}
+
+function overlapMouseUp (e) {
+	var mouseX = e.pageX - 8;
+	var mouseY = e.pageY - 8;
+
+	var clickedZone = findZone(mouseX, mouseY);
+	if (clickedZone) 
+	{
+		if (draggingCard)
+		{
+			if (clickedZone.name != lookupCard(dragCardGUIInfo.id, currentGS).zone)
+			{
+				Event.Move.Individual.toZone(dragCardGUIInfo.id, clickedZone.name, currentGS);
+			}
+		}
+	}
+	else if (emptyClick)
+	{
+		emptyClick = false;
+	}
+
+	if (draggingZone)
+	{
+		draggingZone = false;
+		updatePercents(dragZoneGUIInfo);
+	}
+
+	if (draggingCard)
+	{
+		draggingCard = false;
+		dragCardGUIInfo.dragging = false;
 	}
 }
 

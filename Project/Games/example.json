@@ -16,8 +16,8 @@
 	],
 	"playerGUI":
 	[
-		{"name": "Player 1", "xPct": 0.45, "yPct": 0.8},
-		{"name": "Player 2", "xPct": 0.45, "yPct": 0.2}
+		{"name": "Player 1", "xPct": 0.5, "yPct": 0.8},
+		{"name": "Player 2", "xPct": 0.5, "yPct": 0.2}
 	],
 	"universes":
 	[

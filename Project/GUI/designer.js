@@ -19,11 +19,13 @@ function initDesign() {
 
 	var menu = $("#menu");
 	menu.dialog("open");
+	document.getElementById("gameTitle").value = gameDescription.gameName;
 }
 
 function endDesign() {
 
 	designing = false;
+	$(".editor").dialog("close");
 }
 
 function highlight() {
@@ -58,7 +60,21 @@ function highlight() {
 }
 
 function addNewZone() {
-	console.log("Adding new Zone");
+	console.log("addnewzone");
+	var newZoneName = document.getElementById("newZoneName").value;
+
+	var playerNames = [];
+	for (var i = 0; i < gameDescription.players.length; i++) {
+		playerNames.push(gameDescription.players[i].name);
+	}
+
+	var newZone = new Zone (newZoneName, {}, "showEachCard", playerNames);
+	var newZoneGUI = new ZoneGUIInfo (newZone, 0.5, 0.5);
+
+	//currentGS.zones.push(newZone);
+	gameDescription.zones.push(newZone);
+
+	zonesGUIInfo.push(newZoneGUI);
 }
 
 function addNewPlayer() {
@@ -93,6 +109,10 @@ function clearCardInfo() {
 
 function clearActionInfo() {
 	document.getElementById("inputSelect").innerHTML = "";
+}
+
+function clearPlayerInfo() {
+
 }
 
 function fillZoneInfo (zone, x, y) {
@@ -518,6 +538,52 @@ function applyOtherChanges() {
 	{
 		window[gameDescription.gameName + "StateScore"] = newCode;
 	}
+}
+
+function fillPlayerInfo (player, x, y) {
+	clearPlayerInfo();
+
+	var playerTemp = gameDescription.playerTemplate;
+
+	var editor = $("#player_editor");
+	editor.dialog({
+		title: "Editing Player: " + player.name
+	});
+	editor.dialog("open");
+
+	var playerForm = document.getElementById("player_form");
+
+	for (var index in playerTemp.zoneTags) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = index;
+		var text = document.createTextNode(index);
+
+		var attrSelect = document.getElementById("zoneAttrSelect");
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
+
+	for (var i = 0; i < gameDescription.players.length; i++) {
+		var newCheckbox = document.createElement("INPUT");
+		newCheckbox.type = "checkbox";
+		newCheckbox.name = gameDescription.players[i].name;
+		var text = document.createTextNode(gameDescription.players[i].name);
+		//newCheckbox.appendChild(text);
+
+		for (var j = 0; j < zone.visibleTo.length; j++) {
+			if (zone.visibleTo[j] == gameDescription.players[i].name)
+			{
+				newCheckbox.checked = true;
+			}
+		};
+
+		var checkboxDiv = document.getElementById("zone_player_checkboxes");
+		checkboxDiv.appendChild(newCheckbox);
+		checkboxDiv.appendChild(text);
+	};
+
+	positionZoneInfo(x, y);
+	currentZone = zone;
 }
 
 function saveGame(gameName) {
