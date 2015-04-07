@@ -1,0 +1,103 @@
+{
+	"zones":
+	[
+		{"name": "Zone 1",
+			"attributes": {
+				"integer": 1,
+				"string" : "String",
+				"boolean": true},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["Player 1", "Player 2"]}
+	],
+	"zoneGUI":
+	[
+		{"name": "Zone 1", "xPct": 0.5, "yPct": 0.5}
+	],
+	"playerGUI":
+	[
+		{"name": "Player 1", "xPct": 0.45, "yPct": 0.8},
+		{"name": "Player 2", "xPct": 0.45, "yPct": 0.2}
+	],
+	"universes":
+	[
+		{"name": "Universe 1"}
+	],
+	"cardTypes":
+	[
+		{"name": "Card 1",
+			"attributes": {
+				"integer": 2,
+				"boolean": true,
+				"string": "String"},
+			"actions": [
+				{"templateName": "incSelfInt"},
+				{"templateName": "decCardInt"}],
+			"universe": "Universe 1"}
+	],
+	"actionTemplates":
+	[
+		{"name": "incSelfInt",
+			"description": "Increase the integer value of this card by 1.",
+			"result": "incSelfIntResult",
+			"checkLegality": "incSelfIntCheckLegality",
+			"inputTypes": []
+		},
+		{"name": "decCardInt",
+			"description": "Decrease the integer value of the selected card by 1.",
+			"result": "decCardIntResult",
+			"checkLegality": "decCardIntCheckLegality",
+			"inputTypes": ["card"]
+		},
+		{"name": "toggleZoneBool",
+			"description": "Toggle the boolean value of the selected zone.",
+			"result": "toggleZoneBoolResult",
+			"checkLegality": "toggleZoneBoolCheckLegality",
+			"inputTypes": ["zone"]
+		},
+		{"name": "newPlayerString",
+			"description": "Create a random string for the selected player.",
+			"result": "newPlayerStringResult",
+			"checkLegality": "newPlayerStringCheckLegality",
+			"inputTypes": ["player"]
+		}
+	],
+	"playerTemplate":
+	{
+		"zoneTags" : ["Zone"],
+		"attributeNames" : ["integer", "boolean", "string"],
+		"actions" : [
+			{"templateName": "decCardInt"},
+			{"templateName": "toggleZoneBool"},
+			{"templateName": "newPlayerString"}
+		]
+	},
+	"players":
+	[
+		{"name": "Player 1",
+			"zones": ["Zone 1"],
+			"attributes": [3, false, "String"],
+			"isAI": false
+		},
+		{"name": "Player 2",
+			"zones": ["Zone 1"],
+			"attributes": [4, true, "String"],
+			"isAI": false}
+	],
+	"init":
+	[
+		{"zoneName": "Zone 1",
+			"cardNames": ["Card 1", "Card 1", "Card 1"]},
+		{"zonesPerLine": 1}],
+	"functionFile": "example.js",
+	"gameName": "example",
+	"setupFunction": "exampleSetup",
+	"winCondition": "exampleWinCondition",
+	"stateScore": "exampleStateScore",
+	"phases":
+	[
+		{"name": "doAction",
+			"init": "doActionInit",
+			"endCondition": "doActionEnd"}
+	]
+}
