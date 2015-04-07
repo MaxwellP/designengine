@@ -128,18 +128,18 @@ function fillZoneInfo (zone, x, y) {
 		newCheckbox.type = "checkbox";
 		newCheckbox.name = gameDescription.players[i].name;
 		var text = document.createTextNode(gameDescription.players[i].name);
-    	//newCheckbox.appendChild(text);
+		//newCheckbox.appendChild(text);
 
-    	for (var j = 0; j < zone.visibleTo.length; j++) {
-    		if (zone.visibleTo[j] == gameDescription.players[i].name)
-    		{
-    			newCheckbox.checked = true;
-    		}
-    	};
+		for (var j = 0; j < zone.visibleTo.length; j++) {
+			if (zone.visibleTo[j] == gameDescription.players[i].name)
+			{
+				newCheckbox.checked = true;
+			}
+		};
 
-    	var checkboxDiv = document.getElementById("zone_player_checkboxes");
-    	checkboxDiv.appendChild(newCheckbox);
-    	checkboxDiv.appendChild(text);
+		var checkboxDiv = document.getElementById("zone_player_checkboxes");
+		checkboxDiv.appendChild(newCheckbox);
+		checkboxDiv.appendChild(text);
 	};
 
 	positionZoneInfo(x, y);
@@ -521,7 +521,8 @@ function applyOtherChanges() {
 }
 
 function saveGame() {
-	exportJSON();
+	SaveJSON();
+	SaveJavaScript();
 }
 
 function exportJSON() {
@@ -600,7 +601,8 @@ function exportJSON() {
 
 	jsonRoot.phases = gameDescription.phases;
 	
-	console.log(JSON.stringify(jsonRoot));
+	//console.log(JSON.stringify(jsonRoot));
+	return JSON.stringify(jsonRoot);
 }
 
 function exportJavaScript () {
@@ -639,6 +641,41 @@ function exportJavaScript () {
 		jsFile += phaseInit + "\n\n" + phaseEndCond + "\n\n";
 	}
 
-	console.log(jsFile);
+	//console.log(jsFile);
 	return jsFile;
+}
+
+//Modified version of this code:
+//http://stackoverflow.com/questions/11849562/how-to-save-the-output-of-a-console-logobject-to-a-file/19818659#19818659
+
+function FileSave (data, filename, filetype) {
+
+	if(!data) {
+		console.error('FileSave: No data')
+		return;
+	}
+
+	if(!filename) filename = 'unNamedFile.txt'
+
+	if(typeof data === "object"){
+		data = JSON.stringify(data, undefined, 4)
+	}
+
+	var blob = new Blob([data], {type: filetype || 'text/json'}),
+		e    = document.createEvent('MouseEvents'),
+		a    = document.createElement('a')
+
+	a.download = filename
+	a.href = window.URL.createObjectURL(blob)
+	a.dataset.downloadurl =  [filetype || 'text/json', a.download, a.href].join(':')
+	e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+	a.dispatchEvent(e)
+}
+
+function SaveJavaScript () {
+	FileSave(exportJavaScript(), gameDescription.gameName + ".js", "text/javascript");
+}
+
+function SaveJSON () {
+	FileSave(exportJSON(), gameDescription.gameName + ".json", "text/json");
 }
