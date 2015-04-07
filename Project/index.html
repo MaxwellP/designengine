@@ -115,10 +115,66 @@
 <div id="player_editor" class="editor" title="Editing Player: " onmouseup="overlapMouseUp(event)">
 	<form id="player_form" onsubmit="event.preventDefault(); return applyPlayerChanges();">
 	Zones:<br>
-	<select id="playerZoneSelect" size=4 class="attrSelect">
+	<select id="playerTagSelect" size=4 class="attrSelect" onchange="fillPlayerTagInfo()">
 	</select>
-	<select id="zoneSelect" class="attrSelect">
+	<select id="playerZoneSelect" class="attrEditor">
 	</select>
+	Attributes:<br>
+	<div id="player_attributes">
+		<select id="playerAttrSelect" size=4 class="attrSelect" onchange="fillPlayerAttributeInfo()">
+		</select>
+		<div id="edit_player_attributes" class="attrEditor">
+			<span>Value:</span>
+			<input type="text" id="playerAttrValue" class="attrValue">
+		</div>
+	</div>
+
+	<br>
+	<button type="submit">Apply</button>
+	</form>
+
+</div>
+
+<div id="playertemp_editor" class="editor" title="Editing Player Template:" onmouseup="overlapMouseUp(event)">
+	<form id="playertemp_form" onsubmit="event.preventDefault(); return applyPlayerTemplateChanges();">
+	Zone Tags:<br>
+	<select id="playerTempTagSelect" size=4 class="attrSelect">
+	</select>
+	<button type="button" onclick="removeZoneTag()">Remove</button>
+	<div id="add_zone_tag">
+		<input type="text" id="zoneTagName" class="attrName">
+		<button type="button" onclick="addNewZoneTag()">Add</button>
+	</div>
+
+	Attribute Names:<br>
+	<select id="playerTempAttrSelect" size=4 class="attrSelect">
+	</select>
+	<button type="button" onclick="removeAttrName()">Remove</button>
+	<div id="add_attr_name">
+		<input type="text" id="playerAttrName" class="attrName">
+		<button type="button" onclick="addNewAttrName()">Add</button>
+	</div>
+
+	Actions:<br>
+	<div id="player_actions">
+		<select id="playerActionSelect" size=4 class="attrSelect">
+		</select>
+		<div id="edit_player_actions" class="inputEditor">
+			<button type="button" onclick="removePlayerAction()">Remove</button>
+			<button type="button" onclick="editPlayerAction()">Edit</button>
+		</div>
+		<div id="add_player_action">
+			<select id="templatePlayerSelect" class="attrSelect">
+			</select>
+			<button type="button" id="addPlayerExistingTemplate" onclick="addPlayerExistingActionTemplate()">Add</button>
+			<input type="text" id="newPlayerActionName" class="attrName">
+			<button type="button" onclick="addNewPlayerAction()">Add New</button>
+		</div>
+	</div>
+
+	<br>
+	<button type="submit">Apply</button>
+	</form>
 
 </div>
 
@@ -141,6 +197,7 @@
 	<button type="button" onclick="editOther('Setup Function')" class="menuButton">Edit Setup Function</button>
 	<button type="button" onclick="editOther('Win Condition')" class="menuButton">Edit Win Condition</button>
 	<button type="button" onclick="editOther('State Score')" class="menuButton">Edit State Scoring</button>
+	<button type="button" onclick="editPlayerTemplate()" class="menuButton">Edit Player Template</button>
 	<br>
 	<!-- <button type="button" onclick="loadGame()" class="menuButton">Load Game</button> -->
 	<input type="file" id="files" name="files[]" multiple />
