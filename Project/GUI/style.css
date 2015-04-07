@@ -62,3 +62,7 @@ body {
 #addExistingTemplate {
 	display: inline-block;
 }
+#menu
+{
+	overflow-x: hidden;
+}
