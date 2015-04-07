@@ -892,3 +892,8 @@ function initializeWithFile(gd, jsFile)
 	gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
 	gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
 }
+
+function restartGame () {
+	currentGS = gameDescription.initializeGameState();
+	gameSetup(currentGS);
+}
