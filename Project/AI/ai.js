@@ -1,3 +1,10 @@
+var aiActionAfterRender = false;
+
+function aiDoAction () {
+	run_current_ai(currentGS.turnPlayer, currentGS, gameDescription, MAX_CONSEC_TURNS);
+}
+
+
 function run_current_ai (playerName, gs, gd, limit) {
 	run_ISMCTS(playerName, gs, gd, limit);
 }
@@ -163,7 +170,7 @@ function evaluate (curPlayerName, altPlayerName, gs, gd)
 	var altPlayer = lookupPlayer (altPlayerName, gs);
 
 
-	var winner = window[gd.winCondition].apply(this, [gs]).name;
+	var winner = window["gameWinCondition"].apply(this, [gs]).name;
 
 	if (winner == curPlayer.name)
 	{
@@ -175,7 +182,7 @@ function evaluate (curPlayerName, altPlayerName, gs, gd)
 	}
 	else
 	{
-		var score = window[gd.stateScore].apply(this, [curPlayerName, gs]);
+		var score = window["gameStateScore"].apply(this, [curPlayerName, gs]);
 		return score;
 	}
 }
@@ -187,7 +194,7 @@ function evaluate_B (curPlayerName, altPlayerName, gs, gd)
 	var altPlayer = lookupPlayer (altPlayerName, gs);
 
 
-	var winner = window[gd.winCondition].apply(this, [gs]).name;
+	var winner = window["gameWinCondition"].apply(this, [gs]).name;
 
 	if (winner == curPlayer.name)
 	{
@@ -199,7 +206,7 @@ function evaluate_B (curPlayerName, altPlayerName, gs, gd)
 	}
 	else
 	{
-		var score = window[gd.stateScore].apply(this, [curPlayerName, gs]);
+		var score = window["gameStateScore"].apply(this, [curPlayerName, gs]);
 
 		//*** Change this to return score once stateScore returns between 0 and 1
 		return 0.5;
@@ -251,7 +258,8 @@ function run_ISMCTS (playerName, gs, gd, limit) {
 	if (gs.turnPlayer == playerName)
 	{
 		aiLog("Still AI's turn: doing runAI_ISMCTS() again");
-		run_ISMCTS(playerName, gs, gd, limit - 1);
+		//run_ISMCTS(playerName, gs, gd, limit - 1);
+		aiActionAfterRender = true;
 	}
 
 	return;

@@ -138,8 +138,7 @@
 <div id="playertemp_editor" class="editor" title="Editing Player Template:" onmouseup="overlapMouseUp(event)">
 	<form id="playertemp_form" onsubmit="event.preventDefault(); return applyPlayerTemplateChanges();">
 	Zone Tags:<br>
-	<select id="playerTempTagSelect" size=4 class="attrSelect">
-	</select>
+	<select id="playerTempTagSelect" size=4 class="attrSelect"></select>
 	<button type="button" onclick="removeZoneTag()">Remove</button>
 	<div id="add_zone_tag">
 		<input type="text" id="zoneTagName" class="attrName">
@@ -147,8 +146,7 @@
 	</div>
 
 	Attribute Names:<br>
-	<select id="playerTempAttrSelect" size=4 class="attrSelect">
-	</select>
+	<select id="playerTempAttrSelect" size=4 class="attrSelect"></select>
 	<button type="button" onclick="removeAttrName()">Remove</button>
 	<div id="add_attr_name">
 		<input type="text" id="playerAttrName" class="attrName">
@@ -157,15 +155,13 @@
 
 	Actions:<br>
 	<div id="player_actions">
-		<select id="playerActionSelect" size=4 class="attrSelect">
-		</select>
+		<select id="playerActionSelect" size=4 class="attrSelect"></select>
 		<div id="edit_player_actions" class="inputEditor">
 			<button type="button" onclick="removePlayerAction()">Remove</button>
 			<button type="button" onclick="editPlayerAction()">Edit</button>
 		</div>
 		<div id="add_player_action">
-			<select id="templatePlayerSelect" class="attrSelect">
-			</select>
+			<select id="templatePlayerSelect" class="attrSelect"></select>
 			<button type="button" id="addPlayerExistingTemplate" onclick="addPlayerExistingActionTemplate()">Add</button>
 			<input type="text" id="newPlayerActionName" class="attrName">
 			<button type="button" onclick="addNewPlayerAction()">Add New</button>

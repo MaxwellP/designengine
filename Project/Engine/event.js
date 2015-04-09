@@ -460,7 +460,7 @@ var Event = {
 			//Run AI if it is AI's turn
 			if (player.isAI && !currentlySimulating)
 			{
-				run_current_ai(player.name, gamestate, gameDescription, MAX_CONSEC_TURNS);
+				aiActionAfterRender = true;
 			}
 		}
 	}

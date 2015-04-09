@@ -125,6 +125,11 @@ function renderFrame () {
 
 	highlight();
 
+	if (aiActionAfterRender)
+	{
+		aiActionAfterRender = false;
+		setTimeout(aiDoAction, 1);
+	}
 }
 
 function clearFrame () {

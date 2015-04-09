@@ -91,9 +91,6 @@
 		{"zonesPerLine": 1}],
 	"functionFile": "example.js",
 	"gameName": "example",
-	"setupFunction": "exampleSetup",
-	"winCondition": "exampleWinCondition",
-	"stateScore": "exampleStateScore",
 	"phases":
 	[
 		{"name": "doAction",

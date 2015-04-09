@@ -9,7 +9,7 @@ var gamestate = arguments[arguments.length - 1];
 
 //Spaceships - spaceship battle game
 
-function spaceshipsSetup()
+function gameSetup()
 {
 	var gamestate = arguments[arguments.length - 1];
 
@@ -515,7 +515,7 @@ function upgradeCheckLegality()
 	return (enoughEnergy && enoughMoney && shipPhase)
 }
 
-function spaceshipsWinCondition()
+function gameWinCondition()
 {
 	var gamestate = arguments[arguments.length - 1];
 
@@ -548,7 +548,7 @@ function spaceshipsWinCondition()
 }
 
 //Arguments end with: gs, playerName
-function spaceshipsStateScore()
+function gameStateScore()
 {
 	var gamestate = arguments[arguments.length - 1];
 	var player = arguments[arguments.length - 2];

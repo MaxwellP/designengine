@@ -219,6 +219,18 @@ var API = {
 			enemyPlayer: function (gamestate)
 			{
 				return getAltPlayer(gamestate.turnPlayer, gamestate).name;
+			},
+			/**
+			* Returns the given player's value for the given named attribute
+			* @method API.ValueLookup.Player.getAttribute
+			* @param {String} playerName - the name of the player whose attribute's value is being checked
+			* @param {String} attributeName - the name of the attribute to get the value of
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			getAttribute: function (playerName, attributeName, gamestate)
+			{
+				var player = lookupPlayer(playerName, gamestate);
+				return player.attributes[attributeName];
 			}
 		}
 	},

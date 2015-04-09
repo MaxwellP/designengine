@@ -33,10 +33,7 @@ function readJSON(file)
 			read.players,
 			read.init,
 			read.gameName,
-			read.winCondition,
 			read.functionFile,
-			read.setupFunction,
-			read.stateScore,
 			read.phases);
 		var gameState = newGameDescription.initializeGameState();
 		initializePercents(read.zoneGUI, read.playerGUI);
@@ -65,17 +62,17 @@ function initialize(gd)
 		}
 		gameLog("Initialized game state.");
 		
-		gameSetup(currentGS);
+		gameStateInitialize(currentGS);
 
 		gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
 		gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
 	}
 }
 
-function gameSetup (gs)
+function gameStateInitialize (gs)
 {
 	gameLog("Running game setup function.");
-	window[gameDescription.setupFunction].apply(this, [currentGS]);
+	window["gameSetup"].apply(this, [currentGS]);
 }
 
 function generateActionsFromCard (card, gs, gd)
@@ -372,7 +369,7 @@ function getLegalActionsFromCard (card, playerObj, gs) {
 
 function checkWin(gs, gd)
 {
-	var result = window[gd.winCondition].apply(this, [gs]);
+	var result = window["gameWinCondition"].apply(this, [gs]);
 	if (result)
 	{
 		gameLog("****	Player " + result.name + " wins!");

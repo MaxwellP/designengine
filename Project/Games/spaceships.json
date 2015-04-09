@@ -182,9 +182,6 @@
 		{"zonesPerLine": 1}	],
 	"functionFile": "spaceships.js",
 	"gameName": "spaceships",
-	"setupFunction": "spaceshipsSetup",
-	"winCondition": "spaceshipsWinCondition",
-	"stateScore": "spaceshipsStateScore",
 	"phases":
 	[
 		{"name": "buyPhase", "init": "buyPhaseInit", "endCondition": "buyPhaseEnd"},

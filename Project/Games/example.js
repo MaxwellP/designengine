@@ -9,7 +9,7 @@ var gamestate = arguments[arguments.length - 1];
 
 //Spaceships - spaceship battle game
 
-function exampleSetup()
+function gameSetup()
 {
 	var gamestate = arguments[arguments.length - 1];
 }
@@ -104,13 +104,13 @@ function newPlayerStringCheckLegality()
 	return true;
 }
 
-function exampleWinCondition()
+function gameWinCondition()
 {
 	var gamestate = arguments[arguments.length - 1];
 	return false;
 }
 
-function exampleStateScore()
+function gameStateScore()
 {
 	var gamestate = arguments[arguments.length - 1];
 	var player = arguments[arguments.length - 2];

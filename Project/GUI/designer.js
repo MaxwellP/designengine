@@ -27,6 +27,10 @@ function endDesign() {
 
 	designing = false;
 	$(".editor").dialog("close");
+
+
+
+	restartGame();
 }
 
 function highlight() {
@@ -136,6 +140,15 @@ function clearPlayerInfo() {
 	document.getElementById("playerZoneSelect").style.visibility = "hidden";
 	document.getElementById("playerAttrSelect").innerHTML = "";
 	document.getElementById("edit_player_attributes").style.visibility = "hidden";
+}
+
+function clearPlayerTemplateInfo() {
+	document.getElementById("playerTempTagSelect").innerHTML = "";
+	document.getElementById("playerTempAttrSelect").innerHTML = "";
+	document.getElementById("playerActionSelect").innerHTML = "";
+	document.getElementById("zoneTagName").value = "";
+	document.getElementById("playerAttrName").value = "";
+	document.getElementById("newPlayerActionName").value = "";
 }
 
 function fillZoneInfo (zone, x, y) {
@@ -277,7 +290,13 @@ function applyZoneChanges() {
 	};
 	zone.visibleTo = visibleArr;
 
-	gameDescription.zones = currentGS.zones;
+	var newZones = [];
+	for (var i = 0; i < currentGS.zones.length; i++)
+	{
+		newZones.push(currentGS.zones[i].clone());
+	}
+
+	gameDescription.zones = newZones;
 
 	return false;
 }
@@ -448,11 +467,11 @@ function applyCardChanges() {
 		card.attributes[attrSelect.value] = attrValue.value;
 	}
 
-	return false;
-
 	var cardType = lookupCardType(card.name, gameDescription);
 	cardType.attributes = objectClone(card.attributes);
 	cardType.actions = card.actions;
+
+	return false;
 }
 
 function editAction() {
@@ -484,9 +503,17 @@ function fillActionInfo(actionName) {
 	}
 
 	var resultString = "" + window[actionTemplate.result];
+	if (resultString === "undefined")
+	{
+		resultString = "function " + actionName + "Result() {\n\tvar player = arguments[arguments.length - 3].name;\n\tvar action = arguments[arguments.length - 2];\n\tvar gamestate = arguments[arguments.length - 1];\n}";
+	}
 	actionResultCode.setValue(resultString);
 
 	var checkLegalityString = "" + window[actionTemplate.checkLegality];
+	if (checkLegalityString === "undefined")
+	{
+		checkLegalityString = "function " + actionName + "CheckLegailty() {\n\tvar player = arguments[arguments.length - 3].name;\n\tvar action = arguments[arguments.length - 2];\n\tvar gamestate = arguments[arguments.length - 1];\n\n\treturn true;\n}";
+	}
 	actionCheckLegalityCode.setValue(checkLegalityString);
 }
 
@@ -539,15 +566,15 @@ function editOther(mode) {
 	var codeString;
 	if (mode === "Setup Function")
 	{
-		codeString = "" + window[gameDescription.gameName + "Setup"];
+		codeString = "" + window["gameSetup"];
 	}
 	else if (mode === "Win Condition")
 	{
-		codeString = "" + window[gameDescription.gameName + "WinCondition"];
+		codeString = "" + window["gameWinCondition"];
 	}
 	else if (mode === "State Score")
 	{
-		codeString = "" + window[gameDescription.gameName + "StateScore"];
+		codeString = "" + window["gameStateScore"];
 	}
 
 	otherCode.setValue(codeString);
@@ -558,15 +585,15 @@ function applyOtherChanges() {
 	newCode = eval("(" + otherCode.getValue() + ")");
 	if (currentOther === "Setup Function")
 	{
-		window[gameDescription.gameName + "Setup"] = newCode;
+		window["gameSetup"] = newCode;
 	}
 	else if (currentOther === "Win Condition")
 	{
-		window[gameDescription.gameName + "WinCondition"] = newCode;
+		window["gameWinCondition"] = newCode;
 	}
 	else if (currentOther === "State Score")
 	{
-		window[gameDescription.gameName + "StateScore"] = newCode;
+		window["gameStateScore"] = newCode;
 	}
 }
 
@@ -642,6 +669,25 @@ function fillPlayerAttributeInfo () {
 	attrValue.value = currentPlayer.attributes[attrSelect.value];
 }
 
+function applyPlayerChanges () {
+	var selectedZoneIndex = document.getElementById("playerTagSelect").value;
+	var dropdownZone = document.getElementById("playerZoneSelect").value;
+	currentPlayer.zones[selectedZoneIndex] = dropdownZone;
+
+	var selectedAttribute = document.getElementById("playerAttrSelect").value;
+	var newValue = document.getElementById("playerAttrValue").value;
+	currentPlayer.attributes[selectedAttribute] = newValue;
+
+	for (var i = 0; i < gameDescription.players.length; i++) {
+		if (gameDescription.players[i].name === currentPlayer.name)
+		{
+			gameDescription.players[i] = currentPlayer.clone();
+		}
+	};
+
+	return false;
+}
+
 function editPlayerTemplate () {
 	$("#playertemp_editor").dialog("open");
 
@@ -649,6 +695,8 @@ function editPlayerTemplate () {
 }
 
 function fillPlayerTemplateInfo() {
+	clearPlayerTemplateInfo();
+
 	var pTemp = gameDescription.playerTemplate;
 
 	for (var i = 0; i < pTemp.zoneTags.length; i++) {
@@ -692,7 +740,64 @@ function fillPlayerTemplateInfo() {
 	}
 }
 
+function editPlayerAction() {
+	fillActionInfo(document.getElementById("playerActionSelect").value);
+}
+
+function addNewPlayerAction() {
+	var newActionText = document.getElementById("newPlayerActionName");
+
+	var newActionTemp = {
+		"name": newActionText.value,
+		"description": "",
+		"result": newActionText.value + "Result",
+		"checkLegality": newActionText.value + "CheckLegailty",
+		"inputTypes": []
+	};
+
+	gameDescription.actionTemplates.push(newActionTemp);
+
+	var actionSel = document.getElementById("playerActionSelect");
+	var newOption = document.createElement("OPTION");
+	newOption.value = newActionText.value;
+	var text = document.createTextNode(newActionText.value);
+
+	newOption.appendChild(text);
+	actionSel.appendChild(newOption);
+
+}
+
+function removePlayerAction() {
+	var pTemp = gameDescription.playerTemplate;
+
+	var actionSel = document.getElementById("playerActionSelect");
+
+	pTemp.actions.splice(actionSel.selectedIndex, 1);
+
+	actionSel.removeChild(actionSel.childNodes[actionSel.selectedIndex]);
+}
+
+function addPlayerExistingActionTemplate() {
+	var pTemp = gameDescription.playerTemplate;
+
+	var actionSel = document.getElementById("playerActionSelect");
+	var actionDrop = document.getElementById("templatePlayerSelect");
+
+	var newActionObj = {};
+	newActionObj.templateName = actionDrop.value;
+
+	pTemp.actions.push(newActionObj);
+
+	var newOption = document.createElement("OPTION");
+	newOption.value = actionDrop.value;
+	var text = document.createTextNode(actionDrop.value);
+
+	newOption.appendChild(text);
+	actionSel.appendChild(newOption);
+}
+
 function saveGame(gameName) {
+	gameName = document.getElementById("gameTitle").value;
 	if (gameName === undefined)
 	{
 		gameName = gameDescription.gameName;
@@ -779,13 +884,7 @@ function exportJSON(newGameName) {
 
 	jsonRoot.functionFile = newGameName + ".js";//gameDescription.functionFile;
 
-	jsonRoot.gameName = gameDescription.gameName;
-
-	jsonRoot.setupFunction = gameDescription.setupFunction;
-
-	jsonRoot.winCondition = gameDescription.winCondition;
-
-	jsonRoot.stateScore = gameDescription.stateScore;
+	jsonRoot.gameName = newGameName;
 
 	jsonRoot.phases = gameDescription.phases;
 	
@@ -798,7 +897,7 @@ function exportJavaScript (newGameName) {
 	var jsFile = "//" + gName + "\n\n";
 
 	//-Setup
-	var setupFunc = window[gameDescription.setupFunction];
+	var setupFunc = window["gameSetup"];
 	jsFile += setupFunc + "\n\n";
 
 	//Actions:
@@ -812,11 +911,11 @@ function exportJavaScript (newGameName) {
 	}
 
 	//-Win Condition
-	var winCond = window[gameDescription.winCondition];
+	var winCond = window["gameWinCondition"];
 	jsFile += winCond + "\n\n";
 
 	//-State Score
-	var stateScore = window[gameDescription.stateScore];
+	var stateScore = window["gameStateScore"];
 	jsFile += stateScore + "\n\n";
 
 	//Phases:
@@ -993,13 +1092,31 @@ function initializeWithFile(gd, jsFile)
 	}
 	gameLog("Initialized game state.");
 	
-	gameSetup(currentGS);
+	gameStateInitialize(currentGS);
 
 	gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
 	gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
 }
 
 function restartGame () {
+
+
+	cardIDCounter = 0;
+	playerIDCounter = 0;
+
+	cardsGUIInfo = [];
+	playersGUIInfo = [];
+	zonesGUIInfo = [];
+
+
 	currentGS = gameDescription.initializeGameState();
-	gameSetup(currentGS);
+	
+	gameLog("Initialized game state.");
+	
+	gameStateInitialize(currentGS);
+
+	gameLog("Begin " + currentGS.turnPlayer + "'s turn.");
+	gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
+
+	InitGameGuiInfo();
 }

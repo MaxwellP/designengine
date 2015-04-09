@@ -14,7 +14,7 @@
 * @param {Function} stateScore - a designer defined function run at the start of a game
 * @param {Array} phases - an array of zones defined in the designer's json file
 */
-function GameDescription (zones, universes, cardTypes, actionTemplates, playerTemplate, players, init, gameName, winCondition, functionFile, setupFunction, stateScore, phases) {
+function GameDescription (zones, universes, cardTypes, actionTemplates, playerTemplate, players, init, gameName, functionFile, phases) {
 	var playerArr = [];
 	for (var i = 0; i < players.length; i++) {
 		var curPlayer = players[i];
@@ -47,10 +47,10 @@ function GameDescription (zones, universes, cardTypes, actionTemplates, playerTe
 	this.players = playerArr;
 	this.init = init;
 	this.gameName = gameName;
-	this.winCondition = winCondition;
+	this.winCondition = "gameWinCondition";
 	this.functionFile = functionFile;
-	this.setupFunction = setupFunction;
-	this.stateScore = stateScore;
+	this.setupFunction = "gameSetup";
+	this.stateScore = "gameStateScore";
 	this.phases = phases;
 	this.cards = [];
 }
@@ -60,9 +60,20 @@ function GameDescription (zones, universes, cardTypes, actionTemplates, playerTe
 * @return {GameState} Returns the starting game state based on this game structure
 */
 GameDescription.prototype.initializeGameState = function() {
+	var playerClones = [];
+	for (var i = 0; i < this.players.length; i++)
+	{
+		playerClones.push(this.players[i].clone());
+	}
+	var zoneClones = [];
+	for (var i = 0; i < this.zones.length; i++)
+	{
+		zoneClones.push(this.zones[i].clone());
+	}
+
 	var newGS = new GameState(
-		this.players,
-		this.zones,
+		playerClones,
+		zoneClones,
 		[],
 		this.phases[0].name,
 		this.players[0].name);
