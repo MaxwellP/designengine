@@ -311,11 +311,8 @@ function drawCard (card) {
 	ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Georgia";
 	ctx.fillStyle = "black";
 	ctx.textAlign = "left";
-	//var cardTextX = cardGUI.x + (cardGUI.width / 2);
-	//var cardTextY = cardGUI.y + (cardGUI.height / 2) + (cardGUI.fontSize / 4);
 	var cardTextX = cardGUI.x;
 	var cardTextY = cardGUI.y + (cardGUI.fontSize / 2) + 5;
-	//ctx.fillText(card.value, cardTextX, cardTextY, cardGUI.width);
 	if (card.isVisibleTo(guiPlayer.name, currentGS))
 	{
 		ctx.fillText(card.name, cardTextX, cardTextY, cardGUI.width);

@@ -11,6 +11,8 @@ var currentPlayer;
 var actionResultCode;
 var actionCheckLegalityCode;
 var otherCode;
+var phaseInitCode;
+var phaseEndCode;
 
 function initDesign() {
 	canvas = document.getElementById("Canvas2D");
@@ -151,6 +153,10 @@ function clearPlayerTemplateInfo() {
 	document.getElementById("zoneTagName").value = "";
 	document.getElementById("playerAttrName").value = "";
 	document.getElementById("newPlayerActionName").value = "";
+}
+
+function clearPhaseInfo() {
+	document.getElementById("phaseSelect").innerHTML = "";
 }
 
 function fillZoneInfo (zone, x, y) {
@@ -893,7 +899,88 @@ function removeZoneTag() {
 }
 
 function applyPlayerTemplateChanges() {
+	//At the moment, does nothing, all changes happen immediately
+}
 
+function editPhases() {
+	$("#phase_editor").dialog("open");
+
+	fillPhaseInfo();
+}
+
+function fillPhaseInfo() {
+	clearPhaseInfo();
+
+	for (var i = 0; i < gameDescription.phases.length; i++) {
+		var newOption = document.createElement("OPTION");
+		newOption.value = gameDescription.phases[i].name;
+		var text = document.createTextNode(gameDescription.phases[i].name);
+
+		var attrSelect = document.getElementById("phaseSelect");
+		newOption.appendChild(text);
+		attrSelect.appendChild(newOption);
+	}
+
+}
+
+function removePhase() {
+	var phaseSel = document.getElementById("phaseSelect");
+
+	gameDescription.phases.splice(phaseSel.selectedIndex, 1);
+
+	phaseSel.removeChild(phaseSel.childNodes[phaseSel.selectedIndex]);
+}
+
+function addNewPhase() {
+	var newPhaseName = document.getElementById("newPhaseName").value;
+
+	var newPhase = new Phase(newPhaseName, newPhaseName + "Init", newPhaseName + "End");
+
+	gameDescription.phases.push(newPhase);
+
+	var phaseSel = document.getElementById("phaseSelect");
+	var newOption = document.createElement("OPTION");
+	newOption.value = newPhaseName;
+	var text = document.createTextNode(newPhaseName);
+
+	newOption.appendChild(text);
+	phaseSel.appendChild(newOption);
+}
+
+function editPhase() {
+	$("#phase_code_editor").dialog("open");
+
+	fillPhaseCodeInfo(document.getElementById("phaseSelect").value);
+}
+
+function fillPhaseCodeInfo(phaseName) {
+	var phase = lookupPhase(phaseName, gameDescription);
+	var initString = "" + window[phase.init];
+	if (initString === "undefined")
+	{
+		initString = "function " + [phaseName] + "Result() {\n\tvar gamestate = arguments[arguments.length - 1];\n}";
+	}
+	phaseInitCode.setValue(initString);
+
+	var endString = "" + window[phase.checkLegality];
+	if (endString === "undefined")
+	{
+		endString = "function " + phaseName + "CheckLegailty() {\n\tvar gamestate = arguments[arguments.length - 1];\n\n\treturn false;\n}";
+	}
+	phaseEndCode.setValue(endString);
+}
+
+function applyPhaseCodeChanges() {
+	var phase = lookupPhase(document.getElementById("phaseSelect").value, gameDescription);
+
+	//var newResult = new Function(actionResultCode.getValue());
+	//Uggh I don't like this, but using "new Function" wraps it in an anonymous function, which makes the window unable to access it
+	var newInit = eval("(" + phaseInitCode.getValue() + ")");
+	window[phase.muchLessLoud] = newInit;
+
+	//var newCheckLegality = new Function(actionCheckLegalityCode.getValue());
+	var newEnd = eval("(" + phaseEndCode.getValue() + ")");
+	window[phase.legalityCheck] = newEnd;
 }
 
 function saveGame(gameName) {

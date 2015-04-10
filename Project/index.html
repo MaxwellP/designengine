@@ -174,8 +174,24 @@
 
 </div>
 
-<div id="phase_editor" class="editor" title="Editing Phase: " onmouseup="overlapMouseUp(event)">
-	<p>Phase</p>
+<div id="phase_editor" class="editor" title="Editing Phases" onmouseup="overlapMouseUp(event)">
+	<select id="phaseSelect" size=4 class="attrSelect"></select>
+	<div id="edit_phases" class="inputEditor">
+		<button type="button" onclick="removePhase()">Remove</button>
+		<button type="button" onclick="editPhase()">Edit</button>
+	</div>
+	<div id="add_phase">
+		<input type="text" id="newPhaseName" class="attrName">
+		<button type="button" onclick="addNewPhase()">Add New</button>
+	</div>
+</div>
+
+<div id="phase_code_editor" class="editor" title="Editing Phase: " onmouseup="overlapMouseUp(event)">
+	Initialization:<br>
+	<div id="initCode" class="codemirrorBox"></div>
+	End Condition:<br>
+	<div id="endConditionCode" class="codemirrorBox"></div>
+	<button type="button" onclick="applyPhaseCodeChanges()">Apply</button>
 </div>
 
 <div id="menu" class="editor unselectable" title="Menu" onmouseup="overlapMouseUp(event)">
@@ -194,6 +210,7 @@
 	<button type="button" onclick="editOther('Win Condition')" class="menuButton">Edit Win Condition</button>
 	<button type="button" onclick="editOther('State Score')" class="menuButton">Edit State Scoring</button>
 	<button type="button" onclick="editPlayerTemplate()" class="menuButton">Edit Player Template</button>
+	<button type="button" onclick="editPhases()" class="menuButton">Edit Phases</button>
 	<br>
 	<!-- <button type="button" onclick="loadGame()" class="menuButton">Load Game</button> -->
 	<input type="file" id="files" name="files[]" multiple />
@@ -208,8 +225,7 @@
 	<br>
 	Inputs:<br>
 	<div id="action_inputs">
-		<select id="inputSelect" size=4 class="attrSelect">
-		</select>
+		<select id="inputSelect" size=4 class="attrSelect"></select>
 		<div id="input_editor" class="inputEditor">
 			<select id="inputTypes" class="halfWidth">
 				<option value="zone">Zone</option>
