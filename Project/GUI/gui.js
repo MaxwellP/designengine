@@ -384,6 +384,15 @@ function updateZone (zone) {
 	var zoneHeight = getZoneHeight(zone);
 	var zoneGUI = lookupZoneGUI(zone);
 
+	if (!canvas)
+	{
+		zoneGUI.x = 500 * zoneGUI.xPct;
+		zoneGUI.y = 500 * zoneGUI.yPct;
+		zoneGUI.width = zoneWidth;
+		zoneGUI.height = zoneHeight;
+		return
+	}
+
 	if (!draggingZone)
 	{
 		zoneGUI.x = canvas.width * zoneGUI.xPct;
@@ -495,6 +504,10 @@ function getZoneWidth (zone) {
 	{
 		zoneWidth = CARD_WIDTH + (ZONE_MARGIN * 2);	
 	}
+	if (!canvas)
+	{
+		return 0;
+	}
 
 	if (zoneWidth > canvas.width)
 	{
@@ -519,6 +532,11 @@ function updatePlayer (player) {
 
 	if (!draggingPlayer)
 	{
+		if (!canvas)
+		{
+			playerGUI.x = 500 * playerGUI.xPct;
+			playerGUI.y = 500 * playerGUI.yPct;
+		}
 		playerGUI.x = canvas.width * playerGUI.xPct;
 		playerGUI.y = canvas.height * playerGUI.yPct;
 	}
@@ -995,4 +1013,10 @@ function roundRect(x, y, width, height, radius, fill, stroke) {
 	if (fill) {
 		ctx.fill();
 	}
+}
+
+window.onresize = function () {
+	
+	canvas.width = window.innerWidth - 20;
+	canvas.height = window.innerHeight - 20;
 }

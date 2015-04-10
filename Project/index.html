@@ -252,5 +252,10 @@
 	</div>
 	<button type="button" onclick="applyOtherChanges()">Apply</button>
 </div>
+<input type="file" id="uploadButton" name="files[]" multiple style="position: absolute; left: 5px; bottom:20px;"/>
+	<script type="text/javascript">
+		document.getElementById('uploadButton').addEventListener('change', handleFileSelect, false);</script>
+</input>
+
 
 </html>

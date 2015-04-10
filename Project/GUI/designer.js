@@ -958,14 +958,14 @@ function fillPhaseCodeInfo(phaseName) {
 	var initString = "" + window[phase.init];
 	if (initString === "undefined")
 	{
-		initString = "function " + [phaseName] + "Result() {\n\tvar gamestate = arguments[arguments.length - 1];\n}";
+		initString = "function " + [phaseName] + "Init() {\n\tvar gamestate = arguments[arguments.length - 1];\n}";
 	}
 	phaseInitCode.setValue(initString);
 
-	var endString = "" + window[phase.checkLegality];
+	var endString = "" + window[phase.endCondition];
 	if (endString === "undefined")
 	{
-		endString = "function " + phaseName + "CheckLegailty() {\n\tvar gamestate = arguments[arguments.length - 1];\n\n\treturn false;\n}";
+		endString = "function " + phaseName + "End() {\n\tvar gamestate = arguments[arguments.length - 1];\n\n\treturn false;\n}";
 	}
 	phaseEndCode.setValue(endString);
 }
@@ -976,11 +976,11 @@ function applyPhaseCodeChanges() {
 	//var newResult = new Function(actionResultCode.getValue());
 	//Uggh I don't like this, but using "new Function" wraps it in an anonymous function, which makes the window unable to access it
 	var newInit = eval("(" + phaseInitCode.getValue() + ")");
-	window[phase.muchLessLoud] = newInit;
+	window[phase.init] = newInit;
 
 	//var newCheckLegality = new Function(actionCheckLegalityCode.getValue());
 	var newEnd = eval("(" + phaseEndCode.getValue() + ")");
-	window[phase.legalityCheck] = newEnd;
+	window[phase.endCondition] = newEnd;
 }
 
 function saveGame(gameName) {
@@ -1250,10 +1250,7 @@ function bothFilesLoaded () {
 		read.players,
 		read.init,
 		read.gameName,
-		read.winCondition,
 		read.functionFile,
-		read.setupFunction,
-		read.stateScore,
 		read.phases);
 	var gameState = newGameDescription.initializeGameState();
 	initializePercents(read.zoneGUI, read.playerGUI);
