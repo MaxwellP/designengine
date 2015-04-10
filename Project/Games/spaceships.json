@@ -1,4 +1,28 @@
 {
+	"playerTemplate":
+	{
+		"zoneTags" : ["ships", "queue"],
+		"attributeNames" : ["Money", "Gems", "Energy"],
+		"actions" : [{"templateName": "upgrade"}]
+	},
+	"players":
+	[
+		{"name": "P1",
+			"zones": ["P1 Ships", "Ship Queue"],
+			"attributes": [10, 1, 2],
+			"isAI": false
+		},
+		{"name": "P2",
+			"zones": ["P2 Ships", "Ship Queue"],
+			"attributes": [10, 1, 2],
+			"isAI": true
+		}
+	],
+	"playerGUI":
+	[
+		{"name": "P1", "xPct": 0.7, "yPct": 0.9},
+		{"name": "P2", "xPct": 0.7, "yPct": 0.1}
+	],
 	"zones":
 	[
 		{"name": "Ship Deck",
@@ -35,10 +59,10 @@
 		{"name": "P2 Ships", "xPct": 0.5, "yPct": 0.2},
 		{"name": "P1 Ships", "xPct": 0.5, "yPct": 0.8}
 	],
-	"playerGUI":
+	"phases":
 	[
-		{"name": "P1", "xPct": 0.7, "yPct": 0.9},
-		{"name": "P2", "xPct": 0.7, "yPct": 0.1}
+		{"name": "buyPhase", "init": "buyPhaseInit", "endCondition": "buyPhaseEnd"},
+		{"name": "shipPhase", "init": "shipPhaseInit", "endCondition": "shipPhaseEnd"}
 	],
 	"universes":
 	[
@@ -155,25 +179,6 @@
 			"checkLegality": "upgradeCheckLegality",
 			"inputTypes": []}
 	],
-	"playerTemplate":
-	{
-		"zoneTags" : ["ships", "queue"],
-		"attributeNames" : ["Money", "Gems", "Energy"],
-		"actions" : [{"templateName": "upgrade"}]
-	},
-	"players":
-	[
-		{"name": "P1",
-			"zones": ["P1 Ships", "Ship Queue"],
-			"attributes": [10, 1, 2],
-			"isAI": false
-		},
-		{"name": "P2",
-			"zones": ["P2 Ships", "Ship Queue"],
-			"attributes": [10, 1, 2],
-			"isAI": true
-		}
-	],
 	"init":
 	[
 		{"zoneName": "Ship Deck", "cardNames": ["Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator", "Monkey", "Tiger", "Dragon", "Spreadshot", "Forcefield", "Salvager", "Railgun", "Miner", "Sniper", "Generator"]},
@@ -181,10 +186,5 @@
 		{"zoneName": "P2 Ships", "cardNames": ["Monkey", "Tiger", "Miner"]},
 		{"zonesPerLine": 1}	],
 	"functionFile": "spaceships.js",
-	"gameName": "spaceships",
-	"phases":
-	[
-		{"name": "buyPhase", "init": "buyPhaseInit", "endCondition": "buyPhaseEnd"},
-		{"name": "shipPhase", "init": "shipPhaseInit", "endCondition": "shipPhaseEnd"}
-	]
+	"gameName": "spaceships"
 }

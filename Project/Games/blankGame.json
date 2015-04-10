@@ -1,0 +1,85 @@
+{
+	"playerTemplate":
+	{
+		"zoneTags" : ["myHand", "sharedZone"],
+		"attributeNames" : ["Money"],
+		"actions" : [{"templateName": "makeMoney"}]
+	},
+	"players":
+	[
+		{"name": "P1",
+			"zones": ["Player 1 Hand", "Shared Zone"],
+			"attributes": [1],
+			"isAI": false
+		},
+		{"name": "P2",
+			"zones": ["Player 2 Hand", "Shared Zone"],
+			"attributes": [1],
+			"isAI": true
+		}
+	],
+	"playerGUI":
+	[
+		{"name": "P1", "xPct": 0.7, "yPct": 0.9},
+		{"name": "P2", "xPct": 0.7, "yPct": 0.1}
+	],
+	"zones":
+	[
+		{"name": "Player 1 Hand",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1"]},
+		{"name": "Player 2 Hand",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P2"]},
+		{"name": "Shared Zone",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1", "P2"]}
+	],
+	"zoneGUI":
+	[
+		{"name": "Shared Zone", "xPct": 0.5, "yPct": 0.5},
+		{"name": "Player 1 Hand", "xPct": 0.5, "yPct": 0.7},
+		{"name": "Player 2 Hand", "xPct": 0.5, "yPct": 0.3}
+	],
+	"phases":
+	[
+		{"name": "firstPhase", "init": "firstPhaseInit", "endCondition": "firstPhaseEnd"}
+	],
+	"universes":
+	[
+		{"name": "card"}
+	],
+	"cardTypes":
+	[
+		{"name": "Simple Card",
+			"attributes": {"Value": 3},
+			"actions": [{"templateName": "buy"}],
+			"universe": "card"}
+	],
+	"actionTemplates":
+	[
+		{"name": "buy",
+			"description": "Buy this Card.",
+			"result": "buyResult",
+			"checkLegality": "buyCheckLegality",
+			"inputTypes": []
+		},
+		{"name": "makeMoney",
+			"description": "Gain 1 Money.",
+			"result": "makeMoneyResult",
+			"checkLegality": "makeMoneyCheckLegality",
+			"inputTypes": []}
+	],
+	"init":
+	[
+		{"zoneName": "Shared Zone", "cardNames": ["Simple Card", "Simple Card", "Simple Card"]}
+	],
+	"functionFile": "blankGame.js",
+	"gameName": "blankGame"
+}

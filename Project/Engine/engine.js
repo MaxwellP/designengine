@@ -395,6 +395,3 @@ function gameLog (string) {
 	}
 }
 
-
-//load the game
-readJSON("example");

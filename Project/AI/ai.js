@@ -273,12 +273,8 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 	var root = new GSNode(gs, undefined);
 
 	//do many iterations
-	for (var i = 0; i < 500; i++)
+	for (var i = 0; i < 200; i++)
 	{
-		if (i === 500)
-		{
-			//debugger;
-		}
 		ISMCTS_Traverse(root, gd, curPlayerName, altPlayerName)
 	}
 
