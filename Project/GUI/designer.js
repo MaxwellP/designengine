@@ -84,7 +84,7 @@ function addNewZone() {
 	var newZone = new Zone (newZoneName, {}, "showEachCard", playerNames);
 	var newZoneGUI = new ZoneGUIInfo (newZone, 0.5, 0.5);
 
-	//currentGS.zones.push(newZone);
+	currentGS.zones.push(newZone);
 	gameDescription.zones.push(newZone);
 
 	zonesGUIInfo.push(newZoneGUI);
@@ -101,11 +101,13 @@ function addNewCard() {
 
 	var newCard = initCard(newCardType, currentGS.zones[0]);
 	var newCardGUI = new CardGUIInfo (newCard);
+	cardsGUIInfo.push(newCardGUI);
 	currentGS.cards.push(newCard);
 	currentGS.zones[0].cards.push(newCard.id);
 	
 
 	gameDescription.cardTypes.push(newCardType);
+
 }
 
 function hideAllInfo() {
@@ -265,17 +267,38 @@ function removeZoneAttribute() {
 	document.getElementById("edit_zone_attributes").style.visibility = "hidden";
 }
 
+function getAttrValue(value) {
+	if (!!parseInt(value))
+	{
+		return parseInt(value);
+	}
+	else if (value === "true")
+	{
+		return true;
+	}
+	else if (value === "false")
+	{
+		return false;
+	}
+	else
+	{
+		return value;
+	}
+}
+
 function applyZoneChanges() {
 	var zoneForm = document.getElementById("zone_form");
 	var zone = currentZone;
 	var zoneGUI = lookupZoneGUI(zone);
 
 	var attrSelect = document.getElementById("zoneAttrSelect");
-	var attrValue = document.getElementById("zoneAttrValue");
+	var attrValue = document.getElementById("zoneAttrValue").value;
+
+	attrValue = getAttrValue(attrValue);
 	
 	if (attrSelect.value !== "")
 	{
-		zone.attributes[attrSelect.value] = attrValue.value;
+		zone.attributes[attrSelect.value] = attrValue;
 	}
 
 	zone.type = zoneForm.zoneType.value;
@@ -460,11 +483,13 @@ function applyCardChanges() {
 	var cardGUI = lookupCardGUI(card);
 
 	var attrSelect = document.getElementById("cardAttrSelect");
-	var attrValue = document.getElementById("cardAttrValue");
+	var attrValue = document.getElementById("cardAttrValue").value;
+
+	attrValue = getAttrValue(attrValue);
 	
 	if (attrSelect.value !== "")
 	{
-		card.attributes[attrSelect.value] = attrValue.value;
+		card.attributes[attrSelect.value] = attrValue;
 	}
 
 	var cardType = lookupCardType(card.name, gameDescription);
@@ -676,6 +701,9 @@ function applyPlayerChanges () {
 
 	var selectedAttribute = document.getElementById("playerAttrSelect").value;
 	var newValue = document.getElementById("playerAttrValue").value;
+
+	newValue = getAttrValue(newValue);
+
 	currentPlayer.attributes[selectedAttribute] = newValue;
 
 	for (var i = 0; i < gameDescription.players.length; i++) {
@@ -751,7 +779,7 @@ function addNewPlayerAction() {
 		"name": newActionText.value,
 		"description": "",
 		"result": newActionText.value + "Result",
-		"checkLegality": newActionText.value + "CheckLegailty",
+		"checkLegality": newActionText.value + "CheckLegality",
 		"inputTypes": []
 	};
 
@@ -794,6 +822,78 @@ function addPlayerExistingActionTemplate() {
 
 	newOption.appendChild(text);
 	actionSel.appendChild(newOption);
+}
+
+function addNewAttrName() {
+	var pTemp = gameDescription.playerTemplate;
+
+	var attributeSel = document.getElementById("playerTempAttrSelect");
+	var newAttrName = document.getElementById("playerAttrName");
+
+	pTemp.attributeNames.push(newAttrName.value);
+
+	var newOption = document.createElement("OPTION");
+	newOption.value = newAttrName.value;
+	var text = document.createTextNode(newAttrName.value);
+
+	newOption.appendChild(text);
+	attributeSel.appendChild(newOption);
+
+	for (var i = 0; i < currentGS.players.length; i++) {
+		currentGS.players[i].attributes[newAttrName.value] = undefined
+	};
+}
+
+function removeAttrName() {
+	var pTemp = gameDescription.playerTemplate;
+
+	var attributeSel = document.getElementById("playerTempAttrSelect");
+
+	pTemp.attributeNames.splice(attributeSel.selectedIndex, 1);
+
+	for (var i = 0; i < currentGS.players.length; i++) {
+		delete currentGS.players[i].attributes[attributeSel.value];
+	};
+
+	attributeSel.removeChild(attributeSel.childNodes[attributeSel.selectedIndex]);
+}
+
+function addNewZoneTag() {
+	var pTemp = gameDescription.playerTemplate;
+
+	var tagSel = document.getElementById("playerTempTagSelect");
+	var newTagName = document.getElementById("zoneTagName");
+
+	pTemp.zoneTags.push(newTagName.value);
+
+	var newOption = document.createElement("OPTION");
+	newOption.value = newTagName.value;
+	var text = document.createTextNode(newTagName.value);
+
+	newOption.appendChild(text);
+	tagSel.appendChild(newOption);
+
+	for (var i = 0; i < currentGS.players.length; i++) {
+		currentGS.players[i].zones[newTagName.value] = currentGS.zones[0].name;
+	};
+}
+
+function removeZoneTag() {
+	var pTemp = gameDescription.playerTemplate;
+
+	var tagSel = document.getElementById("playerTempTagSelect");
+
+	pTemp.zoneTags.splice(tagSel.selectedIndex, 1);
+
+	for (var i = 0; i < currentGS.players.length; i++) {
+		delete currentGS.players[i].zones[tagSel.value];
+	};
+
+	tagSel.removeChild(tagSel.childNodes[tagSel.selectedIndex]);
+}
+
+function applyPlayerTemplateChanges() {
+
 }
 
 function saveGame(gameName) {
