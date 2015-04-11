@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Engine\player.js</title>
+    <title>Engine\phase.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -84,66 +84,25 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: Engine\player.js</h1>
+<h1 class="file-heading">File: Engine\phase.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-* A player who can take actions on the game
+* The pieces of a player&#x27;s turn
 *
-* @class Player
+* @class Phase
 * @constructor
-* @param {String} name - the name of the player
-* @param {Object} attributes - all designer defined attributes for the player
-* @param {Array} zones - all zones the player can take actions on
-* @param {Boolean} isAI - an indicator for the AI to tell whether or not the AI should be taking moves or allowing the player to do so
-* @param {Boolean} isAClone - a boolean used to determine if a player needs a new ID
+* @param {String} name - the name of the phase - must be unique
+* @param {Function} init - a function executed at the beginning of the phase
+* @param {Function} endCondition - a function that is checked after each action is taken in a given phase, if true is returned the phase has met its end condition and the endPhase event is called
 */
-function Player(name, attributes, zones, isAI, isAClone, actions)
+function Phase(name, init, endCondition)
 {
-	//Only get new ID if not cloning the card
-	if (isAClone !== true)
-	{
-		this.id = getNewPlayerID();
-	}
 	this.name = name;
-	this.attributes = attributes;
-	this.zones = zones;
-	this.isAI = isAI;
-	this.actions = actions;
+	this.init = init;
+	this.endCondition = endCondition;
 }
-/**
-* Determines whether the player controls the given zone
-* @method Player.prototype.controlsZone
-* @param {String} zoneName - the name of the zone being checked
-* @return {Boolean} Returns whether or not the given zone can be acted upon by the player
-*/
-Player.prototype.controlsZone = function(zoneName) {
-	for (var i = 0; i &lt; this.zones.length; i++) 
-	{
-		if (this.zones[i] == zoneName)
-		{
-			return true;
-		}
-	};
-	return false;
-};
-/**
-* Creates a clone of the player
-* @method Player.prototype.clone
-* @return {Player} Returns a copy of the player
-*/
-Player.prototype.clone = function() {
-	var playerClone = new Player(
-		this.name,
-		objectClone(this.attributes),
-		objectClone(this.zones),
-		this.isAI,
-		true,
-		objectClone(this.actions)); 
-	playerClone.id = this.id;
-	return playerClone;
-};
     </pre>
 </div>
                     </div>

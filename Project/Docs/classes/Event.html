@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>API</title>
+    <title>Event</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -84,12 +84,12 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>API Class</h1>
+<h1>Event Class</h1>
 <div class="box meta">
 
 
         <div class="foundat">
-            Defined in: <a href="../files/Engine_API.js.html#l2"><code>Engine\API.js:2</code></a>
+            Defined in: <a href="../files/Engine_event.js.html#l1"><code>Engine\event.js:1</code></a>
         </div>
 
 
@@ -97,7 +97,7 @@
 
 
 <div class="box intro">
-    <p>A namespace for second order functions</p>
+    <p>A namespace for fundamental gamestate manipulations</p>
 
 </div>
 
@@ -118,103 +118,87 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_API.CardCounting.inZone">API.CardCounting.inZone</a>
+                                <a href="#method_Event.Deal.dealCards">Event.Deal.dealCards</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.CardCounting.ofTypeInZone">API.CardCounting.ofTypeInZone</a>
+                                <a href="#method_Event.Draw.drawBottomCard">Event.Draw.drawBottomCard</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.CardCounting.ofTypeInZone">API.CardCounting.ofTypeInZone</a>
+                                <a href="#method_Event.Draw.drawCard">Event.Draw.drawCard</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.CardLookup.cardInZone">API.CardLookup.cardInZone</a>
+                                <a href="#method_Event.Draw.drawCards">Event.Draw.drawCards</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.DieRolling.rollDie">API.DieRolling.rollDie</a>
+                                <a href="#method_Event.Modify.Card.decreaseAttributeBy">Event.Modify.Card.decreaseAttributeBy</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.DieRolling.rollNDie">API.DieRolling.rollNDie</a>
+                                <a href="#method_Event.Modify.Card.increaseAttributeBy">Event.Modify.Card.increaseAttributeBy</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.DieRolling.rollNDieSum">API.DieRolling.rollNDieSum</a>
+                                <a href="#method_Event.Modify.Card.setAttribute">Event.Modify.Card.setAttribute</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.DieRolling.rollNSpecialDie">API.DieRolling.rollNSpecialDie</a>
+                                <a href="#method_Event.Modify.Card.setAttribute">Event.Modify.Card.setAttribute</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.DieRolling.rollSpecialDie">API.DieRolling.rollSpecialDie</a>
+                                <a href="#method_Event.Modify.endPhase">Event.Modify.endPhase</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.Manipulations.cut">API.Manipulations.cut</a>
+                                <a href="#method_Event.Modify.endTurn">Event.Modify.endTurn</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Card.isAttributeEqualTo">API.ValueComparison.Card.isAttributeEqualTo</a>
+                                <a href="#method_Event.Modify.Player.decreaseAttributeBy">Event.Modify.Player.decreaseAttributeBy</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Card.isAttributeGreaterThan">API.ValueComparison.Card.isAttributeGreaterThan</a>
+                                <a href="#method_Event.Modify.Player.increaseAttributeBy">Event.Modify.Player.increaseAttributeBy</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo">API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo</a>
+                                <a href="#method_Event.Modify.Zone.decreaseAttributeBy">Event.Modify.Zone.decreaseAttributeBy</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Card.isAttributeLessThan">API.ValueComparison.Card.isAttributeLessThan</a>
+                                <a href="#method_Event.Modify.Zone.increaseAttributeBy">Event.Modify.Zone.increaseAttributeBy</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Card.isAttributeLessThanOrEqualTo">API.ValueComparison.Card.isAttributeLessThanOrEqualTo</a>
+                                <a href="#method_Event.Modify.Zone.setAttribute">Event.Modify.Zone.setAttribute</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Player.isAttributeEqualTo">API.ValueComparison.Player.isAttributeEqualTo</a>
+                                <a href="#method_Event.Move.Group.moveAll">Event.Move.Group.moveAll</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Player.isAttributeGreaterThan">API.ValueComparison.Player.isAttributeGreaterThan</a>
+                                <a href="#method_Event.Move.Group.moveAllOfType">Event.Move.Group.moveAllOfType</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo">API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo</a>
+                                <a href="#method_Event.Move.Group.moveAllValid">Event.Move.Group.moveAllValid</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Player.isAttributeLessThan">API.ValueComparison.Player.isAttributeLessThan</a>
+                                <a href="#method_Event.Move.Group.moveAllWithAttributeValue">Event.Move.Group.moveAllWithAttributeValue</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Player.isAttributeLessThanOrEqualTo">API.ValueComparison.Player.isAttributeLessThanOrEqualTo</a>
+                                <a href="#method_Event.Move.Individual.toZone">Event.Move.Individual.toZone</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Zone.isAttributeEqualTo">API.ValueComparison.Zone.isAttributeEqualTo</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Zone.isAttributeGreaterThan">API.ValueComparison.Zone.isAttributeGreaterThan</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo">API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Zone.isAttributeLessThan">API.ValueComparison.Zone.isAttributeLessThan</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_API.ValueComparison.Zone.isAttributeLessThanOrEqualTo">API.ValueComparison.Zone.isAttributeLessThanOrEqualTo</a>
+                                <a href="#method_Event.Shuffle.shuffle">Event.Shuffle.shuffle</a>
 
                             </li>
                     </ul>
@@ -227,13 +211,19 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_API.CardCounting.inZone" class="method item">
-    <h3 class="name"><code>API.CardCounting.inZone</code></h3>
+<div id="method_Event.Deal.dealCards" class="method item">
+    <h3 class="name"><code>Event.Deal.dealCards</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>zoneName</code>
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZoneNameArray</code>
+                </li>
+                <li class="arg">
+                        <code>numCards</code>
                 </li>
                 <li class="arg">
                         <code>gamestate</code>
@@ -251,7 +241,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l9"><code>Engine\API.js:9</code></a>
+        <a href="../files/Engine_event.js.html#l234"><code>Engine\event.js:234</code></a>
         </p>
 
 
@@ -259,7 +249,7 @@
     </div>
 
     <div class="description">
-        <p>Returns the number of cards in a given zone</p>
+        <p>Deals the specified number of cards from the given zone to each specified zone</p>
 
     </div>
 
@@ -268,13 +258,39 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">zoneName</code>
+                        <code class="param-name">fromZone</code>
                         <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the name of the zone whose cards are being counted</li>
+<li>the zone from which cards are being dealt</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZoneNameArray</code>
+                        <span class="type">Array of String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>an array of zone names to which cards are being dealt</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">numCards</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of cards to be dealt to each player</li>
 </ul>
 
                     </div>
@@ -299,16 +315,16 @@
 
 
 </div>
-<div id="method_API.CardCounting.ofTypeInZone" class="method item">
-    <h3 class="name"><code>API.CardCounting.ofTypeInZone</code></h3>
+<div id="method_Event.Draw.drawBottomCard" class="method item">
+    <h3 class="name"><code>Event.Draw.drawBottomCard</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>zoneName</code>
+                        <code>fromZone</code>
                 </li>
                 <li class="arg">
-                        <code>isValid</code>
+                        <code>toZone</code>
                 </li>
                 <li class="arg">
                         <code>gamestate</code>
@@ -326,7 +342,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l40"><code>Engine\API.js:40</code></a>
+        <a href="../files/Engine_event.js.html#l174"><code>Engine\event.js:174</code></a>
         </p>
 
 
@@ -334,7 +350,7 @@
     </div>
 
     <div class="description">
-        <p>Returns the number of cards that meet requirement function&#39;s condition in a given zone</p>
+        <p>Moves the bottom card from one zone to another</p>
 
     </div>
 
@@ -343,26 +359,26 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">zoneName</code>
+                        <code class="param-name">fromZone</code>
                         <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the name of the zone whose cards are being counted</li>
+<li>the zone from which a card is being drawn</li>
 </ul>
 
                     </div>
 
                 </li>
                 <li class="param">
-                        <code class="param-name">isValid</code>
-                        <span class="type">Function</span>
+                        <code class="param-name">toZone</code>
+                        <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>a function that takes a card and returns either true or false, if true is returned, the card is counted</li>
+<li>the zone from which a card is being drawn</li>
 </ul>
 
                     </div>
@@ -387,13 +403,1344 @@
 
 
 </div>
-<div id="method_API.CardCounting.ofTypeInZone" class="method item">
-    <h3 class="name"><code>API.CardCounting.ofTypeInZone</code></h3>
+<div id="method_Event.Draw.drawCard" class="method item">
+    <h3 class="name"><code>Event.Draw.drawCard</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZone</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l157"><code>Engine\event.js:157</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Moves the top card from one zone to another</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">fromZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the zone from which a card is being drawn</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the zone from which a card is being drawn</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Draw.drawCards" class="method item">
+    <h3 class="name"><code>Event.Draw.drawCards</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZone</code>
+                </li>
+                <li class="arg">
+                        <code>toDraw</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l189"><code>Engine\event.js:189</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Moves the top n cards from one zone to another</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">fromZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the zone from which a card is being drawn</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the zone from which a card is being drawn</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toDraw</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the number of cards to be drawn</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Card.decreaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.decreaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l282"><code>Engine\event.js:282</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Decreases the named card&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to decrease the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Card.increaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.increaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l269"><code>Engine\event.js:269</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Increases the named card&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to increase the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Card.setAttribute" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.setAttribute</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>cardID</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>newValue</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l256"><code>Engine\event.js:256</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Sets the named card&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">cardID</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the card whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">newValue</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the new value being given to the object&#39;s attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Card.setAttribute" class="method item">
+    <h3 class="name"><code>Event.Modify.Card.setAttribute</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>newValue</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l335"><code>Engine\event.js:335</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Sets the named player&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">newValue</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the new value being given to the object&#39;s attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.endPhase" class="method item">
+    <h3 class="name"><code>Event.Modify.endPhase</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l412"><code>Engine\event.js:412</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Ends the current phase continues to the next one, if the current phase is the final phase in the game&#39;s turn structure, the end turn event is called</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.endTurn" class="method item">
+    <h3 class="name"><code>Event.Modify.endTurn</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l437"><code>Engine\event.js:437</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Ends the current turn and allows the next player in the turn structure to begin their turn.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Player.decreaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Player.decreaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l360"><code>Engine\event.js:360</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Decreases the named player&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to decrease the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Player.increaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Player.increaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>playerName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l348"><code>Engine\event.js:348</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Increases the named player&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">playerName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the player whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to increase the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Zone.decreaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Zone.decreaseAttributeBy</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
                         <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l399"><code>Engine\event.js:399</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Decreases the named zone&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to decrease the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Zone.increaseAttributeBy" class="method item">
+    <h3 class="name"><code>Event.Modify.Zone.increaseAttributeBy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>value</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l387"><code>Engine\event.js:387</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Increases the named zone&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value by which to increase the attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Modify.Zone.setAttribute" class="method item">
+    <h3 class="name"><code>Event.Modify.Zone.setAttribute</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>newValue</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l374"><code>Engine\event.js:374</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Sets the named zone&#39;s named attribute by the given value</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone whose attribute value is being changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute to be changed</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">newValue</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the new value being given to the object&#39;s attribute</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Move.Group.moveAll" class="method item">
+    <h3 class="name"><code>Event.Move.Group.moveAll</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZone</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Engine_event.js.html#l41"><code>Engine\event.js:41</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Move all cards from the given zone to the other given zone</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">fromZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone from which the card(s) are being moved from</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone to which the card(s) are being moved to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Event.Move.Group.moveAllOfType" class="method item">
+    <h3 class="name"><code>Event.Move.Group.moveAllOfType</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZone</code>
                 </li>
                 <li class="arg">
                         <code>cardType</code>
@@ -414,7 +1761,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l20"><code>Engine\API.js:20</code></a>
+        <a href="../files/Engine_event.js.html#l57"><code>Engine\event.js:57</code></a>
         </p>
 
 
@@ -422,7 +1769,7 @@
     </div>
 
     <div class="description">
-        <p>Returns the number of cards of the named type in a given zone</p>
+        <p>Move all cards with the given card type name from the given zone to the other given zone</p>
 
     </div>
 
@@ -431,13 +1778,26 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">zoneName</code>
+                        <code class="param-name">fromZone</code>
                         <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the name of the zone whose cards are being counted</li>
+<li>the name of the zone from which the card(s) are being moved from</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone to which the card(s) are being moved to</li>
 </ul>
 
                     </div>
@@ -450,7 +1810,7 @@
 
                     <div class="param-description">
                         <ul>
-<li>the name of the card type being counted in a given zone</li>
+<li>the name of the card type to be moved</li>
 </ul>
 
                     </div>
@@ -475,13 +1835,19 @@
 
 
 </div>
-<div id="method_API.CardLookup.cardInZone" class="method item">
-    <h3 class="name"><code>API.CardLookup.cardInZone</code></h3>
+<div id="method_Event.Move.Group.moveAllValid" class="method item">
+    <h3 class="name"><code>Event.Move.Group.moveAllValid</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>cardID</code>
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZone</code>
+                </li>
+                <li class="arg">
+                        <code>isValid</code>
                 </li>
                 <li class="arg">
                         <code>gamestate</code>
@@ -499,7 +1865,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l62"><code>Engine\API.js:62</code></a>
+        <a href="../files/Engine_event.js.html#l122"><code>Engine\event.js:122</code></a>
         </p>
 
 
@@ -507,7 +1873,7 @@
     </div>
 
     <div class="description">
-        <p>Returns the zone the card is currently in</p>
+        <p>Move all cards that meet the requirement function&#39;s condition for movement from the given zone to the other given zone</p>
 
     </div>
 
@@ -516,13 +1882,39 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">cardID</code>
-                        <span class="type">Int</span>
+                        <code class="param-name">fromZone</code>
+                        <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the name of the card whose attribute&#39;s value is being checked</li>
+<li>the name of the zone from which the card(s) are being moved from</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone to which the card(s) are being moved to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">isValid</code>
+                        <span class="type">Function</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>a function that takes a card and returns either true or false, if true is returned, the card is moved</li>
 </ul>
 
                     </div>
@@ -547,13 +1939,25 @@
 
 
 </div>
-<div id="method_API.DieRolling.rollDie" class="method item">
-    <h3 class="name"><code>API.DieRolling.rollDie</code></h3>
+<div id="method_Event.Move.Group.moveAllWithAttributeValue" class="method item">
+    <h3 class="name"><code>Event.Move.Group.moveAllWithAttributeValue</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>numSides</code>
+                        <code>fromZone</code>
+                </li>
+                <li class="arg">
+                        <code>toZone</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>attributeName</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -568,7 +1972,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l359"><code>Engine\API.js:359</code></a>
+        <a href="../files/Engine_event.js.html#l89"><code>Engine\event.js:89</code></a>
         </p>
 
 
@@ -576,7 +1980,7 @@
     </div>
 
     <div class="description">
-        <p>Rolls a die with the given number of sides and returns the outcome</p>
+        <p>Move all cards with the given attribute value from the given zone to the other given zone</p>
 
     </div>
 
@@ -585,13 +1989,65 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">numSides</code>
-                        <span class="type">Int</span>
+                        <code class="param-name">fromZone</code>
+                        <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the number of sides the virtual die has</li>
+<li>the name of the zone from which the card(s) are being moved from</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">toZone</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the zone to which the card(s) are being moved to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the name of the attribute whose value is being checked</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">attributeName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the value of the attribute to be checked against</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
 </ul>
 
                     </div>
@@ -603,16 +2059,19 @@
 
 
 </div>
-<div id="method_API.DieRolling.rollNDie" class="method item">
-    <h3 class="name"><code>API.DieRolling.rollNDie</code></h3>
+<div id="method_Event.Move.Individual.toZone" class="method item">
+    <h3 class="name"><code>Event.Move.Individual.toZone</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>numSides</code>
+                        <code>cardID</code>
                 </li>
                 <li class="arg">
-                        <code>toRoll</code>
+                        <code>zoneName</code>
+                </li>
+                <li class="arg">
+                        <code>gamestate</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -627,7 +2086,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l368"><code>Engine\API.js:368</code></a>
+        <a href="../files/Engine_event.js.html#l9"><code>Engine\event.js:9</code></a>
         </p>
 
 
@@ -635,7 +2094,7 @@
     </div>
 
     <div class="description">
-        <p>Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes</p>
+        <p>Moves the given card to the given zone</p>
 
     </div>
 
@@ -644,26 +2103,39 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">numSides</code>
+                        <code class="param-name">cardID</code>
                         <span class="type">Int</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the number of sides the virtual die has</li>
+<li>the unique identification number of the card being moved</li>
 </ul>
 
                     </div>
 
                 </li>
                 <li class="param">
-                        <code class="param-name">toRoll</code>
-                        <span class="type">Int</span>
+                        <code class="param-name">zoneName</code>
+                        <span class="type">String</span>
 
 
                     <div class="param-description">
                         <ul>
-<li>the number of die to roll</li>
+<li>the name of the zone to which the card is being moved to</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">gamestate</code>
+                        <span class="type">GameState</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>the gamestate in which this event is taking place</li>
 </ul>
 
                     </div>
@@ -675,208 +2147,8 @@
 
 
 </div>
-<div id="method_API.DieRolling.rollNDieSum" class="method item">
-    <h3 class="name"><code>API.DieRolling.rollNDieSum</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>numSides</code>
-                </li>
-                <li class="arg">
-                        <code>toRoll</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l383"><code>Engine\API.js:383</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">numSides</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the number of sides the virtual die has</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">toRoll</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the number of die to roll</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.DieRolling.rollNSpecialDie" class="method item">
-    <h3 class="name"><code>API.DieRolling.rollNSpecialDie</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>values</code>
-                </li>
-                <li class="arg">
-                        <code>toRoll</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l407"><code>Engine\API.js:407</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Rolls a number of die equal to given number, each with the given array&#39;s values as sides of the die, and returns the outcome as an array</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">values</code>
-                        <span class="type">Array of Object</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>an array of objects (the sides of the die)</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">toRoll</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the number of die to roll</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.DieRolling.rollSpecialDie" class="method item">
-    <h3 class="name"><code>API.DieRolling.rollSpecialDie</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>values</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l398"><code>Engine\API.js:398</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Rolls a die with the given array&#39;s values as sides of the die, and returns the outcome</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">values</code>
-                        <span class="type">Array of Object</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>an array of objects (the sides of the die)</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.Manipulations.cut" class="method item">
-    <h3 class="name"><code>API.Manipulations.cut</code></h3>
+<div id="method_Event.Shuffle.shuffle" class="method item">
+    <h3 class="name"><code>Event.Shuffle.shuffle</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
@@ -899,7 +2171,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Engine_API.js.html#l424"><code>Engine\API.js:424</code></a>
+        <a href="../files/Engine_event.js.html#l210"><code>Engine\event.js:210</code></a>
         </p>
 
 
@@ -907,1125 +2179,7 @@
     </div>
 
     <div class="description">
-        <p>&quot;Cuts&quot; the named zone&#39;s cards and returns the revealed card</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">zoneName</code>
-                        <span class="type"><a href="../classes/Zone.html" class="crosslink">Zone</a></span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the zone whose deck is to be cut</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the game state in which this action is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Card.isAttributeEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Card.isAttributeEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cardID</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l126"><code>Engine\API.js:126</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given card&#39;s named attribute&#39;s value is equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cardID</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the card whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the card&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Card.isAttributeGreaterThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Card.isAttributeGreaterThan</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cardID</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l92"><code>Engine\API.js:92</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given card&#39;s named attribute&#39;s value is greater than the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cardID</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the card whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the card&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cardID</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l160"><code>Engine\API.js:160</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given card&#39;s named attribute&#39;s value is greater than or equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cardID</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the card whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the card&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Card.isAttributeLessThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Card.isAttributeLessThan</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cardID</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l109"><code>Engine\API.js:109</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given card&#39;s named attribute&#39;s value is less than the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cardID</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the card whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the card&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Card.isAttributeLessThanOrEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Card.isAttributeLessThanOrEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cardID</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l143"><code>Engine\API.js:143</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given card&#39;s named attribute&#39;s value is less than or equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cardID</code>
-                        <span class="type">Int</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the card whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the card&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Player.isAttributeEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Player.isAttributeEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>playerName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l213"><code>Engine\API.js:213</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given player&#39;s named attribute&#39;s value is equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">playerName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the player whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the player&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Player.isAttributeGreaterThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Player.isAttributeGreaterThan</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>playerName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l179"><code>Engine\API.js:179</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given player&#39;s named attribute&#39;s value is greater than the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">playerName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the player whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the player&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>playerName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l247"><code>Engine\API.js:247</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given player&#39;s named attribute&#39;s value is greater than or equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">playerName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the player whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the player&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Player.isAttributeLessThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Player.isAttributeLessThan</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>playerName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l196"><code>Engine\API.js:196</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given player&#39;s named attribute&#39;s value is less than the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">playerName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the player whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the player&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Player.isAttributeLessThanOrEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Player.isAttributeLessThanOrEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>playerName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l230"><code>Engine\API.js:230</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given player&#39;s named attribute&#39;s value is less than or equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">playerName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the player whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the player&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Zone.isAttributeEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>zoneName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l300"><code>Engine\API.js:300</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given zone&#39;s named attribute&#39;s value is equal to the given value</p>
+        <p>Shuffles the cards in the named zone</p>
 
     </div>
 
@@ -2040,449 +2194,7 @@
 
                     <div class="param-description">
                         <ul>
-<li>the name of the zone whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the zone&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Zone.isAttributeGreaterThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeGreaterThan</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>zoneName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l266"><code>Engine\API.js:266</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given zone&#39;s named attribute&#39;s value is greater than the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">zoneName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the zone whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the zone&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>zoneName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l334"><code>Engine\API.js:334</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given zone&#39;s named attribute&#39;s value is greater than or equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">zoneName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the zone whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the zone&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Zone.isAttributeLessThan" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeLessThan</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>zoneName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l283"><code>Engine\API.js:283</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given zone&#39;s named attribute&#39;s value is less than the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">zoneName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the zone whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the zone&#39;s value to</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">gamestate</code>
-                        <span class="type">GameState</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the gamestate in which this event is taking place</li>
-</ul>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_API.ValueComparison.Zone.isAttributeLessThanOrEqualTo" class="method item">
-    <h3 class="name"><code>API.ValueComparison.Zone.isAttributeLessThanOrEqualTo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>zoneName</code>
-                </li>
-                <li class="arg">
-                        <code>attributeName</code>
-                </li>
-                <li class="arg">
-                        <code>value</code>
-                </li>
-                <li class="arg">
-                        <code>gamestate</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Engine_API.js.html#l317"><code>Engine\API.js:317</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns if the given zone&#39;s named attribute&#39;s value is less than or equal to the given value</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">zoneName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the zone whose attribute&#39;s value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">attributeName</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the name of the attribute whose value is being checked</li>
-</ul>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <ul>
-<li>the value to compare the zone&#39;s value to</li>
+<li>the name of the zone to be shuffled</li>
 </ul>
 
                     </div>

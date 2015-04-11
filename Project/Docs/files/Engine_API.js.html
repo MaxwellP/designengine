@@ -120,7 +120,7 @@ var API = {
 			var count = 0;
 			for(var i = 0; i &lt; cards.length; i += 1)
 			{
-				if(cards[i].name === cardTypeName)
+				if(lookupCard(cards[i], gamestate).name === cardTypeName)
 				{
 					count += 1;
 				}
@@ -140,7 +140,7 @@ var API = {
 			var count = 0;
 			for(var i = 0; i &lt; cards.length; i += 1)
 			{
-				if(isValid(cards[i]) === true)
+				if(isValid(lookupCard(cards[i], gamestate)) === true)
 				{
 					count += 1;
 				}
@@ -150,31 +150,178 @@ var API = {
 	},
 	CardLookup: {
 		/**
-		* Returns the zone the card is currently in
+		* Returns the zone name the card is currently in
 		* @method API.CardLookup.cardInZone
 		* @param {Int} cardID - the name of the card whose attribute&#x27;s value is being checked
 		* @param {GameState} gamestate - the gamestate in which this event is taking place
 		*/
 		cardInZone: function(cardID, gamestate)
 		{
-			var zones = gamestate.zones;
-			for(var i = 0; i &lt; zones.length; i += 1)
+			var card = lookupCard(cardID, gamestate);
+			return card.zone;
+		},
+		/**
+		* Returns if the card is currently in the given zone
+		* @method API.CardLookup.isCardInZone
+		* @param {Int} cardID - the name of the card whose attribute&#x27;s value is being checked
+		* @param {String} zoneName - the name of the zone to check if the card is in
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		isCardInZone: function(cardID, zoneName, gamestate)
+		{
+			var gotZone = API.CardLookup.cardInZone(cardID, gamestate);
+			return (gotZone === zoneName);
+		},
+		/**
+		* Returns the cardID of the first card in a zone
+		* @method API.CardLookup.firstCardInZone
+		* @param {String} zoneName - the name of the zone to get the first card from
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		firstCardInZone: function(zoneName, gamestate)
+		{
+			var zone = lookupZone(zoneName, gamestate);
+			if (zone.cards.length === 0)
 			{
-				var zCards = zones[i].cards;
-				for(var j = 0; j &lt; zCards.length; j += 1)
+				//No cards in the zone
+				return false;
+			}
+			else
+			{
+				//First card in the zone
+				return zone.cards[0];
+			}
+		},
+		/**
+		* Returns the cardID of the last card in a zone
+		* @method API.CardLookup.firstCardInZone
+		* @param {String} zoneName - the name of the zone to get the last card from
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		lastCardInZone: function(zoneName, gamestate)
+		{
+			var zone = lookupZone(zoneName, gamestate);
+			if (zone.cards.length === 0)
+			{
+				//No cards in the zone
+				return false;
+			}
+			else
+			{
+				//Last card in the zone
+				return zone.cards[zone.cards.length - 1];
+			}
+		},
+		/**
+		* Returns an array containing all the cardIDs of the cards in a zone
+		* @method API.CardLookup.allCardsInZone
+		* @param {String} zoneName - the name of the zone to get the cards from
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		allCardsInZone: function(zoneName, gamestate)
+		{
+			var zone = lookupZone(zoneName, gamestate);
+			return objectClone(zone.cards);
+		},
+		cardIndexInZone: function(cardID, zoneName, gamestate)
+		{
+			var zone = lookupZone(zoneName, gamestate);
+			for(var i = 0; i &lt; zone.cards.length; i += 1)
+			{
+				if(cardID === zone.cards[i])
 				{
-					if(zCards[i] === cardID)
-					{
-						return zones[i];
-					}
+					return i;
 				}
 			}
-			console.log(&quot;The card you searched for does not exist in any zone&quot;);
 			return false;
-		},
-		cardIndexInZone: function()
+		}
+	},
+	ZoneLookup: {
+		/**
+		* Returns the name of a player&#x27;s zone with the given tag 
+		* @method API.ZoneLookup.getZoneByTag
+		* @param {String} playerName - the name of the player to get the associated tagged zone from
+		* @param {String} zoneTag - the name of the tag to look up
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		getZoneByTag: function(playerName, zoneTag, gamestate)
 		{
-			console.log(&quot;TO CODE: API.CardLookup.cardIndexInZone&quot;);
+			var player = lookupPlayer(playerName, gamestate);
+			return player.zones[zoneTag];
+		},
+		/**
+		* Returns the name of the opponent player&#x27;s zone with the given tag 
+		* @method API.ZoneLookup.getEnemyZoneByTag
+		* @param {String} playerName - the name of the player whose enemy to get the associated tagged zone from
+		* @param {String} zoneTag - the name of the tag to look up
+		* @param {GameState} gamestate - the gamestate in which this call is taking place
+		*/
+		getEnemyZoneByTag: function(playerName, zoneTag, gamestate)
+		{
+			var enemy = getAltPlayer(playerName, gamestate);
+			return enemy.zones[zoneTag];
+		}
+	},
+	ValueLookup: {
+		Card: {
+			/**
+			* Returns the given card&#x27;s value for the given named attribute
+			* @method API.ValueLookup.Card.getAttribute
+			* @param {Int} cardID - the id of the card whose attribute&#x27;s value is being checked
+			* @param {String} attributeName - the name of the attribute to get the value of
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			getAttribute: function (cardID, attributeName, gamestate)
+			{
+				var card = lookupCard(cardID, gamestate);
+				return card.attributes[attributeName];
+			}
+		},
+		Zone: {
+			/**
+			* Returns the given zone&#x27;s value for the given named attribute
+			* @method API.ValueLookup.Zone.getAttribute
+			* @param {String} zoneName - the name of the zone whose attribute&#x27;s value is being checked
+			* @param {String} attributeName - the name of the attribute to get the value of
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			getAttribute: function (zoneName, attributeName, gamestate)
+			{
+				var zone = lookupZone(zoneName, gamestate);
+				return zone.attributes[attributeName];
+			}
+		},
+		Player: {
+			/**
+			* Returns the current player
+			* @method API.ValueLookup.Player.currentPlayer
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			currentPlayer: function (gamestate)
+			{
+				return gamestate.turnPlayer;
+			},
+			/**
+			* Returns the enemy player
+			* @method API.ValueLookup.Player.enemyPlayer
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			enemyPlayer: function (gamestate)
+			{
+				return getAltPlayer(gamestate.turnPlayer, gamestate).name;
+			},
+			/**
+			* Returns the given player&#x27;s value for the given named attribute
+			* @method API.ValueLookup.Player.getAttribute
+			* @param {String} playerName - the name of the player whose attribute&#x27;s value is being checked
+			* @param {String} attributeName - the name of the attribute to get the value of
+			* @param {GameState} gamestate - the gamestate to get data from
+			*/
+			getAttribute: function (playerName, attributeName, gamestate)
+			{
+				var player = lookupPlayer(playerName, gamestate);
+				return player.attributes[attributeName];
+			}
 		}
 	},
 	ValueComparison: {
@@ -439,11 +586,6 @@ var API = {
 				return false;
 			}
 		}
-		/*
-			ADD LESS THAN OR EQUAL
-			ADD GREATER THAN OR EQUAL
-			ADD NOT EQUAL
-		*/
 	},
 	DieRolling: {
 		/**
@@ -512,7 +654,7 @@ var API = {
 	},
 	Manipulations: {
 		/**
-		* &quot;Cuts&quot; the named zone&#x27;s cards and returns the revealed card
+		* &quot;Cuts&quot; the named zone&#x27;s cards and returns the revealed cards ID
 		* @method API.Manipulations.cut
 		* @param {Zone} zoneName - the zone whose deck is to be cut
 		* @param {GameState} gamestate - the game state in which this action is taking place
@@ -547,6 +689,27 @@ var API = {
 			{
 				console.log(&quot;TO CODE: API.Sorting.Card_Sorting.byCardValid&quot;);
 			}
+		}
+	},
+	Phase: {
+		/**
+		* Returns the name of the current phase
+		* @method API.Phase.getPhase
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		getPhase: function(gamestate)
+		{
+			return gamestate.currentPhase;
+		},
+		/**
+		* Returns if the current phase is the given phase
+		* @method API.Phase.checkPhase
+		* @param {GameState} phaseName - the name of the phase to check against
+		* @param {GameState} gamestate - the gamestate in which this event is taking place
+		*/
+		checkPhase: function(phaseName, gamestate)
+		{
+			return (gamestate.currentPhase === phaseName);
 		}
 	}
 };

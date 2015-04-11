@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Engine\phase.js</title>
+    <title>Engine\gameDescription.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -84,24 +84,133 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: Engine\phase.js</h1>
+<h1 class="file-heading">File: Engine\gameDescription.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-* The pieces of a player&#x27;s turn
+* Initial conditions for the game structure
 *
-* @class Phase
+* @class GameDescription
 * @constructor
-* @param {String} name - the name of the phase - must be unique
-* @param {Function} init - a function executed at the beginning of the phase
-* @param {Function} endConditions - a function that is checked after each action is taken in a given phase, if true is returned the phase has met its end condition and the endPhase event is called
+* @param {Array} zones - an array of zones defined in the designer&#x27;s json file
+* @param {Array} cardTypes - an array of card types defined in the designer&#x27;s json file
+* @param {Array} actionTemplates - an array of action templates defined in the designer&#x27;s json file
+* @param {Array} players - an array of players defined in the designer&#x27;s json file
+* @param {Function} init - 
+* @param {Function} winCondition - a designer defined function that returns when a game state is considered a termination state and who the victor is in that state
+* @param {String} functionFile - the name of the file containing all designer defined functions
+* @param {Function} setupFunction - a designer defined function that is run at the start of a game
+* @param {Function} stateScore - a designer defined function run at the start of a game
+* @param {Array} phases - an array of zones defined in the designer&#x27;s json file
 */
-function Phase(name, init, endConditions)
-{
-	this.name = name;
+function GameDescription (zones, universes, cardTypes, actionTemplates, playerTemplate, players, init, gameName, functionFile, phases) {
+	var playerArr = [];
+	for (var i = 0; i &lt; players.length; i++) {
+		var curPlayer = players[i];
+		var playerZones = {};
+		for (var j = 0; j &lt; playerTemplate.zoneTags.length; j++)
+		{
+			playerZones[playerTemplate.zoneTags[j]] = curPlayer.zones[j];
+		}
+		var playerAttributes = {};
+		for (var j = 0; j &lt; playerTemplate.attributeNames.length; j++)
+		{
+			playerAttributes[playerTemplate.attributeNames[j]] = curPlayer.attributes[j];
+		}
+		var newPlayer = new Player (curPlayer.name, playerAttributes, playerZones, curPlayer.isAI, false, playerTemplate.actions);
+		playerArr.push(newPlayer);
+	};
+
+	var zoneArr = [];
+	for (var i = 0; i &lt; zones.length; i++) {
+		var curZone = zones[i];
+		var newZone = new Zone (curZone.name, curZone.attributes, curZone.type, curZone.visibleTo);
+		zoneArr.push(newZone);
+	};
+
+	this.zones = zoneArr;
+	this.universes = universes;
+	this.cardTypes = cardTypes;
+	this.actionTemplates = actionTemplates;
+	this.playerTemplate = playerTemplate;
+	this.players = playerArr;
 	this.init = init;
-	this.endConditions = endConditions;
+	this.gameName = gameName;
+	this.winCondition = &quot;gameWinCondition&quot;;
+	this.functionFile = functionFile;
+	this.setupFunction = &quot;gameSetup&quot;;
+	this.stateScore = &quot;gameStateScore&quot;;
+	this.phases = phases;
+	this.cards = [];
+}
+/**
+* Creates a clean game state
+* @method GameDescription.prototype.initializeGameState
+* @return {GameState} Returns the starting game state based on this game structure
+*/
+GameDescription.prototype.initializeGameState = function() {
+	var playerClones = [];
+	for (var i = 0; i &lt; this.players.length; i++)
+	{
+		playerClones.push(this.players[i].clone());
+	}
+	var zoneClones = [];
+	for (var i = 0; i &lt; this.zones.length; i++)
+	{
+		zoneClones.push(this.zones[i].clone());
+	}
+
+	var newGS = new GameState(
+		playerClones,
+		zoneClones,
+		[],
+		this.phases[0].name,
+		this.players[0].name);
+	this.initializeCards(newGS);
+	return newGS;
+};
+/**
+* Creates and places the cards into the zones
+* @method GameDescription.prototype.initializeCards
+*/
+GameDescription.prototype.initializeCards = function(gs) {
+
+	for (var i = 0; i &lt; this.init.length; i += 1)
+	{
+		if (this.init[i].zoneName)
+		{
+			var currentZone = lookupZone(this.init[i].zoneName, gs);
+			if (currentZone)
+			{
+				for(var j = 0; j &lt; this.init[i].cardNames.length; j += 1)
+				{
+					var currentCard = lookupCardType(this.init[i].cardNames[j], this);
+					if (currentCard)
+					{
+						var newCard = initCard(currentCard, currentZone);
+						currentZone.cards.push(newCard.id);
+						gs.cards.push(newCard);
+					}
+				}
+			}
+		}
+		else if (this.init[i].zonesPerLine)
+		{
+			ZONES_PER_LINE = this.init[i].zonesPerLine;
+		}
+	}
+};
+/**
+* Creates a new card of the given card type and places it in the given zone
+* @method initCard
+* @param {String} cardType - he name of the card type to create a new card based on
+* @param {Zone} zone - the zone into which the new car should be placed in
+* @return {Card} Returns the newly created card
+*/
+function initCard (cardType, zone) {
+	var card = new Card(cardType.name, zone.name, cardType.attributes, cardType.actions, false, cardType.universe)
+	return card;
 }
     </pre>
 </div>

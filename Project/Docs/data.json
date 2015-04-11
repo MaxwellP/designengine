@@ -351,7 +351,7 @@
                     "type": "Function"
                 },
                 {
-                    "name": "endConditions",
+                    "name": "endCondition",
                     "description": "- a function that is checked after each action is taken in a given phase, if true is returned the phase has met its end condition and the endPhase event is called",
                     "type": "Function"
                 }
@@ -382,8 +382,8 @@
                 },
                 {
                     "name": "zones",
-                    "description": "- all zones the player can take actions on",
-                    "type": "Array"
+                    "description": "- object of associated zones referencing tags given in playerTemplate",
+                    "type": "Object"
                 },
                 {
                     "name": "isAI",
@@ -507,7 +507,7 @@
         {
             "file": "Engine\\API.js",
             "line": 62,
-            "description": "Returns the zone the card is currently in",
+            "description": "Returns the zone name the card is currently in",
             "itemtype": "method",
             "name": "API.CardLookup.cardInZone",
             "params": [
@@ -526,7 +526,247 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 92,
+            "line": 73,
+            "description": "Returns if the card is currently in the given zone",
+            "itemtype": "method",
+            "name": "API.CardLookup.isCardInZone",
+            "params": [
+                {
+                    "name": "cardID",
+                    "description": "- the name of the card whose attribute's value is being checked",
+                    "type": "Int"
+                },
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone to check if the card is in",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this call is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 85,
+            "description": "Returns the cardID of the first card in a zone",
+            "itemtype": "method",
+            "name": "API.CardLookup.firstCardInZone",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone to get the first card from",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this call is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 105,
+            "description": "Returns the cardID of the last card in a zone",
+            "itemtype": "method",
+            "name": "API.CardLookup.firstCardInZone",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone to get the last card from",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this call is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 125,
+            "description": "Returns an array containing all the cardIDs of the cards in a zone",
+            "itemtype": "method",
+            "name": "API.CardLookup.allCardsInZone",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone to get the cards from",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this call is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 150,
+            "description": "Returns the name of a player's zone with the given tag",
+            "itemtype": "method",
+            "name": "API.ZoneLookup.getZoneByTag",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player to get the associated tagged zone from",
+                    "type": "String"
+                },
+                {
+                    "name": "zoneTag",
+                    "description": "- the name of the tag to look up",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this call is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 162,
+            "description": "Returns the name of the opponent player's zone with the given tag",
+            "itemtype": "method",
+            "name": "API.ZoneLookup.getEnemyZoneByTag",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose enemy to get the associated tagged zone from",
+                    "type": "String"
+                },
+                {
+                    "name": "zoneTag",
+                    "description": "- the name of the tag to look up",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this call is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 177,
+            "description": "Returns the given card's value for the given named attribute",
+            "itemtype": "method",
+            "name": "API.ValueLookup.Card.getAttribute",
+            "params": [
+                {
+                    "name": "cardID",
+                    "description": "- the id of the card whose attribute's value is being checked",
+                    "type": "Int"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to get the value of",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate to get data from",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 191,
+            "description": "Returns the given zone's value for the given named attribute",
+            "itemtype": "method",
+            "name": "API.ValueLookup.Zone.getAttribute",
+            "params": [
+                {
+                    "name": "zoneName",
+                    "description": "- the name of the zone whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to get the value of",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate to get data from",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 205,
+            "description": "Returns the current player",
+            "itemtype": "method",
+            "name": "API.ValueLookup.Player.currentPlayer",
+            "params": [
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate to get data from",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 214,
+            "description": "Returns the enemy player",
+            "itemtype": "method",
+            "name": "API.ValueLookup.Player.enemyPlayer",
+            "params": [
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate to get data from",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 223,
+            "description": "Returns the given player's value for the given named attribute",
+            "itemtype": "method",
+            "name": "API.ValueLookup.Player.getAttribute",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "- the name of the player whose attribute's value is being checked",
+                    "type": "String"
+                },
+                {
+                    "name": "attributeName",
+                    "description": "- the name of the attribute to get the value of",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate to get data from",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 239,
             "description": "Returns if the given card's named attribute's value is greater than the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Card.isAttributeGreaterThan",
@@ -556,7 +796,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 109,
+            "line": 256,
             "description": "Returns if the given card's named attribute's value is less than the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Card.isAttributeLessThan",
@@ -586,7 +826,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 126,
+            "line": 273,
             "description": "Returns if the given card's named attribute's value is equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Card.isAttributeEqualTo",
@@ -616,7 +856,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 143,
+            "line": 290,
             "description": "Returns if the given card's named attribute's value is less than or equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Card.isAttributeLessThanOrEqualTo",
@@ -646,7 +886,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 160,
+            "line": 307,
             "description": "Returns if the given card's named attribute's value is greater than or equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Card.isAttributeGreaterThanOrEqualTo",
@@ -676,7 +916,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 179,
+            "line": 326,
             "description": "Returns if the given player's named attribute's value is greater than the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Player.isAttributeGreaterThan",
@@ -706,7 +946,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 196,
+            "line": 343,
             "description": "Returns if the given player's named attribute's value is less than the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Player.isAttributeLessThan",
@@ -736,7 +976,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 213,
+            "line": 360,
             "description": "Returns if the given player's named attribute's value is equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Player.isAttributeEqualTo",
@@ -766,7 +1006,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 230,
+            "line": 377,
             "description": "Returns if the given player's named attribute's value is less than or equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Player.isAttributeLessThanOrEqualTo",
@@ -796,7 +1036,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 247,
+            "line": 394,
             "description": "Returns if the given player's named attribute's value is greater than or equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Player.isAttributeGreaterThanOrEqualTo",
@@ -826,7 +1066,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 266,
+            "line": 413,
             "description": "Returns if the given zone's named attribute's value is greater than the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Zone.isAttributeGreaterThan",
@@ -856,7 +1096,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 283,
+            "line": 430,
             "description": "Returns if the given zone's named attribute's value is less than the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Zone.isAttributeLessThan",
@@ -886,7 +1126,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 300,
+            "line": 447,
             "description": "Returns if the given zone's named attribute's value is equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Zone.isAttributeEqualTo",
@@ -916,7 +1156,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 317,
+            "line": 464,
             "description": "Returns if the given zone's named attribute's value is less than or equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Zone.isAttributeLessThanOrEqualTo",
@@ -946,7 +1186,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 334,
+            "line": 481,
             "description": "Returns if the given zone's named attribute's value is greater than or equal to the given value",
             "itemtype": "method",
             "name": "API.ValueComparison.Zone.isAttributeGreaterThanOrEqualTo",
@@ -976,7 +1216,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 359,
+            "line": 501,
             "description": "Rolls a die with the given number of sides and returns the outcome",
             "itemtype": "method",
             "name": "API.DieRolling.rollDie",
@@ -991,7 +1231,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 368,
+            "line": 510,
             "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns an array of integer outcomes",
             "itemtype": "method",
             "name": "API.DieRolling.rollNDie",
@@ -1011,7 +1251,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 383,
+            "line": 525,
             "description": "Rolls a number of die equal to given number, each with the given number of sides, it returns the sum of the die rolls",
             "itemtype": "method",
             "name": "API.DieRolling.rollNDieSum",
@@ -1031,7 +1271,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 398,
+            "line": 540,
             "description": "Rolls a die with the given array's values as sides of the die, and returns the outcome",
             "itemtype": "method",
             "name": "API.DieRolling.rollSpecialDie",
@@ -1046,7 +1286,7 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 407,
+            "line": 549,
             "description": "Rolls a number of die equal to given number, each with the given array's values as sides of the die, and returns the outcome as an array",
             "itemtype": "method",
             "name": "API.DieRolling.rollNSpecialDie",
@@ -1066,8 +1306,8 @@
         },
         {
             "file": "Engine\\API.js",
-            "line": 424,
-            "description": "\"Cuts\" the named zone's cards and returns the revealed card",
+            "line": 566,
+            "description": "\"Cuts\" the named zone's cards and returns the revealed cards ID",
             "itemtype": "method",
             "name": "API.Manipulations.cut",
             "params": [
@@ -1079,6 +1319,41 @@
                 {
                     "name": "gamestate",
                     "description": "- the game state in which this action is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 605,
+            "description": "Returns the name of the current phase",
+            "itemtype": "method",
+            "name": "API.Phase.getPhase",
+            "params": [
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "API"
+        },
+        {
+            "file": "Engine\\API.js",
+            "line": 614,
+            "description": "Returns if the current phase is the given phase",
+            "itemtype": "method",
+            "name": "API.Phase.checkPhase",
+            "params": [
+                {
+                    "name": "phaseName",
+                    "description": "- the name of the phase to check against",
+                    "type": "GameState"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
                     "type": "GameState"
                 }
             ],
@@ -1147,7 +1422,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 39,
+            "line": 41,
             "description": "Move all cards from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAll",
@@ -1172,7 +1447,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 55,
+            "line": 57,
             "description": "Move all cards with the given card type name from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAllOfType",
@@ -1202,7 +1477,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 87,
+            "line": 89,
             "description": "Move all cards with the given attribute value from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAllWithAttributeValue",
@@ -1237,7 +1512,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 120,
+            "line": 122,
             "description": "Move all cards that meet the requirement function's condition for movement from the given zone to the other given zone",
             "itemtype": "method",
             "name": "Event.Move.Group.moveAllValid",
@@ -1267,7 +1542,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 155,
+            "line": 157,
             "description": "Moves the top card from one zone to another",
             "itemtype": "method",
             "name": "Event.Draw.drawCard",
@@ -1292,7 +1567,32 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 166,
+            "line": 174,
+            "description": "Moves the bottom card from one zone to another",
+            "itemtype": "method",
+            "name": "Event.Draw.drawBottomCard",
+            "params": [
+                {
+                    "name": "fromZone",
+                    "description": "- the zone from which a card is being drawn",
+                    "type": "String"
+                },
+                {
+                    "name": "toZone",
+                    "description": "- the zone from which a card is being drawn",
+                    "type": "String"
+                },
+                {
+                    "name": "gamestate",
+                    "description": "- the gamestate in which this event is taking place",
+                    "type": "GameState"
+                }
+            ],
+            "class": "Event"
+        },
+        {
+            "file": "Engine\\event.js",
+            "line": 189,
             "description": "Moves the top n cards from one zone to another",
             "itemtype": "method",
             "name": "Event.Draw.drawCards",
@@ -1322,7 +1622,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 183,
+            "line": 210,
             "description": "Shuffles the cards in the named zone",
             "itemtype": "method",
             "name": "Event.Shuffle.shuffle",
@@ -1342,7 +1642,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 207,
+            "line": 234,
             "description": "Deals the specified number of cards from the given zone to each specified zone",
             "itemtype": "method",
             "name": "Event.Deal.dealCards",
@@ -1372,7 +1672,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 230,
+            "line": 256,
             "description": "Sets the named card's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Card.setAttribute",
@@ -1402,7 +1702,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 243,
+            "line": 269,
             "description": "Increases the named card's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Card.increaseAttributeBy",
@@ -1432,7 +1732,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 256,
+            "line": 282,
             "description": "Decreases the named card's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Card.decreaseAttributeBy",
@@ -1462,7 +1762,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 303,
+            "line": 335,
             "description": "Sets the named player's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Card.setAttribute",
@@ -1492,7 +1792,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 316,
+            "line": 348,
             "description": "Increases the named player's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Player.increaseAttributeBy",
@@ -1522,7 +1822,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 328,
+            "line": 360,
             "description": "Decreases the named player's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Player.decreaseAttributeBy",
@@ -1552,7 +1852,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 342,
+            "line": 374,
             "description": "Sets the named zone's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Zone.setAttribute",
@@ -1582,7 +1882,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 355,
+            "line": 387,
             "description": "Increases the named zone's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Zone.increaseAttributeBy",
@@ -1612,7 +1912,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 367,
+            "line": 399,
             "description": "Decreases the named zone's named attribute by the given value",
             "itemtype": "method",
             "name": "Event.Modify.Zone.decreaseAttributeBy",
@@ -1642,7 +1942,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 380,
+            "line": 412,
             "description": "Ends the current phase continues to the next one, if the current phase is the final phase in the game's turn structure, the end turn event is called",
             "itemtype": "method",
             "name": "Event.Modify.endPhase",
@@ -1657,7 +1957,7 @@
         },
         {
             "file": "Engine\\event.js",
-            "line": 404,
+            "line": 437,
             "description": "Ends the current turn and allows the next player in the turn structure to begin their turn.",
             "itemtype": "method",
             "name": "Event.Modify.endTurn",
@@ -1672,7 +1972,7 @@
         },
         {
             "file": "Engine\\gameDescription.js",
-            "line": 45,
+            "line": 57,
             "description": "Creates a clean game state",
             "itemtype": "method",
             "name": "GameDescription.prototype.initializeGameState",
@@ -1684,7 +1984,7 @@
         },
         {
             "file": "Engine\\gameDescription.js",
-            "line": 60,
+            "line": 83,
             "description": "Creates and places the cards into the zones",
             "itemtype": "method",
             "name": "GameDescription.prototype.initializeCards",
@@ -1692,7 +1992,7 @@
         },
         {
             "file": "Engine\\gameDescription.js",
-            "line": 91,
+            "line": 114,
             "description": "Creates a new card of the given card type and places it in the given zone",
             "itemtype": "method",
             "name": "initCard",
@@ -1872,7 +2172,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 105,
+            "line": 106,
             "description": "Search for a specific phase type by name",
             "itemtype": "method",
             "name": "lookupActionTemplate",
@@ -1896,7 +2196,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 125,
+            "line": 126,
             "description": "Get the array of all zone names",
             "itemtype": "method",
             "name": "getZoneNameArray",
@@ -1915,7 +2215,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 140,
+            "line": 141,
             "description": "Get the array of all player names",
             "itemtype": "method",
             "name": "getPlayerNameArray",
@@ -1934,7 +2234,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 155,
+            "line": 156,
             "description": "Get the array of all card id's",
             "itemtype": "method",
             "name": "getCardIDArray",
@@ -1953,7 +2253,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 170,
+            "line": 171,
             "description": "Get the card with the given id",
             "itemtype": "method",
             "name": "getCardIDArray",
@@ -1977,7 +2277,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 193,
+            "line": 194,
             "description": "Search for a player by name",
             "itemtype": "method",
             "name": "lookupPlayer",
@@ -2001,7 +2301,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 211,
+            "line": 212,
             "description": "A Cartesian Product function that acts on all given arrays.\nFound here: http://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript",
             "itemtype": "method",
             "name": "cartProd",
@@ -2020,7 +2320,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 249,
+            "line": 250,
             "description": "Create a clone of a given Javascript object",
             "itemtype": "method",
             "name": "lookupPlayer",
@@ -2039,7 +2339,7 @@
         },
         {
             "file": "Engine\\helpers.js",
-            "line": 259,
+            "line": 260,
             "description": "Gets the first player with a name other than the given name",
             "itemtype": "method",
             "name": "getAltPlayer",
@@ -2082,7 +2382,7 @@
         },
         {
             "file": "Engine\\player.js",
-            "line": 41,
+            "line": 42,
             "description": "Creates a clone of the player",
             "itemtype": "method",
             "name": "Player.prototype.clone",

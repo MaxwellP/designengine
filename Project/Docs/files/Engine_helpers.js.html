@@ -190,6 +190,7 @@ function lookupActionTemplate (name, gd)
 		}
 	}
 	console.log(&quot;No template named \&quot;&quot; + name + &quot;\&quot; exists&quot;);
+	throw new Error(&quot;Template Lookup Error&quot;);
 	return false;
 }
 /**
