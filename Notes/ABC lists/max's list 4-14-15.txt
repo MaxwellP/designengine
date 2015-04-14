@@ -1,0 +1,29 @@
+Priority A
+	Documentation
+	Tutorials
+	Playtime GUI Feedback
+	Website with Following Features
+		Login
+		Upload Game
+		Design/Edit Game
+		Play Other Games Against Computer
+	Moriarty Specific Engine Changes
+	Elimination of Helper.js (should all be in API)
+	Remove "gamestate" from API and EVENT Functions
+Priority B
+	Website Features
+		Gallery of Games
+	Simple Text Editor Design Mode
+	Design Mode Text Completion
+	Card Art
+	Zoom View of Card
+	Reactions (Automatic: Before & After and Optional)
+Priority C
+	Website Features
+		Design Feedback and Rating System
+		Multiplayer Online Play
+	Analytics for Games
+	State Score Function Based Upon Attributes of Players and Approximate Values
+	Detailed Design GUI
+		Drag & Drop
+		Machine Learning
