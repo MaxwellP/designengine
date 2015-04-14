@@ -1,0 +1,26 @@
+A
+-(for either tabs-in-browser editing or external editing): Auto complete for api/event calls
+-Revamp API/Events calls to not pass Gamestate
+-Tutorials to show people, test the system out on people who doesn't already know about it
+-After selecting an action, show what cards are legal with it
+-Website in basic form - Site with basically just the engine
+
+B
+-Reactions
+-Basic Card animations: move from zone to zone, "particles" when numbers change
+-Website with some community features: saving and loading games from the server, gallery of games
+-Design GUI: be able to make the JSON (structural) aspects of the game
+-Redo old games in new system
+
+C
+-Online Multiplayer
+-full featured in-window Design GUI for everything
+
+
+
+Fixes
+-Set up win state to prevent further play
+-Set up universes to work with the AI Sampling
+-State score normalization
+-Move "helper.js" stuff to "engine.js"
+-"Hide" the arguments stuff from the first few lines in .js files
