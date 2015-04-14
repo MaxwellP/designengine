@@ -1,10 +1,10 @@
 Meeting Agenda for 4-14-2015
 
-The Demo
+Prof. Moriarty's thoughts
 
-Prepare for delivering to Prof. Moriarty
+Our recent changes:
+-Rendering between AI moves
+-JSON no longer needs to keep track of a few function names
+-Design Gui
 
--Loading and Exporting
--Player now visible in play zone, zone attributes visible
--Players, zones selectable as action inputs
-
+ABC Lists

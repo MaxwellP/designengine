@@ -1,0 +1,19 @@
+A:
+	- Make play-time interface better
+		- Cards slide to new positions instead of teleporting
+		- Player icon
+		- Things light up smartly (applicable actions, legal inputs, etc)
+		- Some kind of status bar (not in the console)
+	- Get gamestate out of API
+	- Add two-tabbed interface to edit JSON and JS
+	- Set up basic website
+
+B:
+	- Thread the AI so GUI can still run while AI is thinking (web workers)
+	- Finish basic working design-GUI
+	- Reactions
+	- Gesture recognition in the play GUI
+
+c:
+	- Make design GUI look good
+	- Make design GUI more wysiwyg, less menu-oriented
