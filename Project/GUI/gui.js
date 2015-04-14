@@ -786,6 +786,15 @@ function MousePos (e) {
 
 		positionCardInfo(mouseX, mouseY);
 	}
+
+	if (draggingPlayer)
+	{
+		dragPlayerGUIInfo.x += (mouseX - prevX);
+		dragPlayerGUIInfo.y += (mouseY - prevY);
+
+		prevX = mouseX;
+		prevY = mouseY;
+	}
 }
 
 function hoverOn (e) {
@@ -828,9 +837,22 @@ function DoMouseDown (e) {
 			}
 			else
 			{
-				emptyClick = true;
+				var clickedPlayer = findPlayer(mouseX, mouseY);
+				if (clickedPlayer)
+				{
+					draggingPlayer = true;
+					dragPlayerGUIInfo = lookupPlayerGUI(clickedPlayer);
+					prevX = mouseX;
+					prevY = mouseY;
+				}
+				else
+				{
+					emptyClick = true;
+				}
 			}
+			
 		}
+
 	}
 }
 
@@ -878,6 +900,12 @@ function DoMouseUp (e) {
 		{
 			draggingCard = false;
 			dragCardGUIInfo.dragging = false;
+		}
+
+		if (draggingPlayer)
+		{
+			draggingPlayer = false;
+			updatePercents(dragPlayerGUIInfo);
 		}
 	}
 	else
