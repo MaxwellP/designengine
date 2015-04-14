@@ -1,7 +1,7 @@
 A
 -(for either tabs-in-browser editing or external editing): Auto complete for api/event calls
 -Revamp API/Events calls to not pass Gamestate
--Tutorials to show people, test the system out on people who doesn't already know about it
+-Tutorials, test the system out on people who doesn't already know about it
 -After selecting an action, show what cards are legal with it
 -Website in basic form - Site with basically just the engine
 
@@ -15,6 +15,7 @@ B
 C
 -Online Multiplayer
 -full featured in-window Design GUI for everything
+-Pictures for cards
 
 
 
