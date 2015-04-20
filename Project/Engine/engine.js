@@ -329,6 +329,7 @@ function getLegalActions (playerObj, gs) {
 
 }
 
+
 function getLegalActionsFromPlayer (playerObj, gs) {
 	var legalActions = [];
 	var currentActions = generateActionsFromPlayer(playerObj, gs, gameDescription);

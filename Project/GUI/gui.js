@@ -6,6 +6,9 @@ Things to add to game description JSON:
 
 */
 
+var BG_DARK = "#A0A0A0";
+var BG_LIGHT = "#C0C0C0";
+
 var CARD_WIDTH = 70;
 var CARD_HEIGHT = 100;
 var CARD_OUTLINE_WEIGHT = "3";
@@ -79,7 +82,7 @@ function Init () {
 	canvas.addEventListener('mouseup', DoMouseUp, true);
 
 	canvas.width = window.innerWidth - 20;
-	canvas.height = window.innerHeight - 20;
+	canvas.height = window.innerHeight - 50;
 
 	InitGameGuiInfo();
 }
@@ -107,11 +110,16 @@ function Update () {
 }
 
 function renderFrame () {
+	var startTime = new Date();
 	if (!currentGS)
 	{
 		return;
 	}
 	clearFrame();
+
+	drawBackground(currentGS);
+
+	updateStatus(currentGS);
 
 	updateGUI(currentGS);
 
@@ -128,12 +136,97 @@ function renderFrame () {
 	if (aiActionAfterRender)
 	{
 		aiActionAfterRender = false;
-		setTimeout(aiDoAction, 1);
+		aiDoAction();
+	}
+	if (aiThinking)
+	{
+		currentlySimulating = true;
+		var next = aiIterator.next();
+		while ((new Date() - startTime) < 10 && !next.done)
+		{
+			next = aiIterator.next();
+			//console.log("did an ai iteration");
+		}
+		//console.log("done with ai for this frame");
+		currentlySimulating = false;
+		if (next.done)
+		{
+			aiThinking = false;
+			var action = next.value;
+			if (!action)
+			{
+				aiLog("No action found. (Game ended)");
+				return;
+			}
+			var playerName = currentGS.turnPlayer;
+			var gs = currentGS;
+			applyAction(action, lookupPlayer(playerName, gs), gs);
+
+			if (gs.turnPlayer == playerName)
+			{
+				aiLog("Still AI's turn: doing runAI_ISMCTS() again");
+				//run_ISMCTS(playerName, gs, gd, limit - 1);
+				aiActionAfterRender = true;
+			}
+		}
 	}
 }
 
 function clearFrame () {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function drawBackground(gs) {
+	ctx.save();
+	var grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
+
+	if (gs.turnPlayer === gs.players[0].name)
+	{
+		grd.addColorStop(0, BG_LIGHT);
+		grd.addColorStop(0.7, BG_LIGHT);
+		grd.addColorStop(1, BG_DARK);	
+	}
+	else if (gs.turnPlayer === gs.players[1].name)
+	{
+		grd.addColorStop(0, BG_DARK);	
+		grd.addColorStop(0.3, BG_LIGHT);
+		grd.addColorStop(1, BG_LIGHT);
+	}
+	else
+	{
+		grd.addColorStop(0, BG_LIGHT);
+		grd.addColorStop(1, BG_LIGHT);
+	}
+
+	ctx.fillStyle = grd;
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.restore();
+}
+
+function updateStatus(gs) {
+	var status = "[Phase: ";
+
+	status += gs.currentPhase + "]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+	if (lookupPlayer(gs.turnPlayer, gs).isAI)
+	{
+		status += "AI is thinking..."
+	}
+	else if (gs.turnPlayer === gs.players[0].name)
+	{
+		if (waitingForPlayerInput)
+		{
+			status += "Select a " + inputTypes[currentInput] + ".";
+		}
+		else
+		{
+			status += "Select an action.";
+		}
+	}
+
+	var statusBar = document.getElementById("status");
+	statusBar.innerHTML = status;
+
 }
 
 function initializePercents (zoneGUI, playerGUI) {
@@ -147,6 +240,8 @@ function CardGUIInfo (card)
 	this.x = 0;
 	this.y = 0;
 	this.z = 0;
+	this.realX = 0;
+	this.realY = 0;
 	this.width = CARD_WIDTH;
 	this.height = CARD_HEIGHT;
 	this.fontSize = CARD_DEFAULT_FONT_SIZE;
@@ -297,11 +392,14 @@ function updateCard (card, x, y, z) {
 function drawCard (card) {
 	var cardGUI = lookupCardGUI(card);
 
+	cardGUI.realX = (cardGUI.realX * 9 + cardGUI.x) * 0.1;
+	cardGUI.realY = (cardGUI.realY * 9 + cardGUI.y) * 0.1;
+
 	ctx.save();
 	ctx.beginPath();
 	ctx.lineWidth = CARD_OUTLINE_WEIGHT;
 	ctx.strokeStyle = "black";
-	ctx.rect(cardGUI.x, cardGUI.y, cardGUI.width, cardGUI.height);
+	ctx.rect(cardGUI.realX, cardGUI.realY, cardGUI.width, cardGUI.height);
 	ctx.stroke();
 	ctx.fillStyle = "white";
 	ctx.fill();
@@ -311,8 +409,8 @@ function drawCard (card) {
 	ctx.font = "" + CARD_DEFAULT_FONT_SIZE + "px Georgia";
 	ctx.fillStyle = "black";
 	ctx.textAlign = "left";
-	var cardTextX = cardGUI.x;
-	var cardTextY = cardGUI.y + (cardGUI.fontSize / 2) + 5;
+	var cardTextX = cardGUI.realX;
+	var cardTextY = cardGUI.realY + (cardGUI.fontSize / 2) + 5;
 	if (card.isVisibleTo(guiPlayer.name, currentGS))
 	{
 		ctx.fillText(card.name, cardTextX, cardTextY, cardGUI.width);
@@ -1046,5 +1144,5 @@ function roundRect(x, y, width, height, radius, fill, stroke) {
 window.onresize = function () {
 	
 	canvas.width = window.innerWidth - 20;
-	canvas.height = window.innerHeight - 20;
+	canvas.height = window.innerHeight - 50;
 }

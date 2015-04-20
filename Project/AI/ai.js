@@ -1,4 +1,7 @@
 var aiActionAfterRender = false;
+var aiIterator = undefined;
+var aiThinking = false;
+var aiChosenAction = undefined;
 
 function aiDoAction () {
 	run_current_ai(currentGS.turnPlayer, currentGS, gameDescription, MAX_CONSEC_TURNS);
@@ -243,11 +246,18 @@ function run_ISMCTS (playerName, gs, gd, limit) {
 	}
 	var altPlayerObj = getAltPlayer(playerName, gs);
 
-	currentlySimulating = true;
-	var action = ISMCTS(gs, gd, playerName, altPlayerObj.name);
-	currentlySimulating = false;
+	//currentlySimulating = true;
+	
+	aiIterator = ISMCTS(gs, gd, playerName, altPlayerObj.name);
+
+	aiThinking = true;
+
+	return;
+	
+	//currentlySimulating = false;
 	
 	//Apply action here
+	/*
 	if (!action)
 	{
 		aiLog("No action found. (Game ended)");
@@ -263,11 +273,12 @@ function run_ISMCTS (playerName, gs, gd, limit) {
 	}
 
 	return;
+	*/
 }
 
 //Information Set Monte Carlo Tree Search
 //Returns the action that was most selected from the root
-function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
+function* ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 
 	//root node
 	var root = new GSNode(gs, undefined);
@@ -276,6 +287,7 @@ function ISMCTS (gs, gd, curPlayerName, altPlayerName) {
 	for (var i = 0; i < 200; i++)
 	{
 		ISMCTS_Traverse(root, gd, curPlayerName, altPlayerName)
+		yield;
 	}
 
 	//pick best action (most selected from root)
@@ -377,7 +389,7 @@ function ISMCTS_Simulation (gs, gd, curPlayerName, altPlayerName) {
 	//aiLog("* Randomly simulating rest of game");
 	var simGS = gs.clone()
 	//Game lasting longer than 100 turns - just evaluate at that point
-	var limit = 100;
+	var limit = 10;
 	while (!isGameOver(simGS, gd) && limit > 0)
 	{
 		limit --;
