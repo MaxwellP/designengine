@@ -15,13 +15,12 @@ function gameSetup()
 
 	//Shuffle Decks
 
-	Event.Shuffle.shuffle("P1 Deck", gamestate);
-	Event.Shuffle.shuffle("P2 Deck", gamestate);
+	Event.Shuffle.shuffle("Deck", gamestate);
 
 	//Draw 3 cards to each player from their deck
 
-	Event.Draw.drawCards("P1 Deck", "P1 Hand", 3, gamestate);
-	Event.Draw.drawCards("P2 Deck", "P2 Hand", 3, gamestate);
+	Event.Draw.drawCards("Deck", "P1 Hand", 3, gamestate);
+	Event.Draw.drawCards("Deck", "P2 Hand", 3, gamestate);
 
 }
 
@@ -32,11 +31,9 @@ function destroyCardResult()
 	var gamestate = arguments[arguments.length - 1];
 
 	var targetCard = arguments[0];
-	var enemyDiscard = API.ZoneLookup.getEnemyZoneByTag(player, "discard", gamestate);
-	Event.Move.Individual.toZone(targetCard, enemyDiscard, gamestate);
+	Event.Move.Individual.toZone(targetCard, "Discard", gamestate);
 
-	var myDiscard = API.ZoneLookup.getZoneByTag(player, "discard", gamestate);
-	Event.Move.Individual.toZone(action.cardID, myDiscard, gamestate);
+	Event.Move.Individual.toZone(action.cardID, "Discard", gamestate);
 }
 
 function destroyCardCheckLegality()
@@ -67,8 +64,7 @@ function fireballPlayerResult()
 
 	Event.Modify.Player.decreaseAttributeBy(enemyPlayer, "HP", 1, gamestate);
 
-	var myDiscard = API.ZoneLookup.getZoneByTag(player, "discard", gamestate);
-	Event.Move.Individual.toZone(action.cardID, myDiscard, gamestate);
+	Event.Move.Individual.toZone(action.cardID, "Discard", gamestate);
 }
 
 function fireballPlayerCheckLegality()
@@ -114,12 +110,10 @@ function selfHealResult()
 
 	Event.Modify.Player.increaseAttributeBy(player, "HP", 1, gamestate);
 
-	var myDeck = API.ZoneLookup.getZoneByTag(player, "deck", gamestate);
 	var myHand = API.ZoneLookup.getZoneByTag(player, "hand", gamestate);
-	Event.Draw.drawCards(myDeck, myHand, 1, gamestate);
+	Event.Draw.drawCards("Deck", myHand, 1, gamestate);
 
-	var myDiscard = API.ZoneLookup.getZoneByTag(player, "discard", gamestate);
-	Event.Move.Individual.toZone(action.cardID, myDiscard, gamestate);
+	Event.Move.Individual.toZone(action.cardID, "Discard", gamestate);
 }
 
 function selfHealCheckLegality()
@@ -133,12 +127,6 @@ function selfHealCheckLegality()
 
 	return cardInHand;
 }
-
-
-
-
-
-
 
 
 function gameWinCondition()
@@ -212,9 +200,8 @@ function main1PhaseInit()
 
 	var cardsToDraw = myWhirlwinds + 1;
 
-	var myDeck = API.ZoneLookup.getZoneByTag(curPlayer, "deck", gamestate);
 	var myHand = API.ZoneLookup.getZoneByTag(curPlayer, "hand", gamestate);
-	Event.Draw.drawCards(myDeck, myHand, cardsToDraw, gamestate);
+	Event.Draw.drawCards("Deck", myHand, cardsToDraw, gamestate);
 }
 
 function main1PhaseEnd()
@@ -234,8 +221,7 @@ function main2PhaseInit()
 
 	if (numCardsInHand === 0)
 	{
-		var myDeck = API.ZoneLookup.getZoneByTag(curPlayer, "deck", gamestate);
-		Event.Draw.drawCard(myDeck, myHand, gamestate);
+		Event.Draw.drawCard("Deck", myHand, gamestate);
 	}
 }
 

@@ -1,19 +1,19 @@
 {
 	"playerTemplate":
 	{
-		"zoneTags" : ["discard", "deck", "hand", "field"],
+		"zoneTags" : ["hand", "field"],
 		"attributeNames" : ["HP"],
 		"actions" : []
 	},
 	"players":
 	[
 		{"name": "P1",
-			"zones": ["P1 Discard", "P1 Deck", "P1 Hand", "P1 Field"],
+			"zones": ["P1 Hand", "P1 Field"],
 			"attributes": [10],
 			"isAI": false
 		},
 		{"name": "P2",
-			"zones": ["P2 Discard", "P2 Deck", "P2 Hand", "P2 Field"],
+			"zones": ["P2 Hand", "P2 Field"],
 			"attributes": [10],
 			"isAI": true
 		}
@@ -25,16 +25,17 @@
 	],
 	"zones":
 	[
-		{"name": "P1 Discard",
+		{"name": "Discard",
 			"attributes": {},
 			"cards": [],
 			"type": "deck",
 			"visibleTo": ["P1", "P2"]},
-		{"name": "P1 Deck",
+		{"name": "Deck",
 			"attributes": {},
 			"cards": [],
 			"type": "deck",
 			"visibleTo": []},
+
 		{"name": "P1 Hand",
 			"attributes": {},
 			"cards": [],
@@ -46,16 +47,6 @@
 			"type": "showEachCard",
 			"visibleTo": ["P1", "P2"]},
 
-		{"name": "P2 Discard",
-			"attributes": {},
-			"cards": [],
-			"type": "deck",
-			"visibleTo": ["P1", "P2"]},
-		{"name": "P2 Deck",
-			"attributes": {},
-			"cards": [],
-			"type": "deck",
-			"visibleTo": []},
 		{"name": "P2 Hand",
 			"attributes": {},
 			"cards": [],
@@ -69,13 +60,12 @@
 	],
 	"zoneGUI":
 	[
-		{"name": "P1 Discard", "xPct": 0.1, "yPct": 0.9},
-		{"name": "P1 Deck", "xPct": 0.3, "yPct": 0.9},
+		{"name": "Discard", "xPct": 0.1, "yPct": 0.5},
+		{"name": "Deck", "xPct": 0.3, "yPct": 0.5},
+
 		{"name": "P1 Hand", "xPct": 0.5, "yPct": 0.9},
 		{"name": "P1 Field", "xPct": 0.5, "yPct": 0.7},
 
-		{"name": "P2 Discard", "xPct": 0.1, "yPct": 0.1},
-		{"name": "P2 Deck", "xPct": 0.3, "yPct": 0.1},
 		{"name": "P2 Hand", "xPct": 0.5, "yPct": 0.1},
 		{"name": "P2 Field", "xPct": 0.5, "yPct": 0.3}
 	],
@@ -144,14 +134,7 @@
 	],
 	"init":
 	[
-		{"zoneName": "P1 Deck", "cardNames": ["Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball",
-												"Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall",
-												"Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind",
-												"Quicksand", "Quicksand", "Quicksand", "Quicksand", "Quicksand",
-												"Heal", "Heal", "Heal",
-												"Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton"]},
-
-		{"zoneName": "P2 Deck", "cardNames": ["Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball",
+		{"zoneName": "Deck", "cardNames": ["Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball",
 												"Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall",
 												"Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind",
 												"Quicksand", "Quicksand", "Quicksand", "Quicksand", "Quicksand",
