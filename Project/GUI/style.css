@@ -75,3 +75,21 @@ body {
 	height: 30px;
 	align-items: center;
 }
+
+#tabs {
+	position: absolute;
+	top: 0px;
+	right: 5px;
+	height: 99%;
+	width: 30%;
+	display: none;
+}
+
+.codeMirrorBox {
+	height: 500px;
+}
+
+.CodeMirror {
+	border: 1px solid #eee;
+	height: 100%;
+}

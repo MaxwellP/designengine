@@ -14,25 +14,37 @@ var otherCode;
 var phaseInitCode;
 var phaseEndCode;
 
+var jsonCode;
+var jsCode;
+
 function initDesign() {
 	canvas = document.getElementById("Canvas2D");
 	ctx = canvas.getContext('2d');
 
-	designing = true;
+	twoTabDesigning = true;
 
-	var menu = $("#menu");
-	menu.dialog("open");
-	document.getElementById("gameTitle").value = gameDescription.gameName;
+	//var menu = $("#menu");
+	//menu.dialog("open");
+	//document.getElementById("gameTitle").value = gameDescription.gameName;
+
+	canvas.width = canvas.width * 0.7;
+
+	jsonCode.setValue(JSON.stringify(read, undefined, "\t"));
+
+	document.getElementById("tabs").style.display = "inline-block";
 }
 
 function endDesign() {
 
-	designing = false;
-	$(".editor").dialog("close");
+	twoTabDesigning = false;
+	//$(".editor").dialog("close");
 
+	canvas.width = window.innerWidth - 20;
 
+	document.getElementById("tabs").style.display = "none";	
 
-	restartGame();
+	//Restarting will happen on apply
+	//restartGame();
 }
 
 function highlight() {

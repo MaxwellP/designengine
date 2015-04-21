@@ -4,9 +4,12 @@ var currentGS;
 var printLog = true;
 
 var designing = false;
+var twoTabDesigning = false;
 
 var loading = true;
 var didFirstTimeGuiSetup = false;
+
+var read;
 
 function readJSON(file)
 {
@@ -23,7 +26,7 @@ function readJSON(file)
 	request.open("GET", "Games/" + file + ".json", true);
 	request.onload = function(response)
 	{
-		var read = JSON.parse(request.responseText);
+		read = JSON.parse(request.responseText);
 		var newGameDescription = new GameDescription(
 			read.zones,
 			read.universes,

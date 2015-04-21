@@ -32,6 +32,7 @@
 	<script type="text/javascript" src="Engine/API.js"></script>
 
 	<link rel="stylesheet" href="GUI/style.css">
+
 </head>
 
 <div id="game_canvas" style="display:inline-block; vertical-align:top">
@@ -261,6 +262,21 @@
 	<script type="text/javascript">
 		document.getElementById('uploadButton').addEventListener('change', handleFileSelect, false);</script>
 </input>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#jsonTab">Game Description</a></li>
+		<li><a href="#jsTab">Action Code</a></li>
+	</ul>
+	<div id="jsonTab">
+		<div id="jsonCode" class="codeMirrorBox"></div>
+	</div>
+	<div id="jsTab">
+		<div id="jsCode" class="codeMirrorBox"></div>
+	</div>
+	<button type="button" id="applyCode" onclick="applyCodeChanges()">Apply</button>
+</div>
+
 
 <script>
 
