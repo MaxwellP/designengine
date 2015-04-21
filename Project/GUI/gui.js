@@ -1143,6 +1143,13 @@ function roundRect(x, y, width, height, radius, fill, stroke) {
 
 window.onresize = function () {
 	
-	canvas.width = window.innerWidth - 20;
+	if (twoTabDesigning)
+	{
+		canvas.width = window.innerWidth - 20 - parseFloat(document.getElementById("tabs").style.width);
+	}
+	else
+	{
+		canvas.width = window.innerWidth - 20;
+	}
 	canvas.height = window.innerHeight - 50;
 }
