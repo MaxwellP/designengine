@@ -1,0 +1,163 @@
+{
+	"playerTemplate":
+	{
+		"zoneTags" : ["discard", "deck", "hand", "field"],
+		"attributeNames" : ["HP"],
+		"actions" : []
+	},
+	"players":
+	[
+		{"name": "P1",
+			"zones": ["P1 Discard", "P1 Deck", "P1 Hand", "P1 Field"],
+			"attributes": [10],
+			"isAI": false
+		},
+		{"name": "P2",
+			"zones": ["P2 Discard", "P2 Deck", "P2 Hand", "P2 Field"],
+			"attributes": [10],
+			"isAI": true
+		}
+	],
+	"playerGUI":
+	[
+		{"name": "P1", "xPct": 0.7, "yPct": 0.9},
+		{"name": "P2", "xPct": 0.7, "yPct": 0.1}
+	],
+	"zones":
+	[
+		{"name": "P1 Discard",
+			"attributes": {},
+			"cards": [],
+			"type": "deck",
+			"visibleTo": ["P1", "P2"]},
+		{"name": "P1 Deck",
+			"attributes": {},
+			"cards": [],
+			"type": "deck",
+			"visibleTo": []},
+		{"name": "P1 Hand",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1"]},
+		{"name": "P1 Field",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1", "P2"]},
+
+		{"name": "P2 Discard",
+			"attributes": {},
+			"cards": [],
+			"type": "deck",
+			"visibleTo": ["P1", "P2"]},
+		{"name": "P2 Deck",
+			"attributes": {},
+			"cards": [],
+			"type": "deck",
+			"visibleTo": []},
+		{"name": "P2 Hand",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P2"]},
+		{"name": "P2 Field",
+			"attributes": {},
+			"cards": [],
+			"type": "showEachCard",
+			"visibleTo": ["P1", "P2"]}
+	],
+	"zoneGUI":
+	[
+		{"name": "P1 Discard", "xPct": 0.1, "yPct": 0.9},
+		{"name": "P1 Deck", "xPct": 0.3, "yPct": 0.9},
+		{"name": "P1 Hand", "xPct": 0.5, "yPct": 0.9},
+		{"name": "P1 Field", "xPct": 0.5, "yPct": 0.7},
+
+		{"name": "P2 Discard", "xPct": 0.1, "yPct": 0.1},
+		{"name": "P2 Deck", "xPct": 0.3, "yPct": 0.1},
+		{"name": "P2 Hand", "xPct": 0.5, "yPct": 0.1},
+		{"name": "P2 Field", "xPct": 0.5, "yPct": 0.3}
+	],
+	"phases":
+	[
+		{"name": "main1Phase", "init": "main1PhaseInit", "endCondition": "main1PhaseEnd"},
+		{"name": "main2Phase", "init": "main2PhaseInit", "endCondition": "main2PhaseEnd"}
+	],
+	"universes":
+	[
+		{"name": "card"}
+	],
+	"cardTypes":
+	[
+		{"name": "Fireball",
+			"attributes": {"": "Destroy a card or deal 1 damage."},
+			"actions": [{"templateName": "destroyCard"}, {"templateName": "fireballPlayer"}],
+			"universe": "card"},
+		{"name": "Ice Wall",
+			"attributes": {"": "Defends you from all skeletons."},
+			"actions": [{"templateName": "toField"}],
+			"universe": "card"},
+		{"name": "Whirlwind",
+			"attributes": {"": "Draw an extra card each turn."},
+			"actions": [{"templateName": "toField"}],
+			"universe": "card"},
+		{"name": "Quicksand",
+			"attributes": {"": "Deal 1 damage each turn, or destroy a card."},
+			"actions": [{"templateName": "destroyCard"}, {"templateName": "toField"}],
+			"universe": "card"},
+		{"name": "Heal",
+			"attributes": {"": "Restore 1 HP and draw a card."},
+			"actions": [{"templateName": "selfHeal"}],
+			"universe": "card"},
+		{"name": "Skeleton",
+			"attributes": {"": "Attacks enemy for 2 HP if they have no Ice Walls."},
+			"actions": [{"templateName": "toField"}],
+			"universe": "card"}
+	],
+	"actionTemplates":
+	[
+		{"name": "destroyCard",
+			"description": "Destroy a selected card an opponent controls.",
+			"result": "destroyCardResult",
+			"checkLegality": "destroyCardCheckLegality",
+			"inputTypes": ["card"]
+		},
+		{"name": "fireballPlayer",
+			"description": "Deal 1 damage to the opposing player.",
+			"result": "fireballPlayerResult",
+			"checkLegality": "fireballPlayerCheckLegality",
+			"inputTypes": []
+		},
+		{"name": "toField",
+			"description": "Play this card to your field.",
+			"result": "toFieldResult",
+			"checkLegality": "toFieldCheckLegality",
+			"inputTypes": []
+		},
+		{"name": "selfHeal",
+			"description": "Restore 1 HP and draw a card.",
+			"result": "toFieldResult",
+			"checkLegality": "toFieldCheckLegality",
+			"inputTypes": []
+		}
+	],
+	"init":
+	[
+		{"zoneName": "P1 Deck", "cardNames": ["Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball",
+												"Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall",
+												"Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind",
+												"Quicksand", "Quicksand", "Quicksand", "Quicksand", "Quicksand",
+												"Heal", "Heal", "Heal",
+												"Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton"]},
+
+		{"zoneName": "P2 Deck", "cardNames": ["Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball", "Fireball",
+												"Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall", "Ice Wall",
+												"Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind", "Whirlwind",
+												"Quicksand", "Quicksand", "Quicksand", "Quicksand", "Quicksand",
+												"Heal", "Heal", "Heal",
+												"Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton"]}
+	],
+	"functionFile": "wizardFight.js",
+	"gameName": "wizardFight"
+}
