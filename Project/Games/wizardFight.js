@@ -116,7 +116,7 @@ function selfHealResult()
 
 	var myDeck = API.ZoneLookup.getZoneByTag(player, "deck", gamestate);
 	var myHand = API.ZoneLookup.getZoneByTag(player, "hand", gamestate);
-	Event.Draw.drawCards(myDeck, myHand, cardsToDraw, gamestate);
+	Event.Draw.drawCards(myDeck, myHand, 1, gamestate);
 
 	var myDiscard = API.ZoneLookup.getZoneByTag(player, "discard", gamestate);
 	Event.Move.Individual.toZone(action.cardID, myDiscard, gamestate);
