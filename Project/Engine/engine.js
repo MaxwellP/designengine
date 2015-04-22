@@ -26,6 +26,7 @@ function readJSON(file)
 	request.open("GET", "Games/" + file + ".json", true);
 	request.onload = function(response)
 	{
+		loadedJSON = request.responseText;
 		read = JSON.parse(request.responseText);
 		var newGameDescription = new GameDescription(
 			read.zones,
@@ -59,6 +60,13 @@ function initialize(gd)
 	
 	imported.onload = function(response)
 	{
+		var jsRequest = new XMLHttpRequest();
+		jsRequest.open("GET", "Games/" + gd.functionFile, true);
+		jsRequest.onload = function(response) {
+			loadedJS = jsRequest.responseText;
+		}
+		jsRequest.send();
+
 		if (!didFirstTimeGuiSetup)
 		{
 			Init();

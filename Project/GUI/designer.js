@@ -29,7 +29,8 @@ function initDesign() {
 
 	canvas.width = canvas.width * 0.7;
 
-	jsonCode.setValue(JSON.stringify(read, undefined, "\t"));
+	jsonCode.setValue(loadedJSON);
+	jsCode.setValue(loadedJS);
 
 	document.getElementById("tabs").style.display = "inline-block";
 }
@@ -40,6 +41,8 @@ function endDesign() {
 	//$(".editor").dialog("close");
 
 	canvas.width = window.innerWidth - 20;
+
+	jsonCode.setValue("");
 
 	document.getElementById("tabs").style.display = "none";	
 
@@ -1315,4 +1318,8 @@ function restartGame () {
 	gameLog("Begin phase \"" + currentGS.currentPhase + "\".");
 
 	InitGameGuiInfo();
+}
+
+function applyCodeChanges() {
+	console.log(loadedJSON);
 }
