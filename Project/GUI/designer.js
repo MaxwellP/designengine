@@ -1321,5 +1321,8 @@ function restartGame () {
 }
 
 function applyCodeChanges() {
-	
+	//console.log(loadedJSON);
+	loadedJSON = jsonCode.getValue();
+	loadedJS = jsCode.getValue();
+	bothFilesLoaded()
 }
