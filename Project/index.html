@@ -263,6 +263,8 @@
 		document.getElementById('uploadButton').addEventListener('change', handleFileSelect, false);</script>
 </input>
 
+<button type="button" id="editButton" onclick="initDesign()">Edit Game</button>
+
 <div id="tabs">
 	<ul>
 		<li><a href="#jsonTab">Game Description</a></li>
@@ -274,7 +276,8 @@
 	<div id="jsTab">
 		<div id="jsCode" class="codeMirrorBox"></div>
 	</div>
-	<button type="button" id="applyCode" onclick="applyCodeChanges()">Apply</button>
+	<button type="button" class="codeButton" onclick="applyCodeChanges()">Apply</button>
+	<button type="button" class="codeButton" onclick="endDesign()">Close</button>
 </div>
 
 

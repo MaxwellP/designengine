@@ -1321,5 +1321,5 @@ function restartGame () {
 }
 
 function applyCodeChanges() {
-	console.log(loadedJSON);
+	
 }

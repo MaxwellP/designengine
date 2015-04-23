@@ -86,10 +86,25 @@ body {
 }
 
 .codeMirrorBox {
-	height: 500px;
+	height: 800px;
 }
 
 .CodeMirror {
 	border: 1px solid #eee;
 	height: 100%;
+}
+
+#applyCode {
+	height: 50px;
+}
+
+#editButton {
+	position: absolute; 
+	right: 260px; 
+	bottom:20px;
+}
+
+.codeButton {
+	width: 30%;
+	height: 50px;
 }
